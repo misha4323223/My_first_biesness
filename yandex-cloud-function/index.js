@@ -516,7 +516,7 @@ async function handleVkAutoPost(headers) {
         }
 
         // 1. Генерируем текст и изображение через GigaChat MAX
-        const prompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами. ТАКЖЕ СГЕНЕРИРУЙ ИЗОБРАЖЕНИЕ ДЛЯ ЭТОГО ПОСТА.";
+        const prompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами. ТАКЖЕ СГЕНЕРИРУЙ ИЗОБРАЖЕНИЕ ДЛЯ ЭТОГО ПОСТА. ВАЖНО: Ты ДОЛЖЕН создать изображение с помощью функции генерации изображений. На изображении должен быть современный стильный офис веб-студии будущего.";
         const aiResponse = await callGigaChat(prompt, 'GigaChat-Max');
         
         let attachment = '';
@@ -621,11 +621,14 @@ async function callGigaChat(prompt, modelName = 'GigaChat') {
         body: JSON.stringify({
             model: modelName,
             messages: [{ role: 'user', content: prompt }],
-            temperature: 0.7
+            temperature: 0.7,
+            function_call: 'auto'
         })
     });
     const data = JSON.parse(response.data);
     const content = data.choices[0].message.content;
+    
+    console.log('[GIGACHAT] Raw response content:', content);
     
     // Поиск image_id в контенте (GigaChat возвращает <img src="...">)
     let image_id = null;
