@@ -144,7 +144,7 @@ export function ChatWidget() {
           <DialogHeader className="bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-cyan-400/10 border-b-2 border-cyan-400/50 p-3 space-y-0">
             <div className="flex items-center justify-between">
               <DialogTitle className="bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent font-mono text-sm font-bold tracking-wider">
-                AI Assistant
+                ИИ Помощник MP.WebStudio
               </DialogTitle>
               <button
                 onClick={() => setIsOpen(false)}
@@ -182,6 +182,10 @@ export function ChatWidget() {
                   >
                     {isLoading ? "Загрузка..." : "Задать вопрос"}
                   </button>
+                  <p className="text-cyan-400/60 text-xs text-center mt-2">
+                    💬 Сообщения не сохраняются<br/>
+                    📚 Контекст: последние 10 сообщений
+                  </p>
                 </form>
               </div>
             )}
