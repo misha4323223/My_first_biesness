@@ -85,8 +85,8 @@ async function httpsRequest(urlString, options) {
         console.log(`   [HTTPS-${requestId}] Headers: ${Object.keys(options.headers).join(', ')}`);
 
         // Timeout увеличен до 90 сек для стабильного GigaChat API
-        const TIMEOUT_MS = 90000;
-        const SOCKET_TIMEOUT_MS = 95000;
+        const TIMEOUT_MS = 110000;
+        const SOCKET_TIMEOUT_MS = 115000;
 
         let socketTimeoutId = null;
         let requestTimeoutId = null;
@@ -4097,15 +4097,15 @@ async function attemptGigaChat(body, headers, handlerId) {
         // Получаем историю сообщений из запроса
         const history = body.history || [];
         
-        // Ограничиваем историю последними 10 сообщениями
-        const limitedHistory = history.slice(-10).map(msg => ({
+        // Ограничиваем историю последними 5 сообщениями (было 10) для уменьшения объема промпта
+        const limitedHistory = history.slice(-5).map(msg => ({
             role: msg.role,
             content: msg.content
         }));
 
         console.log(`[${handlerId}] 6️⃣ Sending chat request via gRPC with ${limitedHistory.length} history messages...`);
         const chatStartTime = Date.now();
-        const GRPC_TIMEOUT = 15000; // 15 сек для gRPC (вместо 10)
+        const GRPC_TIMEOUT = 45000; // Увеличено до 45 сек (было 15) для gRPC
 
         return new Promise((resolve) => {
             const chatRequest = {
