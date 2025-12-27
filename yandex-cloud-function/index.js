@@ -362,6 +362,11 @@ module.exports.handler = async function (event, context) {
             return await handleGigaChat(body, headers);
         }
 
+        // VK Automation Trigger
+        if (action === 'vk-auto-post' && method === 'POST') {
+            return await handleVkAutoPost(headers);
+        }
+
         // POST ?action=delete-order - мягкое удаление заказа
         if (action === 'delete-order' && method === 'POST') {
             const orderIdToDelete = body.orderId;
@@ -460,7 +465,79 @@ module.exports.handler = async function (event, context) {
     }
 };
 
-// ============ Telegram Bot Webhook ============
+async function handleVkAutoPost(headers) {
+    try {
+        console.log('[VK-AUTO-POST] Starting automation');
+        const vkToken = process.env.VK_ACCESS_TOKEN;
+        const groupId = process.env.VK_GROUP_ID;
+
+        if (!vkToken || !groupId) {
+            throw new Error('VK_ACCESS_TOKEN or VK_GROUP_ID not configured');
+        }
+
+        // 1. Генерируем текст поста через GigaChat
+        const prompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами и без лишней воды.";
+        const aiResponse = await callGigaChat(prompt);
+
+        // 2. Публикуем в ВК
+        const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(aiResponse)}&access_token=${vkToken}&v=5.131`;
+        const vkResult = await httpsRequest(vkUrl, { method: 'POST', headers: {} });
+        
+        console.log('[VK-AUTO-POST] VK API Response:', vkResult.data);
+
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({ success: true, message: 'Post published', vkResponse: JSON.parse(vkResult.data) })
+        };
+    } catch (error) {
+        console.error('[VK-AUTO-POST] Error:', error.message);
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ success: false, error: error.message })
+        };
+    }
+}
+
+async function callGigaChat(prompt) {
+    // Используем существующую логику handleGigaChat или выносим в общую функцию
+    // Для краткости здесь упрощенный вызов, предполагая наличие handleGigaChat логики
+    const token = await getGigaChatToken();
+    const response = await httpsRequest('https://gigachat.devices.sberbank.ru/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            model: 'GigaChat',
+            messages: [{ role: 'user', content: prompt }],
+            temperature: 0.7
+        })
+    });
+    const data = JSON.parse(response.data);
+    return data.choices[0].message.content;
+}
+
+async function getGigaChatToken() {
+    const gigachatKey = process.env.GIGACHAT_KEY;
+    const gigachatScope = process.env.GIGACHAT_SCOPE || 'GIGACHAT_API_PERS';
+    
+    const authResponse = await httpsRequest('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+            'Authorization': `Basic ${gigachatKey}`,
+            'RqUID': crypto.randomUUID(),
+        },
+        body: `scope=${encodeURIComponent(gigachatScope)}`,
+    });
+    
+    const authData = JSON.parse(authResponse.data);
+    return authData.access_token;
+}
 
 async function handleTelegramWebhook(body, headers) {
     try {
