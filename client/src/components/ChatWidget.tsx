@@ -75,7 +75,10 @@ export function ChatWidget() {
     setIsLoading(true);
 
     try {
-      const response = await apiRequest("POST", "/api/giga-chat", { message: userMessage });
+      const response = await apiRequest("POST", "/api/giga-chat", { 
+        message: userMessage,
+        history: messages 
+      });
 
       // apiRequest уже обрабатывает response.ok и выбрасывает ошибку, если статус не 2xx
       const data = await response.json();
