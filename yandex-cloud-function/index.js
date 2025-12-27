@@ -3969,7 +3969,7 @@ async function attemptGigaChat(body, headers, handlerId) {
                     headers,
                     body: JSON.stringify({
                         success: false,
-                        response: 'Timeout при соединении с GigaChat',
+                        response: 'Помощник сейчас перегружен. Пожалуйста, попробуйте еще раз или напишите нам в VK и Telegram.',
                     }),
                 });
             }, 10000);
