@@ -3910,11 +3910,6 @@ async function attemptGigaChat(body, headers, handlerId) {
         const kb = await loadKnowledgeBaseFromStorage();
         const relevantContext = findRelevantContext(kb, message);
 
-        if (relevantContext) {
-            console.log(`[${handlerId}] 1b️⃣ Context found (${relevantContext.length} chars), enriching message...`);
-            message = `Контекст о компании:\n${relevantContext}\n---\n\nВопрос клиента: ${message}`;
-        }
-
         if (!message || typeof message !== 'string' || message.trim().length === 0) {
             return {
                 statusCode: 400,
@@ -4020,6 +4015,10 @@ async function attemptGigaChat(body, headers, handlerId) {
             const chatRequest = {
                 model: 'GigaChat',
                 messages: [
+                    {
+                        role: 'system',
+                        content: relevantContext ? `Ты — вежливый AI-ассистент компании MP.WebStudio. Используй следующий контекст для ответов:\n${relevantContext}` : 'Ты — вежливый AI-ассистент компании MP.WebStudio.'
+                    },
                     {
                         role: 'user',
                         content: message,
