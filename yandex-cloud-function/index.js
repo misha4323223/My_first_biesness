@@ -3969,8 +3969,6 @@ function isRetryableError(result) {
 async function attemptGigaChat(body, headers, handlerId) {
     const startTime = Date.now();
     let stageStartTime = startTime;
-    let kbLoadTime = 0;
-    let contextFindTime = 0;
 
     try {
         let { message, userName, isFirstMessage } = body;
@@ -3993,19 +3991,7 @@ async function attemptGigaChat(body, headers, handlerId) {
             };
         }
 
-        // ОПТИМИЗИРОВАНО: Загружаем Knowledge Base и обогащаем контекст (из кэша)
-        stageStartTime = Date.now();
-        console.log(`[${handlerId}] 1a️⃣ Loading knowledge base (pre-computed)...`);
-        const kb = await loadKnowledgeBaseFromStorage();
-        kbLoadTime = Math.round((Date.now() - stageStartTime) / 1000);
-        console.log(`[${handlerId}]    KB loaded in ${kbLoadTime}s`);
-        
-        stageStartTime = Date.now();
-        console.log(`[${handlerId}] 1a2️⃣ Finding relevant context...`);
-        const relevantContext = findRelevantContext(kb, message);
-        contextFindTime = Date.now() - stageStartTime;
-        console.log(`[${handlerId}]    Context found in ${contextFindTime}ms (size: ${relevantContext.length} chars)`);
-
+        // Валидация сообщения
         if (!message || typeof message !== 'string' || message.trim().length === 0) {
             return {
                 statusCode: 400,
@@ -4124,7 +4110,7 @@ async function attemptGigaChat(body, headers, handlerId) {
                 messages: [
                     {
                         role: 'system',
-                        content: relevantContext ? `Ты — вежливый AI-ассистент компании MP.WebStudio. Используй следующий контекст для ответов:\n${relevantContext}` : 'Ты — вежливый AI-ассистент компании MP.WebStudio.'
+                        content: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.'
                     },
                     ...limitedHistory,
                     {
@@ -4166,8 +4152,7 @@ async function attemptGigaChat(body, headers, handlerId) {
 
                 console.log(`[${handlerId}] 7️⃣ Success!`);
                 console.log(`[${handlerId}]    Response length: ${assistantMessage.length} chars`);
-                console.log(`[${handlerId}]    KB load: ${kbLoadTime}s, Context find: ${contextFindTime}ms, gRPC: ${chatElapsed}s`);
-                console.log(`[${handlerId}]    Total time: ${totalTime}s`);
+                console.log(`[${handlerId}]    gRPC time: ${chatElapsed}s, Total time: ${totalTime}s`);
                 console.log(`=== GIGACHAT gRPC REQUEST END [${handlerId}] (SUCCESS) ===\n`);
 
                 client.close();
