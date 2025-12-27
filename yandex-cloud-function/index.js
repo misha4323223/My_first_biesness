@@ -3891,7 +3891,16 @@ async function attemptGigaChat(body, headers, handlerId) {
 
         const client = new ChatServiceClient('gigachat.devices.sberbank.ru:443', credentials, channelOptions);
 
-        console.log(`[${handlerId}] 6️⃣ Sending chat request via gRPC...`);
+        // Получаем историю сообщений из запроса
+        const history = body.history || [];
+        
+        // Ограничиваем историю последними 10 сообщениями
+        const limitedHistory = history.slice(-10).map(msg => ({
+            role: msg.role,
+            content: msg.content
+        }));
+
+        console.log(`[${handlerId}] 6️⃣ Sending chat request via gRPC with ${limitedHistory.length} history messages...`);
         const chatStartTime = Date.now();
 
         return new Promise((resolve) => {
@@ -3902,6 +3911,7 @@ async function attemptGigaChat(body, headers, handlerId) {
                         role: 'system',
                         content: relevantContext ? `Ты — вежливый AI-ассистент компании MP.WebStudio. Используй следующий контекст для ответов:\n${relevantContext}` : 'Ты — вежливый AI-ассистент компании MP.WebStudio.'
                     },
+                    ...limitedHistory,
                     {
                         role: 'user',
                         content: message,
