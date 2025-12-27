@@ -4113,7 +4113,7 @@ async function attemptGigaChat(body, headers, handlerId) {
                 messages: [
                     {
                         role: 'system',
-                        content: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.'
+                        content: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Отвечай кратко и по делу, основываясь на информации о наших услугах.'
                     },
                     ...limitedHistory,
                     {
@@ -4121,10 +4121,8 @@ async function attemptGigaChat(body, headers, handlerId) {
                         content: message,
                     }
                 ],
-                options: {
-                    temperature: 0.7,
-                    max_tokens: 1000,
-                }
+                temperature: 0.7,
+                max_tokens: 800
             };
 
             let grpcCompleted = false;
