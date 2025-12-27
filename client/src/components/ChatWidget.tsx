@@ -112,7 +112,7 @@ export function ChatWidget() {
         ...prev,
         {
           role: "assistant",
-          content: `⚠️ ${errorMessage}. Пожалуйста, попробуйте позже или напишите нам в Telegram.`,
+          content: `⚠️ ${errorMessage}`,
         },
       ]);
     } finally {
