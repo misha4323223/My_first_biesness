@@ -42,6 +42,11 @@ const SITE_URL = process.env.SITE_URL || 'https://www.mp-webstudio.ru';
 // YDB Driver (инициализируется один раз)
 let ydbDriver = null;
 
+let gigaChatTokenCache = {
+    token: null,
+    expiresAt: 0
+};
+
 async function getYdbDriver() {
     if (!ydbDriver) {
         const endpoint = process.env.YDB_ENDPOINT || 'grpcs://ydb.serverless.yandexcloud.net:2135';
@@ -467,6 +472,39 @@ module.exports.handler = async function (event, context) {
 
 // ============ Telegram Bot Webhook ============
 
+async function getGigaChatToken() {
+    const now = Date.now();
+
+    if (gigaChatTokenCache.token && gigaChatTokenCache.expiresAt > now) {
+        console.log('✅ Using cached GigaChat token (saves ~400ms)');
+        return gigaChatTokenCache.token;
+    }
+
+    const gigachatKey = process.env.GIGACHAT_KEY;
+    const gigachatScope = process.env.GIGACHAT_SCOPE || 'GIGACHAT_API_PERS';
+
+    const authResponse = await httpsRequest('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+            'Authorization': `Basic ${gigachatKey}`,
+            'RqUID': crypto.randomUUID(),
+        },
+        body: `scope=${encodeURIComponent(gigachatScope)}`,
+    });
+
+    const authData = JSON.parse(authResponse.data);
+    const expiresIn = authData.expires_in || 1800;
+
+    gigaChatTokenCache = {
+        token: authData.access_token,
+        expiresAt: now + (expiresIn - 60) * 1000
+    };
+
+    return authData.access_token;
+}
+
 async function handleVkAutoPost(headers) {
     try {
         console.log('[VK-AUTO-POST] Starting automation');
@@ -503,23 +541,7 @@ async function handleVkAutoPost(headers) {
 }
 
 async function callGigaChat(prompt) {
-    const gigachatKey = process.env.GIGACHAT_KEY;
-    const gigachatScope = process.env.GIGACHAT_SCOPE || 'GIGACHAT_API_PERS';
-    
-    // Получаем токен
-    const authResponse = await httpsRequest('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json',
-            'Authorization': `Basic ${gigachatKey}`,
-            'RqUID': crypto.randomUUID(),
-        },
-        body: `scope=${encodeURIComponent(gigachatScope)}`,
-    });
-    
-    const authData = JSON.parse(authResponse.data);
-    const token = authData.access_token;
+    const token = await getGigaChatToken();
 
     // Генерируем текст
     const response = await httpsRequest('https://gigachat.devices.sberbank.ru/api/v1/chat/completions', {
