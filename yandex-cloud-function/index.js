@@ -507,7 +507,7 @@ async function getGigaChatToken() {
 
 async function handleVkAutoPost(headers) {
     try {
-        console.log('[VK-AUTO-POST] Starting automation');
+        console.log('[VK-AUTO-POST] Starting automation with GigaChat MAX');
         const vkToken = process.env.VK_ACCESS_TOKEN;
         const groupId = process.env.VK_GROUP_ID;
 
@@ -515,12 +515,26 @@ async function handleVkAutoPost(headers) {
             throw new Error('VK_ACCESS_TOKEN or VK_GROUP_ID not configured');
         }
 
-        // 1. Генерируем текст поста через GigaChat
-        const prompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами и без лишней воды.";
-        const aiResponse = await callGigaChat(prompt);
+        // 1. Генерируем текст и изображение через GigaChat MAX
+        const prompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами. ТАКЖЕ СГЕНЕРИРУЙ ИЗОБРАЖЕНИЕ ДЛЯ ЭТОГО ПОСТА.";
+        const aiResponse = await callGigaChat(prompt, 'GigaChat-Max');
+        
+        let attachment = '';
+        
+        // Проверяем наличие изображения в ответе
+        if (aiResponse.image_id) {
+            console.log('[VK-AUTO-POST] Image generated:', aiResponse.image_id);
+            const imageData = await getGigaChatFile(aiResponse.image_id);
+            if (imageData) {
+                const photoId = await uploadPhotoToVk(vkToken, groupId, imageData);
+                if (photoId) {
+                    attachment = `&attachment=${photoId}`;
+                }
+            }
+        }
 
         // 2. Публикуем в ВК
-        const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(aiResponse)}&access_token=${vkToken}&v=5.131`;
+        const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(aiResponse.content)}&access_token=${vkToken}&v=5.131${attachment}`;
         const vkResult = await httpsRequest(vkUrl, { method: 'POST', headers: {} });
         
         console.log('[VK-AUTO-POST] VK API Response:', vkResult.data);
@@ -540,7 +554,61 @@ async function handleVkAutoPost(headers) {
     }
 }
 
-async function callGigaChat(prompt) {
+async function getGigaChatFile(fileId) {
+    try {
+        const token = await getGigaChatToken();
+        const response = await httpsRequest(`https://gigachat.devices.sberbank.ru/api/v1/files/${fileId}/content`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data; // Бинарные данные изображения
+    } catch (e) {
+        console.error('[GIGACHAT] File download error:', e.message);
+        return null;
+    }
+}
+
+async function uploadPhotoToVk(token, groupId, imageData) {
+    try {
+        // 1. Получаем сервер для загрузки
+        const serverUrl = `https://api.vk.com/method/photos.getWallUploadServer?group_id=${groupId}&access_token=${token}&v=5.131`;
+        const serverRes = await httpsRequest(serverUrl, { method: 'GET', headers: {} });
+        const uploadUrl = JSON.parse(serverRes.data).response.upload_url;
+
+        // 2. Загружаем файл (имитация multipart/form-data для простоты в рамках Cloud Function)
+        // В реальном окружении Node.js лучше использовать form-data, но здесь мы используем базовый httpsRequest
+        // Для упрощения и надежности в Cloud Function без лишних зависимостей:
+        const boundary = '----WebKitFormBoundary' + crypto.randomUUID();
+        const body = Buffer.concat([
+            Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`),
+            Buffer.from(imageData, 'binary'),
+            Buffer.from(`\r\n--${boundary}--\r\n`)
+        ]);
+
+        const uploadRes = await httpsRequest(uploadUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${boundary}`
+            },
+            body: body.toString('binary')
+        });
+        const uploadData = JSON.parse(uploadRes.data);
+
+        // 3. Сохраняем фото
+        const saveUrl = `https://api.vk.com/method/photos.saveWallPhoto?group_id=${groupId}&photo=${uploadData.photo}&server=${uploadData.server}&hash=${uploadData.hash}&access_token=${token}&v=5.131`;
+        const saveRes = await httpsRequest(saveUrl, { method: 'POST', headers: {} });
+        const savedPhoto = JSON.parse(saveRes.data).response[0];
+
+        return `photo${savedPhoto.owner_id}_${savedPhoto.id}`;
+    } catch (e) {
+        console.error('[VK-UPLOAD] Photo upload error:', e.message);
+        return null;
+    }
+}
+
+async function callGigaChat(prompt, modelName = 'GigaChat') {
     const token = await getGigaChatToken();
 
     // Генерируем текст
@@ -551,13 +619,25 @@ async function callGigaChat(prompt) {
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-            model: 'GigaChat',
+            model: modelName,
             messages: [{ role: 'user', content: prompt }],
             temperature: 0.7
         })
     });
     const data = JSON.parse(response.data);
-    return data.choices[0].message.content;
+    const content = data.choices[0].message.content;
+    
+    // Поиск image_id в контенте (GigaChat возвращает <img src="...">)
+    let image_id = null;
+    const imgMatch = content.match(/<img src="([^"]+)"/);
+    if (imgMatch) {
+        image_id = imgMatch[1];
+    }
+
+    return {
+        content: content.replace(/<img[^>]+>/g, '').trim(), // Убираем тег из текста
+        image_id
+    };
 }
 
 async function handleTelegramWebhook(body, headers) {
