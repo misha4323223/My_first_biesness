@@ -3446,6 +3446,25 @@ let cachedKB = null;
 let cacheTime = 0;
 const CACHE_TTL = 3600000; // 1 час
 
+// Pre-computed context strings (для быстрого доступа)
+let precomputedContexts = null;
+
+function buildPrecomputedContexts(kb) {
+    if (!kb) return null;
+    
+    const contexts = {
+        services: kb.services ? kb.services.map(s => `• ${s.name} (от ${s.price_from} руб): ${s.description}`).join('\n') : '',
+        technologies: kb.technologies ? Object.entries(kb.technologies).map(([key, values]) => `${key}: ${values.join(', ')}`).join('\n') : '',
+        process: kb.process ? kb.process.map(p => `${p.step}. ${p.name}: ${p.description}`).join('\n') : '',
+        portfolio: kb.portfolio ? kb.portfolio.map(p => `• ${p.name}: ${p.description} (Технологии: ${p.technologies.join(', ')})`).join('\n') : '',
+        pricing: kb.pricing ? Object.entries(kb.pricing).map(([key, val]) => `• ${val.name}: ${val.price}`).join('\n') : '',
+        faq: kb.faq ? kb.faq.map(f => `Q: ${f.question}\nA: ${f.answer}`).join('\n\n') : '',
+        company: kb.company ? `О компании ${kb.company.name}:\n${kb.company.description}` : ''
+    };
+    
+    return contexts;
+}
+
 // ============ Built-in Knowledge Base (Embedded) ============
 
 const EMBEDDED_KNOWLEDGE_BASE = {
@@ -3651,7 +3670,9 @@ async function loadKnowledgeBaseFromStorage() {
         console.log('[KB] 📦 Loading embedded knowledge base...');
         cachedKB = EMBEDDED_KNOWLEDGE_BASE;
         cacheTime = now;
-        console.log('[KB] ✅ Embedded knowledge base loaded successfully (cached for 1 hour)');
+        // Precompute contexts for fast access
+        precomputedContexts = buildPrecomputedContexts(cachedKB);
+        console.log('[KB] ✅ Embedded knowledge base loaded and pre-computed (cached for 1 hour)');
         return cachedKB;
     } catch (error) {
         const errorMsg = error instanceof Error ? error.message : String(error);
@@ -3661,65 +3682,68 @@ async function loadKnowledgeBaseFromStorage() {
 }
 
 function findRelevantContext(kb, userMessage) {
-    if (!kb) return '';
+    if (!kb || !precomputedContexts) return '';
 
     const lowerMessage = userMessage.toLowerCase();
+    const MAX_CONTEXT_SIZE = 2000; // Максимум символов в контексте
     let context = '';
+    let foundCategory = false;
 
-    // Ищем совпадения по ключевым словам
-    if (kb.keywords) {
-        for (const [category, keywords] of Object.entries(kb.keywords)) {
-            for (const keyword of keywords) {
-                if (lowerMessage.includes(keyword.toLowerCase())) {
-                    // Добавляем соответствующую информацию
-                    if (category === 'услуги' && kb.services) {
-                        const servicesText = kb.services
-                            .map(s => `• ${s.name} (от ${s.price_from} руб): ${s.description}`)
-                            .join('\n');
-                        context += `Наши услуги:\n${servicesText}\n\n`;
-                    } else if (category === 'технологии' && kb.technologies) {
-                        const techText = Object.entries(kb.technologies)
-                            .map(([key, values]) => `${key}: ${values.join(', ')}`)
-                            .join('\n');
-                        context += `Используемые технологии:\n${techText}\n\n`;
-                    } else if (category === 'процесс' && kb.process) {
-                        const processText = kb.process
-                            .map(p => `${p.step}. ${p.name}: ${p.description}`)
-                            .join('\n');
-                        context += `Наш процесс разработки:\n${processText}\n\n`;
-                    } else if (category === 'портфолио' && kb.portfolio) {
-                        const portfolioText = kb.portfolio
-                            .map(p => `• ${p.name}: ${p.description} (Технологии: ${p.technologies.join(', ')})`)
-                            .join('\n');
-                        context += `Примеры наших работ:\n${portfolioText}\n\n`;
-                    } else if (category === 'цена' && kb.pricing) {
-                        const pricingText = Object.entries(kb.pricing)
-                            .map(([key, val]) => `• ${val.name}: ${val.price}`)
-                            .join('\n');
-                        context += `Стоимость услуг:\n${pricingText}\n\n`;
-                    }
-                }
-            }
+    // Быстрый поиск по ключевым словам с использованием предвычисленных строк
+    if (kb.keywords && !foundCategory) {
+        if (kb.keywords.услуги && kb.keywords.услуги.some(k => lowerMessage.includes(k.toLowerCase()))) {
+            context += `Наши услуги:\n${precomputedContexts.services}\n\n`;
+            foundCategory = true;
+        }
+    }
+
+    if (kb.keywords && !foundCategory) {
+        if (kb.keywords.технологии && kb.keywords.технологии.some(k => lowerMessage.includes(k.toLowerCase()))) {
+            context += `Используемые технологии:\n${precomputedContexts.technologies}\n\n`;
+            foundCategory = true;
+        }
+    }
+
+    if (kb.keywords && !foundCategory) {
+        if (kb.keywords.цена && kb.keywords.цена.some(k => lowerMessage.includes(k.toLowerCase()))) {
+            context += `Стоимость услуг:\n${precomputedContexts.pricing}\n\n`;
+            foundCategory = true;
+        }
+    }
+
+    if (kb.keywords && !foundCategory) {
+        if (kb.keywords.процесс && kb.keywords.процесс.some(k => lowerMessage.includes(k.toLowerCase()))) {
+            context += `Наш процесс разработки:\n${precomputedContexts.process}\n\n`;
+            foundCategory = true;
+        }
+    }
+
+    if (kb.keywords && !foundCategory) {
+        if (kb.keywords.портфолио && kb.keywords.портфолио.some(k => lowerMessage.includes(k.toLowerCase()))) {
+            context += `Примеры наших работ:\n${precomputedContexts.portfolio}\n\n`;
+            foundCategory = true;
         }
     }
 
     // Если вопрос о FAQ - добавляем соответствующие ответы
-    if (kb.faq && (lowerMessage.includes('вопрос') || lowerMessage.includes('как') || 
-                  lowerMessage.includes('какой') || lowerMessage.includes('сколько'))) {
-        const faqText = kb.faq
-            .map(f => `Q: ${f.question}\nA: ${f.answer}`)
-            .join('\n\n');
-        context += `Часто задаваемые вопросы:\n${faqText}\n\n`;
+    if ((lowerMessage.includes('вопрос') || lowerMessage.includes('как') || 
+         lowerMessage.includes('какой') || lowerMessage.includes('сколько')) && precomputedContexts.faq) {
+        context += `Часто задаваемые вопросы:\n${precomputedContexts.faq}\n\n`;
     }
 
     // Если ничего не найдено - добавляем основную информацию о компании
-    if (!context && kb.company) {
-        context = `О компании ${kb.company.name}:\n${kb.company.description}\n\n`;
-        if (kb.company.phone) context += `Телефон: ${kb.company.phone}\n`;
-        if (kb.company.email) context += `Email: ${kb.company.email}\n`;
+    if (!foundCategory && precomputedContexts.company) {
+        context = precomputedContexts.company + '\n\n';
+        if (kb.company?.phone) context += `Телефон: ${kb.company.phone}\n`;
+        if (kb.company?.email) context += `Email: ${kb.company.email}\n`;
     }
 
-    return context;
+    // Ограничиваем размер контекста
+    if (context.length > MAX_CONTEXT_SIZE) {
+        context = context.substring(0, MAX_CONTEXT_SIZE) + '...';
+    }
+
+    return context.trim();
 }
 
 async function handleGigaChat(body, headers) {
@@ -3766,6 +3790,9 @@ function isRetryableError(result) {
 
 async function attemptGigaChat(body, headers, handlerId) {
     const startTime = Date.now();
+    let stageStartTime = startTime;
+    let kbLoadTime = 0;
+    let contextFindTime = 0;
 
     try {
         let { message, userName, isFirstMessage } = body;
@@ -3788,10 +3815,18 @@ async function attemptGigaChat(body, headers, handlerId) {
             };
         }
 
-        // НОВОЕ: Загружаем Knowledge Base и обогащаем контекст
-        console.log(`[${handlerId}] 1a️⃣ Loading knowledge base...`);
+        // ОПТИМИЗИРОВАНО: Загружаем Knowledge Base и обогащаем контекст (из кэша)
+        stageStartTime = Date.now();
+        console.log(`[${handlerId}] 1a️⃣ Loading knowledge base (pre-computed)...`);
         const kb = await loadKnowledgeBaseFromStorage();
+        kbLoadTime = Math.round((Date.now() - stageStartTime) / 1000);
+        console.log(`[${handlerId}]    KB loaded in ${kbLoadTime}s`);
+        
+        stageStartTime = Date.now();
+        console.log(`[${handlerId}] 1a2️⃣ Finding relevant context...`);
         const relevantContext = findRelevantContext(kb, message);
+        contextFindTime = Date.now() - stageStartTime;
+        console.log(`[${handlerId}]    Context found in ${contextFindTime}ms (size: ${relevantContext.length} chars)`);
 
         if (!message || typeof message !== 'string' || message.trim().length === 0) {
             return {
@@ -3832,9 +3867,9 @@ async function attemptGigaChat(body, headers, handlerId) {
         }
 
         // Получаем OAuth токен
+        stageStartTime = Date.now();
         console.log(`[${handlerId}] 3️⃣ Requesting OAuth token...`);
         const authBody = `scope=${encodeURIComponent(gigachatScope)}`;
-        const authStartTime = Date.now();
 
         let authResponse;
         try {
@@ -3848,7 +3883,8 @@ async function attemptGigaChat(body, headers, handlerId) {
                 },
                 body: authBody,
             });
-            console.log(`[${handlerId}] ✅ OAuth completed in ${Math.round((Date.now() - authStartTime) / 1000)}s`);
+            const oauthTime = Math.round((Date.now() - stageStartTime) / 1000);
+            console.log(`[${handlerId}] ✅ OAuth completed in ${oauthTime}s`);
         } catch (err) {
             throw new Error(`OAuth failed: ${err.message}`);
         }
@@ -3902,6 +3938,7 @@ async function attemptGigaChat(body, headers, handlerId) {
 
         console.log(`[${handlerId}] 6️⃣ Sending chat request via gRPC with ${limitedHistory.length} history messages...`);
         const chatStartTime = Date.now();
+        const GRPC_TIMEOUT = 15000; // 15 сек для gRPC (вместо 10)
 
         return new Promise((resolve) => {
             const chatRequest = {
@@ -3923,7 +3960,12 @@ async function attemptGigaChat(body, headers, handlerId) {
                 }
             };
 
+            let grpcCompleted = false;
+
             client.chat(chatRequest, metadata, (err, response) => {
+                if (grpcCompleted) return; // Игнорируем если уже был timeout
+                grpcCompleted = true;
+
                 const chatElapsed = Math.round((Date.now() - chatStartTime) / 1000);
 
                 if (err) {
@@ -3946,6 +3988,7 @@ async function attemptGigaChat(body, headers, handlerId) {
 
                 console.log(`[${handlerId}] 7️⃣ Success!`);
                 console.log(`[${handlerId}]    Response length: ${assistantMessage.length} chars`);
+                console.log(`[${handlerId}]    KB load: ${kbLoadTime}s, Context find: ${contextFindTime}ms, gRPC: ${chatElapsed}s`);
                 console.log(`[${handlerId}]    Total time: ${totalTime}s`);
                 console.log(`=== GIGACHAT gRPC REQUEST END [${handlerId}] (SUCCESS) ===\n`);
 
@@ -3962,7 +4005,10 @@ async function attemptGigaChat(body, headers, handlerId) {
             });
 
             setTimeout(() => {
-                console.error(`[${handlerId}] ❌ gRPC request timeout (10s)`);
+                if (grpcCompleted) return; // Уже получили ответ
+                grpcCompleted = true;
+
+                console.error(`[${handlerId}] ❌ gRPC request timeout (${GRPC_TIMEOUT}ms)`);
                 client.close();
                 resolve({
                     statusCode: 500,
@@ -3972,7 +4018,7 @@ async function attemptGigaChat(body, headers, handlerId) {
                         response: 'Помощник сейчас перегружен. Пожалуйста, попробуйте еще раз или напишите нам в VK и Telegram.',
                     }),
                 });
-            }, 10000);
+            }, GRPC_TIMEOUT);
         });
 
     } catch (error) {
