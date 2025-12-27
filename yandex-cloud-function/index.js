@@ -4127,14 +4127,16 @@ async function attemptGigaChat(body, headers, handlerId) {
 
             let grpcCompleted = false;
 
-            client.chat(chatRequest, metadata, (err, response) => {
-                if (grpcCompleted) return; // Игнорируем если уже был timeout
+            client.chat(chatRequest, metadata, { deadline: Date.now() + GRPC_TIMEOUT }, (err, response) => {
+                if (grpcCompleted) return;
                 grpcCompleted = true;
 
                 const chatElapsed = Math.round((Date.now() - chatStartTime) / 1000);
 
                 if (err) {
-                    console.error(`[${handlerId}] ❌ gRPC error after ${chatElapsed}s: ${err.message}`);
+                    console.error(`[${handlerId}] ❌ gRPC error (code: ${err.code}): ${err.message}`);
+                    // Если ошибка "UNAVAILABLE" или "DEADLINE_EXCEEDED", это может быть проблема сети
+                    const isNetworkError = err.code === 14 || err.code === 4;
                     client.close();
                     return resolve({
                         statusCode: 500,
