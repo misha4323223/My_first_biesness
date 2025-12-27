@@ -104,8 +104,18 @@ export function ChatWidget() {
       let errorMessage = "Не удалось связаться с AI-ассистентом";
       
       if (error instanceof Error) {
-        // Если это ошибка от apiRequest, она может содержать тело ответа
-        errorMessage = error.message;
+        // Пытаемся распарсить JSON из ошибки
+        try {
+          const jsonMatch = error.message.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const jsonData = JSON.parse(jsonMatch[0]);
+            errorMessage = jsonData.response || errorMessage;
+          } else {
+            errorMessage = error.message;
+          }
+        } catch {
+          errorMessage = error.message;
+        }
       }
       
       setMessages((prev) => [
