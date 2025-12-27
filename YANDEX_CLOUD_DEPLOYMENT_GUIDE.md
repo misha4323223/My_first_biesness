@@ -21,21 +21,21 @@
 
 Для ежедневного постинга через ИИ:
 
-1. **Получите VK Access Token:**
-   - Создайте приложение в ВК (Тип: Standalone).
-   - Получите токен с правами `wall` и `offline`.
-   - Найдите ID вашей группы (числовой).
+1. **VK Access Token:**
+   - Вы уже получили токен: `vk1.a.INh-bOaz...` (храните его в секретах).
 
 2. **Настройте переменные окружения в Cloud Function:**
-   - `VK_ACCESS_TOKEN`: ваш токен.
-   - `VK_GROUP_ID`: ID группы (без минуса).
+   - `VK_ACCESS_TOKEN`: `vk1.a.INh-bOaz3u_b67ZQP5Cpvw62EmQSwpypfOZZoQj1WVOliBxvd_MoKvSu83nbEMCQxZ6UK1kB42p-iNmX4KfFEVUiFr9rsogaatfJFU0GfN9de_922Cp4gmB9OuMYt-pX9-iH7M_WMBLhqKxd7zGqzaJVIu5Co4dLAfCpPGyq39afaf_Vfim2nj9PTwZe958FTiay6brvwWmyAX-EwAccBA`
+   - `VK_GROUP_ID`: `234852555`
 
 3. **Настройте Триггер в Yandex Cloud:**
-   - Перейдите в Cloud Functions -> Triggers.
-   - Тип: Timer.
-   - Cron-выражение: `0 9 * * ? *` (каждый день в 09:00 UTC).
-   - Цель: Ваша функция.
-   - Payload: `{"queryStringParameters": {"action": "vk-auto-post"}, "httpMethod": "POST"}`
+   - Перейдите в **Cloud Functions** -> **Triggers**.
+   - Нажмите **Создать триггер**.
+   - Тип: **Timer**.
+   - Расписание (Cron-выражение): `0 9 * * ? *` (будет срабатывать каждый день в 09:00 UTC / 12:00 МСК).
+   - Цель: **Ваша функция**.
+   - Сервисный аккаунт: выберите аккаунт с правами на вызов функции.
+   - Payload (сообщение): `{"queryStringParameters": {"action": "vk-auto-post"}, "httpMethod": "POST"}`
 
 ---
 
