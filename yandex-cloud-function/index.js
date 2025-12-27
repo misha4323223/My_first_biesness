@@ -4111,10 +4111,6 @@ async function attemptGigaChat(body, headers, handlerId) {
             const chatRequest = {
                 model: 'GigaChat',
                 messages: [
-                    {
-                        role: 'system',
-                        content: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Отвечай кратко и по делу, основываясь на информации о наших услугах.'
-                    },
                     ...limitedHistory,
                     {
                         role: 'user',

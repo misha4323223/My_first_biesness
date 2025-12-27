@@ -972,7 +972,10 @@ export async function registerRoutes(
       
       const chatBody = JSON.stringify({
         model: 'GigaChat',
-        messages: [{ role: 'user', content: message }],
+        messages: [
+          ...limitedHistory,
+          { role: 'user', content: message }
+        ],
         temperature: 0.7,
         max_tokens: 800,
       });
