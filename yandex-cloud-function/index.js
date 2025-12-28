@@ -670,10 +670,24 @@ async function handleVkAutoPostYandex(headers) {
 
         console.log('[VK-AUTO-POST-YANDEX] Photo uploaded, ID:', photoId);
 
-        // 5. Публикуем пост в ВК
-        const attachment = `&attachment=${photoId}`;
-        const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(postText)}&access_token=${vkToken}&v=5.131${attachment}`;
-        const vkResult = await httpsRequest(vkUrl, { method: 'POST', headers: {} });
+        // 5. Публикуем пост в ВК (используем POST body вместо URL параметров)
+        const vkUrl = 'https://api.vk.com/method/wall.post';
+        
+        // Формируем параметры для POST body
+        const bodyParams = new URLSearchParams({
+            owner_id: `-${groupId}`,
+            from_group: '1',
+            message: postText,
+            attachment: photoId,
+            access_token: vkToken,
+            v: '5.131'
+        });
+
+        const vkResult = await httpsRequest(vkUrl, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: bodyParams.toString()
+        });
 
         console.log('[VK-AUTO-POST-YANDEX] VK API Response:', vkResult.data.substring(0, 200));
 
