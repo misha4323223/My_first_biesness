@@ -1037,50 +1037,6 @@ export async function registerRoutes(
       console.error("❌ ERROR:", errorMsg);
       console.error("=== GIGACHAT REQUEST FAILED ===\n");
       
-      // FALLBACK TO YANDEX GPT IF GIGACHAT FAILS OR AS ALTERNATIVE
-      try {
-        console.log("🔄 Attempting fallback to Yandex GPT...");
-        const ycApiKey = process.env.YC_API_KEY;
-        const ycFolderId = process.env.YC_FOLDER_ID;
-
-        if (ycApiKey && ycFolderId) {
-          const { message: userMsg } = req.body;
-          const yandexBody = JSON.stringify({
-            modelUri: `gpt://${ycFolderId}/yandexgpt`,
-            completionOptions: {
-              stream: false,
-              temperature: 0.6,
-              maxTokens: "2000"
-            },
-            messages: [
-              { role: "system", text: "Ты — полезный ИИ помощник веб-студии MP.WebStudio." },
-              { role: "user", text: userMsg }
-            ]
-          });
-
-          const yandexRes = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Api-Key ${ycApiKey}`
-            },
-            body: yandexBody
-          });
-
-          if (yandexRes.statusCode === 200) {
-            const yandexData = JSON.parse(yandexRes.data);
-            const text = yandexData.result.alternatives[0].message.text;
-            console.log("✅ Yandex GPT Fallback Success!");
-            return res.json({
-              success: true,
-              response: text
-            });
-          }
-        }
-      } catch (fallbackErr) {
-        console.error("❌ Yandex Fallback failed:", fallbackErr);
-      }
-
       return res.status(500).json({
         success: false,
         response: `Ошибка: ${errorMsg}`,

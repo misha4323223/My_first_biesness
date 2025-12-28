@@ -3638,16 +3638,49 @@ async function handleYandexChat(body, headers) {
 
         console.log(`[YANDEX-CHAT-${handlerId}] Sending to Yandex AI with ${limitedHistory.length} history messages`);
 
-        // Построили промпт с историей
+        // Collecting all messages for the request
         const systemPrompt = 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.';
         
-        // Собираем все сообщения для отправки
+        // COLLECTING AND LOGGING THE PAYLOAD FOR DEBUGGING
         const allMessages = [
             { role: 'system', text: systemPrompt },
             ...limitedHistory,
             { role: 'user', text: message }
         ];
 
+        const modelUri = `gpt://${folderId}/yandexgpt`;
+        const completionOptions = {
+            stream: false,
+            temperature: 0.7,
+            maxTokens: '2000'
+        };
+
+        console.log(`[YANDEX-CHAT-${handlerId}] Request details:`, JSON.stringify({
+            modelUri,
+            completionOptions,
+            messageCount: allMessages.length
+        }));
+
+        // Sending request to Yandex AI
+        const startTime = Date.now();
+        let response;
+        try {
+            response = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': getYandexAuthHeader()
+                },
+                body: JSON.stringify({
+                    modelUri: modelUri,
+                    completionOptions: completionOptions,
+                    messages: allMessages
+                })
+            });
+        } catch (e) {
+            console.error(`[YANDEX-CHAT-${handlerId}] Request failed: ${e.message}`);
+            throw e;
+        }
         // Отправляем запрос к Yandex AI
         const startTime = Date.now();
         const response = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
