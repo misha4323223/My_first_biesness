@@ -507,6 +507,126 @@ module.exports.handler = async function (event, context) {
 
 // ============ Telegram Bot Webhook ============
 
+// Массив тем для текстовых постов (очередь по порядку)
+const TEXT_PROMPTS = [
+    "Напиши интересный пост для ВК о том, почему сайт важен для бизнеса в 2026. Начни с неожиданного факта или вопроса, не с восклицательного знака. Добавь хэштеги.",
+    "Напиши пост о типичных ошибках при создании сайта, которые совершают компании. Советы должны быть практичными. Добавь хэштеги.",
+    "Напиши пост о том, как хороший дизайн сайта влияет на продажи и доверие клиентов. Приведи пример. Добавь хэштеги.",
+    "Напиши пост о том, почему компаниям нужна переработка старого сайта в 2026 году. Сделай это с юмором или метафорой. Добавь хэштеги.",
+    "Напиши пост о том, какие новые тренды в веб-дизайне появились в 2025-2026. Сделай пост информативным и интересным. Добавь хэштеги.",
+    "Напиши пост-вопрос к аудитории: как они выбирают, на какой сайт компании они сначала смотрят? Добавь интригу. Добавь хэштеги.",
+    "Напиши пост о том, что мобильные сайты уже не опция, а необходимость. Объясни почему. Добавь хэштеги.",
+    "Напиши пост про личный опыт - как хороший сайт помогает бизнесу расти. Сделай это вдохновляющим. Добавь хэштеги.",
+];
+
+// Массив тем для изображений (очередь по порядку)
+const IMAGE_PROMPTS = [
+    "Современный веб-интерфейс на экране ноутбука, минимализм, синий и фиолетовый градиент, корпоративный стиль",
+    "Абстрактная композиция из линий и кругов, рост вверх, стрелка, цифровой стиль, синие и зеленые цвета",
+    "Профессиональный веб-дизайнер за работой, стол с несколькими мониторами, современный офис, фокус на экранах",
+    "Обновление интерфейса, переход от старого к новому, split-screen эффект, темное и светлое",
+    "Мобильный телефон с красивым приложением, UI дизайн, минимализм, актуальный стиль",
+    "Иконки различных веб-сервисов и инструментов, облако, сеть, цифровое пространство",
+    "Растущий график, восходящая кривая, стрелка вверх, красные и зеленые акценты, цифровой стиль",
+    "Кодирование на экране, красивый исходный код, темный фон, зеленые и синие символы, программирование",
+];
+
+async function getNextPromptIndex() {
+    const driver = await getYdbDriver();
+    
+    try {
+        // Создаем или получаем счетчик
+        await driver.tableClient.withSession(async (session) => {
+            // Сначала пытаемся вставить стартовое значение (если таблицы еще нет)
+            const insertQuery = `
+                DECLARE $key AS Utf8;
+                DECLARE $text_index AS Int32;
+                DECLARE $image_index AS Int32;
+                
+                UPSERT INTO post_counter (key, text_index, image_index) 
+                VALUES ($key, $text_index, $image_index);
+            `;
+            
+            try {
+                const preparedInsert = await session.prepareQuery(insertQuery);
+                // Пока не трогаем, просто проверяем что работает
+            } catch (e) {
+                // Таблица не существует, создадим минимальный workaround
+                console.log('[POST-COUNTER] Table might not exist, will use simple counter');
+            }
+        });
+
+        // Получаем текущие значения
+        const result = await driver.tableClient.withSession(async (session) => {
+            const selectQuery = `
+                DECLARE $key AS Utf8;
+                
+                SELECT text_index, image_index FROM post_counter WHERE key = $key;
+            `;
+            
+            const preparedSelect = await session.prepareQuery(selectQuery);
+            return await session.executeQuery(preparedSelect, {
+                '$key': TypedValues.utf8('global')
+            });
+        });
+
+        let textIndex = 0;
+        let imageIndex = 0;
+
+        const rows = result.resultSets[0]?.rows || [];
+        if (rows.length > 0) {
+            const row = rows[0];
+            textIndex = parseInt(row.text_index?.value || 0);
+            imageIndex = parseInt(row.image_index?.value || 0);
+        }
+
+        // Циклим индексы если дошли до конца массива
+        const nextTextIndex = (textIndex + 1) % TEXT_PROMPTS.length;
+        const nextImageIndex = (imageIndex + 1) % IMAGE_PROMPTS.length;
+
+        // Сохраняем обновленные индексы
+        await driver.tableClient.withSession(async (session) => {
+            const updateQuery = `
+                DECLARE $key AS Utf8;
+                DECLARE $text_index AS Int32;
+                DECLARE $image_index AS Int32;
+                
+                UPSERT INTO post_counter (key, text_index, image_index) 
+                VALUES ($key, $text_index, $image_index);
+            `;
+            
+            const preparedUpdate = await session.prepareQuery(updateQuery);
+            await session.executeQuery(preparedUpdate, {
+                '$key': TypedValues.utf8('global'),
+                '$text_index': TypedValues.int32(nextTextIndex),
+                '$image_index': TypedValues.int32(nextImageIndex)
+            });
+        });
+
+        console.log(`[POST-COUNTER] Current: text=${textIndex}, image=${imageIndex}`);
+
+        return {
+            textPrompt: TEXT_PROMPTS[textIndex],
+            imagePrompt: IMAGE_PROMPTS[imageIndex],
+            textIndex,
+            imageIndex
+        };
+    } catch (error) {
+        // Fallback: если БД не работает, используем простой счетчик через остаток времени
+        console.log('[POST-COUNTER] DB error, using time-based fallback:', error.message);
+        const now = Date.now();
+        const textIndex = Math.floor(now / 3600000) % TEXT_PROMPTS.length;
+        const imageIndex = Math.floor(now / 3600000) % IMAGE_PROMPTS.length;
+
+        return {
+            textPrompt: TEXT_PROMPTS[textIndex],
+            imagePrompt: IMAGE_PROMPTS[imageIndex],
+            textIndex,
+            imageIndex
+        };
+    }
+}
+
 async function handleVkAutoPostYandex(headers) {
     try {
         console.log('[VK-AUTO-POST-YANDEX] Starting automation with Yandex AI');
@@ -524,20 +644,25 @@ async function handleVkAutoPostYandex(headers) {
         
         // YC_API_KEY проверяется внутри getYandexAuthHeader()
 
-        // 1. Генерируем ТЕКСТ отдельно
-        const textPrompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами.";
+        // 1. Получаем текущие промпты из очереди
+        const prompts = await getNextPromptIndex();
+        const textPrompt = prompts.textPrompt;
+        const imagePrompt = prompts.imagePrompt;
+
+        console.log(`[VK-AUTO-POST-YANDEX] Using prompts: text[${prompts.textIndex}], image[${prompts.imageIndex}]`);
+
+        // 2. Генерируем ТЕКСТ отдельно
         console.log('[VK-AUTO-POST-YANDEX] Generating text...');
         const textResponse = await callYandexGPT(textPrompt, 'yandexgpt-lite');
         const postText = textResponse.content;
         console.log('[VK-AUTO-POST-YANDEX] Text generated:', postText.substring(0, 100) + '...');
 
-        // 2. Генерируем КАРТИНКУ отдельно (асинхронно!)
-        const imagePrompt = "Логотип IT-компании, минимализм, современный дизайн, синий и белый цвета, корпоративный стиль";
+        // 3. Генерируем КАРТИНКУ отдельно (асинхронно!)
         console.log('[VK-AUTO-POST-YANDEX] Generating image...');
         const imageBuffer = await generateYandexImage(imagePrompt);
         console.log('[VK-AUTO-POST-YANDEX] Image generated, size:', imageBuffer.length, 'bytes');
 
-        // 3. Загружаем картинку в ВК
+        // 4. Загружаем картинку в ВК
         const photoId = await uploadPhotoToVk(vkToken, groupId, imageBuffer);
         if (!photoId) {
             throw new Error('Failed to upload photo to VK');
@@ -545,7 +670,7 @@ async function handleVkAutoPostYandex(headers) {
 
         console.log('[VK-AUTO-POST-YANDEX] Photo uploaded, ID:', photoId);
 
-        // 4. Публикуем пост в ВК
+        // 5. Публикуем пост в ВК
         const attachment = `&attachment=${photoId}`;
         const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(postText)}&access_token=${vkToken}&v=5.131${attachment}`;
         const vkResult = await httpsRequest(vkUrl, { method: 'POST', headers: {} });
@@ -555,7 +680,12 @@ async function handleVkAutoPostYandex(headers) {
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ success: true, message: 'Post published with Yandex AI', vkResponse: JSON.parse(vkResult.data) })
+            body: JSON.stringify({ 
+                success: true, 
+                message: 'Post published with Yandex AI',
+                postNumber: { text: prompts.textIndex + 1, image: prompts.imageIndex + 1 },
+                vkResponse: JSON.parse(vkResult.data) 
+            })
         };
     } catch (error) {
         console.error('[VK-AUTO-POST-YANDEX] Error:', error.message);
