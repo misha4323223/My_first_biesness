@@ -519,16 +519,16 @@ const TEXT_PROMPTS = [
     "Напиши пост про личный опыт - как хороший сайт помогает бизнесу расти. Сделай это вдохновляющим. Добавь хэштеги.",
 ];
 
-// Массив тем для изображений (очередь по порядку)
+// Массив тем для изображений (очередь по порядку) - технологичный стиль про веб-дизайн
 const IMAGE_PROMPTS = [
-    "Современный веб-интерфейс на экране ноутбука, минимализм, синий и фиолетовый градиент, корпоративный стиль",
-    "Абстрактная композиция из линий и кругов, рост вверх, стрелка, цифровой стиль, синие и зеленые цвета",
-    "Профессиональный веб-дизайнер за работой, стол с несколькими мониторами, современный офис, фокус на экранах",
-    "Обновление интерфейса, переход от старого к новому, split-screen эффект, темное и светлое",
-    "Мобильный телефон с красивым приложением, UI дизайн, минимализм, актуальный стиль",
-    "Иконки различных веб-сервисов и инструментов, облако, сеть, цифровое пространство",
-    "Растущий график, восходящая кривая, стрелка вверх, красные и зеленые акценты, цифровой стиль",
-    "Кодирование на экране, красивый исходный код, темный фон, зеленые и синие символы, программирование",
+    "Realistic 3D mockup of modern website design on multiple laptop screens, web designer working at desk with advanced UI elements, professional tech workspace, focused on interface design",
+    "Clean minimalist web interface mockup, modern website layout, white background with blue accents, responsive design showcase, professional corporate style, flat design",
+    "Cyberpunk futuristic web development visualization, neon glowing code lines on dark background, digital interface with particles, matrix style, technology aesthetic, highly technical",
+    "Flat design illustration of web development team building a website, geometric shapes representing UI elements, colorful blocks and icons, people collaborating on web design",
+    "3D rendered modern website mockup on elegant laptop, sleek tech aesthetic, contemporary web design showcase, professional business style, clean and minimalist composition",
+    "Web application architecture diagram, network diagram with nodes and connections, cloud computing infrastructure, microservices visualization, digital technology blueprint style",
+    "Before and after website redesign comparison, old outdated website vs new modern beautiful design, split screen mockup, improvement transformation, professional upgrade visual",
+    "Mobile-first responsive design showcase, modern smartphone displaying beautiful app UI, multiple device mockups showing responsive layouts, clean contemporary design, user interface focus",
 ];
 
 async function getNextPromptIndex() {
