@@ -693,29 +693,50 @@ async function handleVkAutoPostYandex(headers) {
         try {
             console.log('[VK-AUTO-POST-YANDEX] Posting to Telegram...');
             const tgBotToken = process.env.TELEGRAM_BOT_TOKEN;
-            const tgChatId = process.env.TELEGRAM_CHAT_ID; // Можно добавить спец. переменную TELEGRAM_CHANNEL_ID если нужно
+            const tgChatId = process.env.TELEGRAM_CHAT_ID;
 
             if (tgBotToken && tgChatId) {
-                // Отправляем фото с подписью
                 const tgUrl = `https://api.telegram.org/bot${tgBotToken}/sendPhoto`;
                 
-                // Для Telegram нам нужно либо URL, либо файл. 
-                // Так как у нас есть Buffer, мы можем отправить его как multipart/form-data
-                const tgBoundary = '----TGFormBoundary' + crypto.randomUUID();
-                const tgHeader = Buffer.from(`--${tgBoundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`);
-                const tgCaptionPart = Buffer.from(`\r\n--${tgBoundary}\r\nContent-Disposition: form-data; name="caption"\r\n\r\n${postText}`);
-                const tgChatIdPart = Buffer.from(`\r\n--${tgBoundary}\r\nContent-Disposition: form-data; name="chat_id"\r\n\r\n${tgChatId}`);
-                const tgFooter = Buffer.from(`\r\n--${tgBoundary}--\r\n`);
+                // Правильно формируем multipart/form-data (порядок важен)
+                const boundary = '----TGBoundary' + crypto.randomUUID().replace(/-/g, '');
+                const CRLF = '\r\n';
                 
-                const tgBody = Buffer.concat([tgHeader, imageBuffer, tgCaptionPart, tgChatIdPart, tgFooter]);
-
+                // Начало: chat_id
+                const startPart = `--${boundary}${CRLF}Content-Disposition: form-data; name="chat_id"${CRLF}${CRLF}${tgChatId}${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="photo"; filename="image.png"${CRLF}Content-Type: image/png${CRLF}${CRLF}`;
+                
+                // Конец: caption
+                const endPart = `${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="caption"${CRLF}${CRLF}${postText}${CRLF}--${boundary}--${CRLF}`;
+                
+                const startBuffer = Buffer.from(startPart);
+                const endBuffer = Buffer.from(endPart);
+                const body = Buffer.concat([startBuffer, imageBuffer, endBuffer]);
+                
+                console.log('[VK-AUTO-POST-YANDEX] Sending photo to Telegram, size:', body.length, 'bytes');
+                
                 const tgResult = await httpsRequest(tgUrl, {
                     method: 'POST',
-                    headers: { 'Content-Type': `multipart/form-data; boundary=${tgBoundary}` },
-                    body: tgBody,
+                    headers: {
+                        'Content-Type': `multipart/form-data; boundary=${boundary}`,
+                        'Content-Length': body.length.toString()
+                    },
+                    body: body,
                     isUpload: true
                 });
-                console.log('[VK-AUTO-POST-YANDEX] Telegram Response:', tgResult.data);
+                
+                console.log('[VK-AUTO-POST-YANDEX] Telegram Response Status:', tgResult.statusCode);
+                console.log('[VK-AUTO-POST-YANDEX] Telegram Response Data:', tgResult.data.substring(0, 300));
+                
+                try {
+                    const tgResponseData = JSON.parse(tgResult.data);
+                    if (tgResponseData.ok) {
+                        console.log('[VK-AUTO-POST-YANDEX] ✅ Photo sent to Telegram, message_id:', tgResponseData.result?.message_id);
+                    } else {
+                        console.error('[VK-AUTO-POST-YANDEX] ❌ Telegram API error:', tgResponseData.description || 'Unknown error');
+                    }
+                } catch (parseError) {
+                    console.error('[VK-AUTO-POST-YANDEX] Failed to parse Telegram response:', parseError.message);
+                }
             } else {
                 console.log('[VK-AUTO-POST-YANDEX] Telegram credentials missing, skipping TG post');
             }
