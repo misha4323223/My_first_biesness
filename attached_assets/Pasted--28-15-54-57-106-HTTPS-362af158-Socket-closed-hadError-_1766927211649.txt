@@ -1,0 +1,301 @@
+
+
+28 дек. 15:54:57.106
+[HTTPS-362af158] ❌ Socket closed (hadError: false) after 5088ms
+
+28 дек. 15:54:57.106
+[HTTPS-362af158] ❌ SOCKET TIMEOUT after 5087ms - destroying request
+
+28 дек. 15:54:57.020
+[HTTPS-a6ddcb57] ❌ Socket closed (hadError: false) after 5231ms
+
+28 дек. 15:54:57.020
+[HTTPS-f0abbd7d] ❌ Socket closed (hadError: false) after 7286ms
+
+28 дек. 15:54:57.020
+[HTTPS-4e94658c] ❌ Socket closed (hadError: false) after 9352ms
+
+28 дек. 15:54:57.020
+[HTTPS-4122fed3] ❌ Socket closed (hadError: false) after 11460ms
+
+28 дек. 15:54:57.020
+[HTTPS-a6ddcb57] ❌ SOCKET TIMEOUT after 5231ms - destroying request
+
+28 дек. 15:54:57.020
+[HTTPS-f0abbd7d] ❌ SOCKET TIMEOUT after 7286ms - destroying request
+
+28 дек. 15:54:57.020
+[HTTPS-4e94658c] ❌ SOCKET TIMEOUT after 9352ms - destroying request
+
+28 дек. 15:54:57.020
+[HTTPS-4122fed3] ❌ SOCKET TIMEOUT after 11459ms - destroying request
+
+28 дек. 15:54:52.149
+[HTTPS-7f58e587] 🔒 TLS handshake complete after 42ms
+
+28 дек. 15:54:52.130
+[HTTPS-7f58e587] 🌐 TCP connected after 24ms
+
+28 дек. 15:54:52.115
+[HTTPS-7f58e587] 🔍 DNS lookup started
+
+28 дек. 15:54:52.115
+[HTTPS-7f58e587] 🔍 DNS lookup started
+
+28 дек. 15:54:52.115
+[HTTPS-7f58e587] 🔍 DNS lookup started
+
+28 дек. 15:54:52.115
+[HTTPS-7f58e587] 🔍 DNS lookup started
+
+28 дек. 15:54:52.115
+[HTTPS-7f58e587] 🔍 DNS lookup started
+
+28 дек. 15:54:52.110
+REPORT RequestID: 756d2f8e-7be5-41a2-b797-70df710fcad8 Duration: 9586.757 ms Billed Duration: 9600 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.055 ms Function Init Duration: 763.067 ms CPU Usage: 2.441 %
+
+28 дек. 15:54:52.109
+END RequestID: 756d2f8e-7be5-41a2-b797-70df710fcad8
+
+28 дек. 15:54:52.108
+[HTTPS-7f58e587] 🔌 Socket created, fd: unknown
+
+28 дек. 15:54:52.108
+[VK-AUTO-POST-YANDEX] Error: Failed to upload photo to VK
+
+28 дек. 15:54:52.108
+[VK-UPLOAD] Photo upload error: options.body.substring is not a function
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Creating HTTPS request with timeout: 30000ms
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Setting main timeout: 30000ms
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Request type: UPLOAD, timeouts: 30000ms (main), 30000ms (socket)
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Headers: Content-Type
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Request body size: 234047 bytes
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Path: /c906228/ss2320/upload.php
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Hostname: pu.vk.com:443
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] Method: POST
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] URL: https://pu.vk.com/c906228/ss2320/upload.php?act=do_add&mid=583487548&aid=-14&gid=234852555&hash=945a93e79a2b099afda1a2ed0116a396&rhash=aec0eb0f6fe4e3898c5096a7621346cd&swfupload=1&api=1&wallphoto=1
+
+28 дек. 15:54:52.106
+[HTTPS-7f58e587] ========== HTTPS REQUEST START ==========
+
+28 дек. 15:54:52.106
+[VK-UPLOAD] Total multipart body size: 234047 bytes
+
+28 дек. 15:54:52.105
+[VK-UPLOAD] Image buffer size: 233824 bytes
+
+28 дек. 15:54:52.105
+[VK-UPLOAD] Got upload URL
+
+28 дек. 15:54:52.105
+[VK-UPLOAD] Server response: {"response":{"album_id":-14,"upload_url":"https://pu.vk.com/c906228/ss2320/upload.php?act=do_add&mid=583487548&aid=-14&gid=234852555&hash=945a93e79a2b099afda1a2ed0116a396&rhash=aec0eb0f6fe4e3898c5096a
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] ========== REQUEST SUCCESS ==========
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] Total response size: 267 bytes
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] ✨ Response ended after 87ms
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] 📥 Data chunk: 267 bytes (total: 267)
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] 📦 First byte received after 87ms
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] Response headers: content-type=application/json; charset=utf-8, content-length=267
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 15:54:52.105
+[HTTPS-362af158] Status code: 200
+
+28 дек. 15:54:52.104
+[HTTPS-362af158] ✅ Response callback triggered after 86ms
+
+28 дек. 15:54:52.055
+[HTTPS-362af158] 🔒 TLS handshake complete after 37ms
+
+28 дек. 15:54:52.036
+[HTTPS-362af158] 🌐 TCP connected after 18ms
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.022
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.021
+[HTTPS-362af158] 🔍 DNS lookup started
+
+28 дек. 15:54:52.020
+[HTTPS-362af158] 🔌 Socket created, fd: unknown
+
+28 дек. 15:54:52.020
+[HTTPS-362af158] Waiting for response...
+
+28 дек. 15:54:52.019
+[HTTPS-362af158] 🚀 Calling req.end()
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Creating HTTPS request with timeout: 15000ms
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Setting main timeout: 12000ms
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Headers:
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Request body size: 0 bytes
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Path: /method/photos.getWallUploadServer
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Hostname: api.vk.com:443
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] Method: GET
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] URL: https://api.vk.com/method/photos.getWallUploadServer?group_id=234852555&access_token=vk1.a.z7-ETeLSZI6ATpdpLgeAcY85IESByl8AOyOgYLLzpnRYgDZ6oi59rZCVGtIU46oq_H3OBFSGQhfKD9NaibHLQgAyz3C9WWIHDaKWmTxmHQYtj2cB6PdlF7FJKdz_G64Nj2Z5tQXqyZqgt-9ZXPLSdHtmmoub0ac2ceY11eLIUOPvUbLhDmmxXwg7N8nkcVlHJmopIBmBcf-59ca_5TauRg&v=5.131
+
+28 дек. 15:54:52.018
+[HTTPS-362af158] ========== HTTPS REQUEST START ==========
+
+28 дек. 15:54:52.018
+[VK-AUTO-POST-YANDEX] Image generated, size: 233824 bytes
+
+28 дек. 15:54:52.017
+[YANDEX-ART] Image generation completed!
+
+28 дек. 15:54:52.017
+[HTTPS-a6ddcb57] ========== REQUEST SUCCESS ==========
+
+28 дек. 15:54:52.017
+[HTTPS-a6ddcb57] Total response size: 311962 bytes
+
+28 дек. 15:54:52.017
+[HTTPS-a6ddcb57] ✨ Response ended after 227ms
+
+28 дек. 15:54:52.016
+[HTTPS-a6ddcb57] 📥 Data chunk: 666 bytes (total: 311962)
+
+28 дек. 15:54:52.016
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 311296)
+
+28 дек. 15:54:52.012
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 294912)
+
+28 дек. 15:54:52.012
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 278528)
+
+28 дек. 15:54:52.012
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 262144)
+
+28 дек. 15:54:52.012
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 245760)
+
+28 дек. 15:54:52.012
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 229376)
+
+28 дек. 15:54:52.011
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 212992)
+
+28 дек. 15:54:52.011
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 196608)
+
+28 дек. 15:54:52.011
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 180224)
+
+28 дек. 15:54:52.011
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 163840)
+
+28 дек. 15:54:52.005
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 147456)
+
+28 дек. 15:54:52.005
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 131072)
+
+28 дек. 15:54:52.005
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 114688)
+
+28 дек. 15:54:52.000
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 98304)
+
+28 дек. 15:54:51.999
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 81920)
+
+28 дек. 15:54:51.999
+[HTTPS-a6ddcb57] 📥 Data chunk: 232 bytes (total: 65536)
+
+28 дек. 15:54:51.999
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 65304)
+
+28 дек. 15:54:51.999
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 48920)
+
+28 дек. 15:54:51.994
+[HTTPS-a6ddcb57] 📥 Data chunk: 16384 bytes (total: 32536)
+
+28 дек. 15:54:51.994
+[HTTPS-a6ddcb57] 📥 Data chunk: 16152 bytes (total: 16152)
+
+28 дек. 15:54:51.994
+[HTTPS-a6ddcb57] 📦 First byte received after 205ms
+
+28 дек. 15:54:51.994
+[HTTPS-a6ddcb57] Response headers: content-type=application/json, content-length=311962
+
+28 дек. 15:54:51.993
+[HTTPS-a6ddcb57] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 15:54:51.993
+[HTTPS-a6ddcb57] Status code: 200
+
+28 дек. 15:54:51.993
+[HTTPS-a6ddcb57] ✅ Response callback triggered after 204ms
