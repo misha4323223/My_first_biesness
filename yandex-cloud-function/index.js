@@ -47,9 +47,13 @@ function getYandexAuthHeader() {
         throw new Error('YC_API_KEY not configured');
     }
     
-    // Yandex Cloud API requires "Api-Key <key>" for API keys
-    const authHeader = `Api-Key ${apiKey.trim()}`;
-    console.log(`[YANDEX-AUTH] Using API Key (length: ${apiKey.trim().length} chars, starts with: ${apiKey.trim().substring(0, 5)}...)`);
+    // Yandex Cloud API strictly requires "Api-Key <key>" for API keys.
+    // Ensure no leading/trailing spaces in the key.
+    const cleanApiKey = apiKey.trim();
+    const authHeader = `Api-Key ${cleanApiKey}`;
+    
+    // Log minimal info for security, but enough to verify format
+    console.log(`[YANDEX-AUTH] Using Api-Key (length: ${cleanApiKey.length}, prefix: ${cleanApiKey.substring(0, 5)}...)`);
     return authHeader;
 }
 
@@ -674,17 +678,21 @@ async function callYandexGPT(prompt, modelName = 'yandexgpt') {
             'Authorization': getYandexAuthHeader()
         },
         body: JSON.stringify({
-            modelUri: `gpt://${folderId}/${modelName}`,
+            modelUri: `gpt://${folderId}/${modelName}/latest`,
             completionOptions: {
                 stream: false,
-                temperature: 0.7,
+                temperature: 0.6,
                 maxTokens: '2000'
             },
-            messages: [{ role: 'user', text: prompt }]
+            messages: [
+                { role: 'system', text: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.' },
+                { role: 'user', text: prompt }
+            ]
         })
     });
 
     if (response.statusCode !== 200) {
+        console.error(`[YANDEX-GPT] API Error: ${response.statusCode}`, response.data);
         throw new Error(`Yandex GPT error: ${response.statusCode}`);
     }
 
@@ -3642,20 +3650,18 @@ async function handleYandexChat(body, headers) {
 
         console.log(`[YANDEX-CHAT-${handlerId}] Sending to Yandex AI with ${limitedHistory.length} history messages`);
 
-        // Collecting all messages for the request
-        const systemPrompt = 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.';
+        const systemPrompt = 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях. Отвечай кратко и профессионально.';
         
-        // COLLECTING AND LOGGING THE PAYLOAD FOR DEBUGGING
         const allMessages = [
             { role: 'system', text: systemPrompt },
             ...limitedHistory,
             { role: 'user', text: message }
         ];
 
-        const modelUri = `gpt://${folderId}/yandexgpt`;
+        const modelUri = `gpt://${folderId}/yandexgpt/latest`;
         const completionOptions = {
             stream: false,
-            temperature: 0.7,
+            temperature: 0.6,
             maxTokens: '2000'
         };
 
