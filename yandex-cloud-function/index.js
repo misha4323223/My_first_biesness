@@ -280,7 +280,8 @@ async function httpsRequest(urlString, options) {
         });
 
         if (options.body) {
-            const bodyPreview = options.body.substring(0, 100) + (options.body.length > 100 ? '...' : '');
+            const bodyStr = typeof options.body === 'string' ? options.body : JSON.stringify(options.body);
+            const bodyPreview = bodyStr.substring(0, 100) + (bodyStr.length > 100 ? '...' : '');
             console.log(`   [HTTPS-${requestId}] 📤 Writing body (${bodySize} bytes): ${bodyPreview}`);
             req.write(options.body);
             console.log(`   [HTTPS-${requestId}] Body written successfully`);
