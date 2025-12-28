@@ -1,0 +1,272 @@
+28 дек. 23:46:23.995
+REPORT RequestID: 0f6961ec-3056-4449-be75-5432457947e1 Duration: 15957.596 ms Billed Duration: 16000 ms Memory Size: 512 MB Max Memory Used: 188 MB Queuing Duration: 0.062 ms Function Init Duration: 823.535 ms CPU Usage: 0.391 %
+
+28 дек. 23:46:23.995
+END RequestID: 0f6961ec-3056-4449-be75-5432457947e1
+
+28 дек. 23:46:23.993
+[VK-AUTO-POST-YANDEX] Telegram not configured, skipping
+
+28 дек. 23:46:23.993
+[VK-AUTO-POST-YANDEX] DEBUG: tgChatId after trim: false type: undefined
+
+28 дек. 23:46:23.993
+[VK-AUTO-POST-YANDEX] DEBUG: tgBotToken after trim: true type: string
+
+28 дек. 23:46:23.993
+[VK-AUTO-POST-YANDEX] DEBUG: TELEGRAM_CHAT_ID exists: false length: 0
+
+28 дек. 23:46:23.992
+[VK-AUTO-POST-YANDEX] DEBUG: TELEGRAM_BOT_TOKEN exists: true length: 46
+
+28 дек. 23:46:23.992
+[VK-AUTO-POST-YANDEX] Posting to Telegram...
+
+28 дек. 23:46:23.992
+[VK-AUTO-POST-YANDEX] VK API Response: {"response":{"post_id":24}}
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] ========== REQUEST SUCCESS ==========
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] Total response size: 27 bytes
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] ✨ Response ended after 790ms
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] 📥 Data chunk: 27 bytes (total: 27)
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] 📦 First byte received after 790ms
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] Response headers: content-type=application/json; charset=utf-8, content-length=27
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] Status code: 200
+
+28 дек. 23:46:23.992
+[HTTPS-eeff89f9] ✅ Response callback triggered after 789ms
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] 🔌 Socket created, fd: unknown
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Waiting for response...
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] 🚀 Calling req.end()
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Body written successfully
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] 📤 Writing body (12707 bytes): owner_id=-234852555&from_group=1&message=%23%23%23+%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82%2C+%D0%B4%D0...
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Creating HTTPS request with timeout: 15000ms
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Setting main timeout: 12000ms
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Headers: Content-Type
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Request body size: 12707 bytes
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Path: /method/wall.post
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Hostname: api.vk.com:443
+
+28 дек. 23:46:23.203
+[HTTPS-eeff89f9] Method: POST
+
+28 дек. 23:46:23.202
+[HTTPS-eeff89f9] URL: https://api.vk.com/method/wall.post
+
+28 дек. 23:46:23.202
+[HTTPS-eeff89f9] ========== HTTPS REQUEST START ==========
+
+28 дек. 23:46:23.202
+[VK-AUTO-POST-YANDEX] Photo uploaded, ID: photo150872370_457250061
+
+28 дек. 23:46:23.202
+[VK-UPLOAD] Photo saved successfully: photo150872370_457250061
+
+28 дек. 23:46:23.202
+[VK-UPLOAD] Save response: {"response":[{"album_id":-14,"date":1766954783,"id":457250061,"owner_id":150872370,"access_key":"6fc96348cf8d83d29f","sizes":[{"height":72,"type":"s","width":72,"url":"https://sun9-20.userapi.com/s/v1
+
+28 дек. 23:46:23.202
+[HTTPS-b48932fe] ========== REQUEST SUCCESS ==========
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] Total response size: 3249 bytes
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] ✨ Response ended after 69ms
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] 📥 Data chunk: 344 bytes (total: 3249)
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] 📥 Data chunk: 1279 bytes (total: 2905)
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] 📥 Data chunk: 1279 bytes (total: 1626)
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] 📥 Data chunk: 347 bytes (total: 347)
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] 📦 First byte received after 69ms
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] Response headers: content-type=application/json; charset=utf-8, content-length=3249
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 23:46:23.201
+[HTTPS-b48932fe] Status code: 200
+
+28 дек. 23:46:23.200
+[HTTPS-b48932fe] ✅ Response callback triggered after 67ms
+
+28 дек. 23:46:23.133
+[HTTPS-b48932fe] 🔌 Socket created, fd: unknown
+
+28 дек. 23:46:23.133
+[HTTPS-b48932fe] Waiting for response...
+
+28 дек. 23:46:23.133
+[HTTPS-b48932fe] 🚀 Calling req.end()
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Creating HTTPS request with timeout: 15000ms
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Setting main timeout: 12000ms
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Headers:
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Request body size: 0 bytes
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Path: /method/photos.saveWallPhoto
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Hostname: api.vk.com:443
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] Method: POST
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] URL: https://api.vk.com/method/photos.saveWallPhoto?group_id=234852555&photo=[{"markers_restarted":true,"photo":"6a4f72766e:z","sizes":[],"latitude":0,"longitude":0,"kid":"883bdf90208f8047cb7fbd394cb1d47e","sizes2":[["s","549b262aa84e1622ff687a37a470ca127212e0f76f0dfab0cc3b3fde","2244550602082530434",75,75],["m","6983f2a8058fd5acc58b19f6e161c0d2d10f2a5cac57e5924fbd3c87","-5916449999461582664",130,130],["x","5b8a193c8939fd13d2a85643906a2b4bd26f4d1af5e765de12636b8c","4682744375242536758",604,604],["y","3700980e3aed6b166b46d6fa79099f4271b3d496e715eb7ce5409993","-2576927947264890424",807,807],["z","41588d9a67b9367b0a64696c2ee1d2595ee0bb88cde1aaab299f961d","-6835193310495614931",1024,1024],["o","6983f2a8058fd5acc58b19f6e161c0d2d10f2a5cac57e5924fbd3c87","-5291339166346469258",130,130],["p","b2cb9397334f40c037873bc2d5319c7605fe394199996fd9764678ff","-3440440403553048023",200,200],["q","d16207546c50f50c0d1cda17108b8719faa7b56a921b72372d07fe78","-4758491351604554986",320,320],["r","6ec3f7d35a68d73f60a379cc35a918b1da5adab3dd7d528a25c0a588","-8633892955479669640",510,510]],"urls":[],"urls2":["VJsmKqhOFiL_aHo3pHDKEnIS4PdvDfqwzDs_3g/grSEZeE-Jh8.jpg","aYPyqAWP1azFixn24WHA0tEPKlysV-WST708hw/uHi7ehKM5K0.jpg","W4oZPIk5_RPSqFZDkGorS9JvTRr152XeEmNrjA/NjdK9DJz_EA.jpg","NwCYDjrtaxZrRtb6eQmfQnGz1JbnFet85UCZkw/yOl_Y6_pPNw.jpg","QViNmme5NnsKZGlsLuHSWV7gu4jN4aqrKZ-WHQ/LVjIBOaDJKE.jpg","aYPyqAWP1azFixn24WHA0tEPKlysV-WST708hw/dqDOGxBjkbY.jpg","ssuTlzNPQMA3hzvC1TGcdgX-OUGZmW_ZdkZ4_w/KapRY64ZQdA.jpg","0WIHVGxQ9QwNHNoXEIuHGfqntWqSG3I3LQf-eA/FpPXyFNx9r0.jpg","bsP301po1z9go3nMNakYsdpa2rPdfVKKJcCliA/eATj7xlALog.jpg"]}]&server=906128&hash=c2b15bf7fd63652ba1352148f8e89d4d&access_token=vk1.a.uUXlHorqoyAQ6b9DEnUyThZcYd44sLttd2MyUlk10B5l0UWi6NLi9yGiD8DzbG9NZadOj5IGwSXZPiH8TgQdIewMrmqDwG4zTGI-kk6aA8q59KlObOdnSlNLwk_IZCc2ztBZYDDaguqwpcf0tAzgfuJlPcYlyOw2jzXlzO8l7nfoQ2nWeUyYOj9knMUs7uSfMusW1XBVwh7nTvczuOSWlQ&v=5.131
+
+28 дек. 23:46:23.132
+[HTTPS-b48932fe] ========== HTTPS REQUEST START ==========
+
+28 дек. 23:46:23.132
+[VK-UPLOAD] Upload response: {"server":906128,"photo":"[{\"markers_restarted\":true,\"photo\":\"6a4f72766e:z\",\"sizes\":[],\"latitude\":0,\"longitude\":0,\"kid\":\"883bdf90208f8047cb7fbd394cb1d47e\",\"sizes2\":[[\"s\",\"549b262a
+
+28 дек. 23:46:23.132
+[HTTPS-bcad5e0a] ========== REQUEST SUCCESS ==========
+
+28 дек. 23:46:23.132
+[HTTPS-bcad5e0a] Total response size: 1700 bytes
+
+28 дек. 23:46:23.132
+[HTTPS-bcad5e0a] ✨ Response ended after 819ms
+
+28 дек. 23:46:23.132
+[HTTPS-bcad5e0a] 📥 Data chunk: 1700 bytes (total: 1700)
+
+28 дек. 23:46:23.132
+[HTTPS-bcad5e0a] 📦 First byte received after 819ms
+
+28 дек. 23:46:23.131
+[HTTPS-bcad5e0a] Response headers: content-type=application/json; charset=utf-8, content-length=1700
+
+28 дек. 23:46:23.131
+[HTTPS-bcad5e0a] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 23:46:23.131
+[HTTPS-bcad5e0a] Status code: 200
+
+28 дек. 23:46:23.131
+[HTTPS-bcad5e0a] ✅ Response callback triggered after 819ms
+
+28 дек. 23:46:22.396
+[HTTPS-bcad5e0a] 🔒 TLS handshake complete after 83ms
+
+28 дек. 23:46:22.372
+[HTTPS-bcad5e0a] 🌐 TCP connected after 59ms
+
+28 дек. 23:46:22.353
+[HTTPS-bcad5e0a] 🔍 DNS lookup started
+
+28 дек. 23:46:22.353
+[HTTPS-bcad5e0a] 🔍 DNS lookup started
+
+28 дек. 23:46:22.353
+[HTTPS-bcad5e0a] 🔍 DNS lookup started
+
+28 дек. 23:46:22.353
+[HTTPS-bcad5e0a] 🔍 DNS lookup started
+
+28 дек. 23:46:22.353
+[HTTPS-bcad5e0a] 🔍 DNS lookup started
+
+28 дек. 23:46:22.353
+[HTTPS-bcad5e0a] 🔌 Socket created, fd: unknown
+
+28 дек. 23:46:22.352
+[HTTPS-bcad5e0a] Waiting for response...
+
+28 дек. 23:46:22.352
+[HTTPS-bcad5e0a] 🚀 Calling req.end()
+
+28 дек. 23:46:22.352
+[HTTPS-bcad5e0a] Body written successfully
+
+28 дек. 23:46:22.352
+[HTTPS-bcad5e0a] 📤 Writing body (720710 bytes): {"type":"Buffer","data":[45,45,45,45,45,45,87,101,98,75,105,116,70,111,114,109,66,111,117,110,100,97...
+
+28 дек. 23:46:22.313
+[HTTPS-bcad5e0a] Creating HTTPS request with timeout: 30000ms
+
+28 дек. 23:46:22.313
+[HTTPS-bcad5e0a] Setting main timeout: 30000ms
+
+28 дек. 23:46:22.313
+[HTTPS-bcad5e0a] Request type: UPLOAD, timeouts: 30000ms (main), 30000ms (socket)
+
+28 дек. 23:46:22.313
+[HTTPS-bcad5e0a] Headers: Content-Type
+
+28 дек. 23:46:22.313
+[HTTPS-bcad5e0a] Request body size: 720710 bytes
+
+28 дек. 23:46:22.313
+[HTTPS-bcad5e0a] Path: /c906128/ss2312/upload.php
+
+28 дек. 23:46:22.312
+[HTTPS-bcad5e0a] Hostname: pu.vk.com:443
+
+28 дек. 23:46:22.312
+[HTTPS-bcad5e0a] Method: POST

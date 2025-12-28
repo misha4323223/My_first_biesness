@@ -692,8 +692,10 @@ async function handleVkAutoPostYandex(headers) {
         // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ
         try {
             console.log('[VK-AUTO-POST-YANDEX] Posting to Telegram...');
-            const tgBotToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
-            const tgChatId = process.env.TELEGRAM_CHAT_ID?.trim();
+            const tgBotToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+            const tgChatId = (process.env.TELEGRAM_CHAT_ID || '').trim();
+
+            console.log(`[VK-AUTO-POST-YANDEX] DEBUG: Token length: ${tgBotToken.length}, Chat ID length: ${tgChatId.length}`);
 
             if (tgBotToken && tgChatId) {
                 console.log('[VK-AUTO-POST-YANDEX] Sending photo to Telegram using FormData');
