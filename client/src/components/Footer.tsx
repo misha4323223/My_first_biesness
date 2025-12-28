@@ -60,13 +60,15 @@ export function Footer() {
                 <SiTelegram className="w-5 h-5" />
               </Button>
             </a>
-            <Button
-              variant="ghost"
-              size="icon"
-              data-testid="button-footer-vk"
-            >
-              <SiVk className="w-5 h-5" />
-            </Button>
+            <a href="https://vk.com/mp.webstudio" target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="ghost"
+                size="icon"
+                data-testid="button-footer-vk"
+              >
+                <SiVk className="w-5 h-5" />
+              </Button>
+            </a>
           </div>
         </div>
 
