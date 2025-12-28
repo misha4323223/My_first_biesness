@@ -527,7 +527,7 @@ async function handleVkAutoPostYandex(headers) {
         // 1. Генерируем ТЕКСТ отдельно
         const textPrompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами.";
         console.log('[VK-AUTO-POST-YANDEX] Generating text...');
-        const textResponse = await callYandexGPT(textPrompt, 'yandexgpt');
+        const textResponse = await callYandexGPT(textPrompt, 'yandexgpt-lite');
         const postText = textResponse.content;
         console.log('[VK-AUTO-POST-YANDEX] Text generated:', postText.substring(0, 100) + '...');
 
