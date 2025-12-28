@@ -3673,7 +3673,8 @@ async function handleYandexChat(body, headers) {
         console.log(`[YANDEX-CHAT-${handlerId}] Request details:`, JSON.stringify({
             modelUri,
             completionOptions,
-            messageCount: allMessages.length
+            messageCount: allMessages.length,
+            folderId: folderId // Added for debugging 403
         }));
 
         // Sending request to Yandex AI
@@ -3700,13 +3701,14 @@ async function handleYandexChat(body, headers) {
         const elapsed = Math.round((Date.now() - startTime) / 1000);
         
         if (response.statusCode !== 200) {
-            console.error(`[YANDEX-CHAT-${handlerId}] API Error: ${response.statusCode}`);
+            console.error(`[YANDEX-CHAT-${handlerId}] API Error: ${response.statusCode}`, response.data);
             return {
-                statusCode: 500,
+                statusCode: 200, // Still return 200 to show friendly error in widget
                 headers,
                 body: JSON.stringify({
                     success: false,
-                    response: 'Помощник сейчас перегружен. Пожалуйста, попробуйте еще раз или напишите нам в VK и Telegram.',
+                    response: `Ошибка API Yandex (${response.statusCode}). Проверьте права доступа (role: ai.languageModels.user) для сервисного аккаунта в каталоге.`,
+                    details: response.data
                 }),
             };
         }
