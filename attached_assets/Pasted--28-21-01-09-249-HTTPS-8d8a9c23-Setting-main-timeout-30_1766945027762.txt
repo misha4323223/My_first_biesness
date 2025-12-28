@@ -1,0 +1,301 @@
+
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Setting main timeout: 30000ms
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Request type: UPLOAD, timeouts: 30000ms (main), 30000ms (socket)
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Headers: Content-Type
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Request body size: 1552520 bytes
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Path: /c922528/ss2353/upload.php
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Hostname: pu.vk.com:443
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] Method: POST
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] URL: https://pu.vk.com/c922528/ss2353/upload.php?act=do_add&mid=150872370&aid=-14&gid=234852555&hash=5a70d462b85a26ded58fb83c2995b9ba&rhash=2c8420d5a58edd480403afd50bb6b71e&swfupload=1&api=1&wallphoto=1
+
+28 дек. 21:01:09.249
+[HTTPS-8d8a9c23] ========== HTTPS REQUEST START ==========
+
+28 дек. 21:01:09.249
+[VK-UPLOAD] Total multipart body size: 1552520 bytes
+
+28 дек. 21:01:09.249
+[VK-UPLOAD] Image buffer size: 1552297 bytes
+
+28 дек. 21:01:09.249
+[VK-UPLOAD] Got upload URL
+
+28 дек. 21:01:09.249
+[VK-UPLOAD] Server response: {"response":{"album_id":-14,"upload_url":"https://pu.vk.com/c922528/ss2353/upload.php?act=do_add&mid=150872370&aid=-14&gid=234852555&hash=5a70d462b85a26ded58fb83c2995b9ba&rhash=2c8420d5a58edd480403afd
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] ========== REQUEST SUCCESS ==========
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] Total response size: 267 bytes
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] ✨ Response ended after 102ms
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] 📥 Data chunk: 267 bytes (total: 267)
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] 📦 First byte received after 102ms
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] Response headers: content-type=application/json; charset=utf-8, content-length=267
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] Status code: 200
+
+28 дек. 21:01:09.248
+[HTTPS-ddee3e53] ✅ Response callback triggered after 102ms
+
+28 дек. 21:01:09.188
+[HTTPS-ddee3e53] 🔒 TLS handshake complete after 42ms
+
+28 дек. 21:01:09.167
+[HTTPS-ddee3e53] 🌐 TCP connected after 21ms
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.149
+[HTTPS-ddee3e53] 🔍 DNS lookup started
+
+28 дек. 21:01:09.147
+[HTTPS-ddee3e53] 🔌 Socket created, fd: unknown
+
+28 дек. 21:01:09.147
+[HTTPS-ddee3e53] Waiting for response...
+
+28 дек. 21:01:09.147
+[HTTPS-ddee3e53] 🚀 Calling req.end()
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Creating HTTPS request with timeout: 15000ms
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Setting main timeout: 12000ms
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Headers:
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Request body size: 0 bytes
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Path: /method/photos.getWallUploadServer
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Hostname: api.vk.com:443
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] Method: GET
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] URL: https://api.vk.com/method/photos.getWallUploadServer?group_id=234852555&access_token=vk1.a.uUXlHorqoyAQ6b9DEnUyThZcYd44sLttd2MyUlk10B5l0UWi6NLi9yGiD8DzbG9NZadOj5IGwSXZPiH8TgQdIewMrmqDwG4zTGI-kk6aA8q59KlObOdnSlNLwk_IZCc2ztBZYDDaguqwpcf0tAzgfuJlPcYlyOw2jzXlzO8l7nfoQ2nWeUyYOj9knMUs7uSfMusW1XBVwh7nTvczuOSWlQ&v=5.131
+
+28 дек. 21:01:09.146
+[HTTPS-ddee3e53] ========== HTTPS REQUEST START ==========
+
+28 дек. 21:01:09.146
+[VK-AUTO-POST-YANDEX] Image generated, size: 1552297 bytes
+
+28 дек. 21:01:09.144
+[YANDEX-ART] Image generation completed!
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] ========== REQUEST SUCCESS ==========
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] Total response size: 2069926 bytes
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] ✨ Response ended after 364ms
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 5542 bytes (total: 2069926)
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 2064384)
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 2048000)
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 2031616)
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 2015232)
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1998848)
+
+28 дек. 21:01:09.141
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1982464)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1966080)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1949696)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1933312)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1916928)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1900544)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1884160)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1867776)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1851392)
+
+28 дек. 21:01:09.140
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1835008)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1818624)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1802240)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1785856)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1769472)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1753088)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1736704)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1720320)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1703936)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1687552)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1671168)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1654784)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1638400)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1622016)
+
+28 дек. 21:01:09.139
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1605632)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1589248)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1572864)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1556480)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1540096)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1523712)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1507328)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1490944)
+
+28 дек. 21:01:09.138
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1474560)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1458176)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1441792)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1425408)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1409024)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1392640)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1376256)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1359872)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1343488)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1327104)
+
+28 дек. 21:01:09.137
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1310720)
+
+28 дек. 21:01:09.136
+[HTTPS-bc7b1002] 📥 Data chunk: 16384 bytes (total: 1294336)
