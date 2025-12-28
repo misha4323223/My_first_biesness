@@ -39,58 +39,8 @@ const protoLoader = require('@grpc/proto-loader');
 
 const SITE_URL = process.env.SITE_URL || 'https://www.mp-webstudio.ru';
 
-// ============ System Prompt from Sber Studio ============
-const SYSTEM_PROMPT = `Ты AI-ассистент веб-студии MP.WebStudio. Отвечай профессионально, вежливо и кратко на русском языке.
-
-О КОМПАНИИ:
-MP.WebStudio — веб-студия, где человеческое мастерство встречается с современными технологиями. Мы создаём сайты, которые работают и приносят результат.
-Контакты: +7 (953) 181-41-36 | mpwebstudio1@gmail.com | https://mp-webstudio.ru
-
-НАШИ УСЛУГИ:
-1. Сайт-визитка (от 45 000₽) - одностраничный сайт для компании/специалиста
-2. Лендинг (от 75 000₽) - целевая продающая страница для конверсии
-3. Корпоративный сайт (от 140 000₽) - многостраничный портал компании
-4. Интернет-магазин (от 200 000₽) - полный e-commerce с платежами и управлением
-
-ПРОЦЕСС РАЗРАБОТКИ:
-1. Консультация - изучаем бизнес, цели и конкурентов
-2. Дизайн и структура - согласуем макеты с клиентом
-3. Разработка и тестирование - разрабатываем и тестируем на всех устройствах
-4. Запуск и поддержка - запуск на домене, настройка SSL, 14 дней гарантийной поддержки
-
-СРОКИ:
-- Сайт-визитка: 1-2 недели
-- Лендинг: 2-3 недели
-- Корпоративный сайт: 3-4 недели
-- Интернет-магазин: 4-6 недель
-
-ОПЛАТА:
-- 50% предоплаты перед началом
-- 50% перед запуском
-- Возможны счёта для юридических лиц
-
-ТЕХНОЛОГИИ:
-React, TypeScript, Node.js, PostgreSQL, Tailwind CSS, Yandex Cloud, Robokassa, Telegram интеграция
-
-ОТВЕТЫ НА ЧАСТЫЕ ВОПРОСЫ:
-- Разница между услугами: лендинг (продажи одного товара), корп.сайт (информация о компании), магазин (каталог товаров)
-- Поддержка после запуска: исправление ошибок 14 дней, дальше от 5000₽/месяц
-- Домен и хостинг: помогаем выбрать, переносим DNS, настраиваем SSL
-- Дополнительные функции: платежи, аналитика, CRM, SMS уведомления, многоязычность, чат-бот и другое
-
-ВАЖНО:
-- Если вопрос не по теме услуг - вежливо перенаправь к основным услугам
-- Никогда не указывай цены дешевле, чем указано выше
-- Предлагай калькулятор стоимости на сайте для точной оценки
-- Для подробной консультации давай контакты: +7 (953) 181-41-36`;
-
 // YDB Driver (инициализируется один раз)
 let ydbDriver = null;
-
-let gigaChatTokenCache = {
-    token: null,
-    expiresAt: 0
-};
 
 async function getYdbDriver() {
     if (!ydbDriver) {
@@ -129,9 +79,9 @@ async function httpsRequest(urlString, options) {
         console.log(`   [HTTPS-${requestId}] Request body size: ${bodySize} bytes`);
         console.log(`   [HTTPS-${requestId}] Headers: ${Object.keys(options.headers).join(', ')}`);
 
-        // Timeout увеличен до 90 сек для стабильного GigaChat API
-        const TIMEOUT_MS = 110000;
-        const SOCKET_TIMEOUT_MS = 115000;
+        // Timeout оптимизирован для Yandex Cloud (~30 сек лимит функции)
+        const TIMEOUT_MS = 12000;  // 12 сек для полного HTTP запроса
+        const SOCKET_TIMEOUT_MS = 15000;  // 15 сек для сокета
 
         let socketTimeoutId = null;
         let requestTimeoutId = null;
@@ -175,6 +125,8 @@ async function httpsRequest(urlString, options) {
             rejectUnauthorized: false,
             timeout: SOCKET_TIMEOUT_MS,
             connectTimeout: 15000,
+            keepAlive: true,
+            keepAliveMsecs: 1000,
         };
 
         // Убедимся что Content-Length установлен если есть body
@@ -244,6 +196,11 @@ async function httpsRequest(urlString, options) {
         req.on('socket', (socket) => {
             console.log(`   [HTTPS-${requestId}] 🔌 Socket created, fd: ${socket.fd || 'unknown'}`);
 
+            // Убедимся что socket не закроется преждевременно
+            socket.setKeepAlive(true, 5000);  // Keep-alive каждые 5 сек
+            socket.setNoDelay(true);           // Отключить Nagle для быстрой отправки
+            socket.setTimeout(SOCKET_TIMEOUT_MS);  // Socket timeout
+
             socket.on('lookup', () => {
                 console.log(`   [HTTPS-${requestId}] 🔍 DNS lookup started`);
             });
@@ -256,10 +213,18 @@ async function httpsRequest(urlString, options) {
             socket.on('secureConnect', () => {
                 tlsConnected = true;
                 console.log(`   [HTTPS-${requestId}] 🔒 TLS handshake complete after ${elapsedMs()}ms`);
+                // Reset timeout after TLS handshake
+                socket.setTimeout(SOCKET_TIMEOUT_MS);
             });
 
             socket.on('close', (hadError) => {
                 console.log(`   [HTTPS-${requestId}] ❌ Socket closed (hadError: ${hadError}) after ${elapsed()}ms`);
+            });
+
+            socket.on('timeout', () => {
+                console.error(`   [HTTPS-${requestId}] ❌ SOCKET TIMEOUT after ${elapsed()}ms - destroying request`);
+                socket.destroy();
+                req.destroy();
             });
 
             socket.on('error', (err) => {
@@ -484,7 +449,7 @@ module.exports.handler = async function (event, context) {
 
         // VK Automation Trigger
         if (action === 'vk-auto-post' && method === 'POST') {
-            return await handleVkAutoPost(headers);
+            return await handleVkAutoPostYandex(headers);
         }
 
         if (action === 'health' || path.includes('/health') || method === 'GET') {
@@ -517,80 +482,57 @@ module.exports.handler = async function (event, context) {
 
 // ============ Telegram Bot Webhook ============
 
-async function getGigaChatToken() {
-    const now = Date.now();
-
-    if (gigaChatTokenCache.token && gigaChatTokenCache.expiresAt > now) {
-        console.log('✅ Using cached GigaChat token (saves ~400ms)');
-        return gigaChatTokenCache.token;
-    }
-
-    const gigachatKey = process.env.GIGACHAT_KEY;
-    const gigachatScope = process.env.GIGACHAT_SCOPE || 'GIGACHAT_API_PERS';
-
-    const authResponse = await httpsRequest('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json',
-            'Authorization': `Basic ${gigachatKey}`,
-            'RqUID': crypto.randomUUID(),
-        },
-        body: `scope=${encodeURIComponent(gigachatScope)}`,
-    });
-
-    const authData = JSON.parse(authResponse.data);
-    const expiresIn = authData.expires_in || 1800;
-
-    gigaChatTokenCache = {
-        token: authData.access_token,
-        expiresAt: now + (expiresIn - 60) * 1000
-    };
-
-    return authData.access_token;
-}
-
-async function handleVkAutoPost(headers) {
+async function handleVkAutoPostYandex(headers) {
     try {
-        console.log('[VK-AUTO-POST] Starting automation with GigaChat MAX');
+        console.log('[VK-AUTO-POST-YANDEX] Starting automation with Yandex AI');
         const vkToken = process.env.VK_ACCESS_TOKEN;
         const groupId = process.env.VK_GROUP_ID;
+        const apiKey = process.env.YC_API_KEY;
+        const folderId = process.env.YC_FOLDER_ID;
 
         if (!vkToken || !groupId) {
             throw new Error('VK_ACCESS_TOKEN or VK_GROUP_ID not configured');
         }
 
-        // 1. Генерируем текст и изображение через GigaChat MAX
-        const prompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами. ТАКЖЕ СГЕНЕРИРУЙ ИЗОБРАЖЕНИЕ ДЛЯ ЭТОГО ПОСТА. ВАЖНО: Ты ДОЛЖЕН создать изображение с помощью функции генерации изображений. На изображении должен быть современный стильный офис веб-студии будущего.";
-        const aiResponse = await callGigaChat(prompt, 'GigaChat-Max');
-        
-        let attachment = '';
-        
-        // Проверяем наличие изображения в ответе
-        if (aiResponse.image_id) {
-            console.log('[VK-AUTO-POST] Image generated:', aiResponse.image_id);
-            const imageData = await getGigaChatFile(aiResponse.image_id);
-            if (imageData) {
-                const photoId = await uploadPhotoToVk(vkToken, groupId, imageData);
-                if (photoId) {
-                    attachment = `&attachment=${photoId}`;
-                }
-            }
+        if (!apiKey || !folderId) {
+            throw new Error('YC_API_KEY or YC_FOLDER_ID not configured');
         }
 
-        // 2. Публикуем в ВК
-        const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(aiResponse.content)}&access_token=${vkToken}&v=5.131${attachment}`;
+        // 1. Генерируем ТЕКСТ отдельно
+        const textPrompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами.";
+        console.log('[VK-AUTO-POST-YANDEX] Generating text...');
+        const textResponse = await callYandexGPT(textPrompt, 'yandexgpt');
+        const postText = textResponse.content;
+        console.log('[VK-AUTO-POST-YANDEX] Text generated:', postText.substring(0, 100) + '...');
+
+        // 2. Генерируем КАРТИНКУ отдельно (асинхронно!)
+        const imagePrompt = "Логотип IT-компании, минимализм, современный дизайн, синий и белый цвета, корпоративный стиль";
+        console.log('[VK-AUTO-POST-YANDEX] Generating image...');
+        const imageBuffer = await generateYandexImage(imagePrompt);
+        console.log('[VK-AUTO-POST-YANDEX] Image generated, size:', imageBuffer.length, 'bytes');
+
+        // 3. Загружаем картинку в ВК
+        const photoId = await uploadPhotoToVk(vkToken, groupId, imageBuffer);
+        if (!photoId) {
+            throw new Error('Failed to upload photo to VK');
+        }
+
+        console.log('[VK-AUTO-POST-YANDEX] Photo uploaded, ID:', photoId);
+
+        // 4. Публикуем пост в ВК
+        const attachment = `&attachment=${photoId}`;
+        const vkUrl = `https://api.vk.com/method/wall.post?owner_id=-${groupId}&from_group=1&message=${encodeURIComponent(postText)}&access_token=${vkToken}&v=5.131${attachment}`;
         const vkResult = await httpsRequest(vkUrl, { method: 'POST', headers: {} });
-        
-        console.log('[VK-AUTO-POST] VK API Response:', vkResult.data);
+
+        console.log('[VK-AUTO-POST-YANDEX] VK API Response:', vkResult.data.substring(0, 200));
 
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ success: true, message: 'Post published', vkResponse: JSON.parse(vkResult.data) })
+            body: JSON.stringify({ success: true, message: 'Post published with Yandex AI', vkResponse: JSON.parse(vkResult.data) })
         };
     } catch (error) {
-        console.error('[VK-AUTO-POST] Error:', error.message);
+        console.error('[VK-AUTO-POST-YANDEX] Error:', error.message);
         return {
             statusCode: 500,
             headers,
@@ -599,20 +541,72 @@ async function handleVkAutoPost(headers) {
     }
 }
 
-async function getGigaChatFile(fileId) {
-    try {
-        const token = await getGigaChatToken();
-        const response = await httpsRequest(`https://gigachat.devices.sberbank.ru/api/v1/files/${fileId}/content`, {
+async function generateYandexImage(prompt) {
+    const apiKey = process.env.YC_API_KEY;
+    const folderId = process.env.YC_FOLDER_ID;
+
+    if (!apiKey || !folderId) {
+        throw new Error('YC_API_KEY or YC_FOLDER_ID not configured');
+    }
+
+    console.log('[YANDEX-ART] Starting image generation...');
+
+    // ШАГ 1: Запустить асинхронную генерацию
+    const startResponse = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/imageGenerationAsync', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Api-Key ${apiKey}`
+        },
+        body: JSON.stringify({
+            modelUri: `art://${folderId}/yandex-art/latest`,
+            generationOptions: {
+                seed: Math.floor(Math.random() * 10000),
+                aspectRatio: { widthRatio: '1', heightRatio: '1' }
+            },
+            messages: [{ weight: '1', text: prompt }]
+        })
+    });
+
+    if (startResponse.statusCode !== 200) {
+        throw new Error(`Image generation request failed: ${startResponse.statusCode}`);
+    }
+
+    const operationId = JSON.parse(startResponse.data).id;
+    console.log('[YANDEX-ART] Operation ID:', operationId);
+
+    // ШАГ 2: Polling для получения результата
+    return await pollYandexImageStatus(operationId, apiKey);
+}
+
+async function pollYandexImageStatus(operationId, apiKey, maxAttempts = 60) {
+    console.log('[YANDEX-ART] Polling image generation status...');
+
+    for (let i = 0; i < maxAttempts; i++) {
+        const statusResponse = await httpsRequest(`https://operation.api.cloud.yandex.net/operations/${operationId}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Api-Key ${apiKey}`
             }
         });
-        return response.data; // Бинарные данные изображения
-    } catch (e) {
-        console.error('[GIGACHAT] File download error:', e.message);
-        return null;
+
+        if (statusResponse.statusCode !== 200) {
+            throw new Error(`Status check failed: ${statusResponse.statusCode}`);
+        }
+
+        const status = JSON.parse(statusResponse.data);
+
+        if (status.done) {
+            const imageBase64 = status.response.image;
+            console.log('[YANDEX-ART] Image generation completed!');
+            return Buffer.from(imageBase64, 'base64');
+        }
+
+        console.log(`[YANDEX-ART] Waiting... attempt ${i + 1}/${maxAttempts}`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
     }
+
+    throw new Error(`Image generation timeout after ${maxAttempts * 2}s`);
 }
 
 async function uploadPhotoToVk(token, groupId, imageData) {
@@ -653,38 +647,45 @@ async function uploadPhotoToVk(token, groupId, imageData) {
     }
 }
 
-async function callGigaChat(prompt, modelName = 'GigaChat') {
-    const token = await getGigaChatToken();
+async function callYandexGPT(prompt, modelName = 'yandexgpt') {
+    const apiKey = process.env.YC_API_KEY;
+    const folderId = process.env.YC_FOLDER_ID;
 
-    // Генерируем текст
-    const response = await httpsRequest('https://gigachat.devices.sberbank.ru/api/v1/chat/completions', {
+    if (!apiKey || !folderId) {
+        throw new Error('YC_API_KEY or YC_FOLDER_ID not configured');
+    }
+
+    console.log('[YANDEX-GPT] Sending request to Yandex AI...');
+
+    const response = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Api-Key ${apiKey}`
         },
         body: JSON.stringify({
-            model: modelName,
-            messages: [{ role: 'user', content: prompt }],
-            temperature: 0.7,
-            function_call: 'auto'
+            modelUri: `gpt://${folderId}/${modelName}`,
+            completionOptions: {
+                stream: false,
+                temperature: 0.7,
+                maxTokens: '2000'
+            },
+            messages: [{ role: 'user', text: prompt }]
         })
     });
-    const data = JSON.parse(response.data);
-    const content = data.choices[0].message.content;
-    
-    console.log('[GIGACHAT] Raw response content:', content);
-    
-    // Поиск image_id в контенте (GigaChat возвращает <img src="...">)
-    let image_id = null;
-    const imgMatch = content.match(/<img src="([^"]+)"/);
-    if (imgMatch) {
-        image_id = imgMatch[1];
+
+    if (response.statusCode !== 200) {
+        throw new Error(`Yandex GPT error: ${response.statusCode}`);
     }
 
+    const data = JSON.parse(response.data);
+    const content = data.result.alternatives[0].message.text;
+
+    console.log('[YANDEX-GPT] Response received, length:', content.length);
+
     return {
-        content: content.replace(/<img[^>]+>/g, '').trim(), // Убираем тег из текста
-        image_id
+        content: content,
+        tokens: data.result.usage.totalTokens
     };
 }
 
@@ -3666,175 +3667,6 @@ async function getGigaChatProto() {
     return gigachatProto;
 }
 
-// ============ Knowledge Base from Object Storage ============
-
-let cachedKB = null;
-let cacheTime = 0;
-const CACHE_TTL = 3600000; // 1 час
-
-// Pre-computed context strings (для быстрого доступа)
-let precomputedContexts = null;
-
-function buildPrecomputedContexts(kb) {
-    if (!kb) return null;
-    
-    const contexts = {
-        services: kb.services ? kb.services.map(s => `• ${s.name} (от ${s.price_from} руб): ${s.description}`).join('\n') : '',
-        technologies: kb.technologies ? Object.entries(kb.technologies).map(([key, values]) => `${key}: ${values.join(', ')}`).join('\n') : '',
-        process: kb.process ? kb.process.map(p => `${p.step}. ${p.name}: ${p.description}`).join('\n') : '',
-        portfolio: kb.portfolio ? kb.portfolio.map(p => `• ${p.name}: ${p.description} (Технологии: ${p.technologies.join(', ')})`).join('\n') : '',
-        pricing: kb.pricing ? Object.entries(kb.pricing).map(([key, val]) => `• ${val.name}: ${val.price}`).join('\n') : '',
-        faq: kb.faq ? kb.faq.map(f => `Q: ${f.question}\nA: ${f.answer}`).join('\n\n') : '',
-        company: kb.company ? `О компании ${kb.company.name}:\n${kb.company.description}` : ''
-    };
-    
-    return contexts;
-}
-
-// ============ Built-in Knowledge Base (Embedded) ============
-
-const EMBEDDED_KNOWLEDGE_BASE = {
-  "company": {
-    "name": "MP.WebStudio",
-    "description": "MP.WebStudio — современная веб-студия, специализирующаяся на разработке сайтов с использованием искусственного интеллекта и передового технологического стека. Мы создаем быстрые, адаптивные и конверсионные решения для бизнеса, отказываясь от шаблонных подходов в пользу индивидуальной разработки.",
-    "tagline": "Ваша идея + Наш опыт = Успешный результат",
-    "phone": "+7 (953) 181-41-36",
-    "email": "mpwebstudio1@gmail.com",
-    "website": "https://mp-webstudio.ru",
-    "executor": "Пимашин Михаил Игоревич (Самозанятый)",
-    "inn": "711612442203",
-    "address": "301766, Тульская обл., г. Донской, ул. Новая, 49"
-  },
-  "services": [
-    {
-      "name": "Сайт-визитка",
-      "description": "Компактный сайт для представления личности или компании. Включает адаптивный дизайн, 1 страницу, контакты, базовое SEO и хостинг.",
-      "price_from": "45000",
-      "includes": ["Адаптивный дизайн", "Одна страница", "Контактная информация", "SEO-основа", "Хостинг включён"]
-    },
-    {
-      "name": "Лендинг",
-      "description": "Одностраничный продающий сайт. Включает до 7 секций, формы связи, базовые анимации, аналитику и интеграцию мессенджеров.",
-      "price_from": "75000",
-      "includes": ["Адаптивный дизайн", "До 7 секций", "Форма обратной связи", "Базовые анимации", "SEO-основа", "Хостинг включён"]
-    },
-    {
-      "name": "Корпоративный сайт",
-      "description": "Многостраничный портал компании (до 10 страниц). Включает всё из лендинга, навигацию, блог/новости и карту контактов.",
-      "price_from": "140000",
-      "includes": ["До 10 страниц", "Навигация между страницами", "Единый шаблон дизайна", "Страница контактов с картой", "SEO-оптимизация", "Хостинг включён"]
-    },
-    {
-      "name": "Интернет-магазин",
-      "description": "Полнофункциональный e-commerce проект. Включает каталог, корзину, онлайн-оплату, интеграцию доставки, личные кабинеты и админ-панель.",
-      "price_from": "200000",
-      "includes": ["Каталог товаров", "Корзина заказов", "Интеграция платежей", "Система управления", "СМС/Email уведомления", "Хостинг включён"]
-    }
-  ],
-  "process": [
-    {
-      "step": 1,
-      "name": "Аналитика и проектирование",
-      "description": "Изучаем ваш бизнес, цели и конкурентов. Создаём структуру и прототип будущего сайта."
-    },
-    {
-      "step": 2,
-      "name": "Дизайн",
-      "description": "Разрабатываем визуальную концепцию и UI-кит. Согласуем макеты перед разработкой кода."
-    },
-    {
-      "step": 3,
-      "name": "Разработка и тестирование",
-      "description": "Разрабатываем сайт на React/Next.js, интегрируем функции и ИИ. Тестируем на всех устройствах."
-    },
-    {
-      "step": 4,
-      "name": "Запуск и поддержка",
-      "description": "Запускаем на домене, настраиваем SSL. 14 дней гарантийной поддержки включены."
-    }
-  ],
-  "portfolio": [
-    {
-      "id": 0,
-      "name": "MP.WebStudio",
-      "subtitle": "Сайт веб-студии с AI",
-      "description": "Наш официальный сайт с ИИ-ассистентом, калькулятором стоимости и админ-панелью.",
-      "category": "Dark Theme",
-      "status": "launched",
-      "technologies": ["React", "TypeScript", "Yandex Cloud", "GigaChat", "PostgreSQL"],
-      "features": ["ИИ-чат", "Калькулятор стоимости", "Онлайн-платежи", "Админ-панель"]
-    },
-    {
-      "id": 1,
-      "name": "Сладкие наслаждения",
-      "subtitle": "Интернет-магазин сладостей",
-      "description": "Магазин с админ-панелью, Telegram-приложением и интеграцией Robokassa.",
-      "category": "E-commerce",
-      "status": "launched",
-      "technologies": ["React", "Node.js", "PostgreSQL", "Robokassa", "Telegram"],
-      "features": ["Каталог", "Система заказов", "Платежи Robokassa", "Telegram-бот"]
-    },
-    {
-      "id": 2,
-      "name": "Вкусдом",
-      "subtitle": "Доставка еды",
-      "description": "Концепт лендинга для доставки еды с анимированным меню и корзиной.",
-      "category": "Food",
-      "status": "concept",
-      "technologies": ["React", "Framer Motion", "Tailwind CSS"],
-      "features": ["Анимированное меню", "Корзина", "Адаптивный дизайн"]
-    }
-  ],
-  "technologies": {
-    "frontend": ["React", "Next.js", "Vue.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    "backend": ["Node.js", "Python", "PostgreSQL", "YDB Serverless", "gRPC"],
-    "integrations": ["Яндекс Cloud", "VK Cloud", "Робокасса", "1С", "Битрикс24", "СДЭК", "DaData", "Telegram Bot API"]
-  },
-  "pricing": {
-    "bizcard": { "name": "Сайт-визитка", "price": "от 45 000 ₽" },
-    "landing": { "name": "Лендинг", "price": "от 75 000 ₽" },
-    "corporate": { "name": "Корпоративный сайт", "price": "от 140 000 ₽" },
-    "shop": { "name": "Интернет-магазин", "price": "от 200 000 ₽" },
-    "ai_integration": { "name": "Интеграция ИИ", "price": "60 000 ₽" },
-    "telegram_shop": { "name": "Telegram-магазин (Mini App)", "price": "50 000 ₽" },
-    "crm": { "name": "Интеграция CRM", "price": "45 000 ₽" },
-    "support": { "name": "Техническая поддержка", "price": "14 дней бесплатно, далее от 5000₽/мес" }
-  },
-  "faq": [
-    {
-      "question": "Сколько времени занимает разработка сайта?",
-      "answer": "Сайт-визитка: 1-2 недели, Лендинг: 2-3 недели, Корпоративный сайт: 3-5 недель, Интернет-магазин: 4-6 недель."
-    },
-    {
-      "question": "Каков порядок оплаты?",
-      "answer": "Мы работаем по схеме: 50% предоплата перед началом и 50% после завершения разработки перед финальным запуском."
-    },
-    {
-      "question": "Работаете ли вы с юридическими лицами?",
-      "answer": "Да, мы предоставляем счета, договоры и акты. Исполнитель — самозанятый Пимашин М.И. (ИНН 711612442203)."
-    },
-    {
-      "question": "Есть ли гарантия на сайт?",
-      "answer": "Да, 14 дней бесплатной гарантийной поддержки для исправления любых технических ошибок включены в стоимость."
-    }
-  ],
-  "keywords": {
-    "услуги": ["разработка", "сайт", "лендинг", "магазин", "визитка", "создать"],
-    "процесс": ["этапы", "срок", "время", "как работаете", "консультация"],
-    "портфолио": ["примеры", "работы", "кейсы", "показать"],
-    "цена": ["стоимость", "сколько стоит", "прайс", "цена", "оплата", "предоплата"],
-    "технологии": ["стек", "react", "node", "ии", "gigachat", "интеграция"]
-  },
-  "contact_info": {
-    "phone": "+7 (953) 181-41-36",
-    "email": "mpwebstudio1@gmail.com",
-    "telegram": "https://t.me/mp_webstudio",
-    "vk": "https://vk.com/mp.webstudio",
-    "address": "Тульская обл., г. Донской",
-    "working_hours": "Ежедневно 9:00–20:00"
-  }
-};
-
 // AWS Signature V4 signing helper
 function signAwsRequest(method, host, path, accessKey, secretKey, payload = '') {
     const crypto = require('crypto');
@@ -3885,107 +3717,21 @@ function signAwsRequest(method, host, path, accessKey, secretKey, payload = '') 
     };
 }
 
-async function loadKnowledgeBaseFromStorage() {
-    const now = Date.now();
-    if (cachedKB && (now - cacheTime) < CACHE_TTL) {
-        console.log('[KB] ✅ Using cached knowledge base (embedded)');
-        return cachedKB;
-    }
-
-    try {
-        console.log('[KB] 📦 Loading embedded knowledge base...');
-        cachedKB = EMBEDDED_KNOWLEDGE_BASE;
-        cacheTime = now;
-        // Precompute contexts for fast access
-        precomputedContexts = buildPrecomputedContexts(cachedKB);
-        console.log('[KB] ✅ Embedded knowledge base loaded and pre-computed (cached for 1 hour)');
-        return cachedKB;
-    } catch (error) {
-        const errorMsg = error instanceof Error ? error.message : String(error);
-        console.error(`[KB] ❌ Error loading embedded KB: ${errorMsg}`);
-        return null;
-    }
-}
-
-function findRelevantContext(kb, userMessage) {
-    if (!kb || !precomputedContexts) return '';
-
-    const lowerMessage = userMessage.toLowerCase();
-    const MAX_CONTEXT_SIZE = 2000; // Максимум символов в контексте
-    let context = '';
-    let foundCategory = false;
-
-    // Быстрый поиск по ключевым словам с использованием предвычисленных строк
-    if (kb.keywords && !foundCategory) {
-        if (kb.keywords.услуги && kb.keywords.услуги.some(k => lowerMessage.includes(k.toLowerCase()))) {
-            context += `Наши услуги:\n${precomputedContexts.services}\n\n`;
-            foundCategory = true;
-        }
-    }
-
-    if (kb.keywords && !foundCategory) {
-        if (kb.keywords.технологии && kb.keywords.технологии.some(k => lowerMessage.includes(k.toLowerCase()))) {
-            context += `Используемые технологии:\n${precomputedContexts.technologies}\n\n`;
-            foundCategory = true;
-        }
-    }
-
-    if (kb.keywords && !foundCategory) {
-        if (kb.keywords.цена && kb.keywords.цена.some(k => lowerMessage.includes(k.toLowerCase()))) {
-            context += `Стоимость услуг:\n${precomputedContexts.pricing}\n\n`;
-            foundCategory = true;
-        }
-    }
-
-    if (kb.keywords && !foundCategory) {
-        if (kb.keywords.процесс && kb.keywords.процесс.some(k => lowerMessage.includes(k.toLowerCase()))) {
-            context += `Наш процесс разработки:\n${precomputedContexts.process}\n\n`;
-            foundCategory = true;
-        }
-    }
-
-    if (kb.keywords && !foundCategory) {
-        if (kb.keywords.портфолио && kb.keywords.портфолио.some(k => lowerMessage.includes(k.toLowerCase()))) {
-            context += `Примеры наших работ:\n${precomputedContexts.portfolio}\n\n`;
-            foundCategory = true;
-        }
-    }
-
-    // Если вопрос о FAQ - добавляем соответствующие ответы
-    if ((lowerMessage.includes('вопрос') || lowerMessage.includes('как') || 
-         lowerMessage.includes('какой') || lowerMessage.includes('сколько')) && precomputedContexts.faq) {
-        context += `Часто задаваемые вопросы:\n${precomputedContexts.faq}\n\n`;
-    }
-
-    // Если ничего не найдено - добавляем основную информацию о компании
-    if (!foundCategory && precomputedContexts.company) {
-        context = precomputedContexts.company + '\n\n';
-        if (kb.company?.phone) context += `Телефон: ${kb.company.phone}\n`;
-        if (kb.company?.email) context += `Email: ${kb.company.email}\n`;
-    }
-
-    // Ограничиваем размер контекста
-    if (context.length > MAX_CONTEXT_SIZE) {
-        context = context.substring(0, MAX_CONTEXT_SIZE) + '...';
-    }
-
-    return context.trim();
-}
 
 async function handleGigaChat(body, headers) {
     const handlerId = crypto.randomUUID().substring(0, 8);
     const MAX_RETRIES = 3;
-    
+
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
         console.log(`\n\n=== GIGACHAT gRPC REQUEST START [${handlerId}] (Attempt ${attempt}/${MAX_RETRIES}) (Yandex Cloud) ===`);
         const result = await attemptGigaChat(body, headers, handlerId);
-        
+
         // Если успех - возвращаем результат
         if (result.statusCode === 200) {
             console.log(`[${handlerId}] ✅ Success on attempt ${attempt}`);
             return result;
         }
-        
+
         // Если ошибка сети/timeout - пытаемся снова (кроме последней попытки)
         if (attempt < MAX_RETRIES && isRetryableError(result)) {
             const errorBody = JSON.parse(result.body);
@@ -3994,7 +3740,7 @@ async function handleGigaChat(body, headers) {
             await new Promise(r => setTimeout(r, 2000));
             continue;
         }
-        
+
         // Если не повторяемая ошибка или последняя попытка - возвращаем результат
         return result;
     }
@@ -4028,7 +3774,7 @@ async function attemptGigaChat(body, headers, handlerId) {
         if (isFirstMessage && userName) {
             console.log(`[${handlerId}] 1b️⃣ First message detected - sending greeting to ${userName}...`);
             const greeting = `Привет, ${userName}! 👋 Я AI-ассистент компании MP.WebStudio. Я здесь, чтобы ответить на ваши вопросы о наших услугах, проектах и технологиях. Что вас интересует?`;
-            
+
             return {
                 statusCode: 200,
                 headers,
@@ -4117,11 +3863,14 @@ async function attemptGigaChat(body, headers, handlerId) {
             throw new Error('No access token in response');
         }
 
-        console.log(`[${handlerId}] 4️⃣ Loading gRPC proto...`);
+        console.log(`[${handlerId}] 4️⃣ Loading gRPC proto... (elapsed: ${Date.now() - startTime}ms)`);
+        stageStartTime = Date.now();
         const proto = await getGigaChatProto();
+        const protoTime = Date.now() - stageStartTime;
+        console.log(`[${handlerId}]    Proto loaded in ${protoTime}ms`);
         const ChatServiceClient = proto.gigachat.v1.ChatService;
 
-        console.log(`[${handlerId}] 5️⃣ Connecting to gRPC server...`);
+        console.log(`[${handlerId}] 5️⃣ Creating gRPC client... (elapsed: ${Date.now() - startTime}ms)`);
         // Используем корневой CA сертификат для валидации цепочки
         const credentials = grpc.credentials.createSsl(Buffer.from(SBERBANK_ROOT_CA));
         const metadata = new grpc.Metadata();
@@ -4133,32 +3882,48 @@ async function attemptGigaChat(body, headers, handlerId) {
             'grpc.default_authority': 'gigachat.devices.sberbank.ru',
             'grpc.max_receive_message_length': 10 * 1024 * 1024,
             'grpc.max_send_message_length': 10 * 1024 * 1024,
-            'grpc.http2.keepalive_time': 30000,
-            'grpc.http2.keepalive_timeout': 10000,
+            // Aggressive keepalive to prevent socket closure
+            'grpc.http2.keepalive_time': 5000,  // Ping every 5 sec
+            'grpc.http2.keepalive_timeout': 10000,  // Wait 10 sec for pong
+            'grpc.http2.max_pings_without_data': 0,  // Allow pings without data
+            'grpc.http2.min_time_between_pings': 1000,  // Min 1 sec between pings
+            'grpc.keepalive_permit_without_calls': true,
+            // Connection management
+            'grpc.http2.max_connection_idle_ms': 60000,
+            'grpc.http2.max_connection_age_ms': 300000,
         };
 
+        console.log(`[${handlerId}] Client creating... (elapsed: ${Date.now() - startTime}ms)`);
+        stageStartTime = Date.now();
         const client = new ChatServiceClient('gigachat.devices.sberbank.ru:443', credentials, channelOptions);
+        const clientCreateTime = Date.now() - stageStartTime;
+        console.log(`[${handlerId}]    Client created in ${clientCreateTime}ms`);
 
         // Получаем историю сообщений из запроса
         const history = body.history || [];
-        
-        // Ограничиваем историю последними 5 сообщениями (было 10) для уменьшения объема промпта
-        const limitedHistory = history.slice(-5).map(msg => ({
+
+        // Ограничиваем историю последними 10 сообщениями
+        const limitedHistory = history.slice(-10).map(msg => ({
             role: msg.role,
             content: msg.content
         }));
 
-        console.log(`[${handlerId}] 6️⃣ Sending chat request via gRPC with ${limitedHistory.length} history messages...`);
+        console.log(`[${handlerId}] 6️⃣ Preparing gRPC request with ${limitedHistory.length} history messages (elapsed: ${Date.now() - startTime}ms)...`);
         const chatStartTime = Date.now();
-        const GRPC_TIMEOUT = 45000; // Увеличено до 45 сек (было 15) для gRPC
+        const GRPC_TIMEOUT = 12000; // 12 сек для gRPC - остаток времени на завершение
 
         return new Promise((resolve) => {
+            // Добавляем deadline в метаданные (сообщаем серверу когда истекает timeout)
+            metadata.add('grpc-timeout', `${GRPC_TIMEOUT}m`); // m = миллисекунды
+
+            console.log(`[${handlerId}] 7️⃣ ABOUT TO CALL client.chat() at ${new Date().toISOString()}`);
+
             const chatRequest = {
                 model: 'GigaChat',
                 messages: [
                     {
                         role: 'system',
-                        content: SYSTEM_PROMPT
+                        content: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.'
                     },
                     ...limitedHistory,
                     {
@@ -4166,23 +3931,33 @@ async function attemptGigaChat(body, headers, handlerId) {
                         content: message,
                     }
                 ],
-                temperature: 0.71,
-                max_tokens: 1000
+                options: {
+                    temperature: 0.7,
+                    max_tokens: 1000,
+                }
             };
 
             let grpcCompleted = false;
 
-            client.chat(chatRequest, metadata, { deadline: Date.now() + GRPC_TIMEOUT }, (err, response) => {
-                if (grpcCompleted) return;
+            console.log(`[${handlerId}] ➡️ CALLING client.chat() NOW`);
+            const beforeCall = Date.now();
+
+            client.chat(chatRequest, metadata, (err, response) => {
+                const callbackTime = Date.now() - beforeCall;
+                console.log(`[${handlerId}] 📞 CALLBACK TRIGGERED after ${callbackTime}ms from client.chat() call`);
+
+                if (grpcCompleted) return; // Игнорируем если уже был timeout
                 grpcCompleted = true;
 
                 const chatElapsed = Math.round((Date.now() - chatStartTime) / 1000);
 
                 if (err) {
-                    console.error(`[${handlerId}] ❌ gRPC error (code: ${err.code}): ${err.message}`);
-                    // Если ошибка "UNAVAILABLE" или "DEADLINE_EXCEEDED", это может быть проблема сети
-                    const isNetworkError = err.code === 14 || err.code === 4;
-                    client.close();
+                    console.error(`[${handlerId}] ❌ gRPC ERROR CALLBACK`);
+                    console.error(`[${handlerId}]    Error message: ${err.message}`);
+                    console.error(`[${handlerId}]    Error code: ${err.code}`);
+                    console.error(`[${handlerId}]    Time elapsed: ${chatElapsed}s`);
+                    // Graceful shutdown
+                    setImmediate(() => client.close());
                     return resolve({
                         statusCode: 500,
                         headers,
@@ -4193,7 +3968,7 @@ async function attemptGigaChat(body, headers, handlerId) {
                     });
                 }
 
-                console.log(`[${handlerId}] ✅ gRPC response received in ${chatElapsed}s`);
+                console.log(`[${handlerId}] ✅ gRPC SUCCESS CALLBACK - response received in ${chatElapsed}s`);
 
                 const assistantMessage = response?.alternatives?.[0]?.message?.content || 'Нет ответа';
                 const totalTime = Math.round((Date.now() - startTime) / 1000);
@@ -4203,7 +3978,8 @@ async function attemptGigaChat(body, headers, handlerId) {
                 console.log(`[${handlerId}]    gRPC time: ${chatElapsed}s, Total time: ${totalTime}s`);
                 console.log(`=== GIGACHAT gRPC REQUEST END [${handlerId}] (SUCCESS) ===\n`);
 
-                client.close();
+                // Graceful shutdown после успешного ответа
+                setImmediate(() => client.close());
 
                 resolve({
                     statusCode: 200,
@@ -4215,12 +3991,14 @@ async function attemptGigaChat(body, headers, handlerId) {
                 });
             });
 
-            setTimeout(() => {
+            const timeoutHandle = setTimeout(() => {
                 if (grpcCompleted) return; // Уже получили ответ
                 grpcCompleted = true;
 
-                console.error(`[${handlerId}] ❌ gRPC request timeout (${GRPC_TIMEOUT}ms)`);
-                client.close();
+                console.error(`[${handlerId}] ⏰ GRPC TIMEOUT TRIGGERED after ${GRPC_TIMEOUT}ms`);
+                console.error(`[${handlerId}]    No callback received from client.chat() in ${GRPC_TIMEOUT}ms`);
+                // Graceful shutdown при timeout
+                setImmediate(() => client.close());
                 resolve({
                     statusCode: 500,
                     headers,
@@ -4230,6 +4008,8 @@ async function attemptGigaChat(body, headers, handlerId) {
                     }),
                 });
             }, GRPC_TIMEOUT);
+
+            console.log(`[${handlerId}] ⏲️ TIMEOUT SET for ${GRPC_TIMEOUT}ms`);
         });
 
     } catch (error) {
