@@ -692,8 +692,8 @@ async function handleVkAutoPostYandex(headers) {
         // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ
         try {
             console.log('[VK-AUTO-POST-YANDEX] Posting to Telegram...');
-            const tgBotToken = process.env.TELEGRAM_BOT_TOKEN;
-            const tgChatId = process.env.TELEGRAM_CHAT_ID;
+            const tgBotToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
+            const tgChatId = process.env.TELEGRAM_CHAT_ID?.trim();
 
             if (tgBotToken && tgChatId) {
                 console.log('[VK-AUTO-POST-YANDEX] Sending photo to Telegram using FormData');
@@ -3840,8 +3840,8 @@ function formatOrderMessage(order) {
 }
 
 async function sendTelegramNotification(message) {
-    const botToken = process.env.TELEGRAM_BOT_TOKEN;
-    const chatId = process.env.TELEGRAM_CHAT_ID;
+    const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
+    const chatId = process.env.TELEGRAM_CHAT_ID?.trim();
 
     if (!botToken || !chatId) {
         console.log('Telegram not configured');

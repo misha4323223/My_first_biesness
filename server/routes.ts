@@ -6,14 +6,14 @@ import { insertContactRequestSchema, insertOrderSchema, insertAdditionalInvoiceS
 import { z } from "zod";
 import crypto from "crypto";
 
-const ROBOKASSA_MERCHANT_LOGIN = process.env.ROBOKASSA_MERCHANT_LOGIN || "";
-const ROBOKASSA_PASSWORD1 = process.env.ROBOKASSA_PASSWORD1 || "";
-const ROBOKASSA_PASSWORD2 = process.env.ROBOKASSA_PASSWORD2 || "";
+const ROBOKASSA_MERCHANT_LOGIN = process.env.ROBOKASSA_MERCHANT_LOGIN?.trim() || "";
+const ROBOKASSA_PASSWORD1 = process.env.ROBOKASSA_PASSWORD1?.trim() || "";
+const ROBOKASSA_PASSWORD2 = process.env.ROBOKASSA_PASSWORD2?.trim() || "";
 const IS_TEST_MODE = true;
 
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "";
-const SITE_URL = process.env.SITE_URL || "https://mp-webstudio.ru";
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN?.trim() || "";
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID?.trim() || "";
+const SITE_URL = process.env.SITE_URL?.trim() || "https://mp-webstudio.ru";
 
 const GIGACHAT_KEY = process.env.GIGACHAT_KEY || "";
 const GIGACHAT_ID = process.env.GIGACHAT_ID || "";
