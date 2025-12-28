@@ -670,10 +670,8 @@ async function handleVkAutoPostYandex(headers) {
 
         console.log('[VK-AUTO-POST-YANDEX] Photo uploaded, ID:', photoId);
 
-        // 5. Публикуем пост в ВК (используем POST body вместо URL параметров)
+        // 5. Публикуем пост в ВК
         const vkUrl = 'https://api.vk.com/method/wall.post';
-        
-        // Формируем параметры для POST body
         const bodyParams = new URLSearchParams({
             owner_id: `-${groupId}`,
             from_group: '1',
@@ -691,12 +689,47 @@ async function handleVkAutoPostYandex(headers) {
 
         console.log('[VK-AUTO-POST-YANDEX] VK API Response:', vkResult.data.substring(0, 200));
 
+        // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ
+        try {
+            console.log('[VK-AUTO-POST-YANDEX] Posting to Telegram...');
+            const tgBotToken = process.env.TELEGRAM_BOT_TOKEN;
+            const tgChatId = process.env.TELEGRAM_CHAT_ID; // Можно добавить спец. переменную TELEGRAM_CHANNEL_ID если нужно
+
+            if (tgBotToken && tgChatId) {
+                // Отправляем фото с подписью
+                const tgUrl = `https://api.telegram.org/bot${tgBotToken}/sendPhoto`;
+                
+                // Для Telegram нам нужно либо URL, либо файл. 
+                // Так как у нас есть Buffer, мы можем отправить его как multipart/form-data
+                const tgBoundary = '----TGFormBoundary' + crypto.randomUUID();
+                const tgHeader = Buffer.from(`--${tgBoundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`);
+                const tgCaptionPart = Buffer.from(`\r\n--${tgBoundary}\r\nContent-Disposition: form-data; name="caption"\r\n\r\n${postText}`);
+                const tgChatIdPart = Buffer.from(`\r\n--${tgBoundary}\r\nContent-Disposition: form-data; name="chat_id"\r\n\r\n${tgChatId}`);
+                const tgFooter = Buffer.from(`\r\n--${tgBoundary}--\r\n`);
+                
+                const tgBody = Buffer.concat([tgHeader, imageBuffer, tgCaptionPart, tgChatIdPart, tgFooter]);
+
+                const tgResult = await httpsRequest(tgUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': `multipart/form-data; boundary=${tgBoundary}` },
+                    body: tgBody,
+                    isUpload: true
+                });
+                console.log('[VK-AUTO-POST-YANDEX] Telegram Response:', tgResult.data);
+            } else {
+                console.log('[VK-AUTO-POST-YANDEX] Telegram credentials missing, skipping TG post');
+            }
+        } catch (tgError) {
+            console.error('[VK-AUTO-POST-YANDEX] Telegram post error:', tgError.message);
+            // Не кидаем ошибку выше, чтобы VK пост считался успешным
+        }
+
         return {
             statusCode: 200,
             headers,
             body: JSON.stringify({ 
                 success: true, 
-                message: 'Post published with Yandex AI',
+                message: 'Post published to VK and Telegram',
                 postNumber: { text: prompts.textIndex + 1, image: prompts.imageIndex + 1 },
                 vkResponse: JSON.parse(vkResult.data) 
             })
