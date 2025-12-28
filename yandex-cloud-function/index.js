@@ -634,11 +634,27 @@ async function uploadPhotoToVk(token, groupId, imageData) {
         // 1. Получаем сервер для загрузки
         const serverUrl = `https://api.vk.com/method/photos.getWallUploadServer?group_id=${groupId}&access_token=${token}&v=5.131`;
         const serverRes = await httpsRequest(serverUrl, { method: 'GET', headers: {} });
-        const uploadUrl = JSON.parse(serverRes.data).response.upload_url;
+        
+        if (serverRes.statusCode !== 200) {
+            throw new Error(`Failed to get upload server: HTTP ${serverRes.statusCode}`);
+        }
+        
+        const serverData = JSON.parse(serverRes.data);
+        console.log('[VK-UPLOAD] Server response:', JSON.stringify(serverData).substring(0, 200));
+        
+        // Проверяем наличие ошибки в ответе ВК
+        if (serverData.error) {
+            throw new Error(`VK API error: ${serverData.error.error_code} - ${serverData.error.error_msg}`);
+        }
+        
+        if (!serverData.response || !serverData.response.upload_url) {
+            throw new Error(`Invalid server response: missing upload_url. Response: ${JSON.stringify(serverData)}`);
+        }
+        
+        const uploadUrl = serverData.response.upload_url;
+        console.log('[VK-UPLOAD] Got upload URL');
 
-        // 2. Загружаем файл (имитация multipart/form-data для простоты в рамках Cloud Function)
-        // В реальном окружении Node.js лучше использовать form-data, но здесь мы используем базовый httpsRequest
-        // Для упрощения и надежности в Cloud Function без лишних зависимостей:
+        // 2. Загружаем файл
         const boundary = '----WebKitFormBoundary' + crypto.randomUUID();
         const body = Buffer.concat([
             Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`),
@@ -653,13 +669,46 @@ async function uploadPhotoToVk(token, groupId, imageData) {
             },
             body: body.toString('binary')
         });
+        
+        if (uploadRes.statusCode !== 200) {
+            throw new Error(`Failed to upload photo: HTTP ${uploadRes.statusCode}`);
+        }
+        
         const uploadData = JSON.parse(uploadRes.data);
+        console.log('[VK-UPLOAD] Upload response:', JSON.stringify(uploadData).substring(0, 200));
+        
+        // Проверяем структуру ответа загрузки (ВК возвращает поля напрямую, без wrapping)
+        if (!uploadData.photo || !uploadData.server || !uploadData.hash) {
+            throw new Error(`Invalid upload response: missing required fields. Response: ${JSON.stringify(uploadData)}`);
+        }
 
         // 3. Сохраняем фото
         const saveUrl = `https://api.vk.com/method/photos.saveWallPhoto?group_id=${groupId}&photo=${uploadData.photo}&server=${uploadData.server}&hash=${uploadData.hash}&access_token=${token}&v=5.131`;
         const saveRes = await httpsRequest(saveUrl, { method: 'POST', headers: {} });
-        const savedPhoto = JSON.parse(saveRes.data).response[0];
+        
+        if (saveRes.statusCode !== 200) {
+            throw new Error(`Failed to save photo: HTTP ${saveRes.statusCode}`);
+        }
+        
+        const saveData = JSON.parse(saveRes.data);
+        console.log('[VK-UPLOAD] Save response:', JSON.stringify(saveData).substring(0, 200));
+        
+        // Проверяем наличие ошибки в ответе ВК
+        if (saveData.error) {
+            throw new Error(`VK API error on save: ${saveData.error.error_code} - ${saveData.error.error_msg}`);
+        }
+        
+        if (!saveData.response || !Array.isArray(saveData.response) || saveData.response.length === 0) {
+            throw new Error(`Invalid save response: missing photo data. Response: ${JSON.stringify(saveData)}`);
+        }
+        
+        const savedPhoto = saveData.response[0];
+        
+        if (!savedPhoto.owner_id || !savedPhoto.id) {
+            throw new Error(`Invalid saved photo data: missing owner_id or id. Data: ${JSON.stringify(savedPhoto)}`);
+        }
 
+        console.log(`[VK-UPLOAD] Photo saved successfully: photo${savedPhoto.owner_id}_${savedPhoto.id}`);
         return `photo${savedPhoto.owner_id}_${savedPhoto.id}`;
     } catch (e) {
         console.error('[VK-UPLOAD] Photo upload error:', e.message);
