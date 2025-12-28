@@ -1,0 +1,193 @@
+
+
+28 дек. 14:25:09.745
+REPORT RequestID: 45e88416-d325-4ac1-be7b-4ec496e2e6d6 Duration: 76.760 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.067 ms
+
+28 дек. 14:25:09.745
+END RequestID: 45e88416-d325-4ac1-be7b-4ec496e2e6d6
+
+28 дек. 14:25:09.743
+[YANDEX-CHAT-bc89703a] API Error: 401
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] ========== REQUEST SUCCESS ==========
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] Total response size: 135 bytes
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] ✨ Response ended after 73ms
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] 📥 Data chunk: 135 bytes (total: 135)
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] 📦 First byte received after 72ms
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] Response headers: content-type=application/json, content-length=undefined
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+28 дек. 14:25:09.743
+[HTTPS-822c2e82] Status code: 401
+
+28 дек. 14:25:09.742
+[HTTPS-822c2e82] ✅ Response callback triggered after 72ms
+
+28 дек. 14:25:09.729
+[HTTPS-822c2e82] 🔒 TLS handshake complete after 58ms
+
+28 дек. 14:25:09.716
+[HTTPS-822c2e82] 🌐 TCP connected after 46ms
+
+28 дек. 14:25:09.706
+[HTTPS-822c2e82] 🔍 DNS lookup started
+
+28 дек. 14:25:09.705
+[HTTPS-822c2e82] 🔌 Socket created, fd: unknown
+
+28 дек. 14:25:09.705
+[HTTPS-822c2e82] Waiting for response...
+
+28 дек. 14:25:09.705
+[HTTPS-822c2e82] 🚀 Calling req.end()
+
+28 дек. 14:25:09.705
+[HTTPS-822c2e82] Body written successfully
+
+28 дек. 14:25:09.704
+[HTTPS-822c2e82] 📤 Writing body (774 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt/latest","completionOptions":{"stream":false,"tempe...
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Creating HTTPS request with timeout: 15000ms
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Setting main timeout: 12000ms
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Headers: Content-Type, Authorization
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Request body size: 774 bytes
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Path: /foundationModels/v1/completion
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Hostname: llm.api.cloud.yandex.net:443
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] Method: POST
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+28 дек. 14:25:09.671
+[HTTPS-822c2e82] ========== HTTPS REQUEST START ==========
+
+28 дек. 14:25:09.670
+[YANDEX-AUTH] Using Api-Key (length: 40, prefix: YCNyI...)
+
+28 дек. 14:25:09.670
+[YANDEX-CHAT-bc89703a] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":3}
+
+28 дек. 14:25:09.670
+[YANDEX-CHAT-bc89703a] Sending to Yandex AI with 1 history messages
+
+28 дек. 14:25:09.670
+[YANDEX-CHAT-bc89703a] Received message (6 chars)
+
+28 дек. 14:25:09.670
+[YANDEX-CHAT] Handler called
+
+28 дек. 14:25:09.670
+}
+
+28 дек. 14:25:09.670
+bodyKeys: [ 'message', 'history' ]
+
+28 дек. 14:25:09.670
+path: '',
+
+28 дек. 14:25:09.670
+action: 'giga-chat',
+
+28 дек. 14:25:09.670
+method: 'POST',
+
+28 дек. 14:25:09.670
+[REQUEST] {
+
+28 дек. 14:25:09.669
+}
+
+28 дек. 14:25:09.669
+timestamp: '2025-12-28T11:25:09.668Z'
+
+28 дек. 14:25:09.669
+path: undefined,
+
+28 дек. 14:25:09.669
+method: 'POST',
+
+28 дек. 14:25:09.669
+[HANDLER START] {
+
+28 дек. 14:25:09.665
+START RequestID: 45e88416-d325-4ac1-be7b-4ec496e2e6d6 Version: d4ep56qdfbh0m1ed3vnd
+
+28 дек. 14:25:05.788
+REPORT RequestID: 81ab7302-fa30-4b5e-80b2-5b3e120fee68 Duration: 740.134 ms Billed Duration: 800 ms Memory Size: 512 MB Max Memory Used: 162 MB Queuing Duration: 0.054 ms Function Init Duration: 721.691 ms CPU Usage: 11.914 %
+
+28 дек. 14:25:05.788
+END RequestID: 81ab7302-fa30-4b5e-80b2-5b3e120fee68
+
+28 дек. 14:25:05.785
+[YANDEX-CHAT-57e4051d] First message - sending greeting
+
+28 дек. 14:25:05.784
+[YANDEX-CHAT-57e4051d] User: кеу
+
+28 дек. 14:25:05.784
+[YANDEX-CHAT-57e4051d] Received message (36 chars)
+
+28 дек. 14:25:05.784
+[YANDEX-CHAT] Handler called
+
+28 дек. 14:25:05.784
+}
+
+28 дек. 14:25:05.784
+bodyKeys: [ 'message', 'userName', 'isFirstMessage' ]
+
+28 дек. 14:25:05.784
+path: '',
+
+28 дек. 14:25:05.784
+action: 'giga-chat',
+
+28 дек. 14:25:05.783
+method: 'POST',
+
+28 дек. 14:25:05.783
+[REQUEST] {
+
+28 дек. 14:25:05.783
+}
+
+28 дек. 14:25:05.783
+timestamp: '2025-12-28T11:25:05.777Z'
+
+28 дек. 14:25:05.783
+path: undefined,
+
+28 дек. 14:25:05.783
+method: 'POST',
+
+28 дек. 14:25:05.783
+[HANDLER START] {
+
+28 дек. 14:25:05.043
+START RequestID: 81ab7302-fa30-4b5e-80b2-5b3e120fee68 Version: d4ep56qdfbh0m1ed3vnd

@@ -50,10 +50,15 @@ function getYandexAuthHeader() {
     // Yandex Cloud API strictly requires "Api-Key <key>" for API keys.
     // Ensure no leading/trailing spaces in the key.
     const cleanApiKey = apiKey.trim();
-    const authHeader = `Api-Key ${cleanApiKey}`;
+    
+    // Check if the key starts with "Api-Key" - if so, don't duplicate it
+    const authHeader = cleanApiKey.startsWith('Api-Key ') 
+        ? cleanApiKey 
+        : `Api-Key ${cleanApiKey}`;
     
     // Log minimal info for security, but enough to verify format
-    console.log(`[YANDEX-AUTH] Using Api-Key (length: ${cleanApiKey.length}, prefix: ${cleanApiKey.substring(0, 5)}...)`);
+    console.log(`[YANDEX-AUTH] Header format: ${authHeader.substring(0, 15)}...`);
+    console.log(`[YANDEX-AUTH] Key length: ${cleanApiKey.length}`);
     return authHeader;
 }
 
