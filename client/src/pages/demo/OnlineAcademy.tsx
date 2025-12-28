@@ -32,6 +32,7 @@ const courses = [
     duration: "40 часов",
     image: programmingImg,
     tags: ["React", "JavaScript", "Web"],
+    description: "Изучите основы и продвинутые концепции разработки на React. Вы научитесь создавать современные, отзывчивые интерфейсы с использованием самых популярных инструментов и библиотек в экосистеме JavaScript.",
     popular: true,
   },
   {
@@ -46,6 +47,7 @@ const courses = [
     duration: "32 часа",
     image: dashboardImg,
     tags: ["Figma", "Design", "UI"],
+    description: "Погрузитесь в мир дизайна интерфейсов. Этот курс охватывает все аспекты процесса проектирования — от создания вайрфреймов и прототипов до финального визуального дизайна в Figma.",
   },
   {
     id: 3,
@@ -59,6 +61,7 @@ const courses = [
     duration: "48 часов",
     image: programmingImg,
     tags: ["Python", "Data", "Analytics"],
+    description: "Освойте Python для анализа данных. Вы научитесь работать с библиотеками Pandas, NumPy и Matplotlib для обработки больших данных, визуализации и извлечения ценных инсайтов.",
   },
   {
     id: 4,
@@ -72,6 +75,7 @@ const courses = [
     duration: "24 часа",
     image: dashboardImg,
     tags: ["Marketing", "Social Media", "SMM"],
+    description: "Узнайте, как эффективно продвигать бренды в социальных сетях. Курс научит вас разрабатывать SMM-стратегии, создавать контент и настраивать таргетированную рекламу для привлечения клиентов.",
   },
 ];
 
