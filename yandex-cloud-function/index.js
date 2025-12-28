@@ -657,7 +657,7 @@ async function uploadPhotoToVk(token, groupId, imageData) {
                 console.error('[VK-UPLOAD] ⚠️  ERROR 27: Group authorization failed');
                 console.error('[VK-UPLOAD] SOLUTION: photos.getWallUploadServer requires a USER token (not group token)');
                 console.error('[VK-UPLOAD] Please use VK_ACCESS_TOKEN from a user with admin rights in the group, not a group token');
-                throw new Error(`VK API error 27: Access token must be a USER token with admin rights to the group, not a group token. Message: ${errorMsg}`);
+                throw new Error(`VK API error 27: Access token must be a USER token with admin rights to the group, not a group token. Для загрузки фото ВК требует токен пользователя (User Token) с правами администратора в группе. Токен группы (Group Token) не поддерживает метод photos.getWallUploadServer.`);
             }
             
             throw new Error(`VK API error: ${errorCode} - ${errorMsg}`);
