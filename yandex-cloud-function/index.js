@@ -3735,7 +3735,7 @@ async function handleYandexChat(body, headers) {
             { role: 'user', text: message }
         ];
 
-        const modelUri = `gpt://${folderId}/yandexgpt/latest`;
+        const modelUri = `gpt://${folderId}/yandexgpt-lite/latest`;
         const completionOptions = {
             stream: false,
             temperature: 0.6,
