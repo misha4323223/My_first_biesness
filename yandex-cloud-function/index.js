@@ -46,8 +46,10 @@ function getYandexAuthHeader() {
         console.error('[YANDEX-AUTH] YC_API_KEY is not configured!');
         throw new Error('YC_API_KEY not configured');
     }
-    const authHeader = `Api-Key ${apiKey}`;
-    console.log(`[YANDEX-AUTH] Using API Key (length: ${apiKey.length} chars, starts with: ${apiKey.substring(0, 5)}...)`);
+    
+    // Yandex Cloud API requires "Api-Key <key>" for API keys
+    const authHeader = `Api-Key ${apiKey.trim()}`;
+    console.log(`[YANDEX-AUTH] Using API Key (length: ${apiKey.trim().length} chars, starts with: ${apiKey.trim().substring(0, 5)}...)`);
     return authHeader;
 }
 
@@ -3595,8 +3597,9 @@ async function handleYandexChat(body, headers) {
 
         // Валидация сообщения
         if (!message || typeof message !== 'string' || message.trim().length === 0) {
+            console.warn(`[YANDEX-CHAT-${handlerId}] Empty message received`);
             return {
-                statusCode: 400,
+                statusCode: 200, // Return 200 to prevent widget from showing raw error
                 headers,
                 body: JSON.stringify({
                     success: false,
@@ -3606,8 +3609,9 @@ async function handleYandexChat(body, headers) {
         }
 
         if (message.length > 15000) {
+            console.warn(`[YANDEX-CHAT-${handlerId}] Message too long: ${message.length}`);
             return {
-                statusCode: 400,
+                statusCode: 200,
                 headers,
                 body: JSON.stringify({
                     success: false,
