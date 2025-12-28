@@ -3681,24 +3681,6 @@ async function handleYandexChat(body, headers) {
             console.error(`[YANDEX-CHAT-${handlerId}] Request failed: ${e.message}`);
             throw e;
         }
-        // Отправляем запрос к Yandex AI
-        const startTime = Date.now();
-        const response = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': getYandexAuthHeader()
-            },
-            body: JSON.stringify({
-                modelUri: `gpt://${folderId}/yandexgpt`,
-                completionOptions: {
-                    stream: false,
-                    temperature: 0.7,
-                    maxTokens: '2000'
-                },
-                messages: allMessages
-            })
-        });
 
         const elapsed = Math.round((Date.now() - startTime) / 1000);
         
