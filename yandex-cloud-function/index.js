@@ -43,10 +43,12 @@ let ydbDriver = null;
 function getYandexAuthHeader() {
     const apiKey = process.env.YC_API_KEY;
     if (!apiKey) {
+        console.error('[YANDEX-AUTH] YC_API_KEY is not configured!');
         throw new Error('YC_API_KEY not configured');
     }
-    // Yandex Cloud AI API требует именно такой формат
-    return `Api-Key ${apiKey}`;
+    const authHeader = `Api-Key ${apiKey}`;
+    console.log(`[YANDEX-AUTH] Using API Key (length: ${apiKey.length} chars, starts with: ${apiKey.substring(0, 5)}...)`);
+    return authHeader;
 }
 
 async function getYdbDriver() {
@@ -494,16 +496,17 @@ async function handleVkAutoPostYandex(headers) {
         console.log('[VK-AUTO-POST-YANDEX] Starting automation with Yandex AI');
         const vkToken = process.env.VK_ACCESS_TOKEN;
         const groupId = process.env.VK_GROUP_ID;
-        const apiKey = process.env.YC_API_KEY;
         const folderId = process.env.YC_FOLDER_ID;
 
         if (!vkToken || !groupId) {
             throw new Error('VK_ACCESS_TOKEN or VK_GROUP_ID not configured');
         }
 
-        if (!apiKey || !folderId) {
-            throw new Error('YC_API_KEY or YC_FOLDER_ID not configured');
+        if (!folderId) {
+            throw new Error('YC_FOLDER_ID not configured');
         }
+        
+        // YC_API_KEY проверяется внутри getYandexAuthHeader()
 
         // 1. Генерируем ТЕКСТ отдельно
         const textPrompt = "Напиши интересный, вовлекающий пост для группы веб-студии в ВК. Тема: почему бизнесу нужен современный сайт в 2026 году. Пост должен быть коротким, с хэштегами.";
