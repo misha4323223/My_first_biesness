@@ -99,9 +99,13 @@ async function httpsRequest(urlString, options) {
         console.log(`   [HTTPS-${requestId}] Request body size: ${bodySize} bytes`);
         console.log(`   [HTTPS-${requestId}] Headers: ${Object.keys(options.headers).join(', ')}`);
 
-        // Timeout оптимизирован для Yandex Cloud (~30 сек лимит функции)
-        const TIMEOUT_MS = 12000;  // 12 сек для полного HTTP запроса
-        const SOCKET_TIMEOUT_MS = 15000;  // 15 сек для сокета
+        // Определяем таймауты в зависимости от типа запроса
+        // Для загрузки файлов используем более длинные таймауты
+        const isUpload = options.isUpload || (bodySize > 100000);  // Большие файлы = upload
+        const TIMEOUT_MS = isUpload ? 30000 : 12000;  // 30 сек для загрузки, 12 сек для обычных
+        const SOCKET_TIMEOUT_MS = isUpload ? 30000 : 15000;  // 30 сек для загрузки, 15 сек для обычных
+        
+        console.log(`   [HTTPS-${requestId}] Request type: ${isUpload ? 'UPLOAD' : 'REGULAR'}, timeouts: ${TIMEOUT_MS}ms (main), ${SOCKET_TIMEOUT_MS}ms (socket)`);
 
         let socketTimeoutId = null;
         let requestTimeoutId = null;
@@ -644,7 +648,18 @@ async function uploadPhotoToVk(token, groupId, imageData) {
         
         // Проверяем наличие ошибки в ответе ВК
         if (serverData.error) {
-            throw new Error(`VK API error: ${serverData.error.error_code} - ${serverData.error.error_msg}`);
+            const errorCode = serverData.error.error_code;
+            const errorMsg = serverData.error.error_msg;
+            
+            // Специальная обработка ошибки 27 - проблема с токеном доступа
+            if (errorCode === 27) {
+                console.error('[VK-UPLOAD] ⚠️  ERROR 27: Group authorization failed');
+                console.error('[VK-UPLOAD] SOLUTION: photos.getWallUploadServer requires a USER token (not group token)');
+                console.error('[VK-UPLOAD] Please use VK_ACCESS_TOKEN from a user with admin rights in the group, not a group token');
+                throw new Error(`VK API error 27: Access token must be a USER token with admin rights to the group, not a group token. Message: ${errorMsg}`);
+            }
+            
+            throw new Error(`VK API error: ${errorCode} - ${errorMsg}`);
         }
         
         if (!serverData.response || !serverData.response.upload_url) {

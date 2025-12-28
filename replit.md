@@ -8,6 +8,22 @@ MP.WebStudio is a web studio website designed to attract clients by showcasing i
 
 I prefer clear, concise, and structured information. Please use simple language and avoid jargon where possible. I value iterative development and detailed explanations for complex features. Before making any major architectural changes or introducing new external dependencies, please ask for my approval. Do not modify the core logic of the Yandex Cloud Function without explicit instruction due to its critical role and size.
 
+## Recent Fixes (Dec 28, 2024)
+
+### VK Photo Upload Bug Fixes
+- **Issue 1:** Incorrect parsing of VK API responses - code tried to access `uploadData.photo` instead of `uploadData.response.photo` for getWallUploadServer response
+- **Fix:** Added proper error checking for VK API responses, validating response structure at each step (getWallUploadServer, upload, save)
+- **Issue 2:** Missing error handling for VK API error codes (especially error 27 - "Group authorization failed")
+- **Fix:** Added special handling for error 27 with clear diagnostic message: requires USER token with admin rights (not group token)
+- **Issue 3:** Socket timeouts when uploading large images (350KB+)
+- **Fix:** Implemented dynamic timeout logic - requests >100KB automatically use 30s timeouts instead of 15s
+
+### YandexGPT Integration Status
+- ✅ Chat integration with conversation history working
+- ✅ YandexGPT generates text content for VK posts
+- ✅ Yandex Image API generates images for posts
+- ✅ All required env vars configured: YC_API_KEY, YC_FOLDER_ID
+
 ## System Architecture
 
 The MP.WebStudio project is built with a modern web stack, emphasizing performance, scalability, and maintainability.
