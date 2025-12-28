@@ -671,18 +671,25 @@ async function uploadPhotoToVk(token, groupId, imageData) {
 
         // 2. Загружаем файл
         const boundary = '----WebKitFormBoundary' + crypto.randomUUID();
-        const body = Buffer.concat([
-            Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`),
-            Buffer.from(imageData, 'binary'),
-            Buffer.from(`\r\n--${boundary}--\r\n`)
-        ]);
+        
+        // Убедимся что imageData это Buffer
+        const imageBuffer = Buffer.isBuffer(imageData) ? imageData : Buffer.from(imageData);
+        console.log(`[VK-UPLOAD] Image buffer size: ${imageBuffer.length} bytes`);
+        
+        // Формируем multipart body
+        const header = Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`);
+        const footer = Buffer.from(`\r\n--${boundary}--\r\n`);
+        const body = Buffer.concat([header, imageBuffer, footer]);
+        
+        console.log(`[VK-UPLOAD] Total multipart body size: ${body.length} bytes`);
 
         const uploadRes = await httpsRequest(uploadUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': `multipart/form-data; boundary=${boundary}`
             },
-            body: body.toString('binary')
+            body: body,
+            isUpload: true
         });
         
         if (uploadRes.statusCode !== 200) {
