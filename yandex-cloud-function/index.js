@@ -39,49 +39,14 @@ const SITE_URL = process.env.SITE_URL || 'https://www.mp-webstudio.ru';
 // YDB Driver (инициализируется один раз)
 let ydbDriver = null;
 
-// IAM Token Cache
-let iamTokenCache = { token: null, expiresAt: 0 };
-
-async function getIamToken() {
-    const now = Date.now();
-    
-    // Если токен есть и еще 5+ минут валидности - вернуть его
-    if (iamTokenCache.token && now < iamTokenCache.expiresAt - 300000) {
-        console.log('[IAM-TOKEN] Using cached IAM token');
-        return iamTokenCache.token;
-    }
-
+// Получаем Authorization header для Yandex Cloud API
+function getYandexAuthHeader() {
     const apiKey = process.env.YC_API_KEY;
     if (!apiKey) {
         throw new Error('YC_API_KEY not configured');
     }
-
-    console.log('[IAM-TOKEN] Getting new IAM token...');
-
-    const response = await httpsRequest('https://auth.api.cloud.yandex.net/oauth/token', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `yandex_passport_oauth_token=${encodeURIComponent(apiKey)}`
-    });
-
-    if (response.statusCode !== 200) {
-        throw new Error(`Failed to get IAM token: ${response.statusCode} - ${response.data}`);
-    }
-
-    const data = JSON.parse(response.data);
-    const token = data.access_token;
-    const expiresIn = data.expires_in || 3600; // 1 час по умолчанию
-
-    // Кешируем токен с временем истечения
-    iamTokenCache = {
-        token: token,
-        expiresAt: now + (expiresIn * 1000)
-    };
-
-    console.log(`[IAM-TOKEN] New token obtained, expires in ${expiresIn}s`);
-    return token;
+    // Yandex Cloud AI API требует именно такой формат
+    return `Api-Key ${apiKey}`;
 }
 
 async function getYdbDriver() {
@@ -592,15 +557,12 @@ async function generateYandexImage(prompt) {
 
     console.log('[YANDEX-ART] Starting image generation...');
 
-    // Получаем IAM токен
-    const iamToken = await getIamToken();
-
     // ШАГ 1: Запустить асинхронную генерацию
     const startResponse = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/imageGenerationAsync', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${iamToken}`
+            'Authorization': getYandexAuthHeader()
         },
         body: JSON.stringify({
             modelUri: `art://${folderId}/yandex-art/latest`,
@@ -620,17 +582,17 @@ async function generateYandexImage(prompt) {
     console.log('[YANDEX-ART] Operation ID:', operationId);
 
     // ШАГ 2: Polling для получения результата
-    return await pollYandexImageStatus(operationId, iamToken);
+    return await pollYandexImageStatus(operationId);
 }
 
-async function pollYandexImageStatus(operationId, iamToken, maxAttempts = 60) {
+async function pollYandexImageStatus(operationId, maxAttempts = 60) {
     console.log('[YANDEX-ART] Polling image generation status...');
 
     for (let i = 0; i < maxAttempts; i++) {
         const statusResponse = await httpsRequest(`https://operation.api.cloud.yandex.net/operations/${operationId}`, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${iamToken}`
+                'Authorization': getYandexAuthHeader()
             }
         });
 
@@ -700,14 +662,11 @@ async function callYandexGPT(prompt, modelName = 'yandexgpt') {
 
     console.log('[YANDEX-GPT] Sending request to Yandex AI...');
 
-    // Получаем IAM токен
-    const iamToken = await getIamToken();
-
     const response = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${iamToken}`
+            'Authorization': getYandexAuthHeader()
         },
         body: JSON.stringify({
             modelUri: `gpt://${folderId}/${modelName}`,
@@ -3668,10 +3627,6 @@ async function handleYandexChat(body, headers) {
             };
         }
 
-        // Получаем IAM токен
-        const iamToken = await getIamToken();
-        console.log(`[YANDEX-CHAT-${handlerId}] IAM token obtained`);
-
         // Получаем ограниченную историю (последние 10 сообщений)
         const limitedHistory = (history || []).slice(-10).map(msg => ({
             role: msg.role,
@@ -3696,7 +3651,7 @@ async function handleYandexChat(body, headers) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${iamToken}`
+                'Authorization': getYandexAuthHeader()
             },
             body: JSON.stringify({
                 modelUri: `gpt://${folderId}/yandexgpt`,
