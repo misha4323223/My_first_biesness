@@ -699,6 +699,13 @@ async function handleVkAutoPostYandex(headers) {
                 console.log('[VK-AUTO-POST-YANDEX] Sending photo to Telegram using FormData');
                 const tgUrl = `https://api.telegram.org/bot${tgBotToken}/sendPhoto`;
                 
+                // Экранирование для MarkdownV2
+                const escapeMarkdownV2 = (text) => {
+                    return text.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
+                };
+
+                const escapedText = escapeMarkdownV2(postText);
+                
                 // Используем встроенный fetch с multipart (более надежно чем httpsRequest)
                 const boundary = '----TGBoundary' + Math.random().toString(36).substring(2, 15);
                 const CRLF = '\r\n';
@@ -713,11 +720,14 @@ async function handleVkAutoPostYandex(headers) {
                 parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="photo"; filename="image.png"${CRLF}Content-Type: image/png${CRLF}${CRLF}`);
                 
                 // Поле: caption
-                parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="caption"${CRLF}${CRLF}${postText}${CRLF}--${boundary}--`);
+                parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="caption"${CRLF}${CRLF}${escapedText}`);
+                
+                // Поле: parse_mode
+                parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="parse_mode"${CRLF}${CRLF}MarkdownV2${CRLF}--${boundary}--`);
                 
                 // Собираем буфер: header + image + footer
                 const bodyStart = Buffer.from(parts[0] + parts[1]);
-                const bodyEnd = Buffer.from(parts[2]);
+                const bodyEnd = Buffer.from(parts[2] + parts[3]);
                 const body = Buffer.concat([bodyStart, imageBuffer, bodyEnd]);
                 
                 console.log('[VK-AUTO-POST-YANDEX] Telegram: sending', body.length, 'bytes, boundary:', boundary);
