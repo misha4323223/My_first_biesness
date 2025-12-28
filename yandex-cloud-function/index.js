@@ -17,8 +17,8 @@
  * - SMTP_PASSWORD - пароль приложения Яндекс
  * - ADMIN_EMAIL - email администратора для входа в админ-панель
  * - ADMIN_PASSWORD - пароль администратора для входа в админ-панель
- * - GIGACHAT_KEY - полный ключ доступа Giga Chat
- * - GIGACHAT_SCOPE - scope для Giga Chat (GIGACHAT_API_PERS)
+ * - YC_API_KEY - API ключ для Yandex Cloud AI
+ * - YC_FOLDER_ID - Folder ID в Yandex Cloud
  * 
  * Банковские реквизиты (для оплаты по счёту):
  * - BANK_NAME - название банка (например: Сбербанк)
@@ -33,9 +33,6 @@ const nodemailer = require('nodemailer');
 const PDFDocument = require('pdfkit');
 const { Driver, getCredentialsFromEnv, TypedValues, Types } = require('ydb-sdk');
 const { SESv2Client, SendEmailCommand } = require('@aws-sdk/client-sesv2');
-const GigaChat = require('gigachat');
-const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
 
 const SITE_URL = process.env.SITE_URL || 'https://www.mp-webstudio.ru';
 
@@ -371,10 +368,10 @@ module.exports.handler = async function (event, context) {
             return await handleCalculatorOrder(body, headers);
         }
 
-        // POST /api/giga-chat - AI чат через Giga Chat
+        // POST /api/giga-chat - AI чат через Yandex AI
         if ((action === 'giga-chat' || path.includes('/giga-chat')) && method === 'POST') {
-            console.log('[GIGA-CHAT] Handler called');
-            return await handleGigaChat(body, headers);
+            console.log('[YANDEX-CHAT] Handler called');
+            return await handleYandexChat(body, headers);
         }
 
         // POST ?action=delete-order - мягкое удаление заказа
@@ -3560,111 +3557,147 @@ async function sendTelegramNotification(message) {
     }
 }
 
-// ============ Giga Chat gRPC Handler ============
+// ============ Yandex Chat Handler ============
 
-// Корневой сертификат Russian Trusted Root CA (для валидации цепочки)
-const SBERBANK_ROOT_CA = `-----BEGIN CERTIFICATE-----
-MIIFwjCCA6qgAwIBAgICEAAwDQYJKoZIhvcNAQELBQAwcDELMAkGA1UEBhMCUlUx
-PzA9BgNVBAoMNlRoZSBNaW5pc3RyeSBvZiBEaWdpdGFsIERldmVsb3BtZW50IGFu
-ZCBDb21tdW5pY2F0aW9uczEgMB4GA1UEAwwXUnVzc2lhbiBUcnVzdGVkIFJvb3Qg
-Q0EwHhcNMjIwMzAxMjEwNDE1WhcNMzIwMjI3MjEwNDE1WjBwMQswCQYDVQQGEwJS
-VTE/MD0GA1UECgw2VGhlIE1pbmlzdHJ5IG9mIERpZ2l0YWwgRGV2ZWxvcG1lbnQg
-YW5kIENvbW11bmljYXRpb25zMSAwHgYDVQQDDBdSdXNzaWFuIFRydXN0ZWQgUm9v
-dCBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMfFOZ8pUAL3+r2n
-qqE0Zp52selXsKGFYoG0GM5bwz1bSFtCt+AZQMhkWQheI3poZAToYJu69pHLKS6Q
-XBiwBC1cvzYmUYKMYZC7jE5YhEU2bSL0mX7NaMxMDmH2/NwuOVRj8OImVa5s1F4U
-zn4Kv3PFlDBjjSjXKVY9kmjUBsXQrIHeaqmUIsPIlNWUnimXS0I0abExqkbdrXbX
-YwCOXhOO2pDUx3ckmJlCMUGacUTnylyQW2VsJIyIGA8V0xzdaeUXg0VZ6ZmNUr5Y
-Ber/EAOLPb8NYpsAhJe2mXjMB/J9HNsoFMBFJ0lLOT/+dQvjbdRZoOT8eqJpWnVD
-U+QL/qEZnz57N88OWM3rabJkRNdU/Z7x5SFIM9FrqtN8xewsiBWBI0K6XFuOBOTD
-4V08o4TzJ8+Ccq5XlCUW2L48pZNCYuBDfBh7FxkB7qDgGDiaftEkZZfApRg2E+M9
-G8wkNKTPLDc4wH0FDTijhgxR3Y4PiS1HL2Zhw7bD3CbslmEGgfnnZojNkJtcLeBH
-BLa52/dSwNU4WWLubaYSiAmA9IUMX1/RpfpxOxd4Ykmhz97oFbUaDJFipIggx5sX
-ePAlkTdWnv+RWBxlJwMQ25oEHmRguNYf4Zr/Rxr9cS93Y+mdXIZaBEE0KS2iLRqa
-OiWBki9IMQU4phqPOBAaG7A+eP8PAgMBAAGjZjBkMB0GA1UdDgQWBBTh0YHlzlpf
-BKrS6badZrHF+qwshzAfBgNVHSMEGDAWgBTh0YHlzlpfBKrS6badZrHF+qwshzAS
-BgNVHRMBAf8ECDAGAQH/AgEEMA4GA1UdDwEB/wQEAwIBhjANBgkqhkiG9w0BAQsF
-AAOCAgEAALIY1wkilt/urfEVM5vKzr6utOeDWCUczmWX/RX4ljpRdgF+5fAIS4vH
-tmXkqpSCOVeWUrJV9QvZn6L227ZwuE15cWi8DCDal3Ue90WgAJJZMfTshN4OI8cq
-W9E4EG9wglbEtMnObHlms8F3CHmrw3k6KmUkWGoa+/ENmcVl68u/cMRl1JbW2bM+
-/3A+SAg2c6iPDlehczKx2oa95QW0SkPPWGuNA/CE8CpyANIhu9XFrj3RQ3EqeRcS
-AQQod1RNuHpfETLU/A2gMmvn/w/sx7TB3W5BPs6rprOA37tutPq9u6FTZOcG1Oqj
-C/B7yTqgI7rbyvox7DEXoX7rIiEqyNNUguTk/u3SZ4VXE2kmxdmSh3TQvybfbnXV
-4JbCZVaqiZraqc7oZMnRoWrXRG3ztbnbes/9qhRGI7PqXqeKJBztxRTEVj8ONs1d
-WN5szTwaPIvhkhO3CO5ErU2rVdUr89wKpNXbBODFKRtgxUT70YpmJ46VVaqdAhOZ
-D9EUUn4YaeLaS8AjSF/h7UkjOibNc4qVDiPP+rkehFWM66PVnP1Msh93tc+taIfC
-EYVMxjh8zNbFuoc7fzvvrFILLe7ifvEIUqSVIC/AzplM/Jxw7buXFeGP1qVCBEHq
-391d/9RAfaZ12zkwFsl+IKwE/OZxW8AHa9i1p4GO0YSNuczzEm4=
------END CERTIFICATE-----`;
+async function handleYandexChat(body, headers) {
+    const handlerId = crypto.randomUUID().substring(0, 8);
+    
+    try {
+        let { message, userName, isFirstMessage, history } = body;
+        console.log(`[YANDEX-CHAT-${handlerId}] Received message (${message?.length || 0} chars)`);
+        if (userName) console.log(`[YANDEX-CHAT-${handlerId}] User: ${userName}`);
 
-const GIGACHAT_PROTO = `
-syntax = "proto3";
+        // Обработка первого сообщения - приветствие
+        if (isFirstMessage && userName) {
+            console.log(`[YANDEX-CHAT-${handlerId}] First message - sending greeting`);
+            const greeting = `Привет, ${userName}! Я AI-ассистент компании MP.WebStudio. Я здесь, чтобы ответить на ваши вопросы о наших услугах, проектах и технологиях. Что вас интересует?`;
 
-package gigachat.v1;
+            return {
+                statusCode: 200,
+                headers,
+                body: JSON.stringify({
+                    success: true,
+                    response: greeting,
+                }),
+            };
+        }
 
-service ChatService {
-  rpc Chat (ChatRequest) returns (ChatResponse);
-  rpc ChatStream (ChatRequest) returns (stream ChatResponse);
-}
+        // Валидация сообщения
+        if (!message || typeof message !== 'string' || message.trim().length === 0) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    response: 'Сообщение не может быть пусто',
+                }),
+            };
+        }
 
-message ChatRequest {
-  ChatOptions options = 1;
-  string model = 2;
-  repeated Message messages = 3;
-}
+        if (message.length > 15000) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    response: 'Сообщение слишком длинное (макс 15000 символов)',
+                }),
+            };
+        }
 
-message ChatOptions {
-  float temperature = 1;
-  float top_p = 2;
-  int32 max_alternatives = 3;
-  int32 max_tokens = 4;
-}
+        // Проверяем переменные окружения
+        const apiKey = process.env.YC_API_KEY;
+        const folderId = process.env.YC_FOLDER_ID;
 
-message Message {
-  string role = 1;
-  string content = 2;
-}
+        console.log(`[YANDEX-CHAT-${handlerId}] YC_API_KEY exists: ${!!apiKey}`);
 
-message ChatResponse {
-  repeated Alternative alternatives = 1;
-  Usage usage = 2;
-}
+        if (!apiKey || !folderId) {
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    response: 'Yandex AI не настроен на сервере',
+                }),
+            };
+        }
 
-message Alternative {
-  Message message = 1;
-  string finish_reason = 2;
-}
+        // Получаем ограниченную историю (последние 10 сообщений)
+        const limitedHistory = (history || []).slice(-10).map(msg => ({
+            role: msg.role,
+            text: msg.content || msg.text
+        }));
 
-message Usage {
-  int32 prompt_tokens = 1;
-  int32 completion_tokens = 2;
-  int32 total_tokens = 3;
-}
-`;
+        console.log(`[YANDEX-CHAT-${handlerId}] Sending to Yandex AI with ${limitedHistory.length} history messages`);
 
-async function loadGigaChatProto() {
-    const tmpFile = '/tmp/gigachat.proto';
-    const fs = require('fs');
-    fs.writeFileSync(tmpFile, GIGACHAT_PROTO);
+        // Построили промпт с историей
+        const systemPrompt = 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.';
+        
+        // Собираем все сообщения для отправки
+        const allMessages = [
+            { role: 'system', text: systemPrompt },
+            ...limitedHistory,
+            { role: 'user', text: message }
+        ];
 
-    const packageDefinition = await protoLoader.load(tmpFile, {
-        keepCase: true,
-        longs: String,
-        enums: String,
-        defaults: true,
-        oneofs: true,
-    });
+        // Отправляем запрос к Yandex AI
+        const startTime = Date.now();
+        const response = await httpsRequest('https://llm.api.cloud.yandex.net/foundationModels/v1/completion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Api-Key ${apiKey}`
+            },
+            body: JSON.stringify({
+                modelUri: `gpt://${folderId}/yandexgpt`,
+                completionOptions: {
+                    stream: false,
+                    temperature: 0.7,
+                    maxTokens: '2000'
+                },
+                messages: allMessages
+            })
+        });
 
-    return grpc.loadPackageDefinition(packageDefinition);
-}
+        const elapsed = Math.round((Date.now() - startTime) / 1000);
+        
+        if (response.statusCode !== 200) {
+            console.error(`[YANDEX-CHAT-${handlerId}] API Error: ${response.statusCode}`);
+            return {
+                statusCode: 500,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    response: 'Помощник сейчас перегружен. Пожалуйста, попробуйте еще раз или напишите нам в VK и Telegram.',
+                }),
+            };
+        }
 
-let gigachatProto = null;
+        const data = JSON.parse(response.data);
+        const assistantMessage = data.result?.alternatives?.[0]?.message?.text || 'Нет ответа';
 
-async function getGigaChatProto() {
-    if (!gigachatProto) {
-        gigachatProto = await loadGigaChatProto();
+        console.log(`[YANDEX-CHAT-${handlerId}] Success! Response: ${assistantMessage.length} chars, ${elapsed}s`);
+
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+                success: true,
+                response: assistantMessage,
+            }),
+        };
+
+    } catch (error) {
+        console.error(`[YANDEX-CHAT-${handlerId}] Error: ${error.message}`);
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({
+                success: false,
+                response: `Ошибка: ${error.message}`,
+            }),
+        };
     }
-    return gigachatProto;
 }
 
 // AWS Signature V4 signing helper
@@ -3715,316 +3748,4 @@ function signAwsRequest(method, host, path, accessKey, secretKey, payload = '') 
         'X-Amz-Date': amzDate,
         'X-Amz-Content-Sha256': 'UNSIGNED-PAYLOAD'
     };
-}
-
-
-async function handleGigaChat(body, headers) {
-    const handlerId = crypto.randomUUID().substring(0, 8);
-    const MAX_RETRIES = 3;
-
-    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-        console.log(`\n\n=== GIGACHAT gRPC REQUEST START [${handlerId}] (Attempt ${attempt}/${MAX_RETRIES}) (Yandex Cloud) ===`);
-        const result = await attemptGigaChat(body, headers, handlerId);
-
-        // Если успех - возвращаем результат
-        if (result.statusCode === 200) {
-            console.log(`[${handlerId}] ✅ Success on attempt ${attempt}`);
-            return result;
-        }
-
-        // Если ошибка сети/timeout - пытаемся снова (кроме последней попытки)
-        if (attempt < MAX_RETRIES && isRetryableError(result)) {
-            const errorBody = JSON.parse(result.body);
-            console.warn(`[${handlerId}] ⚠️ Attempt ${attempt} failed with: ${errorBody.response || 'unknown error'}`);
-            console.log(`[${handlerId}] 🔄 Retrying in 2 seconds...`);
-            await new Promise(r => setTimeout(r, 2000));
-            continue;
-        }
-
-        // Если не повторяемая ошибка или последняя попытка - возвращаем результат
-        return result;
-    }
-}
-
-function isRetryableError(result) {
-    if (result.statusCode !== 500) return false;
-    try {
-        const body = JSON.parse(result.body);
-        const response = body.response || '';
-        return response.includes('timeout') || 
-               response.includes('Timeout') || 
-               response.includes('error') ||
-               response.includes('failed');
-    } catch {
-        return true; // При ошибке парсинга - пытаемся снова
-    }
-}
-
-async function attemptGigaChat(body, headers, handlerId) {
-    const startTime = Date.now();
-    let stageStartTime = startTime;
-
-    try {
-        let { message, userName, isFirstMessage } = body;
-        console.log(`[${handlerId}] 1️⃣ Received message (${message?.length || 0} chars)`);
-        if (userName) console.log(`[${handlerId}] User name: ${userName}`);
-        if (isFirstMessage) console.log(`[${handlerId}] First message: true`);
-
-        // Обработка первого сообщения - отправить приветствие
-        if (isFirstMessage && userName) {
-            console.log(`[${handlerId}] 1b️⃣ First message detected - sending greeting to ${userName}...`);
-            const greeting = `Привет, ${userName}! 👋 Я AI-ассистент компании MP.WebStudio. Я здесь, чтобы ответить на ваши вопросы о наших услугах, проектах и технологиях. Что вас интересует?`;
-
-            return {
-                statusCode: 200,
-                headers,
-                body: JSON.stringify({
-                    success: true,
-                    response: greeting,
-                }),
-            };
-        }
-
-        // Валидация сообщения
-        if (!message || typeof message !== 'string' || message.trim().length === 0) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    response: 'Сообщение не может быть пусто',
-                }),
-            };
-        }
-
-        if (message.length > 15000) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    response: 'Сообщение слишком длинное (макс 15000 символов)',
-                }),
-            };
-        }
-
-        const gigachatKey = process.env.GIGACHAT_KEY;
-        const gigachatScope = process.env.GIGACHAT_SCOPE || 'GIGACHAT_API_PERS';
-
-        console.log(`[${handlerId}] 2️⃣ GIGACHAT_KEY exists: ${!!gigachatKey}`);
-
-        if (!gigachatKey) {
-            return {
-                statusCode: 500,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    response: 'GigaChat не настроен на сервере',
-                }),
-            };
-        }
-
-        // Получаем OAuth токен
-        stageStartTime = Date.now();
-        console.log(`[${handlerId}] 3️⃣ Requesting OAuth token...`);
-        const authBody = `scope=${encodeURIComponent(gigachatScope)}`;
-
-        let authResponse;
-        try {
-            authResponse = await httpsRequest('https://ngw.devices.sberbank.ru:9443/api/v2/oauth', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept': 'application/json',
-                    'Authorization': `Basic ${gigachatKey}`,
-                    'RqUID': crypto.randomUUID(),
-                },
-                body: authBody,
-            });
-            const oauthTime = Math.round((Date.now() - stageStartTime) / 1000);
-            console.log(`[${handlerId}] ✅ OAuth completed in ${oauthTime}s`);
-        } catch (err) {
-            throw new Error(`OAuth failed: ${err.message}`);
-        }
-
-        if (authResponse.statusCode !== 200) {
-            throw new Error(`Auth error: ${authResponse.statusCode}`);
-        }
-
-        let authData;
-        try {
-            authData = JSON.parse(authResponse.data);
-        } catch {
-            throw new Error('Invalid auth response format');
-        }
-
-        const accessToken = authData.access_token;
-        if (!accessToken) {
-            throw new Error('No access token in response');
-        }
-
-        console.log(`[${handlerId}] 4️⃣ Loading gRPC proto... (elapsed: ${Date.now() - startTime}ms)`);
-        stageStartTime = Date.now();
-        const proto = await getGigaChatProto();
-        const protoTime = Date.now() - stageStartTime;
-        console.log(`[${handlerId}]    Proto loaded in ${protoTime}ms`);
-        const ChatServiceClient = proto.gigachat.v1.ChatService;
-
-        console.log(`[${handlerId}] 5️⃣ Creating gRPC client... (elapsed: ${Date.now() - startTime}ms)`);
-        // Используем корневой CA сертификат для валидации цепочки
-        const credentials = grpc.credentials.createSsl(Buffer.from(SBERBANK_ROOT_CA));
-        const metadata = new grpc.Metadata();
-        metadata.add('authorization', `Bearer ${accessToken}`);
-
-        // Опции для gRPC канала с правильной конфигурацией
-        const channelOptions = {
-            'grpc.ssl_target_name_override': 'gigachat.devices.sberbank.ru',
-            'grpc.default_authority': 'gigachat.devices.sberbank.ru',
-            'grpc.max_receive_message_length': 10 * 1024 * 1024,
-            'grpc.max_send_message_length': 10 * 1024 * 1024,
-            // Aggressive keepalive to prevent socket closure
-            'grpc.http2.keepalive_time': 5000,  // Ping every 5 sec
-            'grpc.http2.keepalive_timeout': 10000,  // Wait 10 sec for pong
-            'grpc.http2.max_pings_without_data': 0,  // Allow pings without data
-            'grpc.http2.min_time_between_pings': 1000,  // Min 1 sec between pings
-            'grpc.keepalive_permit_without_calls': true,
-            // Connection management
-            'grpc.http2.max_connection_idle_ms': 60000,
-            'grpc.http2.max_connection_age_ms': 300000,
-        };
-
-        console.log(`[${handlerId}] Client creating... (elapsed: ${Date.now() - startTime}ms)`);
-        stageStartTime = Date.now();
-        const client = new ChatServiceClient('gigachat.devices.sberbank.ru:443', credentials, channelOptions);
-        const clientCreateTime = Date.now() - stageStartTime;
-        console.log(`[${handlerId}]    Client created in ${clientCreateTime}ms`);
-
-        // Получаем историю сообщений из запроса
-        const history = body.history || [];
-
-        // Ограничиваем историю последними 10 сообщениями
-        const limitedHistory = history.slice(-10).map(msg => ({
-            role: msg.role,
-            content: msg.content
-        }));
-
-        console.log(`[${handlerId}] 6️⃣ Preparing gRPC request with ${limitedHistory.length} history messages (elapsed: ${Date.now() - startTime}ms)...`);
-        const chatStartTime = Date.now();
-        const GRPC_TIMEOUT = 12000; // 12 сек для gRPC - остаток времени на завершение
-
-        return new Promise((resolve) => {
-            // Добавляем deadline в метаданные (сообщаем серверу когда истекает timeout)
-            metadata.add('grpc-timeout', `${GRPC_TIMEOUT}m`); // m = миллисекунды
-
-            console.log(`[${handlerId}] 7️⃣ ABOUT TO CALL client.chat() at ${new Date().toISOString()}`);
-
-            const chatRequest = {
-                model: 'GigaChat',
-                messages: [
-                    {
-                        role: 'system',
-                        content: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.'
-                    },
-                    ...limitedHistory,
-                    {
-                        role: 'user',
-                        content: message,
-                    }
-                ],
-                options: {
-                    temperature: 0.7,
-                    max_tokens: 1000,
-                }
-            };
-
-            let grpcCompleted = false;
-
-            console.log(`[${handlerId}] ➡️ CALLING client.chat() NOW`);
-            const beforeCall = Date.now();
-
-            client.chat(chatRequest, metadata, (err, response) => {
-                const callbackTime = Date.now() - beforeCall;
-                console.log(`[${handlerId}] 📞 CALLBACK TRIGGERED after ${callbackTime}ms from client.chat() call`);
-
-                if (grpcCompleted) return; // Игнорируем если уже был timeout
-                grpcCompleted = true;
-
-                const chatElapsed = Math.round((Date.now() - chatStartTime) / 1000);
-
-                if (err) {
-                    console.error(`[${handlerId}] ❌ gRPC ERROR CALLBACK`);
-                    console.error(`[${handlerId}]    Error message: ${err.message}`);
-                    console.error(`[${handlerId}]    Error code: ${err.code}`);
-                    console.error(`[${handlerId}]    Time elapsed: ${chatElapsed}s`);
-                    // Graceful shutdown
-                    setImmediate(() => client.close());
-                    return resolve({
-                        statusCode: 500,
-                        headers,
-                        body: JSON.stringify({
-                            success: false,
-                            response: `gRPC ошибка: ${err.message}`,
-                        }),
-                    });
-                }
-
-                console.log(`[${handlerId}] ✅ gRPC SUCCESS CALLBACK - response received in ${chatElapsed}s`);
-
-                const assistantMessage = response?.alternatives?.[0]?.message?.content || 'Нет ответа';
-                const totalTime = Math.round((Date.now() - startTime) / 1000);
-
-                console.log(`[${handlerId}] 7️⃣ Success!`);
-                console.log(`[${handlerId}]    Response length: ${assistantMessage.length} chars`);
-                console.log(`[${handlerId}]    gRPC time: ${chatElapsed}s, Total time: ${totalTime}s`);
-                console.log(`=== GIGACHAT gRPC REQUEST END [${handlerId}] (SUCCESS) ===\n`);
-
-                // Graceful shutdown после успешного ответа
-                setImmediate(() => client.close());
-
-                resolve({
-                    statusCode: 200,
-                    headers,
-                    body: JSON.stringify({
-                        success: true,
-                        response: assistantMessage,
-                    }),
-                });
-            });
-
-            const timeoutHandle = setTimeout(() => {
-                if (grpcCompleted) return; // Уже получили ответ
-                grpcCompleted = true;
-
-                console.error(`[${handlerId}] ⏰ GRPC TIMEOUT TRIGGERED after ${GRPC_TIMEOUT}ms`);
-                console.error(`[${handlerId}]    No callback received from client.chat() in ${GRPC_TIMEOUT}ms`);
-                // Graceful shutdown при timeout
-                setImmediate(() => client.close());
-                resolve({
-                    statusCode: 500,
-                    headers,
-                    body: JSON.stringify({
-                        success: false,
-                        response: 'Помощник сейчас перегружен. Пожалуйста, попробуйте еще раз или напишите нам в VK и Telegram.',
-                    }),
-                });
-            }, GRPC_TIMEOUT);
-
-            console.log(`[${handlerId}] ⏲️ TIMEOUT SET for ${GRPC_TIMEOUT}ms`);
-        });
-
-    } catch (error) {
-        const totalTime = Math.round((Date.now() - startTime) / 1000);
-        const errorMsg = error instanceof Error ? error.message : String(error);
-        console.error(`[${handlerId}] ❌ ERROR: ${errorMsg} (after ${totalTime}s)`);
-        console.error(`=== GIGACHAT gRPC REQUEST END [${handlerId}] (FAILED) ===\n`);
-
-        return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({
-                success: false,
-                response: `Ошибка: ${errorMsg}`,
-            }),
-        };
-    }
 }
