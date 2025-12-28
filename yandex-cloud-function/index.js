@@ -692,14 +692,8 @@ async function handleVkAutoPostYandex(headers) {
         // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ
         try {
             console.log('[VK-AUTO-POST-YANDEX] Posting to Telegram...');
-            console.log('[VK-AUTO-POST-YANDEX] DEBUG: TELEGRAM_BOT_TOKEN exists:', !!process.env.TELEGRAM_BOT_TOKEN, 'length:', process.env.TELEGRAM_BOT_TOKEN?.length || 0);
-            console.log('[VK-AUTO-POST-YANDEX] DEBUG: TELEGRAM_CHAT_ID exists:', !!process.env.TELEGRAM_CHAT_ID, 'length:', process.env.TELEGRAM_CHAT_ID?.length || 0);
-            
             const tgBotToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
             const tgChatId = process.env.TELEGRAM_CHAT_ID?.trim();
-            
-            console.log('[VK-AUTO-POST-YANDEX] DEBUG: tgBotToken after trim:', !!tgBotToken, 'type:', typeof tgBotToken);
-            console.log('[VK-AUTO-POST-YANDEX] DEBUG: tgChatId after trim:', !!tgChatId, 'type:', typeof tgChatId);
 
             if (tgBotToken && tgChatId) {
                 console.log('[VK-AUTO-POST-YANDEX] Sending photo to Telegram using FormData');
@@ -3846,17 +3840,11 @@ function formatOrderMessage(order) {
 }
 
 async function sendTelegramNotification(message) {
-    console.log('[TELEGRAM-NOTIFY] DEBUG: TELEGRAM_BOT_TOKEN exists:', !!process.env.TELEGRAM_BOT_TOKEN, 'length:', process.env.TELEGRAM_BOT_TOKEN?.length || 0);
-    console.log('[TELEGRAM-NOTIFY] DEBUG: TELEGRAM_CHAT_ID exists:', !!process.env.TELEGRAM_CHAT_ID, 'length:', process.env.TELEGRAM_CHAT_ID?.length || 0);
-    
     const botToken = process.env.TELEGRAM_BOT_TOKEN?.trim();
     const chatId = process.env.TELEGRAM_CHAT_ID?.trim();
-    
-    console.log('[TELEGRAM-NOTIFY] DEBUG: botToken after trim:', !!botToken, 'type:', typeof botToken);
-    console.log('[TELEGRAM-NOTIFY] DEBUG: chatId after trim:', !!chatId, 'type:', typeof chatId);
 
     if (!botToken || !chatId) {
-        console.log('[TELEGRAM-NOTIFY] Telegram not configured, botToken=', botToken, 'chatId=', chatId);
+        console.log('[TELEGRAM-NOTIFY] Telegram not configured');
         return;
     }
 
