@@ -3896,6 +3896,7 @@ async function sendTelegramNotification(message) {
 
 async function checkAndUpdateChatLimit(ipAddress) {
     const MAX_MESSAGES_PER_DAY = 10;
+    console.log(`[CHAT-LIMITS] 🔍 Checking limit for IP ${ipAddress}, MAX=${MAX_MESSAGES_PER_DAY}`);
     const RESET_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 часа
     
     try {
@@ -3929,6 +3930,9 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     const row = rows[0];
                     messageCount = parseInt(row.message_count?.value || 0);
                     lastResetTimestamp = parseInt(row.last_reset_timestamp?.value || now);
+                    console.log(`[CHAT-LIMITS] 📖 Found existing record for IP ${ipAddress}: count=${messageCount}, lastReset=${new Date(lastResetTimestamp).toISOString()}`);
+                } else {
+                    console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
                 }
                 
                 // Проверяем нужно ли обнулить счётчик (прошло 24 часа)
@@ -3946,6 +3950,7 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     // Увеличиваем счётчик
                     messageCount += 1;
                     currentCount = messageCount;
+                    console.log(`[CHAT-LIMITS] 📝 Incrementing count: ${messageCount - 1} → ${messageCount}`);
                     
                     // Сохраняем обновленные данные
                     const upsertQuery = `
@@ -3958,6 +3963,7 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     `;
                     
                     const preparedUpsert = await session.prepareQuery(upsertQuery);
+                    console.log(`[CHAT-LIMITS] 💾 Executing UPSERT: ip=${ipAddress}, count=${messageCount}, timestamp=${lastResetTimestamp}`);
                     await session.executeQuery(preparedUpsert, {
                         '$ip': TypedValues.utf8(ipAddress),
                         '$count': TypedValues.int32(messageCount),
