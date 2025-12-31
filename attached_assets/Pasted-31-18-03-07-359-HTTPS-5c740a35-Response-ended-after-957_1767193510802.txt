@@ -1,0 +1,305 @@
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] ✨ Response ended after 957ms
+
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] 📥 Data chunk: 1000 bytes (total: 1000)
+
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] 📦 First byte received after 957ms
+
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] Response headers: content-type=application/json, content-length=undefined
+
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] Status code: 200
+
+31 дек. 18:03:07.359
+[HTTPS-5c740a35] ✅ Response callback triggered after 956ms
+
+31 дек. 18:03:06.438
+[HTTPS-5c740a35] 🔒 TLS handshake complete after 35ms
+
+31 дек. 18:03:06.420
+[HTTPS-5c740a35] 🌐 TCP connected after 18ms
+
+31 дек. 18:03:06.406
+[HTTPS-5c740a35] 🔍 DNS lookup started
+
+31 дек. 18:03:06.405
+[HTTPS-5c740a35] 🔌 Socket created, fd: unknown
+
+31 дек. 18:03:06.405
+[HTTPS-5c740a35] Waiting for response...
+
+31 дек. 18:03:06.405
+[HTTPS-5c740a35] 🚀 Calling req.end()
+
+31 дек. 18:03:06.405
+[HTTPS-5c740a35] Body written successfully
+
+31 дек. 18:03:06.404
+[HTTPS-5c740a35] 📤 Writing body (7551 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+31 дек. 18:03:06.403
+[HTTPS-5c740a35] Creating HTTPS request with timeout: 15000ms
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Setting main timeout: 12000ms
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Headers: Content-Type, Authorization
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Request body size: 7551 bytes
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Path: /foundationModels/v1/completion
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Hostname: llm.api.cloud.yandex.net:443
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] Method: POST
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+31 дек. 18:03:06.402
+[HTTPS-5c740a35] ========== HTTPS REQUEST START ==========
+
+31 дек. 18:03:06.401
+[YANDEX-AUTH] Key length: 40
+
+31 дек. 18:03:06.401
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+31 дек. 18:03:06.401
+[YANDEX-CHAT-da50f976] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":9,"folderId":"b1g572p5cuo41gucvn5t"}
+
+31 дек. 18:03:06.401
+[YANDEX-CHAT-da50f976] Sending to Yandex AI with 7 history messages
+
+31 дек. 18:03:06.401
+[YANDEX-CHAT-da50f976] Rate limit check OK - IP 62.141.68.106: 1/10 messages
+
+31 дек. 18:03:06.401
+[CHAT-LIMITS] ✅ Updated IP 62.141.68.106: 1/10 messages
+
+31 дек. 18:03:06.345
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=1, timestamp=1767193386266
+
+31 дек. 18:03:06.345
+[CHAT-LIMITS] 📝 Incrementing count: 0 → 1
+
+31 дек. 18:03:06.345
+[CHAT-LIMITS] 📖 Found existing record for IP 62.141.68.106: count=0, lastReset=2025-12-31T15:03:06.266Z
+
+31 дек. 18:03:06.345
+[CHAT-LIMITS] 📊 SELECT returned 1 rows
+
+31 дек. 18:03:06.267
+[CHAT-LIMITS] 🔎 Executing SELECT for IP: 62.141.68.106
+
+31 дек. 18:03:06.146
+YDB driver connected to: /ru-central1/b1ginq9tlm42kl6f220g/etnfv98crsc3q9i5fabu
+
+31 дек. 18:03:05.886
+[CHAT-LIMITS] 🔍 Checking limit for IP 62.141.68.106, MAX=10
+
+31 дек. 18:03:05.886
+[YANDEX-CHAT-da50f976] Received message (23 chars)
+
+31 дек. 18:03:05.886
+[YANDEX-CHAT-da50f976] Client IP: 62.141.68.106
+
+31 дек. 18:03:05.885
+[YANDEX-CHAT] Handler called
+
+31 дек. 18:03:05.885
+}
+
+31 дек. 18:03:05.885
+bodyKeys: [ 'message', 'history' ]
+
+31 дек. 18:03:05.885
+path: '',
+
+31 дек. 18:03:05.885
+action: 'giga-chat',
+
+31 дек. 18:03:05.885
+method: 'POST',
+
+31 дек. 18:03:05.885
+[REQUEST] {
+
+31 дек. 18:03:05.884
+}
+
+31 дек. 18:03:05.884
+timestamp: '2025-12-31T15:03:05.878Z'
+
+31 дек. 18:03:05.884
+path: undefined,
+
+31 дек. 18:03:05.884
+method: 'POST',
+
+31 дек. 18:03:05.884
+[HANDLER START] {
+
+31 дек. 18:03:05.052
+START RequestID: de5eb140-3bb8-4621-9f8a-58c96717addc Version: d4e8docjf25agjt8oaam
+
+31 дек. 17:56:47.808
+[HTTPS-e49d8837] ❌ Socket closed (hadError: false) after 5477ms
+
+31 дек. 17:56:47.808
+[HTTPS-e49d8837] ❌ SOCKET TIMEOUT after 5476ms - destroying request
+
+31 дек. 17:56:42.809
+REPORT RequestID: 014a04c4-d082-4d82-8cc0-816c68d791d2 Duration: 1744.858 ms Billed Duration: 1800 ms Memory Size: 512 MB Max Memory Used: 179 MB Queuing Duration: 0.056 ms Function Init Duration: 797.804 ms CPU Usage: 81.641 %
+
+31 дек. 17:56:42.809
+END RequestID: 014a04c4-d082-4d82-8cc0-816c68d791d2
+
+31 дек. 17:56:42.806
+[YANDEX-CHAT-ea720b17] Success! Response: 147 chars, 0s
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] ========== REQUEST SUCCESS ==========
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] Total response size: 414 bytes
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] ✨ Response ended after 474ms
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] 📥 Data chunk: 534 bytes (total: 534)
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] 📦 First byte received after 473ms
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] Response headers: content-type=application/json, content-length=undefined
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+31 дек. 17:56:42.805
+[HTTPS-e49d8837] Status code: 200
+
+31 дек. 17:56:42.804
+[HTTPS-e49d8837] ✅ Response callback triggered after 473ms
+
+31 дек. 17:56:42.357
+[HTTPS-e49d8837] 🔒 TLS handshake complete after 26ms
+
+31 дек. 17:56:42.345
+[HTTPS-e49d8837] 🌐 TCP connected after 13ms
+
+31 дек. 17:56:42.335
+[HTTPS-e49d8837] 🔍 DNS lookup started
+
+31 дек. 17:56:42.334
+[HTTPS-e49d8837] 🔌 Socket created, fd: unknown
+
+31 дек. 17:56:42.334
+[HTTPS-e49d8837] Waiting for response...
+
+31 дек. 17:56:42.334
+[HTTPS-e49d8837] 🚀 Calling req.end()
+
+31 дек. 17:56:42.334
+[HTTPS-e49d8837] Body written successfully
+
+31 дек. 17:56:42.333
+[HTTPS-e49d8837] 📤 Writing body (7185 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+31 дек. 17:56:42.332
+[HTTPS-e49d8837] Creating HTTPS request with timeout: 15000ms
+
+31 дек. 17:56:42.332
+[HTTPS-e49d8837] Setting main timeout: 12000ms
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] Headers: Content-Type, Authorization
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] Request body size: 7185 bytes
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] Path: /foundationModels/v1/completion
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] Hostname: llm.api.cloud.yandex.net:443
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] Method: POST
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+31 дек. 17:56:42.331
+[HTTPS-e49d8837] ========== HTTPS REQUEST START ==========
+
+31 дек. 17:56:42.330
+[YANDEX-AUTH] Key length: 40
+
+31 дек. 17:56:42.330
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+31 дек. 17:56:42.330
+[YANDEX-CHAT-ea720b17] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":7,"folderId":"b1g572p5cuo41gucvn5t"}
+
+31 дек. 17:56:42.330
+[YANDEX-CHAT-ea720b17] Sending to Yandex AI with 5 history messages
+
+31 дек. 17:56:42.330
+[YANDEX-CHAT-ea720b17] Rate limit check OK - IP 62.141.68.106: 1/10 messages
+
+31 дек. 17:56:42.330
+[CHAT-LIMITS] ✅ Updated IP 62.141.68.106: 1/10 messages
+
+31 дек. 17:56:42.265
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=1, timestamp=1767193002189
+
+31 дек. 17:56:42.265
+[CHAT-LIMITS] 📝 Incrementing count: 0 → 1
+
+31 дек. 17:56:42.265
+[CHAT-LIMITS] 📖 Found existing record for IP 62.141.68.106: count=0, lastReset=2025-12-31T14:56:42.189Z
+
+31 дек. 17:56:42.265
+[CHAT-LIMITS] 📊 SELECT returned 1 rows
+
+31 дек. 17:56:42.190
+[CHAT-LIMITS] 🔎 Executing SELECT for IP: 62.141.68.106
+
+31 дек. 17:56:42.101
+YDB driver connected to: /ru-central1/b1ginq9tlm42kl6f220g/etnfv98crsc3q9i5fabu
+
+31 дек. 17:56:41.871
+[CHAT-LIMITS] 🔍 Checking limit for IP 62.141.68.106, MAX=10
+
+31 дек. 17:56:41.870
+[YANDEX-CHAT-ea720b17] Received message (11 chars)
+
+31 дек. 17:56:41.870
+[YANDEX-CHAT-ea720b17] Client IP: 62.141.68.106
+
+31 дек. 17:56:41.869
+[YANDEX-CHAT] Handler called
+
+31 дек. 17:56:41.869
+}

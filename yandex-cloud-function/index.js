@@ -3929,17 +3929,16 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 
                 if (rows.length > 0) {
                     const row = rows[0];
-                    messageCount = parseInt(row.message_count?.value || 0);
-                    // Важно: берем метку времени из базы, а не текущую, если запись существует
-                    lastResetTimestamp = parseInt(row.last_reset_timestamp?.value || now);
+                    // YDB может возвращать BigInt, приводим к числу
+                    messageCount = Number(row.message_count?.value || 0);
+                    lastResetTimestamp = Number(row.last_reset_timestamp?.value || now);
                     console.log(`[CHAT-LIMITS] 📖 Found existing record for IP ${ipAddress}: count=${messageCount}, lastReset=${new Date(lastResetTimestamp).toISOString()}`);
                 } else {
-                    // Для новой записи запоминаем текущее время как начало 24-часового периода
                     lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
                 }
                 
-                // Проверяем нужно ли обнулить счётчик (прошло 24 часа с момента ПЕРВОГО сообщения в периоде)
+                // Проверяем нужно ли обнулить счётчик (прошло 24 часа)
                 if (now - lastResetTimestamp > RESET_INTERVAL_MS) {
                     messageCount = 0;
                     lastResetTimestamp = now;
@@ -3970,7 +3969,7 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     await session.executeQuery(upsertQuery, {
                         '$ip': TypedValues.utf8(ipAddress),
                         '$count': TypedValues.int32(messageCount),
-                        '$timestamp': TypedValues.int64(lastResetTimestamp)
+                        '$timestamp': TypedValues.int64(BigInt(lastResetTimestamp)) // YDB Int64 ожидает BigInt в JS
                     });
                     
                     console.log(`[CHAT-LIMITS] ✅ Updated IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY} messages`);
