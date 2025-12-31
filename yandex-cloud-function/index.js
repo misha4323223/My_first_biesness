@@ -3894,62 +3894,6 @@ async function sendTelegramNotification(message) {
 
 // ============ Chat Limits Handler (Rate Limiting by IP) ============
 
-async function ensureChatLimitTableExists() {
-    const driver = await getYdbDriver();
-    
-    try {
-        // Пытаемся создать таблицу через TableDescription API
-        // (не через SQL query, так как CREATE TABLE нельзя в data query)
-        const tablePath = 'chat_limits';
-        
-        try {
-            // Проверяем существует ли таблица
-            await driver.describeTable(tablePath);
-            console.log('[CHAT-LIMITS] Table chat_limits already exists');
-            return;
-        } catch (describeError) {
-            // Таблица не существует, создаём её
-            console.log('[CHAT-LIMITS] Table does not exist, creating...');
-        }
-
-        // Используем rawSqlQuery или alternative approach
-        // На самом деле, просто делаем UPSERT на случайный ключ - YDB создаст таблицу по схеме
-        await driver.tableClient.withSession(async (session) => {
-            // Инициализируем таблицу простой записью (UPSERT создаст таблицу если её нет)
-            const initQuery = `
-                DECLARE $ip AS Utf8;
-                DECLARE $count AS Int32;
-                DECLARE $timestamp AS Int64;
-                
-                UPSERT INTO chat_limits (ip_address, message_count, last_reset_timestamp)
-                VALUES ($ip, $count, $timestamp);
-            `;
-            
-            try {
-                const preparedInit = await session.prepareQuery(initQuery);
-                // Пытаемся выполнить UPSERT - если таблица не существует, будет ошибка
-                // которую мы обработаем
-                await session.executeQuery(preparedInit, {
-                    '$ip': TypedValues.utf8('_init_'),
-                    '$count': TypedValues.int32(0),
-                    '$timestamp': TypedValues.int64(Date.now())
-                });
-                console.log('[CHAT-LIMITS] Table initialized with UPSERT');
-            } catch (upsertError) {
-                // Таблица ещё не существует, попробуем создать её через другой путь
-                console.log('[CHAT-LIMITS] UPSERT failed (table may not exist yet):', upsertError.message);
-                throw upsertError;
-            }
-        });
-        
-        console.log('[CHAT-LIMITS] Table chat_limits is ready');
-    } catch (error) {
-        console.error('[CHAT-LIMITS] Error ensuring table exists:', error.message);
-        // Даже если таблица не создалась, продолжаем работу
-        // checkAndUpdateChatLimit() обработает ошибку gracefully
-    }
-}
-
 async function checkAndUpdateChatLimit(ipAddress) {
     const MAX_MESSAGES_PER_DAY = 10;
     const RESET_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 часа
