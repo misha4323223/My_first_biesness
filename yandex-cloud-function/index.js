@@ -3929,10 +3929,15 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 
                 if (rows.length > 0) {
                     const row = rows[0];
-                    // YDB может возвращать BigInt, приводим к числу
-                    messageCount = Number(row.message_count?.value || 0);
-                    lastResetTimestamp = Number(row.last_reset_timestamp?.value || now);
-                    console.log(`[CHAT-LIMITS] 📖 Found existing record for IP ${ipAddress}: count=${messageCount}, lastReset=${new Date(lastResetTimestamp).toISOString()}`);
+                    // Извлекаем значения из структуры YDB (в SDK v2 значения обернуты в объекты)
+                    const countVal = row.message_count;
+                    const timeVal = row.last_reset_timestamp;
+                    
+                    messageCount = Number(countVal !== null && typeof countVal === 'object' ? countVal.value : (countVal || 0));
+                    lastResetTimestamp = Number(timeVal !== null && typeof timeVal === 'object' ? timeVal.value : (timeVal || now));
+                    
+                    console.log(`[CHAT-LIMITS] 📖 Raw row data: count=${JSON.stringify(countVal)}, time=${JSON.stringify(timeVal)}`);
+                    console.log(`[CHAT-LIMITS] 📖 Parsed record for IP ${ipAddress}: count=${messageCount}, lastReset=${new Date(lastResetTimestamp).toISOString()}`);
                 } else {
                     lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
