@@ -3909,6 +3909,10 @@ async function checkAndUpdateChatLimit(ipAddress) {
             const now = Date.now();
             
             try {
+                // Начинаем транзакцию
+                await session.beginTransaction({ serializableReadWrite: {} });
+                console.log(`[CHAT-LIMITS] 🔄 Transaction started`);
+                
                 // Получаем текущие данные
                 const selectQuery = `
                     DECLARE $ip AS Utf8;
@@ -3917,12 +3921,14 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 `;
                 
                 const preparedSelect = await session.prepareQuery(selectQuery);
+                console.log(`[CHAT-LIMITS] 🔎 Executing SELECT for IP: ${ipAddress}`);
                 const result = await session.executeQuery(preparedSelect, {
                     '$ip': TypedValues.utf8(ipAddress)
                 });
                 
                 tableExists = true;
                 const rows = result.resultSets[0]?.rows || [];
+                console.log(`[CHAT-LIMITS] 📊 SELECT returned ${rows.length} rows`);
                 let messageCount = 0;
                 let lastResetTimestamp = now;
                 
@@ -3970,7 +3976,10 @@ async function checkAndUpdateChatLimit(ipAddress) {
                         '$timestamp': TypedValues.int64(lastResetTimestamp)
                     });
                     
+                    // Зафиксируем транзакцию в БД
+                    await session.commitTransaction();
                     console.log(`[CHAT-LIMITS] ✅ Updated IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY} messages`);
+                    console.log(`[CHAT-LIMITS] 🔒 Transaction committed successfully`);
                 }
             } catch (queryError) {
                 // Таблица не существует?
