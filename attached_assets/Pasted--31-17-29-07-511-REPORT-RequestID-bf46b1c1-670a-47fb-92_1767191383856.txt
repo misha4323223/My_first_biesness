@@ -1,0 +1,94 @@
+
+
+31 дек. 17:29:07.511
+REPORT RequestID: bf46b1c1-670a-47fb-92bc-1f5ac1b5fa34 Duration: 2005.834 ms Billed Duration: 2100 ms Memory Size: 512 MB Max Memory Used: 189 MB Queuing Duration: 0.079 ms Function Init Duration: 657.732 ms CPU Usage: 99.902 %
+
+31 дек. 17:29:07.511
+END RequestID: bf46b1c1-670a-47fb-92bc-1f5ac1b5fa34
+
+31 дек. 17:29:06.653
+[HTTPS-4d0b618a] 🔒 TLS handshake complete after 26ms
+
+31 дек. 17:29:06.640
+[HTTPS-4d0b618a] 🌐 TCP connected after 14ms
+
+31 дек. 17:29:06.630
+[HTTPS-4d0b618a] 🔍 DNS lookup started
+
+31 дек. 17:29:06.629
+[HTTPS-4d0b618a] 🔌 Socket created, fd: unknown
+
+31 дек. 17:29:06.629
+[HTTPS-4d0b618a] Waiting for response...
+
+31 дек. 17:29:06.629
+[HTTPS-4d0b618a] 🚀 Calling req.end()
+
+31 дек. 17:29:06.629
+[HTTPS-4d0b618a] Body written successfully
+
+31 дек. 17:29:06.628
+[HTTPS-4d0b618a] 📤 Writing body (6880 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Creating HTTPS request with timeout: 15000ms
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Setting main timeout: 12000ms
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Headers: Content-Type, Authorization
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Request body size: 6880 bytes
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Path: /foundationModels/v1/completion
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Hostname: llm.api.cloud.yandex.net:443
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] Method: POST
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+31 дек. 17:29:06.627
+[HTTPS-4d0b618a] ========== HTTPS REQUEST START ==========
+
+31 дек. 17:29:06.626
+[YANDEX-AUTH] Key length: 40
+
+31 дек. 17:29:06.626
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+31 дек. 17:29:06.626
+[YANDEX-CHAT-780d4239] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":5,"folderId":"b1g572p5cuo41gucvn5t"}
+
+31 дек. 17:29:06.626
+[YANDEX-CHAT-780d4239] Sending to Yandex AI with 3 history messages
+
+31 дек. 17:29:06.626
+[YANDEX-CHAT-780d4239] Rate limit check OK - IP 62.141.68.106: 0/10 messages
+
+31 дек. 17:29:06.626
+[CHAT-LIMITS] ⚠️ Error checking limit (allowing message to pass): Cannot read properties of undefined (reading 'txId')
+
+31 дек. 17:29:06.625
+[CHAT-LIMITS] Query error: Cannot read properties of undefined (reading 'txId')
+
+31 дек. 17:29:06.575
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=1, timestamp=1767191346471
+
+31 дек. 17:29:06.538
+[CHAT-LIMITS] 📝 Incrementing count: 0 → 1
+
+31 дек. 17:29:06.538
+[CHAT-LIMITS] 📖 Found existing record for IP 62.141.68.106: count=0, lastReset=2025-12-31T14:29:06.471Z
+
+31 дек. 17:29:06.386
+YDB driver connected to: /ru-central1/b1ginq9tlm42kl6f220g/etnfv98crsc3q9i5fabu
