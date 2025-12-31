@@ -11,7 +11,8 @@
  * - ROBOKASSA_PASSWORD2 - пароль #2 для проверки подписи
  * - ROBOKASSA_TEST_MODE - "true" для тестового режима
  * - TELEGRAM_BOT_TOKEN - токен бота Telegram
- * - TELEGRAM_CHAT_ID - ID чата для уведомлений
+ * - TELEGRAM_CHAT_ID - ID чата для уведомлений о заказах
+ * - TELEGRAM_AUTO_POST_CHAT_ID - ID чата для автопостов (опционально, используется TELEGRAM_CHAT_ID если не указано)
  * - SITE_URL - URL сайта для редиректов
  * - SMTP_EMAIL - email для отправки писем (Яндекс)
  * - SMTP_PASSWORD - пароль приложения Яндекс
@@ -46,16 +47,16 @@ function getYandexAuthHeader() {
         console.error('[YANDEX-AUTH] YC_API_KEY is not configured!');
         throw new Error('YC_API_KEY not configured');
     }
-    
+
     // Yandex Cloud API strictly requires "Api-Key <key>" for API keys.
     // Ensure no leading/trailing spaces in the key.
     const cleanApiKey = apiKey.trim();
-    
+
     // Check if the key starts with "Api-Key" - if so, don't duplicate it
     const authHeader = cleanApiKey.startsWith('Api-Key ') 
         ? cleanApiKey 
         : `Api-Key ${cleanApiKey}`;
-    
+
     // Log minimal info for security, but enough to verify format
     console.log(`[YANDEX-AUTH] Header format: ${authHeader.substring(0, 15)}...`);
     console.log(`[YANDEX-AUTH] Key length: ${cleanApiKey.length}`);
@@ -104,7 +105,7 @@ async function httpsRequest(urlString, options) {
         const isUpload = options.isUpload || (bodySize > 100000);  // Большие файлы = upload
         const TIMEOUT_MS = isUpload ? 30000 : 12000;  // 30 сек для загрузки, 12 сек для обычных
         const SOCKET_TIMEOUT_MS = isUpload ? 30000 : 15000;  // 30 сек для загрузки, 15 сек для обычных
-        
+
         console.log(`   [HTTPS-${requestId}] Request type: ${isUpload ? 'UPLOAD' : 'REGULAR'}, timeouts: ${TIMEOUT_MS}ms (main), ${SOCKET_TIMEOUT_MS}ms (socket)`);
 
         let socketTimeoutId = null;
@@ -533,7 +534,7 @@ const IMAGE_PROMPTS = [
 
 async function getNextPromptIndex() {
     const driver = await getYdbDriver();
-    
+
     try {
         // Создаем или получаем счетчик
         await driver.tableClient.withSession(async (session) => {
@@ -542,11 +543,11 @@ async function getNextPromptIndex() {
                 DECLARE $key AS Utf8;
                 DECLARE $text_index AS Int32;
                 DECLARE $image_index AS Int32;
-                
+
                 UPSERT INTO post_counter (key, text_index, image_index) 
                 VALUES ($key, $text_index, $image_index);
             `;
-            
+
             try {
                 const preparedInsert = await session.prepareQuery(insertQuery);
                 // Пока не трогаем, просто проверяем что работает
@@ -560,10 +561,10 @@ async function getNextPromptIndex() {
         const result = await driver.tableClient.withSession(async (session) => {
             const selectQuery = `
                 DECLARE $key AS Utf8;
-                
+
                 SELECT text_index, image_index FROM post_counter WHERE key = $key;
             `;
-            
+
             const preparedSelect = await session.prepareQuery(selectQuery);
             return await session.executeQuery(preparedSelect, {
                 '$key': TypedValues.utf8('global')
@@ -590,11 +591,11 @@ async function getNextPromptIndex() {
                 DECLARE $key AS Utf8;
                 DECLARE $text_index AS Int32;
                 DECLARE $image_index AS Int32;
-                
+
                 UPSERT INTO post_counter (key, text_index, image_index) 
                 VALUES ($key, $text_index, $image_index);
             `;
-            
+
             const preparedUpdate = await session.prepareQuery(updateQuery);
             await session.executeQuery(preparedUpdate, {
                 '$key': TypedValues.utf8('global'),
@@ -641,7 +642,7 @@ async function handleVkAutoPostYandex(headers) {
         if (!folderId) {
             throw new Error('YC_FOLDER_ID not configured');
         }
-        
+
         // YC_API_KEY проверяется внутри getYandexAuthHeader()
 
         // 1. Получаем текущие промпты из очереди
@@ -689,77 +690,9 @@ async function handleVkAutoPostYandex(headers) {
 
         console.log('[VK-AUTO-POST-YANDEX] VK API Response:', vkResult.data.substring(0, 200));
 
-        // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ
+        // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ (двухсообщенный формат)
         try {
-            console.log('[VK-AUTO-POST-YANDEX] Posting to Telegram...');
-            const tgBotToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
-            const tgChatId = (process.env.TELEGRAM_CHAT_ID || '').trim();
-
-            console.log(`[VK-AUTO-POST-YANDEX] DEBUG: Token length: ${tgBotToken.length}, Chat ID length: ${tgChatId.length}`);
-
-            if (tgBotToken && tgChatId) {
-                console.log('[VK-AUTO-POST-YANDEX] Sending photo to Telegram using FormData');
-                const tgUrl = `https://api.telegram.org/bot${tgBotToken}/sendPhoto`;
-                
-                // Экранирование для MarkdownV2
-                const escapeMarkdownV2 = (text) => {
-                    return text.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
-                };
-
-                const escapedText = escapeMarkdownV2(postText);
-                
-                // Используем встроенный fetch с multipart (более надежно чем httpsRequest)
-                const boundary = '----TGBoundary' + Math.random().toString(36).substring(2, 15);
-                const CRLF = '\r\n';
-                
-                // Корректное формирование multipart/form-data
-                const parts = [];
-                
-                // Поле: chat_id
-                parts.push(`--${boundary}${CRLF}Content-Disposition: form-data; name="chat_id"${CRLF}${CRLF}${tgChatId}`);
-                
-                // Поле: photo (файл)
-                parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="photo"; filename="image.png"${CRLF}Content-Type: image/png${CRLF}${CRLF}`);
-                
-                // Поле: caption
-                parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="caption"${CRLF}${CRLF}${escapedText}`);
-                
-                // Поле: parse_mode
-                parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="parse_mode"${CRLF}${CRLF}MarkdownV2${CRLF}--${boundary}--`);
-                
-                // Собираем буфер: header + image + footer
-                const bodyStart = Buffer.from(parts[0] + parts[1]);
-                const bodyEnd = Buffer.from(parts[2] + parts[3]);
-                const body = Buffer.concat([bodyStart, imageBuffer, bodyEnd]);
-                
-                console.log('[VK-AUTO-POST-YANDEX] Telegram: sending', body.length, 'bytes, boundary:', boundary);
-                
-                const tgResponse = await fetch(tgUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': `multipart/form-data; boundary=${boundary}`,
-                        'Content-Length': body.length.toString()
-                    },
-                    body: body,
-                    timeout: 60000 // 60 сек для больших файлов
-                });
-                
-                const tgData = await tgResponse.text();
-                console.log('[VK-AUTO-POST-YANDEX] Telegram HTTP', tgResponse.status, ':', tgData.substring(0, 300));
-                
-                try {
-                    const tgResult = JSON.parse(tgData);
-                    if (tgResult.ok) {
-                        console.log('[VK-AUTO-POST-YANDEX] ✅ Telegram success, msg_id:', tgResult.result?.message_id);
-                    } else {
-                        console.error('[VK-AUTO-POST-YANDEX] ❌ Telegram error:', tgResult.description);
-                    }
-                } catch (e) {
-                    console.error('[VK-AUTO-POST-YANDEX] Telegram parse error:', e.message);
-                }
-            } else {
-                console.log('[VK-AUTO-POST-YANDEX] Telegram not configured, skipping');
-            }
+            await sendPostToTelegramTwoMessages(imageBuffer, postText);
         } catch (tgError) {
             console.error('[VK-AUTO-POST-YANDEX] Telegram error:', tgError.message);
         }
@@ -781,6 +714,93 @@ async function handleVkAutoPostYandex(headers) {
             headers,
             body: JSON.stringify({ success: false, error: error.message })
         };
+    }
+}
+
+async function sendPostToTelegramTwoMessages(imageBuffer, fullText) {
+    const tgBotToken = (process.env.TELEGRAM_BOT_TOKEN || '').trim();
+    const tgChatId = (process.env.TELEGRAM_AUTO_POST_CHAT_ID || process.env.TELEGRAM_CHAT_ID || '').trim();
+
+    console.log(`[TELEGRAM-TWO-MSG] Posting to Telegram (full text: ${fullText.length} chars)...`);
+
+    if (!tgBotToken || !tgChatId) {
+        console.log('[TELEGRAM-TWO-MSG] Telegram not configured, skipping');
+        return;
+    }
+
+    const escapeMarkdownV2 = (text) => {
+        return text.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
+    };
+
+    // СООБЩЕНИЕ 1: Только фото (без подписи)
+    const tgUrl = `https://api.telegram.org/bot${tgBotToken}/sendPhoto`;
+    const boundary = '----TGBoundary' + Math.random().toString(36).substring(2, 15);
+    const CRLF = '\r\n';
+
+    const parts = [];
+    parts.push(`--${boundary}${CRLF}Content-Disposition: form-data; name="chat_id"${CRLF}${CRLF}${tgChatId}`);
+    parts.push(`${CRLF}--${boundary}${CRLF}Content-Disposition: form-data; name="photo"; filename="image.png"${CRLF}Content-Type: image/png${CRLF}${CRLF}`);
+    parts.push(`${CRLF}--${boundary}--`);
+
+    const bodyStart = Buffer.from(parts[0] + parts[1]);
+    const bodyEnd = Buffer.from(parts[2]);
+    const body = Buffer.concat([bodyStart, imageBuffer, bodyEnd]);
+
+    console.log('[TELEGRAM-TWO-MSG] Message 1: Photo only, size:', body.length, 'bytes');
+
+    try {
+        const tgResponse = await fetch(tgUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': `multipart/form-data; boundary=${boundary}`,
+                'Content-Length': body.length.toString()
+            },
+            body: body,
+            timeout: 60000
+        });
+
+        const tgData = await tgResponse.text();
+        const tgResult = JSON.parse(tgData);
+
+        if (tgResult.ok) {
+            console.log('[TELEGRAM-TWO-MSG] ✅ Message 1 sent, msg_id:', tgResult.result?.message_id);
+        } else {
+            console.error('[TELEGRAM-TWO-MSG] ❌ Message 1 error:', tgResult.description);
+            return;
+        }
+    } catch (e) {
+        console.error('[TELEGRAM-TWO-MSG] Message 1 failed:', e.message);
+        return;
+    }
+
+    // СООБЩЕНИЕ 2: Полный текст отдельным сообщением
+    const escapedFull = escapeMarkdownV2(fullText);
+    const messageUrl = `https://api.telegram.org/bot${tgBotToken}/sendMessage`;
+
+    console.log('[TELEGRAM-TWO-MSG] Message 2: Full text (', fullText.length, 'chars)');
+
+    try {
+        const msgResponse = await fetch(messageUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: tgChatId,
+                text: escapedFull,
+                parse_mode: 'MarkdownV2'
+            }),
+            timeout: 15000
+        });
+
+        const msgData = await msgResponse.text();
+        const msgResult = JSON.parse(msgData);
+
+        if (msgResult.ok) {
+            console.log('[TELEGRAM-TWO-MSG] ✅ Message 2 sent, msg_id:', msgResult.result?.message_id);
+        } else {
+            console.error('[TELEGRAM-TWO-MSG] ❌ Message 2 error:', msgResult.description);
+        }
+    } catch (e) {
+        console.error('[TELEGRAM-TWO-MSG] Message 2 failed:', e.message);
     }
 }
 
@@ -856,19 +876,19 @@ async function uploadPhotoToVk(token, groupId, imageData) {
         // 1. Получаем сервер для загрузки
         const serverUrl = `https://api.vk.com/method/photos.getWallUploadServer?group_id=${groupId}&access_token=${token}&v=5.131`;
         const serverRes = await httpsRequest(serverUrl, { method: 'GET', headers: {} });
-        
+
         if (serverRes.statusCode !== 200) {
             throw new Error(`Failed to get upload server: HTTP ${serverRes.statusCode}`);
         }
-        
+
         const serverData = JSON.parse(serverRes.data);
         console.log('[VK-UPLOAD] Server response:', JSON.stringify(serverData).substring(0, 200));
-        
+
         // Проверяем наличие ошибки в ответе ВК
         if (serverData.error) {
             const errorCode = serverData.error.error_code;
             const errorMsg = serverData.error.error_msg;
-            
+
             // Специальная обработка ошибки 27 - проблема с токеном доступа
             if (errorCode === 27) {
                 console.error('[VK-UPLOAD] ⚠️  ERROR 27: Group authorization failed');
@@ -876,29 +896,29 @@ async function uploadPhotoToVk(token, groupId, imageData) {
                 console.error('[VK-UPLOAD] Please use VK_ACCESS_TOKEN from a user with admin rights in the group, not a group token');
                 throw new Error(`VK API error 27: Access token must be a USER token with admin rights to the group, not a group token. Для загрузки фото ВК требует токен пользователя (User Token) с правами администратора в группе. Токен группы (Group Token) не поддерживает метод photos.getWallUploadServer.`);
             }
-            
+
             throw new Error(`VK API error: ${errorCode} - ${errorMsg}`);
         }
-        
+
         if (!serverData.response || !serverData.response.upload_url) {
             throw new Error(`Invalid server response: missing upload_url. Response: ${JSON.stringify(serverData)}`);
         }
-        
+
         const uploadUrl = serverData.response.upload_url;
         console.log('[VK-UPLOAD] Got upload URL');
 
         // 2. Загружаем файл
         const boundary = '----WebKitFormBoundary' + crypto.randomUUID();
-        
+
         // Убедимся что imageData это Buffer
         const imageBuffer = Buffer.isBuffer(imageData) ? imageData : Buffer.from(imageData);
         console.log(`[VK-UPLOAD] Image buffer size: ${imageBuffer.length} bytes`);
-        
+
         // Формируем multipart body
         const header = Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="photo"; filename="image.png"\r\nContent-Type: image/png\r\n\r\n`);
         const footer = Buffer.from(`\r\n--${boundary}--\r\n`);
         const body = Buffer.concat([header, imageBuffer, footer]);
-        
+
         console.log(`[VK-UPLOAD] Total multipart body size: ${body.length} bytes`);
 
         const uploadRes = await httpsRequest(uploadUrl, {
@@ -909,14 +929,14 @@ async function uploadPhotoToVk(token, groupId, imageData) {
             body: body,
             isUpload: true
         });
-        
+
         if (uploadRes.statusCode !== 200) {
             throw new Error(`Failed to upload photo: HTTP ${uploadRes.statusCode}`);
         }
-        
+
         const uploadData = JSON.parse(uploadRes.data);
         console.log('[VK-UPLOAD] Upload response:', JSON.stringify(uploadData).substring(0, 200));
-        
+
         // Проверяем структуру ответа загрузки (ВК возвращает поля напрямую, без wrapping)
         if (!uploadData.photo || !uploadData.server || !uploadData.hash) {
             throw new Error(`Invalid upload response: missing required fields. Response: ${JSON.stringify(uploadData)}`);
@@ -925,25 +945,25 @@ async function uploadPhotoToVk(token, groupId, imageData) {
         // 3. Сохраняем фото
         const saveUrl = `https://api.vk.com/method/photos.saveWallPhoto?group_id=${groupId}&photo=${uploadData.photo}&server=${uploadData.server}&hash=${uploadData.hash}&access_token=${token}&v=5.131`;
         const saveRes = await httpsRequest(saveUrl, { method: 'POST', headers: {} });
-        
+
         if (saveRes.statusCode !== 200) {
             throw new Error(`Failed to save photo: HTTP ${saveRes.statusCode}`);
         }
-        
+
         const saveData = JSON.parse(saveRes.data);
         console.log('[VK-UPLOAD] Save response:', JSON.stringify(saveData).substring(0, 200));
-        
+
         // Проверяем наличие ошибки в ответе ВК
         if (saveData.error) {
             throw new Error(`VK API error on save: ${saveData.error.error_code} - ${saveData.error.error_msg}`);
         }
-        
+
         if (!saveData.response || !Array.isArray(saveData.response) || saveData.response.length === 0) {
             throw new Error(`Invalid save response: missing photo data. Response: ${JSON.stringify(saveData)}`);
         }
-        
+
         const savedPhoto = saveData.response[0];
-        
+
         if (!savedPhoto.owner_id || !savedPhoto.id) {
             throw new Error(`Invalid saved photo data: missing owner_id or id. Data: ${JSON.stringify(savedPhoto)}`);
         }
@@ -3876,7 +3896,7 @@ async function sendTelegramNotification(message) {
 
 async function handleYandexChat(body, headers) {
     const handlerId = crypto.randomUUID().substring(0, 8);
-    
+
     try {
         let { message, userName, isFirstMessage, history } = body;
         console.log(`[YANDEX-CHAT-${handlerId}] Received message (${message?.length || 0} chars)`);
@@ -3885,7 +3905,11 @@ async function handleYandexChat(body, headers) {
         // Обработка первого сообщения - приветствие
         if (isFirstMessage && userName) {
             console.log(`[YANDEX-CHAT-${handlerId}] First message - sending greeting`);
-            const greeting = `Привет, ${userName}! Я AI-ассистент компании MP.WebStudio. Я здесь, чтобы ответить на ваши вопросы о наших услугах, проектах и технологиях. Что вас интересует?`;
+            const greeting = `Привет, ${userName}! 👋 Я AI-ассистент веб-студии MP.WebStudio. 
+
+Мы создаём современные и функциональные веб-решения для бизнеса. Специализируемся на сайтах-визитках, лендингах, корпоративных сайтах и интернет-магазинах.
+
+Я помогу вам разобраться с нашими услугами, ценами, сроками и процессом разработки. Что вас интересует?`;
 
             return {
                 statusCode: 200,
@@ -3944,8 +3968,20 @@ async function handleYandexChat(body, headers) {
 
         console.log(`[YANDEX-CHAT-${handlerId}] Sending to Yandex AI with ${limitedHistory.length} history messages`);
 
-        const systemPrompt = 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях. Отвечай кратко и профессионально.';
-        
+        const companyContext = (process.env.COMPANY_CONTEXT || '').trim();
+        const systemPrompt = `Ты — профессиональный AI-ассистент компании MP.WebStudio. Ты хорошо знаешь все услуги, цены, процесс разработки и технологии студии.
+
+${companyContext || 'MP.WebStudio — веб-студия полного цикла. Мы создаём современные и функциональные веб-решения для бизнеса.'}
+
+ВАЖНЫЕ ПРАВИЛА:
+- Отвечай вежливо и профессионально
+- Если клиент спрашивает про цену — сразу скажи точную стоимость
+- Если нужна консультация или уточнение деталей — предложи связаться по телефону или email
+- Если спрашивают про сроки — скажи что сроки обговариваются при обсуждении проекта
+- Поддержка после запуска — 1 месяц включен в цену
+- Используй информацию о портфолио когда уместно
+- Отвечай кратко и по существу`;
+
         const allMessages = [
             { role: 'system', text: systemPrompt },
             ...limitedHistory,
@@ -3988,7 +4024,7 @@ async function handleYandexChat(body, headers) {
         }
 
         const elapsed = Math.round((Date.now() - startTime) / 1000);
-        
+
         if (response.statusCode !== 200) {
             console.error(`[YANDEX-CHAT-${handlerId}] API Error: ${response.statusCode}`, response.data);
             return {
