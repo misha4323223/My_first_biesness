@@ -3958,81 +3958,96 @@ async function checkAndUpdateChatLimit(ipAddress) {
         const driver = await getYdbDriver();
         let isLimitExceeded = false;
         let currentCount = 0;
+        let tableExists = false;
         
         await driver.tableClient.withSession(async (session) => {
             const now = Date.now();
             
-            // Получаем текущие данные
-            const selectQuery = `
-                DECLARE $ip AS Utf8;
-                
-                SELECT message_count, last_reset_timestamp FROM chat_limits WHERE ip_address = $ip;
-            `;
-            
-            const preparedSelect = await session.prepareQuery(selectQuery);
-            const result = await session.executeQuery(preparedSelect, {
-                '$ip': TypedValues.utf8(ipAddress)
-            });
-            
-            const rows = result.resultSets[0]?.rows || [];
-            let messageCount = 0;
-            let lastResetTimestamp = now;
-            
-            if (rows.length > 0) {
-                const row = rows[0];
-                messageCount = parseInt(row.message_count?.value || 0);
-                lastResetTimestamp = parseInt(row.last_reset_timestamp?.value || now);
-            }
-            
-            // Проверяем нужно ли обнулить счётчик (прошло 24 часа)
-            if (now - lastResetTimestamp > RESET_INTERVAL_MS) {
-                messageCount = 0;
-                lastResetTimestamp = now;
-                console.log(`[CHAT-LIMITS] Reset counter for IP ${ipAddress} (24h passed)`);
-            }
-            
-            // Проверяем превышение лимита
-            if (messageCount >= MAX_MESSAGES_PER_DAY) {
-                isLimitExceeded = true;
-                console.log(`[CHAT-LIMITS] Limit exceeded for IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY}`);
-            } else {
-                // Увеличиваем счётчик
-                messageCount += 1;
-                currentCount = messageCount;
-                
-                // Сохраняем обновленные данные
-                const upsertQuery = `
+            try {
+                // Получаем текущие данные
+                const selectQuery = `
                     DECLARE $ip AS Utf8;
-                    DECLARE $count AS Int32;
-                    DECLARE $timestamp AS Int64;
                     
-                    UPSERT INTO chat_limits (ip_address, message_count, last_reset_timestamp)
-                    VALUES ($ip, $count, $timestamp);
+                    SELECT message_count, last_reset_timestamp FROM chat_limits WHERE ip_address = $ip;
                 `;
                 
-                const preparedUpsert = await session.prepareQuery(upsertQuery);
-                await session.executeQuery(preparedUpsert, {
-                    '$ip': TypedValues.utf8(ipAddress),
-                    '$count': TypedValues.int32(messageCount),
-                    '$timestamp': TypedValues.int64(lastResetTimestamp)
+                const preparedSelect = await session.prepareQuery(selectQuery);
+                const result = await session.executeQuery(preparedSelect, {
+                    '$ip': TypedValues.utf8(ipAddress)
                 });
                 
-                console.log(`[CHAT-LIMITS] Updated IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY} messages`);
+                tableExists = true;
+                const rows = result.resultSets[0]?.rows || [];
+                let messageCount = 0;
+                let lastResetTimestamp = now;
+                
+                if (rows.length > 0) {
+                    const row = rows[0];
+                    messageCount = parseInt(row.message_count?.value || 0);
+                    lastResetTimestamp = parseInt(row.last_reset_timestamp?.value || now);
+                }
+                
+                // Проверяем нужно ли обнулить счётчик (прошло 24 часа)
+                if (now - lastResetTimestamp > RESET_INTERVAL_MS) {
+                    messageCount = 0;
+                    lastResetTimestamp = now;
+                    console.log(`[CHAT-LIMITS] Reset counter for IP ${ipAddress} (24h passed)`);
+                }
+                
+                // Проверяем превышение лимита
+                if (messageCount >= MAX_MESSAGES_PER_DAY) {
+                    isLimitExceeded = true;
+                    console.log(`[CHAT-LIMITS] ❌ Limit exceeded for IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY}`);
+                } else {
+                    // Увеличиваем счётчик
+                    messageCount += 1;
+                    currentCount = messageCount;
+                    
+                    // Сохраняем обновленные данные
+                    const upsertQuery = `
+                        DECLARE $ip AS Utf8;
+                        DECLARE $count AS Int32;
+                        DECLARE $timestamp AS Int64;
+                        
+                        UPSERT INTO chat_limits (ip_address, message_count, last_reset_timestamp)
+                        VALUES ($ip, $count, $timestamp);
+                    `;
+                    
+                    const preparedUpsert = await session.prepareQuery(upsertQuery);
+                    await session.executeQuery(preparedUpsert, {
+                        '$ip': TypedValues.utf8(ipAddress),
+                        '$count': TypedValues.int32(messageCount),
+                        '$timestamp': TypedValues.int64(lastResetTimestamp)
+                    });
+                    
+                    console.log(`[CHAT-LIMITS] ✅ Updated IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY} messages`);
+                }
+            } catch (queryError) {
+                // Таблица не существует?
+                if (queryError.message?.includes('Cannot find table') || queryError.message?.includes('does not exist')) {
+                    console.error(`[CHAT-LIMITS] 🚨 TABLE NOT FOUND! You must create 'chat_limits' table in YDB first!`);
+                    console.error(`[CHAT-LIMITS] SQL to create table:\nCREATE TABLE chat_limits (\n    ip_address Utf8 NOT NULL,\n    message_count Int32,\n    last_reset_timestamp Int64,\n    PRIMARY KEY (ip_address)\n);`);
+                } else {
+                    console.error(`[CHAT-LIMITS] Query error: ${queryError.message}`);
+                }
+                throw queryError;
             }
         });
         
         return {
             allowed: !isLimitExceeded,
             currentCount: currentCount,
-            maxCount: MAX_MESSAGES_PER_DAY
+            maxCount: MAX_MESSAGES_PER_DAY,
+            tableExists: tableExists
         };
     } catch (error) {
-        console.error('[CHAT-LIMITS] Error checking limit:', error.message);
+        console.error('[CHAT-LIMITS] ⚠️ Error checking limit (allowing message to pass):', error.message);
         // Если БД не работает, разрешаем сообщение (не блокируем из-за ошибки)
         return {
             allowed: true,
             currentCount: 0,
-            maxCount: MAX_MESSAGES_PER_DAY
+            maxCount: MAX_MESSAGES_PER_DAY,
+            tableExists: false
         };
     }
 }
@@ -4043,9 +4058,6 @@ async function handleYandexChat(body, headers, event) {
     const handlerId = crypto.randomUUID().substring(0, 8);
 
     try {
-        // Инициализируем таблицу при первом вызове
-        await ensureChatLimitTableExists();
-
         // Получаем IP адрес клиента из заголовков
         const ipAddress = (event?.headers?.['x-forwarded-for'] || 
                           event?.headers?.['x-real-ip'] || 
@@ -4104,6 +4116,7 @@ async function handleYandexChat(body, headers, event) {
 
         // ⏱️ ПРОВЕРКА ЛИМИТА ПО IP (10 сообщений в 24 часа)
         const limitCheck = await checkAndUpdateChatLimit(ipAddress);
+        
         if (!limitCheck.allowed) {
             console.warn(`[YANDEX-CHAT-${handlerId}] Rate limit exceeded for IP ${ipAddress}`);
             return {
@@ -4116,7 +4129,7 @@ async function handleYandexChat(body, headers, event) {
             };
         }
         
-        console.log(`[YANDEX-CHAT-${handlerId}] Rate limit OK for IP ${ipAddress}: ${limitCheck.currentCount}/${limitCheck.maxCount}`);
+        console.log(`[YANDEX-CHAT-${handlerId}] Rate limit check OK - IP ${ipAddress}: ${limitCheck.currentCount}/${limitCheck.maxCount} messages`);
 
         // Проверяем переменные окружения
         const folderId = process.env.YC_FOLDER_ID;
