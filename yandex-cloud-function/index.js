@@ -3930,13 +3930,16 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 if (rows.length > 0) {
                     const row = rows[0];
                     messageCount = parseInt(row.message_count?.value || 0);
+                    // Важно: берем метку времени из базы, а не текущую, если запись существует
                     lastResetTimestamp = parseInt(row.last_reset_timestamp?.value || now);
                     console.log(`[CHAT-LIMITS] 📖 Found existing record for IP ${ipAddress}: count=${messageCount}, lastReset=${new Date(lastResetTimestamp).toISOString()}`);
                 } else {
+                    // Для новой записи запоминаем текущее время как начало 24-часового периода
+                    lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
                 }
                 
-                // Проверяем нужно ли обнулить счётчик (прошло 24 часа)
+                // Проверяем нужно ли обнулить счётчик (прошло 24 часа с момента ПЕРВОГО сообщения в периоде)
                 if (now - lastResetTimestamp > RESET_INTERVAL_MS) {
                     messageCount = 0;
                     lastResetTimestamp = now;
