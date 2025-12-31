@@ -1,0 +1,163 @@
+
+
+31 дек. 18:10:09.375
+[HTTPS-4723dd15] ========== REQUEST SUCCESS ==========
+
+31 дек. 18:10:09.375
+[HTTPS-4723dd15] Total response size: 453 bytes
+
+31 дек. 18:10:09.375
+[HTTPS-4723dd15] ✨ Response ended after 656ms
+
+31 дек. 18:10:09.375
+[HTTPS-4723dd15] 📥 Data chunk: 600 bytes (total: 600)
+
+31 дек. 18:10:09.375
+[HTTPS-4723dd15] 📦 First byte received after 655ms
+
+31 дек. 18:10:09.374
+[HTTPS-4723dd15] Response headers: content-type=application/json, content-length=undefined
+
+31 дек. 18:10:09.374
+[HTTPS-4723dd15] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+31 дек. 18:10:09.374
+[HTTPS-4723dd15] Status code: 200
+
+31 дек. 18:10:09.374
+[HTTPS-4723dd15] ✅ Response callback triggered after 655ms
+
+31 дек. 18:10:08.754
+[HTTPS-4723dd15] 🔒 TLS handshake complete after 35ms
+
+31 дек. 18:10:08.737
+[HTTPS-4723dd15] 🌐 TCP connected after 18ms
+
+31 дек. 18:10:08.723
+[HTTPS-4723dd15] 🔍 DNS lookup started
+
+31 дек. 18:10:08.722
+[HTTPS-4723dd15] 🔌 Socket created, fd: unknown
+
+31 дек. 18:10:08.721
+[HTTPS-4723dd15] Waiting for response...
+
+31 дек. 18:10:08.721
+[HTTPS-4723dd15] 🚀 Calling req.end()
+
+31 дек. 18:10:08.721
+[HTTPS-4723dd15] Body written successfully
+
+31 дек. 18:10:08.721
+[HTTPS-4723dd15] 📤 Writing body (8202 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+31 дек. 18:10:08.720
+[HTTPS-4723dd15] Creating HTTPS request with timeout: 15000ms
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Setting main timeout: 12000ms
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Headers: Content-Type, Authorization
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Request body size: 8202 bytes
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Path: /foundationModels/v1/completion
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Hostname: llm.api.cloud.yandex.net:443
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] Method: POST
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+31 дек. 18:10:08.719
+[HTTPS-4723dd15] ========== HTTPS REQUEST START ==========
+
+31 дек. 18:10:08.718
+[YANDEX-AUTH] Key length: 40
+
+31 дек. 18:10:08.718
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+31 дек. 18:10:08.718
+[YANDEX-CHAT-60372492] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":12,"folderId":"b1g572p5cuo41gucvn5t"}
+
+31 дек. 18:10:08.718
+[YANDEX-CHAT-60372492] Sending to Yandex AI with 10 history messages
+
+31 дек. 18:10:08.718
+[YANDEX-CHAT-60372492] Rate limit check OK - IP 62.141.68.106: 1/10 messages
+
+31 дек. 18:10:08.718
+[CHAT-LIMITS] ✅ Updated IP 62.141.68.106: 1/10 messages
+
+31 дек. 18:10:08.695
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=1, timestamp=1767193808657
+
+31 дек. 18:10:08.695
+[CHAT-LIMITS] 📝 Incrementing count: 0 → 1
+
+31 дек. 18:10:08.695
+[CHAT-LIMITS] 📖 Found existing record for IP 62.141.68.106: count=0, lastReset=2025-12-31T15:10:08.657Z
+
+31 дек. 18:10:08.695
+[CHAT-LIMITS] 📊 SELECT returned 1 rows
+
+31 дек. 18:10:08.658
+[CHAT-LIMITS] 🔎 Executing SELECT for IP: 62.141.68.106
+
+31 дек. 18:10:08.565
+YDB driver connected to: /ru-central1/b1ginq9tlm42kl6f220g/etnfv98crsc3q9i5fabu
+
+31 дек. 18:10:08.296
+[CHAT-LIMITS] 🔍 Checking limit for IP 62.141.68.106, MAX=10
+
+31 дек. 18:10:08.296
+[YANDEX-CHAT-60372492] Received message (3 chars)
+
+31 дек. 18:10:08.296
+[YANDEX-CHAT-60372492] Client IP: 62.141.68.106
+
+31 дек. 18:10:08.295
+[YANDEX-CHAT] Handler called
+
+31 дек. 18:10:08.295
+}
+
+31 дек. 18:10:08.295
+bodyKeys: [ 'message', 'history' ]
+
+31 дек. 18:10:08.295
+path: '',
+
+31 дек. 18:10:08.295
+action: 'giga-chat',
+
+31 дек. 18:10:08.295
+method: 'POST',
+
+31 дек. 18:10:08.295
+[REQUEST] {
+
+31 дек. 18:10:08.295
+}
+
+31 дек. 18:10:08.295
+timestamp: '2025-12-31T15:10:08.289Z'
+
+31 дек. 18:10:08.295
+path: undefined,
+
+31 дек. 18:10:08.295
+method: 'POST',
+
+31 дек. 18:10:08.295
+[HANDLER START] {
