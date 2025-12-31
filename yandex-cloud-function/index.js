@@ -3905,7 +3905,7 @@ async function checkAndUpdateChatLimit(ipAddress) {
         let currentCount = 0;
         let tableExists = false;
         
-        await driver.tableClient.withTransaction(async (transaction) => {
+        await driver.tableClient.withSession(async (session) => {
             const now = Date.now();
             
             try {
@@ -3917,11 +3917,8 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 `;
                 
                 console.log(`[CHAT-LIMITS] 🔎 Executing SELECT for IP: ${ipAddress}`);
-                const result = await transaction.execute({
-                    query: selectQuery,
-                    parameters: {
-                        '$ip': TypedValues.utf8(ipAddress)
-                    }
+                const result = await session.executeQuery(selectQuery, {
+                    '$ip': TypedValues.utf8(ipAddress)
                 });
                 
                 tableExists = true;
@@ -3967,13 +3964,10 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     `;
                     
                     console.log(`[CHAT-LIMITS] 💾 Executing UPSERT: ip=${ipAddress}, count=${messageCount}, timestamp=${lastResetTimestamp}`);
-                    await transaction.execute({
-                        query: upsertQuery,
-                        parameters: {
-                            '$ip': TypedValues.utf8(ipAddress),
-                            '$count': TypedValues.int32(messageCount),
-                            '$timestamp': TypedValues.int64(lastResetTimestamp)
-                        }
+                    await session.executeQuery(upsertQuery, {
+                        '$ip': TypedValues.utf8(ipAddress),
+                        '$count': TypedValues.int32(messageCount),
+                        '$timestamp': TypedValues.int64(lastResetTimestamp)
                     });
                     
                     console.log(`[CHAT-LIMITS] ✅ Updated IP ${ipAddress}: ${messageCount}/${MAX_MESSAGES_PER_DAY} messages`);
