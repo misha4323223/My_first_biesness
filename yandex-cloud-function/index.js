@@ -3929,39 +3929,29 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 
                 if (rows.length > 0) {
                     const row = rows[0];
-                    // Расширенное извлечение данных для YDB SDK v2
-                    // В SDK v2 строка может быть как плоским объектом, так и массивом пар [имя, значение]
-                    let countVal, timeVal;
+                    console.log(`[CHAT-LIMITS] 🔎 Row data: ${JSON.stringify(row)}`);
                     
-                    if (Array.isArray(row)) {
-                        // Если это массив пар [ключ, значение]
-                        const findVal = (key) => {
-                            const pair = row.find(p => p[0] === key || p.name === key);
-                            return pair ? (pair[1] || pair.value) : undefined;
-                        };
-                        countVal = findVal('message_count');
-                        timeVal = findVal('last_reset_timestamp');
-                    } else {
-                        // Если это объект
-                        countVal = row.message_count;
-                        timeVal = row.last_reset_timestamp;
-                    }
-                    
-                    const extractNumber = (val) => {
-                        if (val === null || val === undefined) return null;
-                        if (typeof val === 'object' && 'value' in val) return Number(val.value);
-                        return Number(val);
+                    // В SDK v2/v3 данные приходят в свойстве `items` или напрямую как объект
+                    // Если row - это объект со свойствами message_count и last_reset_timestamp
+                    const rawCount = row.message_count;
+                    const rawTime = row.last_reset_timestamp;
+
+                    const extract = (v) => {
+                        if (v === null || v === undefined) return null;
+                        // Если значение обернуто в TypedValue объект {value, ...}
+                        if (typeof v === 'object' && v !== null && 'value' in v) {
+                            return v.value !== null ? Number(v.value) : null;
+                        }
+                        return Number(v);
                     };
 
-                    const parsedCount = extractNumber(countVal);
-                    const parsedTime = extractNumber(timeVal);
+                    const c = extract(rawCount);
+                    const t = extract(rawTime);
 
-                    if (parsedCount !== null) messageCount = parsedCount;
-                    if (parsedTime !== null) lastResetTimestamp = parsedTime;
+                    if (c !== null) messageCount = c;
+                    if (t !== null) lastResetTimestamp = t;
                     
-                    console.log(`[CHAT-LIMITS] 📖 Row structure: ${Array.isArray(row) ? 'Array' : typeof row}`);
-                    console.log(`[CHAT-LIMITS] 📖 Raw data: count=${JSON.stringify(countVal)}, time=${JSON.stringify(timeVal)}`);
-                    console.log(`[CHAT-LIMITS] 📖 Parsed: count=${messageCount}, lastReset=${new Date(lastResetTimestamp).toISOString()}`);
+                    console.log(`[CHAT-LIMITS] 📖 Found record: count=${messageCount}, reset=${lastResetTimestamp}`);
                 } else {
                     lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
