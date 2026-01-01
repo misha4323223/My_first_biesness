@@ -1577,7 +1577,7 @@ function generateRobokassaUrl(orderId, amount, order) {
     const receipt = {
         items: [
             {
-                name: `Оплата заказа за разработку сайта: ${order?.projectType || 'Услуги'}`,
+                name: `Оплата услуг по разработке сайта: ${order?.projectType || 'Услуги'}`,
                 quantity: 1,
                 sum: numericAmount,
                 payment_method: 'full_prepayment',
@@ -1586,7 +1586,7 @@ function generateRobokassaUrl(orderId, amount, order) {
             }
         ]
     };
-    const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+    const receiptBase64 = encodeURIComponent(JSON.stringify(receipt));
 
     const signature = generateRobokassaSignature(merchantLogin, numericAmount, invId, password1, orderId, receiptBase64);
 
@@ -2197,7 +2197,7 @@ function generateRemainingPaymentUrl(orderId, amount, order) {
             }
         ]
     };
-    const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+    const receiptBase64 = encodeURIComponent(JSON.stringify(receipt));
 
     const signature = generateRobokassaSignature(merchantLogin, numericAmount, invId, password1, orderId, receiptBase64);
 
@@ -2306,7 +2306,7 @@ async function handleAdditionalInvoice(data, headers) {
             }
         ]
     };
-    const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+    const receiptBase64 = encodeURIComponent(JSON.stringify(receipt));
 
     const signatureString = `${merchantLogin}:${numericAmount}:${invId}:${receiptBase64}:${password1}:shp_orderId=${addInvUniqueId}`;
     const signature = crypto.createHash('md5').update(signatureString).digest('hex');
