@@ -321,16 +321,30 @@ module.exports.handler = async function (event, context) {
     let method = event.httpMethod;
 
     // Support for Yandex Cloud Timer Triggers
-    if (event.messages && event.messages[0]?.details?.payload) {
-        try {
-            const payload = JSON.parse(event.messages[0].details.payload);
-            console.log('[TRIGGER-PAYLOAD]', payload);
-            if (payload.action) action = payload.action;
-            if (payload.httpMethod) method = payload.httpMethod;
-        } catch (e) {
-            // If payload is not JSON, use it as action string
-            action = event.messages[0].details.payload;
-            console.log('[TRIGGER-RAW-PAYLOAD]', action);
+    if (event.messages && Array.isArray(event.messages)) {
+        console.log('[TRIGGER-DETECTED]', JSON.stringify(event.messages[0]?.event_metadata));
+        const message = event.messages[0];
+        
+        // Mark as auto-post if it's a timer message
+        if (message.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.TimerMessage') {
+            action = 'vk-auto-post';
+            method = 'POST';
+        }
+
+        if (message.details?.payload) {
+            try {
+                const payload = JSON.parse(message.details.payload);
+                console.log('[TRIGGER-PAYLOAD]', payload);
+                if (payload.action) action = payload.action;
+                if (payload.httpMethod) method = payload.httpMethod;
+            } catch (e) {
+                // If payload is not JSON, use it as action string if it looks like one
+                const rawPayload = String(message.details.payload).trim();
+                if (rawPayload && !action) {
+                   action = rawPayload;
+                   console.log('[TRIGGER-RAW-PAYLOAD]', action);
+                }
+            }
         }
     }
 
