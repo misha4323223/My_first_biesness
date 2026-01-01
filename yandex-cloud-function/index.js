@@ -296,6 +296,14 @@ async function httpsRequest(urlString, options) {
 }
 
 module.exports.handler = async function (event, context) {
+    // ВАЖНО: Первая строка логов для отладки триггеров
+    console.log('[HANDLER-ENTRY]', JSON.stringify({
+        hasMessages: !!event.messages,
+        messageCount: event.messages?.length,
+        httpMethod: event.httpMethod,
+        isTimer: event.messages?.[0]?.event_metadata?.event_type?.includes('TimerMessage')
+    }));
+
     console.log('[HANDLER START]', { method: event.httpMethod, path: event.path, timestamp: new Date().toISOString() });
 
     const headers = {
