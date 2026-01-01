@@ -1,0 +1,272 @@
+01 янв. 15:55:34.505
+REPORT RequestID: 0d7c3470-298b-4d4b-863c-f5d69f09e2bb Duration: 406.290 ms Billed Duration: 500 ms Memory Size: 512 MB Max Memory Used: 176 MB Queuing Duration: 0.066 ms CPU Usage: 8.789 %
+
+01 янв. 15:55:34.505
+END RequestID: 0d7c3470-298b-4d4b-863c-f5d69f09e2bb
+
+01 янв. 15:55:34.504
+at async module.exports.handler [as handlerFn] (/function/code/index.js:372:20)
+
+01 янв. 15:55:34.504
+at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+
+01 янв. 15:55:34.504
+at handleAdditionalInvoice (/function/code/index.js:2285:45)
+
+01 янв. 15:55:34.504
+Handler error: safeDescription is not defined ReferenceError: safeDescription is not defined
+
+01 янв. 15:55:34.503
+Order fetched from YDB: {"id":"ord_mjo6e6xhlzeedr0c8","clientName":"Миша","clientEmail":"pimashin2015@gmail.com","clientPhone":"89531814136","projectType":"shop","projectDescription":"dfzhsdfhdhdhdgh\n\nДоп. функции: Виджеты мессенджеров, Продвинутые анимации, Pop-up окна","amount":"117000","status":"completed","createdAt":"2025-12-27T10:46:42.581Z","paidAt":"2025-12-27T10:51:42.218Z","paymentMethod":"card","companyName":"","companyInn":"","companyKpp":"","companyAddress":"","totalAmount":"234000","selectedFeatures":"messengers,animations,popup","prepaymentConfirmedAt":"","remainingInvoiceSentAt":"","remainingConfirmedAt":"","internalNote":""}
+
+01 янв. 15:55:34.503
+Parsed order: {"id":"ord_mjo6e6xhlzeedr0c8","clientName":"Миша","clientEmail":"pimashin2015@gmail.com","clientPhone":"89531814136","projectType":"shop","projectDescription":"dfzhsdfhdhdhdgh\n\nДоп. функции: Виджеты мессенджеров, Продвинутые анимации, Pop-up окна","amount":"117000","status":"completed","createdAt":"2025-12-27T10:46:42.581Z","paidAt":"2025-12-27T10:51:42.218Z","paymentMethod":"card","companyName":"","companyInn":"","companyKpp":"","companyAddress":"","totalAmount":"234000","selectedFeatures":"messengers,animations,popup","prepaymentConfirmedAt":"","remainingInvoiceSentAt":"","remainingConfirmedAt":"","internalNote":""}
+
+01 янв. 15:55:34.503
+Column [21] total_amount: {"textValue":"234000"} -> "234000"
+
+01 янв. 15:55:34.503
+Column [20] status: {"textValue":"completed"} -> "completed"
+
+01 янв. 15:55:34.503
+Column [19] selected_features: {"textValue":"messengers,animations,popup"} -> "messengers,animations,popup"
+
+01 янв. 15:55:34.503
+Column [18] remaining_invoice_sent_at: {"nullFlagValue":"NULL_VALUE"} -> ""
+
+01 янв. 15:55:34.503
+Column [17] remaining_confirmed_at: {"nullFlagValue":"NULL_VALUE"} -> ""
+
+01 янв. 15:55:34.503
+Column [16] project_type: {"textValue":"shop"} -> "shop"
+
+01 янв. 15:55:34.503
+Доп. функции: Виджеты мессенджеров, Продвинутые анимации, Pop-up окна"
+
+01 янв. 15:55:34.503
+Column [15] project_description: {"textValue":"dfzhsdfhdhdhdgh\n\nДоп. функции: Виджеты мессенджеров, Продвинутые анимации, Pop-up окна"} -> "dfzhsdfhdhdhdgh
+
+01 янв. 15:55:34.502
+Column [14] prepayment_confirmed_at: {"nullFlagValue":"NULL_VALUE"} -> ""
+
+01 янв. 15:55:34.502
+Column [13] payment_method: {"textValue":"card"} -> "card"
+
+01 янв. 15:55:34.502
+Column [12] paid_at: {"textValue":"2025-12-27T10:51:42.218Z"} -> "2025-12-27T10:51:42.218Z"
+
+01 янв. 15:55:34.502
+Column [11] internal_note: {"nullFlagValue":"NULL_VALUE"} -> ""
+
+01 янв. 15:55:34.502
+Column [10] id: {"textValue":"ord_mjo6e6xhlzeedr0c8"} -> "ord_mjo6e6xhlzeedr0c8"
+
+01 янв. 15:55:34.502
+Column [9] deleted_at: {"nullFlagValue":"NULL_VALUE"} -> ""
+
+01 янв. 15:55:34.502
+Column [8] created_at: {"textValue":"2025-12-27T10:46:42.581Z"} -> "2025-12-27T10:46:42.581Z"
+
+01 янв. 15:55:34.502
+Column [7] company_name: {"textValue":""} -> ""
+
+01 янв. 15:55:34.502
+Column [6] company_kpp: {"textValue":""} -> ""
+
+01 янв. 15:55:34.502
+Column [5] company_inn: {"textValue":""} -> ""
+
+01 янв. 15:55:34.502
+Column [4] company_address: {"textValue":""} -> ""
+
+01 янв. 15:55:34.502
+Column [3] client_phone: {"textValue":"89531814136"} -> "89531814136"
+
+01 янв. 15:55:34.502
+Column [2] client_name: {"textValue":"Миша"} -> "Миша"
+
+01 янв. 15:55:34.502
+Column [1] client_email: {"textValue":"pimashin2015@gmail.com"} -> "pimashin2015@gmail.com"
+
+01 янв. 15:55:34.502
+Column [0] amount: {"textValue":"117000"} -> "117000"
+
+01 янв. 15:55:34.502
+Column mapping: {"amount":0,"client_email":1,"client_name":2,"client_phone":3,"company_address":4,"company_inn":5,"company_kpp":6,"company_name":7,"created_at":8,"deleted_at":9,"id":10,"internal_note":11,"paid_at":12,"payment_method":13,"prepayment_confirmed_at":14,"project_description":15,"project_type":16,"remaining_confirmed_at":17,"remaining_invoice_sent_at":18,"selected_features":19,"status":20,"total_amount":21}
+
+01 янв. 15:55:34.502
+}
+
+01 янв. 15:55:34.502
+]
+
+01 янв. 15:55:34.502
+}
+
+01 янв. 15:55:34.502
+"textValue": "234000"
+
+01 янв. 15:55:34.502
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "completed"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "messengers,animations,popup"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"nullFlagValue": "NULL_VALUE"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"nullFlagValue": "NULL_VALUE"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "shop"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "dfzhsdfhdhdhdgh\n\nДоп. функции: Виджеты мессенджеров, Продвинутые анимации, Pop-up окна"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"nullFlagValue": "NULL_VALUE"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "card"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "2025-12-27T10:51:42.218Z"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"nullFlagValue": "NULL_VALUE"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "ord_mjo6e6xhlzeedr0c8"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"nullFlagValue": "NULL_VALUE"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "2025-12-27T10:46:42.581Z"
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": ""
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": ""
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": ""
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": ""
+
+01 янв. 15:55:34.501
+{
+
+01 янв. 15:55:34.501
+},
+
+01 янв. 15:55:34.501
+"textValue": "89531814136"
+
+01 янв. 15:55:34.501
+{

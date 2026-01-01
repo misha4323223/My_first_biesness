@@ -2276,6 +2276,21 @@ async function handleAdditionalInvoice(data, headers) {
         };
     }
 
+    // Санитизируем описание для Robokassa:
+    const safeDescription = (description || 'Дополнительные услуги')
+        .replace(/\r?\n/g, '; ')
+        .replace(/\)\s*/g, '. ')
+        .replace(/\(\s*/g, '')
+        .replace(/[<>\"\'\\]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .substring(0, 100);
+
+    // Создаём уникальный ID для дополнительного счёта с префиксом addinv_
+    const orderIdSuffix = normalizedOrderId.replace('ord_', '');
+    const timestampId = Date.now().toString(36);
+    const addInvUniqueId = `addinv_${orderIdSuffix}_${timestampId}`;
+
     const invId = (Date.now() + 2) % 1000000;
     
     // Номенклатура для доп. счёта
