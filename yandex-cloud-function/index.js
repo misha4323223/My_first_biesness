@@ -3752,7 +3752,7 @@ async function sendAdditionalInvoiceEmail(order, amount, invoiceId) {
 
     // Извлекаем описание из invoiceId если возможно (addinv_orderId_timestamp_desc)
     const parts = invoiceId.split('_');
-    const description = parts.length >= 4 ? parts.slice(3).join('_') : 'Дополнительная услуга';
+    const description = parts.length >= 4 ? `Счёт #${parts[1]}` : 'Дополнительная услуга';
 
     const emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

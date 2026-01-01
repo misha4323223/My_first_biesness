@@ -298,7 +298,7 @@ export async function registerRoutes(
 
       const invId = getNextInvId();
       const sum = parseFloat(order.amount).toFixed(2);
-      const description = `Заказ сайта: ${order.projectType}`;
+      const description = `Заказ #${order.id}`;
       
       const signatureValue = generateRobokassaSignature(
         ROBOKASSA_MERCHANT_LOGIN,
@@ -539,7 +539,7 @@ export async function registerRoutes(
 
       const invId = getNextInvId();
       const remainingAmount = parseFloat(order.amount).toFixed(2);
-      const description = `Оплата остатка: ${order.projectType}`;
+      const description = `Остаток #${order.id}`;
       
       const signatureValue = generateRobokassaSignature(
         ROBOKASSA_MERCHANT_LOGIN,
@@ -594,7 +594,7 @@ export async function registerRoutes(
       
       const invId = getNextInvId();
       const sum = parseFloat(invoice.amount).toFixed(2);
-      const description = `Доп. счёт: ${invoice.description}`;
+      const description = `Счёт #${invoice.id}`;
       
       const signatureValue = generateRobokassaSignature(
         ROBOKASSA_MERCHANT_LOGIN,
