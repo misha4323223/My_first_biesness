@@ -213,8 +213,10 @@ function getNextInvId(): number {
   return orderCounter++;
 }
 
-function generateRobokassaSignature(merchantLogin: string, sum: string, invId: number, password: string, shpOrderId: string): string {
-  const signatureString = `${merchantLogin}:${sum}:${invId}:${password}:shp_orderId=${shpOrderId}`;
+function generateRobokassaSignature(merchantLogin: string, sum: string, invId: number, password: string, shpOrderId: string, receipt?: string): string {
+  const signatureString = receipt 
+    ? `${merchantLogin}:${sum}:${invId}:${receipt}:${password}:shp_orderId=${shpOrderId}`
+    : `${merchantLogin}:${sum}:${invId}:${password}:shp_orderId=${shpOrderId}`;
   return crypto.createHash("md5").update(signatureString).digest("hex");
 }
 
@@ -300,17 +302,34 @@ export async function registerRoutes(
       const sum = parseFloat(order.amount).toFixed(2);
       const description = `Заказ #${order.id}`;
       
+      // Формируем чековую информацию (номенклатуру) для Робочеков
+      const receipt = {
+        items: [
+          {
+            name: `Разработка сайта: ${order.projectType}`,
+            quantity: 1,
+            sum: sum,
+            payment_method: "full_prepayment",
+            payment_object: "service",
+            tax: "none"
+          }
+        ]
+      };
+      
+      const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+
       const signatureValue = generateRobokassaSignature(
         ROBOKASSA_MERCHANT_LOGIN,
         sum,
         invId,
         ROBOKASSA_PASSWORD1,
-        order.id
+        order.id,
+        receiptBase64
       );
 
       const baseUrl = "https://auth.robokassa.ru/Merchant/Index.aspx";
       
-      const paymentUrl = `${baseUrl}?MerchantLogin=${ROBOKASSA_MERCHANT_LOGIN}&OutSum=${sum}&InvId=${invId}&Description=${encodeURIComponent(description)}&SignatureValue=${signatureValue}&IsTest=${IS_TEST_MODE ? 1 : 0}&shp_orderId=${order.id}`;
+      const paymentUrl = `${baseUrl}?MerchantLogin=${ROBOKASSA_MERCHANT_LOGIN}&OutSum=${sum}&InvId=${invId}&Description=${encodeURIComponent(description)}&SignatureValue=${signatureValue}&Receipt=${encodeURIComponent(receiptBase64)}&IsTest=${IS_TEST_MODE ? 1 : 0}&shp_orderId=${order.id}`;
 
       res.status(201).json({
         success: true,
@@ -541,17 +560,34 @@ export async function registerRoutes(
       const remainingAmount = parseFloat(order.amount).toFixed(2);
       const description = `Остаток #${order.id}`;
       
+      // Формируем чековую информацию (номенклатуру) для Робочеков
+      const receipt = {
+        items: [
+          {
+            name: `Доплата за разработку: ${order.projectType}`,
+            quantity: 1,
+            sum: remainingAmount,
+            payment_method: "full_payment",
+            payment_object: "service",
+            tax: "none"
+          }
+        ]
+      };
+      
+      const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+
       const signatureValue = generateRobokassaSignature(
         ROBOKASSA_MERCHANT_LOGIN,
         remainingAmount,
         invId,
         ROBOKASSA_PASSWORD1,
-        order.id
+        order.id,
+        receiptBase64
       );
 
       const baseUrl = "https://auth.robokassa.ru/Merchant/Index.aspx";
       
-      const paymentUrl = `${baseUrl}?MerchantLogin=${ROBOKASSA_MERCHANT_LOGIN}&OutSum=${remainingAmount}&InvId=${invId}&Description=${encodeURIComponent(description)}&SignatureValue=${signatureValue}&IsTest=${IS_TEST_MODE ? 1 : 0}&shp_orderId=${order.id}`;
+      const paymentUrl = `${baseUrl}?MerchantLogin=${ROBOKASSA_MERCHANT_LOGIN}&OutSum=${remainingAmount}&InvId=${invId}&Description=${encodeURIComponent(description)}&SignatureValue=${signatureValue}&Receipt=${encodeURIComponent(receiptBase64)}&IsTest=${IS_TEST_MODE ? 1 : 0}&shp_orderId=${order.id}`;
 
       res.json({
         success: true,
@@ -596,16 +632,33 @@ export async function registerRoutes(
       const sum = parseFloat(invoice.amount).toFixed(2);
       const description = `Счёт #${invoice.id}`;
       
+      // Формируем чековую информацию (номенклатуру) для Робочеков
+      const receipt = {
+        items: [
+          {
+            name: `Доп. услуга: ${invoice.description}`,
+            quantity: 1,
+            sum: sum,
+            payment_method: "full_payment",
+            payment_object: "service",
+            tax: "none"
+          }
+        ]
+      };
+      
+      const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+
       const signatureValue = generateRobokassaSignature(
         ROBOKASSA_MERCHANT_LOGIN,
         sum,
         invId,
         ROBOKASSA_PASSWORD1,
-        invoice.id
+        invoice.id,
+        receiptBase64
       );
 
       const baseUrl = "https://auth.robokassa.ru/Merchant/Index.aspx";
-      const paymentUrl = `${baseUrl}?MerchantLogin=${ROBOKASSA_MERCHANT_LOGIN}&OutSum=${sum}&InvId=${invId}&Description=${encodeURIComponent(description)}&SignatureValue=${signatureValue}&IsTest=${IS_TEST_MODE ? 1 : 0}&shp_orderId=${invoice.id}`;
+      const paymentUrl = `${baseUrl}?MerchantLogin=${ROBOKASSA_MERCHANT_LOGIN}&OutSum=${sum}&InvId=${invId}&Description=${encodeURIComponent(description)}&SignatureValue=${signatureValue}&Receipt=${encodeURIComponent(receiptBase64)}&IsTest=${IS_TEST_MODE ? 1 : 0}&shp_orderId=${invoice.id}`;
 
       console.log("Updating invoice status...");
       await storage.updateAdditionalInvoiceStatus(invoice.id, "pending", String(invId));
