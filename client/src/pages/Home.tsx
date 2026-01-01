@@ -32,11 +32,13 @@ export default function Home() {
       "@type": "Organization",
       "name": "MP.WebStudio",
       "url": "https://mp-webstudio.ru",
-      "logo": "https://mp-webstudio.ru/logo.png",
+      "logo": "https://mp-webstudio.ru/favicon.png",
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+7 (999) 123-45-67",
-        "contactType": "customer service"
+        "telephone": "+7 (953) 181-41-36",
+        "contactType": "customer service",
+        "email": "mpwebstudio1@gmail.com",
+        "availableLanguage": "Russian"
       },
       "address": {
         "@type": "PostalAddress",
@@ -44,8 +46,7 @@ export default function Home() {
         "addressCountry": "RU"
       },
       "sameAs": [
-        "https://vk.com/mp.webstudio",
-        "https://t.me/mp_webstudio"
+        "https://t.me/MPWebStudio"
       ]
     });
     document.head.appendChild(script);
