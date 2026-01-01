@@ -545,125 +545,6 @@ module.exports.handler = async function (event, context) {
 
 // ============ Telegram Bot Webhook ============
 
-// Массив тем для текстовых постов (очередь по порядку)
-const TEXT_PROMPTS = [
-    "Напиши интересный пост для ВК о том, почему сайт важен для бизнеса в 2026. Начни с неожиданного факта или вопроса, не с восклицательного знака. Добавь хэштеги.",
-    "Напиши пост о типичных ошибках при создании сайта, которые совершают компании. Советы должны быть практичными. Добавь хэштеги.",
-    "Напиши пост о том, как хороший дизайн сайта влияет на продажи и доверие клиентов. Приведи пример. Добавь хэштеги.",
-    "Напиши пост о том, почему компаниям нужна переработка старого сайта в 2026 году. Сделай это с юмором или метафорой. Добавь хэштеги.",
-    "Напиши пост о том, какие новые тренды в веб-дизайне появились в 2025-2026. Сделай пост информативным и интересным. Добавь хэштеги.",
-    "Напиши пост-вопрос к аудитории: как они выбирают, на какой сайт компании они сначала смотрят? Добавь интригу. Добавь хэштеги.",
-    "Напиши пост о том, что мобильные сайты уже не опция, а необходимость. Объясни почему. Добавь хэштеги.",
-    "Напиши пост про личный опыт - как хороший сайт помогает бизнесу расти. Сделай это вдохновляющим. Добавь хэштеги.",
-];
-
-// Массив тем для изображений (очередь по порядку) - технологичный стиль про веб-дизайн
-const IMAGE_PROMPTS = [
-    "Realistic 3D mockup of modern website design on multiple laptop screens, web designer working at desk with advanced UI elements, professional tech workspace, focused on interface design",
-    "Clean minimalist web interface mockup, modern website layout, white background with blue accents, responsive design showcase, professional corporate style, flat design",
-    "Cyberpunk futuristic web development visualization, neon glowing code lines on dark background, digital interface with particles, matrix style, technology aesthetic, highly technical",
-    "Flat design illustration of web development team building a website, geometric shapes representing UI elements, colorful blocks and icons, people collaborating on web design",
-    "3D rendered modern website mockup on elegant laptop, sleek tech aesthetic, contemporary web design showcase, professional business style, clean and minimalist composition",
-    "Web application architecture diagram, network diagram with nodes and connections, cloud computing infrastructure, microservices visualization, digital technology blueprint style",
-    "Before and after website redesign comparison, old outdated website vs new modern beautiful design, split screen mockup, improvement transformation, professional upgrade visual",
-    "Mobile-first responsive design showcase, modern smartphone displaying beautiful app UI, multiple device mockups showing responsive layouts, clean contemporary design, user interface focus",
-];
-
-async function getNextPromptIndex() {
-    const driver = await getYdbDriver();
-
-    try {
-        // Создаем или получаем счетчик
-        await driver.tableClient.withSession(async (session) => {
-            // Сначала пытаемся вставить стартовое значение (если таблицы еще нет)
-            const insertQuery = `
-                DECLARE $key AS Utf8;
-                DECLARE $text_index AS Int32;
-                DECLARE $image_index AS Int32;
-
-                UPSERT INTO post_counter (key, text_index, image_index) 
-                VALUES ($key, $text_index, $image_index);
-            `;
-
-            try {
-                const preparedInsert = await session.prepareQuery(insertQuery);
-                // Пока не трогаем, просто проверяем что работает
-            } catch (e) {
-                // Таблица не существует, создадим минимальный workaround
-                console.log('[POST-COUNTER] Table might not exist, will use simple counter');
-            }
-        });
-
-        // Получаем текущие значения
-        const result = await driver.tableClient.withSession(async (session) => {
-            const selectQuery = `
-                DECLARE $key AS Utf8;
-
-                SELECT text_index, image_index FROM post_counter WHERE key = $key;
-            `;
-
-            const preparedSelect = await session.prepareQuery(selectQuery);
-            return await session.executeQuery(preparedSelect, {
-                '$key': TypedValues.utf8('global')
-            });
-        });
-
-        let textIndex = 0;
-        let imageIndex = 0;
-
-        const rows = result.resultSets[0]?.rows || [];
-        if (rows.length > 0) {
-            const row = rows[0];
-            textIndex = parseInt(row.text_index?.value || 0);
-            imageIndex = parseInt(row.image_index?.value || 0);
-        }
-
-        // Циклим индексы если дошли до конца массива
-        const nextTextIndex = (textIndex + 1) % TEXT_PROMPTS.length;
-        const nextImageIndex = (imageIndex + 1) % IMAGE_PROMPTS.length;
-
-        // Сохраняем обновленные индексы
-        await driver.tableClient.withSession(async (session) => {
-            const updateQuery = `
-                DECLARE $key AS Utf8;
-                DECLARE $text_index AS Int32;
-                DECLARE $image_index AS Int32;
-
-                UPSERT INTO post_counter (key, text_index, image_index) 
-                VALUES ($key, $text_index, $image_index);
-            `;
-
-            const preparedUpdate = await session.prepareQuery(updateQuery);
-            await session.executeQuery(preparedUpdate, {
-                '$key': TypedValues.utf8('global'),
-                '$text_index': TypedValues.int32(nextTextIndex),
-                '$image_index': TypedValues.int32(nextImageIndex)
-            });
-        });
-
-        console.log(`[POST-COUNTER] Current: text=${textIndex}, image=${imageIndex}`);
-
-        return {
-            textPrompt: TEXT_PROMPTS[textIndex],
-            imagePrompt: IMAGE_PROMPTS[imageIndex],
-            textIndex,
-            imageIndex
-        };
-    } catch (error) {
-        // Fallback: если БД не работает, используем простой счетчик через остаток времени
-        console.log('[POST-COUNTER] DB error, using time-based fallback:', error.message);
-        const now = Date.now();
-        const textIndex = Math.floor(now / 3600000) % TEXT_PROMPTS.length;
-        const imageIndex = Math.floor(now / 3600000) % IMAGE_PROMPTS.length;
-
-        return {
-            textPrompt: TEXT_PROMPTS[textIndex],
-            imagePrompt: IMAGE_PROMPTS[imageIndex],
-            textIndex,
-            imageIndex
-        };
-    }
-}
 
 async function handleVkAutoPostYandex(headers) {
     try {
@@ -682,25 +563,32 @@ async function handleVkAutoPostYandex(headers) {
 
         // YC_API_KEY проверяется внутри getYandexAuthHeader()
 
-        // 1. Получаем текущие промпты из очереди
-        const prompts = await getNextPromptIndex();
-        const textPrompt = prompts.textPrompt;
-        const imagePrompt = prompts.imagePrompt;
+        // 1. Генерируем ТЕКСТ через Yandex GPT (Свободная генерация)
+        console.log('[VK-AUTO-POST-YANDEX] Generating dynamic text...');
+        const systemPrompt = `Ты — эксперт веб-студии MP.WebStudio. Твоя задача — написать профессиональный, вовлекающий и современный пост для ВКонтакте. 
+Мы занимаемся: разработкой сайтов на базе ИИ, интеграцией GigaChat и Yandex Cloud, созданием уникального дизайна и автоматизацией бизнес-процессов.
+Стиль: деловой, но доступный, экспертный, без избитых клише и лишних восклицательных знаков. 
+Обязательно используй хэштеги в конце поста (например: #MPWebStudio #AI #ВебРазработка #WebDesign #ИскусственныйИнтелект).`;
 
-        console.log(`[VK-AUTO-POST-YANDEX] Using prompts: text[${prompts.textIndex}], image[${prompts.imageIndex}]`);
+        const userPrompt = `Придумай и напиши новый актуальный пост. Выбери одну из тем: 
+1. Как ИИ меняет бизнес в 2026 году.
+2. Почему старый сайт тянет продажи вниз.
+3. Преимущества разработки сайтов в MP.WebStudio.
+4. Тренды веб-дизайна и UX/UI.
+5. Интеграция нейросетей в бизнес-процессы.
+Будь креативен, начни с интригующего факта или вопроса. Не повторяй темы прошлых постов.`;
 
-        // 2. Генерируем ТЕКСТ отдельно
-        console.log('[VK-AUTO-POST-YANDEX] Generating text...');
-        const textResponse = await callYandexGPT(textPrompt, 'yandexgpt-lite');
+        const textResponse = await callYandexGPT(userPrompt, 'yandexgpt-lite', systemPrompt);
         const postText = textResponse.content;
         console.log('[VK-AUTO-POST-YANDEX] Text generated:', postText.substring(0, 100) + '...');
 
-        // 3. Генерируем КАРТИНКУ отдельно (асинхронно!)
+        // 2. Генерируем КАРТИНКУ (Универсальный технологичный промпт)
         console.log('[VK-AUTO-POST-YANDEX] Generating image...');
-        const imageBuffer = await generateYandexImage(imagePrompt);
+        const universalImagePrompt = "High-tech futuristic web design concept, professional UI/UX interface elements glowing on dark background, abstract digital technology visualization, 8k resolution, cinematic lighting, sleek corporate aesthetic, blue and neon accents";
+        const imageBuffer = await generateYandexImage(universalImagePrompt);
         console.log('[VK-AUTO-POST-YANDEX] Image generated, size:', imageBuffer.length, 'bytes');
 
-        // 4. Загружаем картинку в ВК
+        // 3. Загружаем картинку в ВК
         const photoId = await uploadPhotoToVk(vkToken, groupId, imageBuffer);
         if (!photoId) {
             throw new Error('Failed to upload photo to VK');
@@ -739,8 +627,7 @@ async function handleVkAutoPostYandex(headers) {
             headers,
             body: JSON.stringify({ 
                 success: true, 
-                message: 'Post published to VK and Telegram',
-                postNumber: { text: prompts.textIndex + 1, image: prompts.imageIndex + 1 },
+                message: 'Post published to VK and Telegram (Dynamic Generation)',
                 vkResponse: JSON.parse(vkResult.data) 
             })
         };
@@ -1013,7 +900,7 @@ async function uploadPhotoToVk(token, groupId, imageData) {
     }
 }
 
-async function callYandexGPT(prompt, modelName = 'yandexgpt') {
+async function callYandexGPT(prompt, modelName = 'yandexgpt', systemText = 'Ты — полезный ассистент.') {
     const folderId = process.env.YC_FOLDER_ID;
 
     if (!folderId) {
@@ -1032,11 +919,11 @@ async function callYandexGPT(prompt, modelName = 'yandexgpt') {
             modelUri: `gpt://${folderId}/${modelName}/latest`,
             completionOptions: {
                 stream: false,
-                temperature: 0.6,
-                maxTokens: '2000'
+                temperature: 0.7,
+                maxTokens: 2000
             },
             messages: [
-                { role: 'system', text: 'Ты — вежливый AI-ассистент компании MP.WebStudio. Помогай клиентам с информацией о наших услугах, проектах и технологиях.' },
+                { role: 'system', text: systemText },
                 { role: 'user', text: prompt }
             ]
         })
