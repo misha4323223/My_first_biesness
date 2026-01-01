@@ -3950,7 +3950,9 @@ async function checkAndUpdateChatLimit(ipAddress) {
 
                     const extract = (v) => {
                         if (v === null || v === undefined) return null;
+                        // Если значение обернуто в TypedValue объект {value, ...}
                         if (typeof v === 'object' && v !== null && 'value' in v) {
+                            // YDB Int32/Int64 value может быть строкой или числом
                             return v.value !== null ? Number(v.value) : null;
                         }
                         return Number(v);
@@ -3962,7 +3964,7 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     if (c !== null) messageCount = c;
                     if (t !== null) lastResetTimestamp = t;
                     
-                    console.log(`[CHAT-LIMITS] 📖 Result: count=${messageCount}, reset=${lastResetTimestamp}`);
+                    console.log(`[CHAT-LIMITS] 📖 Result: count=${messageCount} (Type: ${typeof countVal}), reset=${lastResetTimestamp}`);
                 } else {
                     lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
