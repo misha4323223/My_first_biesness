@@ -1525,8 +1525,8 @@ async function handleOrder(data, headers) {
             amount: data.amount,
         }));
 
-        // Генерируем ссылку на оплату Robokassa
-        const paymentUrl = generateRobokassaUrl(orderId, data.amount);
+        const orderDataForUrl = { projectType: data.projectType };
+        const paymentUrl = generateRobokassaUrl(orderId, data.amount, orderDataForUrl);
 
         return {
             statusCode: 200,
@@ -1548,7 +1548,14 @@ async function handleOrder(data, headers) {
     }
 }
 
-function generateRobokassaUrl(orderId, amount) {
+function generateRobokassaSignature(merchantLogin, sum, invId, password, shpOrderId, receipt) {
+    const signatureString = receipt 
+        ? `${merchantLogin}:${sum}:${invId}:${receipt}:${password}:shp_orderId=${shpOrderId}`
+        : `${merchantLogin}:${sum}:${invId}:${password}:shp_orderId=${shpOrderId}`;
+    return crypto.createHash('md5').update(signatureString).digest('hex');
+}
+
+function generateRobokassaUrl(orderId, amount, order) {
     const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN;
     const password1 = process.env.ROBOKASSA_PASSWORD1;
     const isTestMode = process.env.ROBOKASSA_TEST_MODE === 'true';
@@ -1564,11 +1571,24 @@ function generateRobokassaUrl(orderId, amount) {
         return null;
     }
 
-    // amount уже содержит сумму предоплаты (50%), НЕ делим повторно
     const invId = Date.now() % 1000000;
+    
+    // Номенклатура для чека
+    const receipt = {
+        items: [
+            {
+                name: `Разработка сайта: ${order?.projectType || 'Заказ'}`,
+                quantity: 1,
+                sum: numericAmount,
+                payment_method: 'full_prepayment',
+                payment_object: 'service',
+                tax: 'none'
+            }
+        ]
+    };
+    const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
 
-    const signatureString = `${merchantLogin}:${numericAmount}:${invId}:${password1}:shp_orderId=${orderId}`;
-    const signature = crypto.createHash('md5').update(signatureString).digest('hex');
+    const signature = generateRobokassaSignature(merchantLogin, numericAmount, invId, password1, orderId, receiptBase64);
 
     const baseUrl = 'https://auth.robokassa.ru/Merchant/Index.aspx';
 
@@ -1576,8 +1596,9 @@ function generateRobokassaUrl(orderId, amount) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount,
         InvId: invId,
-        Description: `Предоплата за разработку сайта`,
+        Description: `Заказ #${orderId}`,
         SignatureValue: signature,
+        Receipt: receiptBase64,
         shp_orderId: orderId,
         IsTest: isTestMode ? '1' : '0',
     });
@@ -2121,7 +2142,7 @@ async function handlePayRemaining(data, headers) {
         };
     }
 
-    const paymentUrl = generateRemainingPaymentUrl(orderId, order.amount);
+    const paymentUrl = generateRemainingPaymentUrl(orderId, order.amount, order);
 
     if (!paymentUrl) {
         return {
@@ -2144,7 +2165,7 @@ async function handlePayRemaining(data, headers) {
     };
 }
 
-function generateRemainingPaymentUrl(orderId, amount) {
+function generateRemainingPaymentUrl(orderId, amount, order) {
     const merchantLogin = process.env.ROBOKASSA_MERCHANT_LOGIN;
     const password1 = process.env.ROBOKASSA_PASSWORD1;
     const isTestMode = process.env.ROBOKASSA_TEST_MODE === 'true';
@@ -2162,8 +2183,22 @@ function generateRemainingPaymentUrl(orderId, amount) {
 
     const invId = Date.now() % 1000000;
 
-    const signatureString = `${merchantLogin}:${numericAmount}:${invId}:${password1}:shp_orderId=${orderId}`;
-    const signature = crypto.createHash('md5').update(signatureString).digest('hex');
+    // Номенклатура для чека
+    const receipt = {
+        items: [
+            {
+                name: `Оплата остатка: ${order?.projectType || 'Заказ'}`,
+                quantity: 1,
+                sum: numericAmount,
+                payment_method: 'full_payment',
+                payment_object: 'service',
+                tax: 'none'
+            }
+        ]
+    };
+    const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+
+    const signature = generateRobokassaSignature(merchantLogin, numericAmount, invId, password1, orderId, receiptBase64);
 
     const baseUrl = 'https://auth.robokassa.ru/Merchant/Index.aspx';
 
@@ -2171,8 +2206,9 @@ function generateRemainingPaymentUrl(orderId, amount) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount.toString(),
         InvId: invId.toString(),
-        Description: 'Оплата остатка за разработку сайта',
+        Description: `Остаток #${orderId}`,
         SignatureValue: signature,
+        Receipt: receiptBase64,
         shp_orderId: orderId,
         IsTest: isTestMode ? '1' : '0',
     });
