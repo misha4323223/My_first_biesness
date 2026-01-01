@@ -2319,7 +2319,7 @@ async function handleAdditionalInvoice(data, headers) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount.toString(),
         InvId: invId.toString(),
-        Description: 'Оплата дополнительных услуг по разработке',
+        Description: `Оплата доп. услуг: ${safeDescription}`,
         SignatureValue: signature,
         Receipt: receiptBase64,
         shp_orderId: addInvUniqueId,
