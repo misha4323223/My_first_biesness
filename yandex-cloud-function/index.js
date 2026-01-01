@@ -1601,6 +1601,7 @@ function generateRobokassaUrl(orderId, amount, order) {
         Receipt: receiptBase64,
         shp_orderId: orderId,
         IsTest: isTestMode ? '1' : '0',
+        Email: order?.clientEmail || '',
     });
 
     return `${baseUrl}?${params.toString()}`;
@@ -2211,6 +2212,7 @@ function generateRemainingPaymentUrl(orderId, amount, order) {
         Receipt: receiptBase64,
         shp_orderId: orderId,
         IsTest: isTestMode ? '1' : '0',
+        Email: order?.clientEmail || '',
     });
 
     return `${baseUrl}?${params.toString()}`;
@@ -2295,6 +2297,8 @@ async function handleAdditionalInvoice(data, headers) {
         .trim()
         .substring(0, 100);
 
+    const invId = (Date.now() + 2) % 1000000;
+    
     // Номенклатура для доп. счёта
     const receipt = {
         items: [
@@ -2319,7 +2323,7 @@ async function handleAdditionalInvoice(data, headers) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount.toString(),
         InvId: invId.toString(),
-        Description: `Оплата доп. услуг: ${safeDescription}`,
+        Description: `Доп. услуги: ${safeDescription}`,
         SignatureValue: signature,
         Receipt: receiptBase64,
         shp_orderId: addInvUniqueId,
