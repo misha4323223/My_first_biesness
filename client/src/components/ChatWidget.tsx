@@ -138,10 +138,11 @@ export function ChatWidget() {
           <button
             onClick={() => setIsOpen(true)}
             data-testid="button-ai-chat"
-            className="h-full w-full rounded-sm bg-background flex items-center justify-center font-mono text-xs font-bold transition-all duration-200 ai-assistant-btn"
+            className="h-full w-full rounded-sm bg-background flex flex-col items-center justify-center font-mono transition-all duration-200 ai-assistant-btn"
             title="AI Assistant"
           >
-            <Brain className="w-6 h-6 text-cyan-400 group-hover:text-purple-400 transition-colors duration-200" />
+            <Brain className="w-5 h-5 text-cyan-400 group-hover:text-purple-400 transition-colors duration-200" />
+            <span className="text-[10px] leading-none mt-1 text-cyan-400 group-hover:text-purple-400 transition-colors duration-200">AI</span>
           </button>
         </div>
       </div>
