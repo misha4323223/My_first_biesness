@@ -2143,7 +2143,8 @@ async function handlePayRemaining(data, headers) {
         };
     }
 
-    const paymentUrl = generateRemainingPaymentUrl(orderId, order.amount, order);
+    const remainingAmount = (parseFloat(order.totalAmount || order.amount) - parseFloat(order.amount));
+    const paymentUrl = generateRemainingPaymentUrl(orderId, remainingAmount, order);
 
     if (!paymentUrl) {
         return {
@@ -2160,7 +2161,7 @@ async function handlePayRemaining(data, headers) {
             success: true,
             message: 'Ссылка на оплату сформирована',
             orderId: order.id,
-            amount: order.amount,
+            amount: remainingAmount.toString(),
             paymentUrl,
         }),
     };
