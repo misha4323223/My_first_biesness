@@ -275,12 +275,36 @@ export default function Admin() {
       return res.json();
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ["/api/orders"] });
       toast({ title: "Доп. счёт отправлен", description: `Счёт №${data.invoiceNumber}` });
       form.reset();
     },
     onError: () => {
       toast({ title: "Ошибка", description: "Не удалось выставить счёт", variant: "destructive" });
+    },
+  });
+
+  const runVkAutoPostMutation = useMutation({
+    mutationFn: async () => {
+      const res = await fetch(`${API_BASE_URL}?action=vk-auto-post`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "vk-auto-post" }),
+      });
+      if (!res.ok) throw new Error("Failed to run auto-post");
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({ 
+        title: "Автопост запущен!", 
+        description: data.message || "Проверьте ВК и Telegram через минуту",
+      });
+    },
+    onError: (error: any) => {
+      toast({ 
+        title: "Ошибка запуска", 
+        description: error.message || "Не удалось запустить автопостинг", 
+        variant: "destructive" 
+      });
     },
   });
 
@@ -403,10 +427,26 @@ export default function Admin() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between gap-4 mb-8">
             <h1 className="text-3xl font-bold">Панель управления</h1>
-            <Button variant="outline" onClick={handleLogout} data-testid="button-admin-logout">
-              <LogOut className="w-4 h-4 mr-2" />
-              Выйти
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                onClick={() => runVkAutoPostMutation.mutate()}
+                disabled={runVkAutoPostMutation.isPending}
+                className="border-purple-500/50 hover:bg-purple-500/10"
+                data-testid="button-run-autopost"
+              >
+                {runVkAutoPostMutation.isPending ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Mail className="w-4 h-4 mr-2 text-purple-400" />
+                )}
+                Запустить автопост ИИ
+              </Button>
+              <Button variant="outline" onClick={handleLogout} data-testid="button-admin-logout">
+                <LogOut className="w-4 h-4 mr-2" />
+                Выйти
+              </Button>
+            </div>
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
