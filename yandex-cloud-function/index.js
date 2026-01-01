@@ -3895,7 +3895,7 @@ async function sendTelegramNotification(message) {
 // ============ Chat Limits Handler (Rate Limiting by IP) ============
 
 async function checkAndUpdateChatLimit(ipAddress) {
-    const MAX_MESSAGES_PER_DAY = 10;
+    const MAX_MESSAGES_PER_DAY = 5;
     console.log(`[CHAT-LIMITS] 🔍 Checking limit for IP ${ipAddress}, MAX=${MAX_MESSAGES_PER_DAY}`);
     const RESET_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 часа
     
