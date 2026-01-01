@@ -223,7 +223,7 @@ export default function PayRemaining() {
                   <div className="h-px bg-border" />
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Полная стоимость</span>
-                    <span className="font-mono">{formatPrice(parseFloat(order.totalAmount || order.amount) * 2)} ₽</span>
+                    <span className="font-mono">{formatPrice(parseFloat(order.totalAmount || order.amount))} ₽</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Оплачено (предоплата)</span>
@@ -233,7 +233,7 @@ export default function PayRemaining() {
                   <div className="flex justify-between items-end pt-2">
                     <span className="font-medium">К оплате</span>
                     <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                      {formatPrice(parseFloat(order.amount))} ₽
+                      {formatPrice(parseFloat(order.totalAmount || order.amount) - parseFloat(order.amount))} ₽
                     </span>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ export default function PayRemaining() {
                   ) : (
                     <>
                       <CreditCard className="w-4 h-4 mr-2" />
-                      Оплатить {formatPrice(parseFloat(order.amount))} ₽
+                      Оплатить {formatPrice(parseFloat(order.totalAmount || order.amount) - parseFloat(order.amount))} ₽
                     </>
                   )}
                 </Button>

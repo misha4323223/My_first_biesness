@@ -557,7 +557,7 @@ export async function registerRoutes(
       }
 
       const invId = getNextInvId();
-      const remainingAmount = parseFloat(order.amount).toFixed(2);
+      const remainingAmount = (parseFloat(order.totalAmount || order.amount) - parseFloat(order.amount)).toFixed(2);
       const description = `Остаток #${order.id}`;
       
       // Формируем чековую информацию (номенклатуру) для Робочеков
