@@ -474,7 +474,7 @@ module.exports.handler = async function (event, context) {
         }
 
         // VK Automation Trigger
-        if (action === 'vk-auto-post' && method === 'POST') {
+        if ((action === 'vk-auto-post' || (event.messages && event.messages[0]?.event_metadata?.trigger_id)) && (method === 'POST' || !method)) {
             return await handleVkAutoPostYandex(headers);
         }
 
