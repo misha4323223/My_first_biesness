@@ -326,23 +326,28 @@ module.exports.handler = async function (event, context) {
         const message = event.messages[0];
         
         // Mark as auto-post if it's a timer message
-        if (message.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.TimerMessage') {
+        if (message.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.TimerMessage' || 
+            message.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.ScheduledMessage') {
             action = 'vk-auto-post';
             method = 'POST';
         }
 
         if (message.details?.payload) {
             try {
+                // Try parsing as JSON first
                 const payload = JSON.parse(message.details.payload);
-                console.log('[TRIGGER-PAYLOAD]', payload);
+                console.log('[TRIGGER-PAYLOAD-JSON]', payload);
                 if (payload.action) action = payload.action;
                 if (payload.httpMethod) method = payload.httpMethod;
             } catch (e) {
-                // If payload is not JSON, use it as action string if it looks like one
+                // If not JSON, check if it's a raw string 'vk-auto-post'
                 const rawPayload = String(message.details.payload).trim();
-                if (rawPayload && !action) {
-                   action = rawPayload;
-                   console.log('[TRIGGER-RAW-PAYLOAD]', action);
+                console.log('[TRIGGER-RAW-PAYLOAD]', rawPayload);
+                if (rawPayload === 'vk-auto-post' || rawPayload === '{"action": "vk-auto-post"}') {
+                    action = 'vk-auto-post';
+                    method = 'POST';
+                } else if (rawPayload && !action) {
+                    action = rawPayload;
                 }
             }
         }
@@ -502,7 +507,9 @@ module.exports.handler = async function (event, context) {
         }
 
         // VK Automation Trigger
-        if (action === 'vk-auto-post' || (event.messages && event.messages[0]?.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.TimerMessage')) {
+        const isTimerTrigger = event.messages && event.messages[0]?.event_metadata?.event_type?.includes('TimerMessage');
+        if (action === 'vk-auto-post' || isTimerTrigger) {
+            console.log('[VK-AUTO-POST] Triggered by:', isTimerTrigger ? 'TIMER' : 'MANUAL');
             return await handleVkAutoPostYandex(headers);
         }
 
