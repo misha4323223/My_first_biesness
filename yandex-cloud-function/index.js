@@ -3929,29 +3929,40 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 
                 if (rows.length > 0) {
                     const row = rows[0];
-                    console.log(`[CHAT-LIMITS] 🔎 Row data: ${JSON.stringify(row)}`);
+                    // Полный дамп строки для диагностики
+                    console.log(`[CHAT-LIMITS] 🔎 Full Row Object: ${JSON.stringify(row)}`);
                     
-                    // В SDK v2/v3 данные приходят в свойстве `items` или напрямую как объект
-                    // Если row - это объект со свойствами message_count и last_reset_timestamp
-                    const rawCount = row.message_count;
-                    const rawTime = row.last_reset_timestamp;
+                    let countVal, timeVal;
+                    
+                    // 1. Попытка достать как из объекта (стандарт)
+                    countVal = row.message_count;
+                    timeVal = row.last_reset_timestamp;
+                    
+                    // 2. Если это массив (специфика SDK v2)
+                    if (countVal === undefined && Array.isArray(row)) {
+                        const findByName = (name) => {
+                            const item = row.find(i => i && (i.name === name || i.columnName === name));
+                            return item ? item.value : undefined;
+                        };
+                        countVal = findByName('message_count');
+                        timeVal = findByName('last_reset_timestamp');
+                    }
 
                     const extract = (v) => {
                         if (v === null || v === undefined) return null;
-                        // Если значение обернуто в TypedValue объект {value, ...}
                         if (typeof v === 'object' && v !== null && 'value' in v) {
                             return v.value !== null ? Number(v.value) : null;
                         }
                         return Number(v);
                     };
 
-                    const c = extract(rawCount);
-                    const t = extract(rawTime);
+                    const c = extract(countVal);
+                    const t = extract(timeVal);
 
                     if (c !== null) messageCount = c;
                     if (t !== null) lastResetTimestamp = t;
                     
-                    console.log(`[CHAT-LIMITS] 📖 Found record: count=${messageCount}, reset=${lastResetTimestamp}`);
+                    console.log(`[CHAT-LIMITS] 📖 Result: count=${messageCount}, reset=${lastResetTimestamp}`);
                 } else {
                     lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
