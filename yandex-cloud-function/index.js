@@ -316,9 +316,23 @@ module.exports.handler = async function (event, context) {
     }
 
     const query = event.queryStringParameters || {};
-    const path = event.path || event.url || '';
-    const action = query.action || '';
-    const method = event.httpMethod;
+    let path = event.path || event.url || '';
+    let action = query.action || '';
+    let method = event.httpMethod;
+
+    // Support for Yandex Cloud Timer Triggers
+    if (event.messages && event.messages[0]?.details?.payload) {
+        try {
+            const payload = JSON.parse(event.messages[0].details.payload);
+            console.log('[TRIGGER-PAYLOAD]', payload);
+            if (payload.action) action = payload.action;
+            if (payload.httpMethod) method = payload.httpMethod;
+        } catch (e) {
+            // If payload is not JSON, use it as action string
+            action = event.messages[0].details.payload;
+            console.log('[TRIGGER-RAW-PAYLOAD]', action);
+        }
+    }
 
     try {
         let body = {};
@@ -474,7 +488,7 @@ module.exports.handler = async function (event, context) {
         }
 
         // VK Automation Trigger
-        if ((action === 'vk-auto-post' || (event.messages && event.messages[0]?.event_metadata?.trigger_id)) && (method === 'POST' || !method)) {
+        if (action === 'vk-auto-post' || (event.messages && event.messages[0]?.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.TimerMessage')) {
             return await handleVkAutoPostYandex(headers);
         }
 
