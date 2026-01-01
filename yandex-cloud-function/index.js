@@ -3947,9 +3947,10 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     const extract = (v) => {
                         if (v === null || v === undefined) return null;
                         if (typeof v === 'object' && v !== null && 'value' in v) {
-                            return v.value !== null ? Number(v.value) : null;
+                            const val = v.value;
+                            if (val === null || val === undefined) return null;
+                            return Number(val);
                         }
-                        // Если значение пришло как строка (YDB Int64 возвращает строку для BigInt)
                         if (typeof v === 'string') return Number(v);
                         return Number(v);
                     };
@@ -3958,7 +3959,13 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     const t = extract(timeVal);
 
                     if (c !== null) messageCount = c;
-                    if (t !== null) lastResetTimestamp = t;
+                    // Исправление: если время из базы равно 0, используем текущее время
+                    if (t !== null && t > 0) {
+                        lastResetTimestamp = t;
+                    } else {
+                        lastResetTimestamp = now;
+                        console.log(`[CHAT-LIMITS] ⚠️ DB timestamp was 0 or null, using current time: ${now}`);
+                    }
                     
                     console.log(`[CHAT-LIMITS] 📖 Final parsed: count=${messageCount}, reset=${lastResetTimestamp}`);
                 } else {
