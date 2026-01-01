@@ -2276,34 +2276,13 @@ async function handleAdditionalInvoice(data, headers) {
         };
     }
 
-    const invId = Date.now() % 1000000;
-    // Создаём уникальный ID для дополнительного счёта с префиксом addinv_
-    // Формат: addinv_{orderId без префикса ord_}_{timestamp}
-    // Используем только латиницу и цифры для совместимости с Robokassa
-    const orderIdSuffix = normalizedOrderId.replace('ord_', '');
-    const timestamp = Date.now().toString(36); // base36 для компактности
-    const addInvUniqueId = `addinv_${orderIdSuffix}_${timestamp}`;
-
-    // Санитизируем описание для Robokassa:
-    // - Русский текст OK, но переносы строк и скобки вызывают ошибку
-    // - Заменяем \n на "; ", скобки на точки
-    // - Ограничиваем до 100 символов
-    const safeDescription = (description || 'Дополнительные услуги')
-        .replace(/\r?\n/g, '; ')           // переносы -> точка с запятой
-        .replace(/\)\s*/g, '. ')           // "1) " -> "1. "
-        .replace(/\(\s*/g, '')             // убираем открывающие скобки
-        .replace(/[<>\"\'\\]/g, '')        // убираем опасные символы
-        .replace(/\s+/g, ' ')              // множественные пробелы -> один
-        .trim()
-        .substring(0, 100);
-
     const invId = (Date.now() + 2) % 1000000;
     
     // Номенклатура для доп. счёта
     const receipt = {
         items: [
             {
-                name: `Дополнительные услуги: ${safeDescription}`,
+                name: `Оплата доп. услуг: ${safeDescription}`,
                 quantity: 1,
                 sum: numericAmount,
                 payment_method: 'full_prepayment',
