@@ -285,10 +285,14 @@ export default function Admin() {
 
   const runVkAutoPostMutation = useMutation({
     mutationFn: async () => {
-      const res = await fetch(`${API_BASE_URL}?action=vk-auto-post`, {
+      // Direct call to Yandex Function with the specific payload
+      const res = await fetch(API_BASE_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "vk-auto-post" }),
+        body: JSON.stringify({ 
+          action: "vk-auto-post",
+          httpMethod: "POST" 
+        }),
       });
       if (!res.ok) throw new Error("Failed to run auto-post");
       return res.json();
