@@ -325,41 +325,7 @@ module.exports.handler = async function (event, context) {
 
     const query = event.queryStringParameters || {};
     let path = event.path || event.url || '';
-    let action = query.action || '';
     let method = event.httpMethod;
-
-    // Support for Yandex Cloud Timer Triggers
-    if (event.messages && Array.isArray(event.messages)) {
-        console.log('[TRIGGER-DETECTED]', JSON.stringify(event.messages[0]?.event_metadata));
-        const message = event.messages[0];
-        
-        // Mark as auto-post if it's a timer message
-        if (message.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.TimerMessage' || 
-            message.event_metadata?.event_type === 'yandex.cloud.events.serverless.triggers.ScheduledMessage') {
-            action = 'vk-auto-post';
-            method = 'POST';
-        }
-
-        if (message.details?.payload) {
-            try {
-                // Try parsing as JSON first
-                const payload = JSON.parse(message.details.payload);
-                console.log('[TRIGGER-PAYLOAD-JSON]', payload);
-                if (payload.action) action = payload.action;
-                if (payload.httpMethod) method = payload.httpMethod;
-            } catch (e) {
-                // If not JSON, check if it's a raw string 'vk-auto-post'
-                const rawPayload = String(message.details.payload).trim();
-                console.log('[TRIGGER-RAW-PAYLOAD]', rawPayload);
-                if (rawPayload === 'vk-auto-post' || rawPayload === '{"action": "vk-auto-post"}') {
-                    action = 'vk-auto-post';
-                    method = 'POST';
-                } else if (rawPayload && !action) {
-                    action = rawPayload;
-                }
-            }
-        }
-    }
 
     try {
         let body = {};
@@ -378,7 +344,35 @@ module.exports.handler = async function (event, context) {
             }
         }
 
+        let action = query.action || body.action || '';
+
         console.log('[REQUEST]', { method, action, path, bodyKeys: Object.keys(body) });
+
+        // Support for Yandex Cloud Timer Triggers (moved after body parsing)
+        if (event.messages && Array.isArray(event.messages)) {
+            console.log('[TRIGGER-DETECTED]', JSON.stringify(event.messages[0]?.event_metadata));
+            const message = event.messages[0];
+            
+            if (message.event_metadata?.event_type?.includes('TimerMessage') || 
+                message.event_metadata?.event_type?.includes('ScheduledMessage')) {
+                action = 'vk-auto-post';
+                method = 'POST';
+            }
+
+            if (message.details?.payload) {
+                try {
+                    const payload = JSON.parse(message.details.payload);
+                    if (payload.action) action = payload.action;
+                    if (payload.httpMethod) method = payload.httpMethod;
+                } catch (e) {
+                    const rawPayload = String(message.details.payload).trim();
+                    if (rawPayload === 'vk-auto-post') {
+                        action = 'vk-auto-post';
+                        method = 'POST';
+                    }
+                }
+            }
+        }
 
         // Telegram Bot Webhook
         if ((action === 'telegram-webhook' || path.includes('/telegram-webhook')) && method === 'POST') {
