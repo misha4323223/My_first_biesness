@@ -13,11 +13,11 @@ import { useEffect } from "react";
 
 export default function Home() {
   useDocumentMeta({
-    title: "MP.WebStudio — Создание современных сайтов и IT-решений в Туле",
-    description: "Профессиональная разработка сайтов, лендингов и веб-сервисов под ключ. Современный дизайн, высокая скорость работы и SEO-оптимизация для вашего бизнеса.",
-    keywords: "разработка сайтов Тула, создание лендингов, веб-студия, заказать сайт, продвижение сайтов, создание интернет-магазина",
-    ogTitle: "MP.WebStudio — Ваш надежный партнер в мире веб-разработки",
-    ogDescription: "Создаем сайты, которые продают. От идеи до запуска за минимальные сроки.",
+    title: "MP.WebStudio — Создание сайтов и IT-решений по всей России",
+    description: "Профессиональная разработка сайтов, лендингов и веб-сервисов под ключ для бизнеса в любом регионе России. Современный дизайн, высокая скорость и SEO-оптимизация.",
+    keywords: "разработка сайтов Россия, создание лендингов, веб-студия, заказать сайт, продвижение сайтов, создание интернет-магазина, веб-разработка удаленно",
+    ogTitle: "MP.WebStudio — Ваш надежный партнер в веб-разработке по всей России",
+    ogDescription: "Создаем эффективные сайты для бизнеса по всей России. От идеи до запуска под ключ.",
     ogImage: "https://mp-webstudio.ru/og-image.png",
     ogUrl: "https://mp-webstudio.ru/",
     canonical: "https://mp-webstudio.ru/"
@@ -38,11 +38,12 @@ export default function Home() {
         "telephone": "+7 (953) 181-41-36",
         "contactType": "customer service",
         "email": "mpwebstudio1@gmail.com",
-        "availableLanguage": "Russian"
+        "availableLanguage": "Russian",
+        "areaServed": "RU"
       },
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Тула",
+        "addressLocality": "Россия",
         "addressCountry": "RU"
       },
       "sameAs": [
