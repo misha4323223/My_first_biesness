@@ -193,9 +193,9 @@ export function ChatWidget() {
                   >
                     {isLoading ? "Загрузка..." : "Задать вопрос"}
                   </button>
-                  <p className="text-cyan-400/60 text-xs text-center mt-2">
-                    Сообщения не сохраняются<br/>
-                    Контекст: последние 10 сообщений
+                  <p className="text-cyan-400/60 text-[10px] text-center mt-2 leading-relaxed">
+                    Формулируйте вопрос точно. Лимит: 5 ответов в сутки.<br/>
+                    История сообщений не сохраняется (лимит 10 реплик).
                   </p>
                 </form>
               </div>
