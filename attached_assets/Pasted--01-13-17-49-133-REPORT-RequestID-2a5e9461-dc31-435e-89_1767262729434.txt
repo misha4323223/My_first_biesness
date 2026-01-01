@@ -1,0 +1,295 @@
+
+
+01 янв. 13:17:49.133
+REPORT RequestID: 2a5e9461-dc31-435e-896c-b6a32424d3d5 Duration: 1701.478 ms Billed Duration: 1800 ms Memory Size: 512 MB Max Memory Used: 180 MB Queuing Duration: 0.074 ms Function Init Duration: 818.460 ms CPU Usage: 83.008 %
+
+01 янв. 13:17:49.133
+END RequestID: 2a5e9461-dc31-435e-896c-b6a32424d3d5
+
+01 янв. 13:17:49.131
+[YANDEX-CHAT-b63dc3f5] Success! Response: 128 chars, 0s
+
+01 янв. 13:17:49.130
+[HTTPS-3e2f7630] ========== REQUEST SUCCESS ==========
+
+01 янв. 13:17:49.130
+[HTTPS-3e2f7630] Total response size: 395 bytes
+
+01 янв. 13:17:49.130
+[HTTPS-3e2f7630] ✨ Response ended after 428ms
+
+01 янв. 13:17:49.130
+[HTTPS-3e2f7630] 📥 Data chunk: 500 bytes (total: 500)
+
+01 янв. 13:17:49.130
+[HTTPS-3e2f7630] 📦 First byte received after 428ms
+
+01 янв. 13:17:49.130
+[HTTPS-3e2f7630] Response headers: content-type=application/json, content-length=undefined
+
+01 янв. 13:17:49.129
+[HTTPS-3e2f7630] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+01 янв. 13:17:49.129
+[HTTPS-3e2f7630] Status code: 200
+
+01 янв. 13:17:49.129
+[HTTPS-3e2f7630] ✅ Response callback triggered after 427ms
+
+01 янв. 13:17:48.730
+[HTTPS-3e2f7630] 🔒 TLS handshake complete after 28ms
+
+01 янв. 13:17:48.716
+[HTTPS-3e2f7630] 🌐 TCP connected after 14ms
+
+01 янв. 13:17:48.706
+[HTTPS-3e2f7630] 🔍 DNS lookup started
+
+01 янв. 13:17:48.705
+[HTTPS-3e2f7630] 🔌 Socket created, fd: unknown
+
+01 янв. 13:17:48.705
+[HTTPS-3e2f7630] Waiting for response...
+
+01 янв. 13:17:48.705
+[HTTPS-3e2f7630] 🚀 Calling req.end()
+
+01 янв. 13:17:48.705
+[HTTPS-3e2f7630] Body written successfully
+
+01 янв. 13:17:48.704
+[HTTPS-3e2f7630] 📤 Writing body (8402 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Creating HTTPS request with timeout: 15000ms
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Setting main timeout: 12000ms
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Headers: Content-Type, Authorization
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Request body size: 8402 bytes
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Path: /foundationModels/v1/completion
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Hostname: llm.api.cloud.yandex.net:443
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] Method: POST
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+01 янв. 13:17:48.702
+[HTTPS-3e2f7630] ========== HTTPS REQUEST START ==========
+
+01 янв. 13:17:48.701
+[YANDEX-AUTH] Key length: 40
+
+01 янв. 13:17:48.701
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+01 янв. 13:17:48.701
+[YANDEX-CHAT-b63dc3f5] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":12,"folderId":"b1g572p5cuo41gucvn5t"}
+
+01 янв. 13:17:48.701
+[YANDEX-CHAT-b63dc3f5] Sending to Yandex AI with 10 history messages
+
+01 янв. 13:17:48.701
+[YANDEX-CHAT-b63dc3f5] Rate limit check OK - IP 62.141.68.106: 1/10 messages
+
+01 янв. 13:17:48.700
+[CHAT-LIMITS] ✅ Updated IP 62.141.68.106: 1/10 messages
+
+01 янв. 13:17:48.657
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=1, timestamp=1767262668585
+
+01 янв. 13:17:48.657
+[CHAT-LIMITS] 📝 Incrementing count: 0 → 1
+
+01 янв. 13:17:48.657
+[CHAT-LIMITS] 📖 Result: count=0 (Type: undefined), reset=1767262668585
+
+01 янв. 13:17:48.657
+[CHAT-LIMITS] 🔎 Full Row Object: {"items":[{"int32Value":1},{"int64Value":"0"}]}
+
+01 янв. 13:17:48.656
+[CHAT-LIMITS] 📊 SELECT returned 1 rows
+
+01 янв. 13:17:48.586
+[CHAT-LIMITS] 🔎 Executing SELECT for IP: 62.141.68.106
+
+01 янв. 13:17:48.514
+YDB driver connected to: /ru-central1/b1gnp4ml7k5j7cquabad/etn2gipa2pvm2qj5ga83
+
+01 янв. 13:17:48.267
+[CHAT-LIMITS] 🔍 Checking limit for IP 62.141.68.106, MAX=10
+
+01 янв. 13:17:48.266
+[YANDEX-CHAT-b63dc3f5] Received message (20 chars)
+
+01 янв. 13:17:48.266
+[YANDEX-CHAT-b63dc3f5] Client IP: 62.141.68.106
+
+01 янв. 13:17:48.265
+[YANDEX-CHAT] Handler called
+
+01 янв. 13:17:48.265
+}
+
+01 янв. 13:17:48.265
+bodyKeys: [ 'message', 'history' ]
+
+01 янв. 13:17:48.265
+path: '',
+
+01 янв. 13:17:48.265
+action: 'giga-chat',
+
+01 янв. 13:17:48.265
+method: 'POST',
+
+01 янв. 13:17:48.265
+[REQUEST] {
+
+01 янв. 13:17:48.265
+}
+
+01 янв. 13:17:48.265
+timestamp: '2026-01-01T10:17:48.258Z'
+
+01 янв. 13:17:48.265
+path: undefined,
+
+01 янв. 13:17:48.265
+method: 'POST',
+
+01 янв. 13:17:48.265
+[HANDLER START] {
+
+01 янв. 13:17:47.429
+START RequestID: 2a5e9461-dc31-435e-896c-b6a32424d3d5 Version: d4ed5n7jav30me8ntc1r
+
+01 янв. 13:17:28.694
+[HTTPS-3d4b1683] ❌ Socket closed (hadError: false) after 5402ms
+
+01 янв. 13:17:28.694
+[HTTPS-3d4b1683] ❌ SOCKET TIMEOUT after 5401ms - destroying request
+
+01 янв. 13:17:23.695
+REPORT RequestID: 857a34c6-87a8-42e3-99b4-9b3aaddde28c Duration: 1658.119 ms Billed Duration: 1700 ms Memory Size: 512 MB Max Memory Used: 179 MB Queuing Duration: 0.080 ms Function Init Duration: 797.257 ms CPU Usage: 82.715 %
+
+01 янв. 13:17:23.695
+END RequestID: 857a34c6-87a8-42e3-99b4-9b3aaddde28c
+
+01 янв. 13:17:23.693
+[YANDEX-CHAT-97be1a7d] Success! Response: 128 chars, 0s
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] ========== REQUEST SUCCESS ==========
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] Total response size: 395 bytes
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] ✨ Response ended after 400ms
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] 📥 Data chunk: 500 bytes (total: 500)
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] 📦 First byte received after 399ms
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] Response headers: content-type=application/json, content-length=undefined
+
+01 янв. 13:17:23.692
+[HTTPS-3d4b1683] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+01 янв. 13:17:23.691
+[HTTPS-3d4b1683] Status code: 200
+
+01 янв. 13:17:23.691
+[HTTPS-3d4b1683] ✅ Response callback triggered after 399ms
+
+01 янв. 13:17:23.334
+[HTTPS-3d4b1683] 🔒 TLS handshake complete after 41ms
+
+01 янв. 13:17:23.319
+[HTTPS-3d4b1683] 🌐 TCP connected after 26ms
+
+01 янв. 13:17:23.307
+[HTTPS-3d4b1683] 🔍 DNS lookup started
+
+01 янв. 13:17:23.296
+[HTTPS-3d4b1683] 🔌 Socket created, fd: unknown
+
+01 янв. 13:17:23.295
+[HTTPS-3d4b1683] Waiting for response...
+
+01 янв. 13:17:23.295
+[HTTPS-3d4b1683] 🚀 Calling req.end()
+
+01 янв. 13:17:23.295
+[HTTPS-3d4b1683] Body written successfully
+
+01 янв. 13:17:23.295
+[HTTPS-3d4b1683] 📤 Writing body (8677 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Creating HTTPS request with timeout: 15000ms
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Setting main timeout: 12000ms
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Headers: Content-Type, Authorization
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Request body size: 8677 bytes
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Path: /foundationModels/v1/completion
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Hostname: llm.api.cloud.yandex.net:443
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] Method: POST
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+01 янв. 13:17:23.293
+[HTTPS-3d4b1683] ========== HTTPS REQUEST START ==========
+
+01 янв. 13:17:23.292
+[YANDEX-AUTH] Key length: 40
+
+01 янв. 13:17:23.292
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+01 янв. 13:17:23.292
+[YANDEX-CHAT-97be1a7d] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":11,"folderId":"b1g572p5cuo41gucvn5t"}
+
+01 янв. 13:17:23.292
+[YANDEX-CHAT-97be1a7d] Sending to Yandex AI with 9 history messages
+
+01 янв. 13:17:23.292
+[YANDEX-CHAT-97be1a7d] Rate limit check OK - IP 62.141.68.106: 1/10 messages
+
+01 янв. 13:17:23.291
+[CHAT-LIMITS] ✅ Updated IP 62.141.68.106: 1/10 messages
+
+01 янв. 13:17:23.247
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=1, timestamp=1767262643192

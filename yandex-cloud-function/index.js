@@ -3929,30 +3929,31 @@ async function checkAndUpdateChatLimit(ipAddress) {
                 
                 if (rows.length > 0) {
                     const row = rows[0];
-                    // Полный дамп строки для диагностики
                     console.log(`[CHAT-LIMITS] 🔎 Full Row Object: ${JSON.stringify(row)}`);
                     
                     let countVal, timeVal;
                     
-                    // 1. Попытка достать как из объекта (стандарт)
-                    countVal = row.message_count;
-                    timeVal = row.last_reset_timestamp;
-                    
-                    // 2. Если это массив (специфика SDK v2)
-                    if (countVal === undefined && Array.isArray(row)) {
-                        const findByName = (name) => {
-                            const item = row.find(i => i && (i.name === name || i.columnName === name));
-                            return item ? item.value : undefined;
-                        };
-                        countVal = findByName('message_count');
-                        timeVal = findByName('last_reset_timestamp');
+                    // В SDK v2/v3 данные приходят в свойстве `items`
+                    if (row.items && Array.isArray(row.items)) {
+                        // Порядок в SELECT: message_count (0), last_reset_timestamp (1)
+                        const countItem = row.items[0];
+                        const timeItem = row.items[1];
+                        
+                        // Извлекаем значения из структуры YDB (int32Value/int64Value)
+                        countVal = countItem ? (countItem.int32Value !== undefined ? countItem.int32Value : countItem.value) : undefined;
+                        timeVal = timeItem ? (timeItem.int64Value !== undefined ? timeItem.int64Value : timeItem.value) : undefined;
+                        
+                        console.log(`[CHAT-LIMITS] 📦 Extracted from items: count=${countVal}, time=${timeVal}`);
+                    } else {
+                        // Запасной вариант для плоского объекта
+                        countVal = row.message_count;
+                        timeVal = row.last_reset_timestamp;
                     }
 
                     const extract = (v) => {
                         if (v === null || v === undefined) return null;
                         // Если значение обернуто в TypedValue объект {value, ...}
                         if (typeof v === 'object' && v !== null && 'value' in v) {
-                            // YDB Int32/Int64 value может быть строкой или числом
                             return v.value !== null ? Number(v.value) : null;
                         }
                         return Number(v);
@@ -3964,7 +3965,7 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     if (c !== null) messageCount = c;
                     if (t !== null) lastResetTimestamp = t;
                     
-                    console.log(`[CHAT-LIMITS] 📖 Result: count=${messageCount} (Type: ${typeof countVal}), reset=${lastResetTimestamp}`);
+                    console.log(`[CHAT-LIMITS] 📖 Final parsed: count=${messageCount}, reset=${lastResetTimestamp}`);
                 } else {
                     lastResetTimestamp = now;
                     console.log(`[CHAT-LIMITS] 🆕 No existing record found for IP ${ipAddress}, creating new one`);
