@@ -1577,7 +1577,7 @@ function generateRobokassaUrl(orderId, amount, order) {
     const receipt = {
         items: [
             {
-                name: `Разработка сайта: ${order?.projectType || 'Заказ'}`,
+                name: `Оплата заказа за разработку сайта: ${order?.projectType || 'Услуги'}`,
                 quantity: 1,
                 sum: numericAmount,
                 payment_method: 'full_prepayment',
@@ -1596,7 +1596,7 @@ function generateRobokassaUrl(orderId, amount, order) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount,
         InvId: invId,
-        Description: `Заказ #${orderId}`,
+        Description: 'Оплата услуг по разработке сайта',
         SignatureValue: signature,
         Receipt: receiptBase64,
         shp_orderId: orderId,
@@ -2183,11 +2183,11 @@ function generateRemainingPaymentUrl(orderId, amount, order) {
 
     const invId = Date.now() % 1000000;
 
-    // Номенклатура для чека
+    // Номенклатура для чека (остаток)
     const receipt = {
         items: [
             {
-                name: `Оплата остатка: ${order?.projectType || 'Заказ'}`,
+                name: `Оплата остатка за разработку сайта: ${order?.projectType || 'Услуги'}`,
                 quantity: 1,
                 sum: numericAmount,
                 payment_method: 'full_payment',
@@ -2206,7 +2206,7 @@ function generateRemainingPaymentUrl(orderId, amount, order) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount.toString(),
         InvId: invId.toString(),
-        Description: `Остаток #${orderId}`,
+        Description: 'Оплата услуг по разработке сайта (остаток)',
         SignatureValue: signature,
         Receipt: receiptBase64,
         shp_orderId: orderId,
@@ -2295,7 +2295,22 @@ async function handleAdditionalInvoice(data, headers) {
         .trim()
         .substring(0, 100);
 
-    const signatureString = `${merchantLogin}:${numericAmount}:${invId}:${password1}:shp_orderId=${addInvUniqueId}`;
+    // Номенклатура для доп. счёта
+    const receipt = {
+        items: [
+            {
+                name: `Дополнительные услуги: ${safeDescription}`,
+                quantity: 1,
+                sum: numericAmount,
+                payment_method: 'full_prepayment',
+                payment_object: 'service',
+                tax: 'none'
+            }
+        ]
+    };
+    const receiptBase64 = Buffer.from(JSON.stringify(receipt)).toString('base64');
+
+    const signatureString = `${merchantLogin}:${numericAmount}:${invId}:${receiptBase64}:${password1}:shp_orderId=${addInvUniqueId}`;
     const signature = crypto.createHash('md5').update(signatureString).digest('hex');
 
     const baseUrl = 'https://auth.robokassa.ru/Merchant/Index.aspx';
@@ -2304,8 +2319,9 @@ async function handleAdditionalInvoice(data, headers) {
         MerchantLogin: merchantLogin,
         OutSum: numericAmount.toString(),
         InvId: invId.toString(),
-        Description: safeDescription,
+        Description: 'Оплата дополнительных услуг по разработке',
         SignatureValue: signature,
+        Receipt: receiptBase64,
         shp_orderId: addInvUniqueId,
         IsTest: isTestMode ? '1' : '0',
     });
