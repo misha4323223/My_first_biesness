@@ -3933,29 +3933,24 @@ async function checkAndUpdateChatLimit(ipAddress) {
                     
                     let countVal, timeVal;
                     
-                    // В SDK v2/v3 данные приходят в свойстве `items`
                     if (row.items && Array.isArray(row.items)) {
-                        // Порядок в SELECT: message_count (0), last_reset_timestamp (1)
                         const countItem = row.items[0];
                         const timeItem = row.items[1];
                         
-                        // Извлекаем значения из структуры YDB (int32Value/int64Value)
                         countVal = countItem ? (countItem.int32Value !== undefined ? countItem.int32Value : countItem.value) : undefined;
                         timeVal = timeItem ? (timeItem.int64Value !== undefined ? timeItem.int64Value : timeItem.value) : undefined;
-                        
-                        console.log(`[CHAT-LIMITS] 📦 Extracted from items: count=${countVal}, time=${timeVal}`);
                     } else {
-                        // Запасной вариант для плоского объекта
                         countVal = row.message_count;
                         timeVal = row.last_reset_timestamp;
                     }
 
                     const extract = (v) => {
                         if (v === null || v === undefined) return null;
-                        // Если значение обернуто в TypedValue объект {value, ...}
                         if (typeof v === 'object' && v !== null && 'value' in v) {
                             return v.value !== null ? Number(v.value) : null;
                         }
+                        // Если значение пришло как строка (YDB Int64 возвращает строку для BigInt)
+                        if (typeof v === 'string') return Number(v);
                         return Number(v);
                     };
 
