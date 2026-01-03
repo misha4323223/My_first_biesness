@@ -588,7 +588,7 @@ export default function StreetWearShop() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] z-10"
+            className="hidden md:block absolute right-6 top-[40%] -translate-y-1/2 w-[280px] lg:w-[320px] z-10"
           >
             <div className="relative aspect-[9/16] rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl shadow-amber-500/20 group bg-neutral-900">
               <video
