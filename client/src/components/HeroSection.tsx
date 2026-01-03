@@ -41,6 +41,16 @@ function FlyingLetter({ letter, index, totalLetters, isGradient }: FlyingLetterP
     return <span className="inline-block w-[0.3em]">&nbsp;</span>;
   }
 
+  if (isAndroid) {
+    return (
+      <span
+        className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto]" : ""}`}
+      >
+        {letter}
+      </span>
+    );
+  }
+
   return (
     <motion.span
       className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto]" : ""}`}

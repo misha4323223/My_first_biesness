@@ -37,6 +37,16 @@ function FlyingLetter({ letter, index, totalLetters, isGradient, isInView }: Fly
 
   const delay = index * 0.02;
 
+  if (isAndroid) {
+    return (
+      <span
+        className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent" : ""}`}
+      >
+        {letter}
+      </span>
+    );
+  }
+
   if (letter === " ") {
     return <span className="inline-block w-[0.3em]">&nbsp;</span>;
   }
