@@ -432,6 +432,24 @@ module.exports.handler = async function (event, context) {
             return await handleCalculatorOrder(body, headers);
         }
 
+        // POST /api/admin/create-vk-product - ручное создание товара
+        if (action === 'admin/create-vk-product' && method === 'POST') {
+            const { title, description, price } = body;
+            if (!title || !price) {
+                return {
+                    statusCode: 400,
+                    headers,
+                    body: JSON.stringify({ success: false, message: 'Title and price are required' }),
+                };
+            }
+            const productId = await createVkProduct(title, description, price);
+            return {
+                statusCode: 200,
+                headers,
+                body: JSON.stringify({ success: !!productId, productId }),
+            };
+        }
+
         // POST /api/giga-chat - AI чат через Yandex AI
         if ((action === 'giga-chat' || path.includes('/giga-chat')) && method === 'POST') {
             console.log('[YANDEX-CHAT] Handler called');
@@ -590,10 +608,16 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
 - Если спрашивают про сроки — скажи что сроки обговариваются при обсуждении проекта
 - Поддержка после запуска — 1 месяц включен в цену
 - Используй информацию о портфолио когда уместно
-- Отвечай кратко и по существу`;
+- Отвечай кратко и по существу
+
+КОМАНДЫ ДЛЯ СИСТЕМЫ:
+Если ты понимаешь, что нужно создать новую карточку услуги (товара) в ВК на основе обсуждения, добавь в конце ответа JSON блок:
+:::create_vk_product:{"title": "Название", "description": "Описание", "price": 50000}:::
+Используй это только если клиент явно выразил желание или если это логическое завершение обсуждения услуги.`;
 
         const aiResponse = await callYandexGPT(text, 'yandexgpt-lite', systemPrompt);
-        const replyText = aiResponse.content;
+        const replyTextRaw = aiResponse.content;
+        const replyText = await processAiCommands(replyTextRaw);
 
         const vkUrl = 'https://api.vk.com/method/messages.send';
         const params = {
