@@ -510,7 +510,7 @@ module.exports.handler = async function (event, context) {
 
         // VK Callback API Handler
         if (body.type === 'confirmation') {
-            const VK_CONFIRMATION_CODE = process.env.VK_CONFIRMATION_CODE || '12345678';
+            const VK_CONFIRMATION_CODE = process.env.VK_CONFIRMATION_CODE || '2310963c';
             console.log('[VK-CALLBACK] Handling confirmation request');
             return {
                 statusCode: 200,
