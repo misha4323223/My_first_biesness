@@ -1069,6 +1069,7 @@ async function processAiCommands(text) {
     }
 }
 
+async function callYandexGPT(prompt, modelName = 'yandexgpt', systemText = 'Ты — полезный ассистент.') {
     const folderId = process.env.YC_FOLDER_ID;
 
     if (!folderId) {
