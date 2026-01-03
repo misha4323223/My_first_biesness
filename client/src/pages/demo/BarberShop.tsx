@@ -303,8 +303,8 @@ export default function BarberShop() {
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
       <header className="fixed top-0 left-0 right-0 z-40 bg-neutral-950/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link href="/#portfolio">
               <Button
                 variant="ghost"
@@ -332,11 +332,11 @@ export default function BarberShop() {
             <button onClick={scrollToContact} className="hover:text-amber-400 transition-colors cursor-pointer">Контакты</button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-neutral-300 hover:text-amber-400 gap-2"
+              className="text-neutral-300 hover:text-amber-400 gap-2 px-2 sm:px-3"
               data-testid="button-login"
             >
               <LogIn className="w-4 h-4" />
@@ -345,7 +345,7 @@ export default function BarberShop() {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="relative text-neutral-300 hover:text-amber-400"
+              className="relative text-neutral-300 hover:text-amber-400 h-9 w-9"
               onClick={() => setIsCartOpen(true)}
               data-testid="button-cart"
             >
@@ -356,8 +356,9 @@ export default function BarberShop() {
                 </span>
               )}
             </Button>
-            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold" data-testid="button-book-header" onClick={scrollToBooking}>
-              Записаться
+            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold h-9 px-3 sm:px-4" data-testid="button-book-header" onClick={scrollToBooking}>
+              <span className="hidden xs:inline">Записаться</span>
+              <Calendar className="w-4 h-4 xs:hidden" />
             </Button>
           </div>
         </div>
