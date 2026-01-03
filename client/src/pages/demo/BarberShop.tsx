@@ -20,6 +20,7 @@ interface CartItem {
   quantity: number;
 }
 import barberHeroImg from "@assets/generated_images/stylish_barbershop_interior.webp";
+import barberHeroVideo from "@assets/generated_videos/cinematic_barbershop_interior_slow_motion.mp4";
 import alexeyImg from "@assets/generated_images/russian_barber_alexey_portrait.webp";
 import dmitryImg from "@assets/generated_images/russian_barber_dmitry_portrait.webp";
 import maximImg from "@assets/generated_images/russian_barber_maxim_portrait.webp";
@@ -193,6 +194,7 @@ export default function BarberShop() {
   const handleServiceSelect = (id: number) => {
     setSelectedService(id);
     setStep(2);
+    scrollToBooking();
     toast({
       title: "Услуга выбрана",
       description: services.find(s => s.id === id)?.name,
@@ -202,6 +204,7 @@ export default function BarberShop() {
   const handleBarberSelect = (id: number) => {
     setSelectedBarber(id);
     setStep(3);
+    scrollToBooking();
     toast({
       title: "Мастер выбран",
       description: barbers.find(b => b.id === id)?.name,
@@ -287,9 +290,17 @@ export default function BarberShop() {
       </header>
 
       <div className="relative min-h-screen flex items-center overflow-hidden pt-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-neutral-950 to-neutral-950 pointer-events-none" />
-        <div className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none" style={{ backgroundImage: `url(${barberHeroImg})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-neutral-950 pointer-events-none" />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
+        >
+          <source src={barberHeroVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-neutral-950/40 pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
           <motion.div
@@ -389,6 +400,41 @@ export default function BarberShop() {
                 </Card>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+                <Scissors className="w-6 h-6 text-amber-500" />
+              </div>
+              <h3 className="font-bold mb-1">Топ Мастера</h3>
+              <p className="text-xs text-neutral-500">Опытные профессионалы</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-6 h-6 text-amber-500" />
+              </div>
+              <h3 className="font-bold mb-1">Запись 24/7</h3>
+              <p className="text-xs text-neutral-500">Удобный онлайн-сервис</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+                <Star className="w-6 h-6 text-amber-500" />
+              </div>
+              <h3 className="font-bold mb-1">Премиум Уход</h3>
+              <p className="text-xs text-neutral-500">Лучшая мужская косметика</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-6 h-6 text-amber-500" />
+              </div>
+              <h3 className="font-bold mb-1">Центр города</h3>
+              <p className="text-xs text-neutral-500">Удобная парковка</p>
+            </div>
           </div>
         </div>
       </section>
