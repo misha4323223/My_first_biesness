@@ -1,0 +1,214 @@
+
+
+03 янв. 12:41:32.809
+REPORT RequestID: 0c5b6d2f-67fc-414d-8b49-87364b4e8dca Duration: 4.880 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 172 MB Queuing Duration: 0.043 ms
+
+03 янв. 12:41:32.809
+END RequestID: 0c5b6d2f-67fc-414d-8b49-87364b4e8dca
+
+03 янв. 12:41:32.808
+[VK-CALLBACK] Handling message_read
+
+03 янв. 12:41:32.808
+[HANDLER] Action:
+
+03 янв. 12:41:32.808
+[HANDLER] Body type: message_read
+
+03 янв. 12:41:32.808
+}
+
+03 янв. 12:41:32.808
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:41:32.808
+path: '',
+
+03 янв. 12:41:32.808
+action: '',
+
+03 янв. 12:41:32.808
+method: 'POST',
+
+03 янв. 12:41:32.808
+[REQUEST] {
+
+03 янв. 12:41:32.808
+}
+
+03 янв. 12:41:32.808
+timestamp: '2026-01-03T09:41:32.806Z'
+
+03 янв. 12:41:32.808
+path: undefined,
+
+03 янв. 12:41:32.808
+method: 'POST',
+
+03 янв. 12:41:32.808
+[HANDLER START] {
+
+03 янв. 12:41:32.807
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:41:32.801
+START RequestID: 0c5b6d2f-67fc-414d-8b49-87364b4e8dca Version: d4eceadbc42c5nubllc3
+
+03 янв. 12:41:32.009
+REPORT RequestID: f3db3fb5-1ddd-424e-b68c-5a7b0dfbe10d Duration: 2.804 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 174 MB Queuing Duration: 0.058 ms CPU Usage: 3.809 %
+
+03 янв. 12:41:32.009
+END RequestID: f3db3fb5-1ddd-424e-b68c-5a7b0dfbe10d
+
+03 янв. 12:41:32.007
+[VK-CALLBACK] Handling message_reply
+
+03 янв. 12:41:32.007
+[HANDLER] Action:
+
+03 янв. 12:41:32.007
+[HANDLER] Body type: message_reply
+
+03 янв. 12:41:32.007
+}
+
+03 янв. 12:41:32.007
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:41:32.007
+path: '',
+
+03 янв. 12:41:32.007
+action: '',
+
+03 янв. 12:41:32.007
+method: 'POST',
+
+03 янв. 12:41:32.007
+[REQUEST] {
+
+03 янв. 12:41:32.006
+}
+
+03 янв. 12:41:32.006
+timestamp: '2026-01-03T09:41:31.998Z'
+
+03 янв. 12:41:32.006
+path: undefined,
+
+03 янв. 12:41:32.006
+method: 'POST',
+
+03 янв. 12:41:32.006
+[HANDLER START] {
+
+03 янв. 12:41:32.006
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:41:32.004
+START RequestID: f3db3fb5-1ddd-424e-b68c-5a7b0dfbe10d Version: d4eceadbc42c5nubllc3
+
+03 янв. 12:41:31.961
+REPORT RequestID: 74fa7d80-1867-48e3-8563-1caca07ffd66 Duration: 1096.078 ms Billed Duration: 1100 ms Memory Size: 512 MB Max Memory Used: 174 MB Queuing Duration: 0.081 ms CPU Usage: 3.809 %
+
+03 янв. 12:41:31.961
+END RequestID: 74fa7d80-1867-48e3-8563-1caca07ffd66
+
+03 янв. 12:41:31.961
+[VK-CHAT-BOT] Replied to 583487548
+
+03 янв. 12:41:31.961
+[VK-CHAT-BOT] VK Response: {"statusCode":200,"data":"{\"response\":37}"}
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] ========== REQUEST SUCCESS ==========
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] Total response size: 15 bytes
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] ✨ Response ended after 180ms
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] 📥 Data chunk: 15 bytes (total: 15)
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] 📦 First byte received after 179ms
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] Response headers: content-type=application/json; charset=utf-8, content-length=15
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] Status code: 200
+
+03 янв. 12:41:31.960
+[HTTPS-2a49682d] ✅ Response callback triggered after 179ms
+
+03 янв. 12:41:31.821
+[HTTPS-2a49682d] 🔒 TLS handshake complete after 40ms
+
+03 янв. 12:41:31.800
+[HTTPS-2a49682d] 🌐 TCP connected after 19ms
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.783
+[HTTPS-2a49682d] 🔍 DNS lookup started
+
+03 янв. 12:41:31.782
+[HTTPS-2a49682d] 🔌 Socket created, fd: unknown
+
+03 янв. 12:41:31.782
+[HTTPS-2a49682d] Waiting for response...
+
+03 янв. 12:41:31.782
+[HTTPS-2a49682d] 🚀 Calling req.end()
+
+03 янв. 12:41:31.782
+[HTTPS-2a49682d] Body written successfully
+
+03 янв. 12:41:31.782
+[HTTPS-2a49682d] 📤 Writing body (1419 bytes): peer_id=583487548&message=%60%60%60%0A%7B%22title%22%3A+%22%D0%A1%D0%B0%D0%B9%D1%82-%D0%B2%D0%B8%D0%...
+
+03 янв. 12:41:31.781
+[HTTPS-2a49682d] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 12:41:31.781
+[HTTPS-2a49682d] Setting main timeout: 12000ms
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] Headers: Content-Type
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] Request body size: 1419 bytes
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] Path: /method/messages.send

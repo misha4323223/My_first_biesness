@@ -1,0 +1,187 @@
+
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] Hostname: api.vk.com:443
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] Method: POST
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] URL: https://api.vk.com/method/messages.send
+
+03 янв. 12:41:31.780
+[HTTPS-2a49682d] ========== HTTPS REQUEST START ==========
+
+03 янв. 12:41:31.780
+[VK-CHAT-BOT] Sending to VK: {"peer_id":583487548,"message":"```\n{\"title\": \"Сайт-визитка\", \"description\": \"Одностраничный сайт для компании или специалиста с адаптивным дизайном (мобильный + ПК), контактной информацией, базовым дизайном, SEO-основой, формой обратной связи. Хостинг включён.\", \"price\": 45000}\n```","random_id":783601,"access_token":"vk1.a.QBUL1n2Jk-SrFCf4AAjMlvAYLo9kZmbWEPv4fjLwd3piAJdRwDAhD79L8n8ZnJKCjWeyuiPQHINmNgXXch6pQL5uCY6-voxj0RbLgULzLzEl_AYtW_d8LdggURc6KRx7x2Y5nXDG8JPpSpUG47Mqx5YZu6gqhNSkoatrCUc6lWfwLQ2imtolcoGXxytBU4um32LaK4QcknmbCWD9h3lvGA","v":"5.131","group_id":"234852555"}
+
+03 янв. 12:41:31.780
+[YANDEX-GPT] Response received, length: 251
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] ========== REQUEST SUCCESS ==========
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] Total response size: 529 bytes
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] ✨ Response ended after 903ms
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] 📥 Data chunk: 689 bytes (total: 689)
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] 📦 First byte received after 902ms
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] Response headers: content-type=application/json, content-length=undefined
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 12:41:31.779
+[HTTPS-5d1e8349] Status code: 200
+
+03 янв. 12:41:31.778
+[HTTPS-5d1e8349] ✅ Response callback triggered after 902ms
+
+03 янв. 12:41:30.958
+[HTTPS-5d1e8349] 🔒 TLS handshake complete after 81ms
+
+03 янв. 12:41:30.939
+[HTTPS-5d1e8349] 🌐 TCP connected after 62ms
+
+03 янв. 12:41:30.924
+[HTTPS-5d1e8349] 🔍 DNS lookup started
+
+03 янв. 12:41:30.914
+[HTTPS-5d1e8349] 🔌 Socket created, fd: unknown
+
+03 янв. 12:41:30.914
+[HTTPS-5d1e8349] Waiting for response...
+
+03 янв. 12:41:30.914
+[HTTPS-5d1e8349] 🚀 Calling req.end()
+
+03 янв. 12:41:30.914
+[HTTPS-5d1e8349] Body written successfully
+
+03 янв. 12:41:30.914
+[HTTPS-5d1e8349] 📤 Writing body (6539 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Setting main timeout: 12000ms
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Headers: Content-Type, Authorization
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Request body size: 6539 bytes
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Path: /foundationModels/v1/completion
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Hostname: llm.api.cloud.yandex.net:443
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] Method: POST
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+03 янв. 12:41:30.877
+[HTTPS-5d1e8349] ========== HTTPS REQUEST START ==========
+
+03 янв. 12:41:30.876
+[YANDEX-AUTH] Key length: 40
+
+03 янв. 12:41:30.876
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+03 янв. 12:41:30.875
+[YANDEX-GPT] Sending request to Yandex AI...
+
+03 янв. 12:41:30.875
+Форма обратной связи
+
+03 янв. 12:41:30.875
+Хостинг включён
+
+03 янв. 12:41:30.875
+SEO-основа
+
+03 янв. 12:41:30.875
+Базовый дизайн
+
+03 янв. 12:41:30.875
+Контактная информация
+
+03 янв. 12:41:30.875
+Одна страница
+
+03 янв. 12:41:30.875
+Адаптивный дизайн (мобильный + ПК)
+
+03 янв. 12:41:30.875
+Компактный сайт о вас или компании
+
+03 янв. 12:41:30.875
+45 000 ₽
+
+03 янв. 12:41:30.875
+[VK-CHAT-BOT] Message from 583487548: Бот Создай карточку товаров Сайт-визитка
+
+03 янв. 12:41:30.875
+[VK-CALLBACK] New message detected: {"group_id":234852555,"type":"message_new","event_id":"c7c8963fe8193fe60c83b8a538c6c1a26631c6aa","v":"5.199","object":{"client_info":{"button_actions":["text","vkpay","open_app","location","open_link","open_photo","callback","intent_subscribe","intent_unsubscribe"],"keyboard":true,"inline_keyboard":true,"carousel":true,"lang_id":0},"message":{"date":1767433290,"from_id":583487548,"id":36,"version":10000099,"out":0,"fwd_messages":[],"important":false,"is_hidden":false,"attachments":[],"conversation_message_id":30,"text":"Бот Создай карточку товаров Сайт-визитка\n45 000 ₽\nКомпактный сайт о вас или компании\n\nАдаптивный дизайн (мобильный + ПК)\nОдна страница\nКонтактная информация\nБазовый дизайн\nSEO-основа\nХостинг включён\nФорма обратной связи","peer_id":583487548,"random_id":0}}}
+
+03 янв. 12:41:30.875
+[HANDLER] Action:
+
+03 янв. 12:41:30.875
+[HANDLER] Body type: message_new
+
+03 янв. 12:41:30.874
+}
+
+03 янв. 12:41:30.874
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:41:30.874
+path: '',
+
+03 янв. 12:41:30.874
+action: '',
+
+03 янв. 12:41:30.874
+method: 'POST',
+
+03 янв. 12:41:30.874
+[REQUEST] {
+
+03 янв. 12:41:30.874
+}
+
+03 янв. 12:41:30.874
+timestamp: '2026-01-03T09:41:30.866Z'
+
+03 янв. 12:41:30.874
+path: undefined,
+
+03 янв. 12:41:30.874
+method: 'POST',
+
+03 янв. 12:41:30.874
+[HANDLER START] {
+
+03 янв. 12:41:30.874
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:41:30.857
+START RequestID: 74fa7d80-1867-48e3-8563-1caca07ffd66 Version: d4eceadbc42c5nubllc3

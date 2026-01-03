@@ -1,0 +1,109 @@
+
+
+03 янв. 12:41:23.416
+REPORT RequestID: 7ce556f8-3806-4e40-bb08-690690b0467a Duration: 5.279 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 174 MB Queuing Duration: 0.078 ms CPU Usage: 1.465 %
+
+03 янв. 12:41:23.416
+END RequestID: 7ce556f8-3806-4e40-bb08-690690b0467a
+
+03 янв. 12:41:23.415
+[VK-CALLBACK] Handling message_read
+
+03 янв. 12:41:23.415
+[HANDLER] Action:
+
+03 янв. 12:41:23.415
+[HANDLER] Body type: message_read
+
+03 янв. 12:41:23.414
+}
+
+03 янв. 12:41:23.414
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:41:23.414
+path: '',
+
+03 янв. 12:41:23.414
+action: '',
+
+03 янв. 12:41:23.414
+method: 'POST',
+
+03 янв. 12:41:23.414
+[REQUEST] {
+
+03 янв. 12:41:23.414
+}
+
+03 янв. 12:41:23.414
+timestamp: '2026-01-03T09:41:23.411Z'
+
+03 янв. 12:41:23.414
+path: undefined,
+
+03 янв. 12:41:23.414
+method: 'POST',
+
+03 янв. 12:41:23.414
+[HANDLER START] {
+
+03 янв. 12:41:23.414
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:41:23.404
+START RequestID: 7ce556f8-3806-4e40-bb08-690690b0467a Version: d4eceadbc42c5nubllc3
+
+03 янв. 12:41:15.545
+REPORT RequestID: ce69a3be-0072-4389-8567-3c253e9ea7da Duration: 799.694 ms Billed Duration: 800 ms Memory Size: 512 MB Max Memory Used: 158 MB Queuing Duration: 0.040 ms Function Init Duration: 780.521 ms CPU Usage: 99.805 %
+
+03 янв. 12:41:15.545
+END RequestID: ce69a3be-0072-4389-8567-3c253e9ea7da
+
+03 янв. 12:41:15.543
+[VK-CALLBACK] Handling message_read
+
+03 янв. 12:41:15.543
+[HANDLER] Action:
+
+03 янв. 12:41:15.543
+[HANDLER] Body type: message_read
+
+03 янв. 12:41:15.543
+}
+
+03 янв. 12:41:15.543
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:41:15.543
+path: '',
+
+03 янв. 12:41:15.543
+action: '',
+
+03 янв. 12:41:15.543
+method: 'POST',
+
+03 янв. 12:41:15.543
+[REQUEST] {
+
+03 янв. 12:41:15.543
+}
+
+03 янв. 12:41:15.542
+timestamp: '2026-01-03T09:41:15.537Z'
+
+03 янв. 12:41:15.542
+path: undefined,
+
+03 янв. 12:41:15.542
+method: 'POST',
+
+03 янв. 12:41:15.542
+[HANDLER START] {
+
+03 янв. 12:41:15.537
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:41:14.592
+START RequestID: ce69a3be-0072-4389-8567-3c253e9ea7da Version: d4eceadbc42c5nubllc3

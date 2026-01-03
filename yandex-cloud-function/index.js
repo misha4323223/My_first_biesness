@@ -1081,26 +1081,46 @@ async function createVkProduct(title, description, price) {
  */
 async function processAiCommands(text) {
     const marker = ':::create_vk_product:';
-    if (!text.includes(marker)) return text;
+    const jsonBlockRegex = /```(?:json)?\s*(\{[\s\S]*?\})\s*```/g;
+    
+    let match;
+    let modifiedText = text;
 
-    try {
-        const parts = text.split(marker);
-        const mainText = parts[0];
-        const commandPart = parts[1].split(':::')[0];
-        
-        const productData = JSON.parse(commandPart);
-        console.log('[AI-COMMAND] Detected product creation:', productData);
-        
-        // Запускаем создание асинхронно, не дожидаясь ответа для пользователя
-        createVkProduct(productData.title, productData.description, productData.price)
-            .then(id => console.log(`[AI-COMMAND] Product created with ID: ${id}`))
-            .catch(err => console.error('[AI-COMMAND] Creation failed:', err));
-
-        return mainText.trim();
-    } catch (e) {
-        console.error('[AI-COMMAND] Parsing error:', e.message);
-        return text.replace(/:::create_vk_product:.*?:::/g, '').trim();
+    // Сначала ищем наш специальный маркер
+    if (text.includes(marker)) {
+        try {
+            const parts = text.split(marker);
+            const mainText = parts[0];
+            const commandPart = parts[1].split(':::')[0];
+            const productData = JSON.parse(commandPart);
+            console.log('[AI-COMMAND] Detected via marker:', productData);
+            createVkProduct(productData.title, productData.description, productData.price)
+                .then(id => console.log(`[AI-COMMAND] Product created (marker): ${id}`))
+                .catch(err => console.error('[AI-COMMAND] Marker creation failed:', err));
+            return mainText.trim();
+        } catch (e) {
+            console.error('[AI-COMMAND] Marker parsing error:', e.message);
+        }
     }
+
+    // Если маркера нет, ищем JSON блоки в формате ```json ... ```
+    while ((match = jsonBlockRegex.exec(text)) !== null) {
+        try {
+            const productData = JSON.parse(match[1]);
+            if (productData.title && productData.price) {
+                console.log('[AI-COMMAND] Detected via JSON block:', productData);
+                createVkProduct(productData.title, productData.description, productData.price)
+                    .then(id => console.log(`[AI-COMMAND] Product created (JSON block): ${id}`))
+                    .catch(err => console.error('[AI-COMMAND] JSON block creation failed:', err));
+                // Удаляем этот блок из текста для пользователя
+                modifiedText = modifiedText.replace(match[0], '').trim();
+            }
+        } catch (e) {
+            // Игнорируем блоки, которые не являются валидным JSON для товара
+        }
+    }
+
+    return modifiedText;
 }
 
 async function callYandexGPT(prompt, modelName = 'yandexgpt', systemText = 'Ты — полезный ассистент.') {
