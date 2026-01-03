@@ -111,6 +111,7 @@ export default function StreetWearShop() {
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [quickSizes, setQuickSizes] = useState<Record<number, string>>({});
   const [flyer, setFlyer] = useState<{ id: number; x: number; y: number } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [minPrice, setMinPrice] = useState(0);
@@ -762,12 +763,10 @@ export default function StreetWearShop() {
                         </Button>
                         <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Button
-                            className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold"
-                            onClick={(e) => { e.stopPropagation(); addToCart(product.id); }}
-                            data-testid={`button-add-cart-${product.id}`}
+                            className="w-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20"
+                            onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
                           >
-                            <Plus className="w-4 h-4 mr-2" />
-                            В корзину
+                            Подробнее
                           </Button>
                         </div>
                       </div>
@@ -776,18 +775,62 @@ export default function StreetWearShop() {
                           {product.brand}
                         </p>
                         <h3 className="font-bold text-white mb-2">{product.name}</h3>
-                        <div className="flex flex-wrap gap-1 mb-3">
-                          {product.sizes.map(size => (
-                            <span key={size} className="text-xs px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">
-                              {size}
-                            </span>
-                          ))}
+                        
+                        {/* Quick Size Selection */}
+                        <div className="mb-4">
+                          <p className="text-[10px] text-neutral-500 uppercase mb-2">Выберите размер:</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {product.sizes.map(size => (
+                              <button
+                                key={size}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setQuickSizes(prev => ({ ...prev, [product.id]: size }));
+                                }}
+                                className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                                  quickSizes[product.id] === size 
+                                    ? "bg-amber-500 border-amber-500 text-black font-bold" 
+                                    : "border-neutral-800 text-neutral-400 hover:border-neutral-600"
+                                }`}
+                              >
+                                {size}
+                              </button>
+                            ))}
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg font-bold text-white">{product.price.toLocaleString()} р</span>
-                          {product.oldPrice && (
-                            <span className="text-sm text-neutral-500 line-through">{product.oldPrice.toLocaleString()} р</span>
-                          )}
+
+                        <div className="flex items-center justify-between">
+                          <div className="flex flex-col">
+                            <span className="text-lg font-bold text-white">{product.price.toLocaleString()} р</span>
+                            {product.oldPrice && (
+                              <span className="text-sm text-neutral-500 line-through">{product.oldPrice.toLocaleString()} р</span>
+                            )}
+                          </div>
+                          <Button
+                            size="icon"
+                            className={`rounded-full transition-all ${
+                              quickSizes[product.id] 
+                                ? "bg-amber-500 hover:bg-amber-600 text-black" 
+                                : "bg-neutral-800 text-neutral-500 cursor-not-allowed"
+                            }`}
+                            disabled={!quickSizes[product.id]}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToCart(product.id, e);
+                              setQuickSizes(prev => {
+                                const next = { ...prev };
+                                delete next[product.id];
+                                return next;
+                              });
+                              toast({ 
+                                title: "Добавлено в корзину!", 
+                                description: `${product.name} (размер ${quickSizes[product.id]})` 
+                              });
+                            }}
+                            data-testid={`button-add-cart-${product.id}`}
+                          >
+                            <Plus className="w-4 h-4" />
+                          </Button>
                         </div>
                       </div>
                     </Card>
