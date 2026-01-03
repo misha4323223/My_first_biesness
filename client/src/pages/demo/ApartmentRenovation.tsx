@@ -4,8 +4,15 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   Home, Clock, MapPin, Phone, Star, ArrowLeft, 
-  Shield, Award, Users, Hammer, Paintbrush, Wrench, Ruler, Check
+  Shield, Award, Users, Hammer, Paintbrush, Wrench, Ruler, Check,
+  Plus, Minus, ChevronDown, ChevronUp, HelpCircle
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "wouter";
@@ -559,7 +566,7 @@ export default function ApartmentRenovation() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-6 mb-20">
             {portfolio.map((item, i) => (
               <motion.div
                 key={item.id}
@@ -589,6 +596,40 @@ export default function ApartmentRenovation() {
                 </Card>
               </motion.div>
             ))}
+          </div>
+
+          {/* FAQ Section */}
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">Часто задаваемые вопросы</h2>
+              <p className="text-gray-500">Отвечаем на то, что чаще всего спрашивают наши клиенты</p>
+            </div>
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1" className="border-gray-100">
+                <AccordionTrigger className="text-left font-bold hover:text-amber-600">Кто закупает черновые материалы?</AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Мы можем взять закупку и доставку материалов на себя. У нас есть проверенные поставщики с партнерскими скидками, что позволяет вам экономить до 15% на стоимости материалов.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-2" className="border-gray-100">
+                <AccordionTrigger className="text-left font-bold hover:text-amber-600">Как фиксируется цена в договоре?</AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  После замера мы составляем подробную смету. Сумма, указанная в договоре, является финальной и не меняется в процессе работ, если вы не решите добавить новые услуги.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-3" className="border-gray-100">
+                <AccordionTrigger className="text-left font-bold hover:text-amber-600">Возможен ли ремонт в рассрочку?</AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Да, мы работаем с банками-партнерами и предоставляем возможность беспроцентной рассрочки до 12 месяцев. Также возможна поэтапная оплата по факту выполнения работ.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="item-4" className="border-gray-100">
+                <AccordionTrigger className="text-left font-bold hover:text-amber-600">Вывозите ли вы мусор после ремонта?</AccordionTrigger>
+                <AccordionContent className="text-gray-600">
+                  Конечно. Мы организуем сбор, вынос и вывоз строительного мусора. После завершения работ проводится базовая влажная уборка, чтобы вы могли сразу оценить результат.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </section>
