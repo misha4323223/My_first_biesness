@@ -376,7 +376,7 @@ export default function ApartmentRenovation() {
                  }}>
               <img src={livingRoomImg} alt="После" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ width: `${sliderPos}%` }}>
-                <img src={beforeAfterImg} alt="До" className="absolute inset-0 h-full object-cover max-w-none" style={{ width: "100vw" }} />
+                <img src={livingRoomImg} alt="До" className="absolute inset-0 h-full object-cover max-w-none grayscale sepia brightness-50 contrast-125" style={{ width: "100vw" }} />
               </div>
               <div className="absolute inset-y-0 w-1 bg-white cursor-ew-resize" style={{ left: `${sliderPos}%` }}>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
@@ -446,7 +446,7 @@ export default function ApartmentRenovation() {
                         type="number" 
                         value={quizData.area} 
                         onChange={(e) => setQuizData({...quizData, area: e.target.value})}
-                        className="text-2xl font-bold h-16 text-center"
+                        className="text-2xl font-bold h-16 text-center bg-white border-gray-200 text-gray-900"
                       />
                       <Button className="w-full h-14 bg-amber-500 text-lg font-bold" onClick={() => setQuizStep(3)}>
                         Рассчитать результат
