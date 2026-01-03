@@ -532,6 +532,12 @@ module.exports.handler = async function (event, context) {
         }
 
         if (body?.type === 'message_typing_state') {
+            const vkToken = process.env.VK_ACCESS_TOKEN;
+            const userId = body.object.from_id;
+            console.log(`[VK-CALLBACK] Typing state from user: ${userId}`);
+
+            // We could send messages.setActivity to VK but usually it's not required to respond to typing_state
+            // Just logging and returning 'ok' is enough to acknowledge the event.
             return {
                 statusCode: 200,
                 headers,
