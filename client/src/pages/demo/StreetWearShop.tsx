@@ -588,9 +588,9 @@ export default function StreetWearShop() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2 w-[320px] lg:w-[400px]"
+            className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] z-10"
           >
-            <div className="relative aspect-[9/16] rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl shadow-amber-500/20 group">
+            <div className="relative aspect-[9/16] rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl shadow-amber-500/20 group bg-neutral-900">
               <video
                 src={generatedVideo}
                 autoPlay
@@ -599,10 +599,10 @@ export default function StreetWearShop() {
                 playsInline
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                <div className="space-y-2">
-                  <Badge className="bg-amber-500 text-black border-0">LOOKBOOK 2024</Badge>
-                  <p className="text-sm font-bold">Уличная эстетика в движении</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                <div className="space-y-1">
+                  <Badge className="bg-amber-500 text-black border-0 text-[10px]">LOOKBOOK 2024</Badge>
+                  <p className="text-xs font-bold text-white">Уличная эстетика в движении</p>
                 </div>
               </div>
             </div>
