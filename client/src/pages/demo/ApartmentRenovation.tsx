@@ -712,7 +712,7 @@ export default function ApartmentRenovation() {
                   placeholder="Иван"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="border-gray-200"
+                  className="bg-white border-gray-200 text-gray-900 focus:border-amber-500"
                   data-testid="input-name"
                 />
               </div>
@@ -722,7 +722,7 @@ export default function ApartmentRenovation() {
                   placeholder="+7 (999) 123-45-67"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="border-gray-200"
+                  className="bg-white border-gray-200 text-gray-900 focus:border-amber-500"
                   data-testid="input-phone"
                 />
               </div>
@@ -734,7 +734,7 @@ export default function ApartmentRenovation() {
                   placeholder="50"
                   value={formData.area}
                   onChange={(e) => setFormData({ ...formData, area: e.target.value })}
-                  className="border-gray-200"
+                  className="bg-white border-gray-200 text-gray-900 focus:border-amber-500"
                   data-testid="input-area"
                 />
               </div>
@@ -744,7 +744,7 @@ export default function ApartmentRenovation() {
                   placeholder="Какой ремонт планируете?"
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="border-gray-200"
+                  className="bg-white border-gray-200 text-gray-900 focus:border-amber-500"
                   rows={1}
                   data-testid="input-description"
                 />
