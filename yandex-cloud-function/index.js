@@ -593,7 +593,8 @@ async function handleVkMessage(body, headers) {
             message: replyText,
             random_id: Math.floor(Math.random() * 1000000),
             access_token: vkToken,
-            v: '5.131'
+            v: '5.131',
+            group_id: process.env.VK_GROUP_ID
         };
 
         console.log(`[VK-CHAT-BOT] Sending to VK: ${JSON.stringify(params)}`);
