@@ -626,6 +626,7 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
 
         const aiResponse = await callYandexGPT(text, 'yandexgpt-lite', systemPrompt);
         const replyTextRaw = aiResponse.content;
+        console.log(`[VK-CHAT-BOT] AI Raw Response: ${replyTextRaw}`);
         const replyText = await processAiCommands(replyTextRaw);
 
         const vkUrl = 'https://api.vk.com/method/messages.send';

@@ -1,0 +1,154 @@
+
+
+03 янв. 12:39:19.070
+[VK-CALLBACK] Handling message_read
+
+03 янв. 12:39:19.070
+[HANDLER] Action:
+
+03 янв. 12:39:19.069
+[HANDLER] Body type: message_read
+
+03 янв. 12:39:19.069
+}
+
+03 янв. 12:39:19.069
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:39:19.069
+path: '',
+
+03 янв. 12:39:19.069
+action: '',
+
+03 янв. 12:39:19.069
+method: 'POST',
+
+03 янв. 12:39:19.069
+[REQUEST] {
+
+03 янв. 12:39:19.069
+}
+
+03 янв. 12:39:19.069
+timestamp: '2026-01-03T09:39:19.064Z'
+
+03 янв. 12:39:19.069
+path: undefined,
+
+03 янв. 12:39:19.069
+method: 'POST',
+
+03 янв. 12:39:19.069
+[HANDLER START] {
+
+03 янв. 12:39:19.064
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:37:29.619
+REPORT RequestID: fb691115-5691-4d29-bf93-c3118b20d3d7 Duration: 786.513 ms Billed Duration: 800 ms Memory Size: 512 MB Max Memory Used: 159 MB Queuing Duration: 0.072 ms Function Init Duration: 769.570 ms CPU Usage: 99.805 %
+
+03 янв. 12:37:29.619
+END RequestID: fb691115-5691-4d29-bf93-c3118b20d3d7
+
+03 янв. 12:37:29.617
+[VK-CALLBACK] Handling message_reply
+
+03 янв. 12:37:29.617
+[HANDLER] Action:
+
+03 янв. 12:37:29.617
+[HANDLER] Body type: message_reply
+
+03 янв. 12:37:29.617
+}
+
+03 янв. 12:37:29.617
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:37:29.617
+path: '',
+
+03 янв. 12:37:29.617
+action: '',
+
+03 янв. 12:37:29.617
+method: 'POST',
+
+03 янв. 12:37:29.617
+[REQUEST] {
+
+03 янв. 12:37:29.617
+}
+
+03 янв. 12:37:29.617
+timestamp: '2026-01-03T09:37:29.611Z'
+
+03 янв. 12:37:29.617
+path: undefined,
+
+03 янв. 12:37:29.617
+method: 'POST',
+
+03 янв. 12:37:29.617
+[HANDLER START] {
+
+03 янв. 12:37:29.611
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:37:28.829
+START RequestID: fb691115-5691-4d29-bf93-c3118b20d3d7 Version: d4eceadbc42c5nubllc3
+
+03 янв. 12:37:26.331
+REPORT RequestID: 252f0502-837d-43d2-91d9-dda3b38afb64 Duration: 774.619 ms Billed Duration: 800 ms Memory Size: 512 MB Max Memory Used: 160 MB Queuing Duration: 0.078 ms Function Init Duration: 755.403 ms CPU Usage: 99.805 %
+
+03 янв. 12:37:26.331
+END RequestID: 252f0502-837d-43d2-91d9-dda3b38afb64
+
+03 янв. 12:37:26.330
+[VK-CALLBACK] Typing state from user: -234852555
+
+03 янв. 12:37:26.330
+[HANDLER] Action:
+
+03 янв. 12:37:26.330
+[HANDLER] Body type: message_typing_state
+
+03 янв. 12:37:26.330
+}
+
+03 янв. 12:37:26.330
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:37:26.329
+path: '',
+
+03 янв. 12:37:26.329
+action: '',
+
+03 янв. 12:37:26.329
+method: 'POST',
+
+03 янв. 12:37:26.329
+[REQUEST] {
+
+03 янв. 12:37:26.329
+}
+
+03 янв. 12:37:26.329
+timestamp: '2026-01-03T09:37:26.323Z'
+
+03 янв. 12:37:26.329
+path: undefined,
+
+03 янв. 12:37:26.329
+method: 'POST',
+
+03 янв. 12:37:26.329
+[HANDLER START] {
+
+03 янв. 12:37:26.324
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:37:25.553
+START RequestID: 252f0502-837d-43d2-91d9-dda3b38afb64 Version: d4eceadbc42c5nubllc3
