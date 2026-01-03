@@ -18,6 +18,7 @@ import portraitManImg from "@assets/generated_images/professional_businessman_po
 import weddingAisleImg from "@assets/generated_images/bride_walking_down_aisle.webp";
 import perfumeProductImg from "@assets/generated_images/luxury_perfume_bottle_product.webp";
 import photographerPortraitImg from "@assets/generated_images/russian_male_photographer_portrait.webp";
+import showreelVideo from "@assets/generated_videos/cinematic_photographer_showreel_featuring_creative_shots_and_camera_work..mp4";
 
 const portfolioImages = [
   { id: 1, category: "Портреты", src: portraitWomanImg },
@@ -40,6 +41,7 @@ const categories = ["Все", "Портреты", "Свадьбы", "Предм�
 export default function Photographer() {
   const [activeCategory, setActiveCategory] = useState("Все");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [isShowreelOpen, setIsShowreelOpen] = useState(false);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<string>("");
@@ -144,7 +146,7 @@ export default function Photographer() {
               <Camera className="w-5 h-5" />
               Смотреть работы
             </Button>
-            <Button size="lg" variant="outline" className="border-white/20 gap-2">
+            <Button size="lg" variant="outline" className="border-white/20 gap-2" onClick={() => setIsShowreelOpen(true)}>
               <Play className="w-5 h-5" />
               Showreel
             </Button>
@@ -390,6 +392,21 @@ export default function Photographer() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Showreel Modal */}
+      <Dialog open={isShowreelOpen} onOpenChange={setIsShowreelOpen}>
+        <DialogContent className="bg-black border-white/10 text-white max-w-4xl p-0 overflow-hidden">
+          <div className="aspect-video w-full bg-black">
+            <video 
+              src={showreelVideo} 
+              className="w-full h-full" 
+              controls 
+              autoPlay
+              playsInline
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Order Modal */}
       <Dialog open={isOrderModalOpen} onOpenChange={setIsOrderModalOpen}>
