@@ -417,44 +417,46 @@ export default function RealEstateAgency() {
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent" />
                 
                 {/* Interactive Pulsing Pins */}
-                <div className="absolute top-1/3 left-1/4 group/pin">
+                <div className="absolute top-[25%] left-[20%] group/pin">
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
                     <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
                       <Home className="w-4 h-4 text-black" />
                     </div>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
                       Пентхаус Сити
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute top-1/2 left-2/3 group/pin">
+                <div className="absolute top-[45%] left-[65%] group/pin">
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-300" />
                     <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
                       <Home className="w-4 h-4 text-black" />
                     </div>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
                       Резиденция Арбат
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute top-2/3 left-1/2 group/pin">
+                <div className="absolute top-[65%] left-[45%] group/pin">
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-700" />
                     <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
                       <Home className="w-4 h-4 text-black" />
                     </div>
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
                       Офис Класса А
                     </div>
                   </div>
                 </div>
               </div>
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none" />
-              <Badge className="absolute bottom-4 left-4 bg-emerald-500 text-black font-bold">ИНТЕРАКТИВНАЯ КАРТА</Badge>
+              <div className="absolute top-4 left-4 z-10">
+                <Badge className="bg-emerald-500 text-black font-bold shadow-lg border-none">ИНТЕРАКТИВНАЯ КАРТА</Badge>
+              </div>
             </div>
           </div>
         </div>
