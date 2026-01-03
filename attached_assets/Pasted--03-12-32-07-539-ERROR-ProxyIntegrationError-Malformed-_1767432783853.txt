@@ -1,0 +1,163 @@
+
+
+03 янв. 12:32:07.539
+[ERROR] ProxyIntegrationError: Malformed serverless function response: not a valid json
+
+03 янв. 12:32:07.539
+REPORT RequestID: ff567a52-c29c-447c-9143-f6c79d67bf98 Duration: 817.598 ms Billed Duration: 900 ms Memory Size: 512 MB Max Memory Used: 157 MB Queuing Duration: 0.101 ms Function Init Duration: 796.846 ms CPU Usage: 99.805 %
+
+03 янв. 12:32:07.539
+END RequestID: ff567a52-c29c-447c-9143-f6c79d67bf98
+
+03 янв. 12:32:07.538
+[HANDLER] Action:
+
+03 янв. 12:32:07.538
+[HANDLER] Body type: message_read
+
+03 янв. 12:32:07.538
+}
+
+03 янв. 12:32:07.538
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:32:07.538
+path: '',
+
+03 янв. 12:32:07.538
+action: '',
+
+03 янв. 12:32:07.538
+method: 'POST',
+
+03 янв. 12:32:07.538
+[REQUEST] {
+
+03 янв. 12:32:07.538
+}
+
+03 янв. 12:32:07.538
+timestamp: '2026-01-03T09:32:07.532Z'
+
+03 янв. 12:32:07.538
+path: undefined,
+
+03 янв. 12:32:07.538
+method: 'POST',
+
+03 янв. 12:32:07.538
+[HANDLER START] {
+
+03 янв. 12:32:07.532
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:32:06.718
+START RequestID: ff567a52-c29c-447c-9143-f6c79d67bf98 Version: d4e49eim7rb5kp9q3fav
+
+03 янв. 12:32:06.673
+[ERROR] ProxyIntegrationError: Malformed serverless function response: not a valid json
+
+03 янв. 12:32:06.673
+REPORT RequestID: 6e47cb95-677e-4514-9210-1153dd133f5f Duration: 2.761 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 167 MB Queuing Duration: 0.083 ms CPU Usage: 99.902 %
+
+03 янв. 12:32:06.673
+END RequestID: 6e47cb95-677e-4514-9210-1153dd133f5f
+
+03 янв. 12:32:06.672
+[HANDLER] Action:
+
+03 янв. 12:32:06.672
+[HANDLER] Body type: message_reply
+
+03 янв. 12:32:06.672
+}
+
+03 янв. 12:32:06.672
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:32:06.672
+path: '',
+
+03 янв. 12:32:06.672
+action: '',
+
+03 янв. 12:32:06.672
+method: 'POST',
+
+03 янв. 12:32:06.672
+[REQUEST] {
+
+03 янв. 12:32:06.672
+}
+
+03 янв. 12:32:06.672
+timestamp: '2026-01-03T09:32:06.671Z'
+
+03 янв. 12:32:06.672
+path: undefined,
+
+03 янв. 12:32:06.672
+method: 'POST',
+
+03 янв. 12:32:06.672
+[HANDLER START] {
+
+03 янв. 12:32:06.671
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:32:06.667
+START RequestID: 6e47cb95-677e-4514-9210-1153dd133f5f Version: d4e49eim7rb5kp9q3fav
+
+03 янв. 12:32:06.417
+REPORT RequestID: 7ed752ef-1a45-4a89-9be1-76324ccb2d33 Duration: 619.752 ms Billed Duration: 700 ms Memory Size: 512 MB Max Memory Used: 167 MB Queuing Duration: 0.074 ms Function Init Duration: 612.540 ms CPU Usage: 99.902 %
+
+03 янв. 12:32:06.417
+END RequestID: 7ed752ef-1a45-4a89-9be1-76324ccb2d33
+
+03 янв. 12:32:06.416
+[VK-CALLBACK] Typing state from user: -234852555
+
+03 янв. 12:32:06.416
+[HANDLER] Action:
+
+03 янв. 12:32:06.415
+[HANDLER] Body type: message_typing_state
+
+03 янв. 12:32:06.415
+}
+
+03 янв. 12:32:06.415
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:32:06.415
+path: '',
+
+03 янв. 12:32:06.415
+action: '',
+
+03 янв. 12:32:06.415
+method: 'POST',
+
+03 янв. 12:32:06.415
+[REQUEST] {
+
+03 янв. 12:32:06.415
+}
+
+03 янв. 12:32:06.415
+timestamp: '2026-01-03T09:32:06.411Z'
+
+03 янв. 12:32:06.415
+path: undefined,
+
+03 янв. 12:32:06.415
+method: 'POST',
+
+03 янв. 12:32:06.415
+[HANDLER START] {
+
+03 янв. 12:32:06.412
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:32:05.793
+START RequestID: 7ed752ef-1a45-4a89-9be1-76324ccb2d33 Version: d4e49eim7rb5kp9q3fav

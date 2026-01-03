@@ -563,6 +563,15 @@ module.exports.handler = async function (event, context) {
             };
         }
 
+        if (body?.type === 'message_reply' || body?.type === 'message_read') {
+            console.log(`[VK-CALLBACK] Handling ${body.type}`);
+            return {
+                statusCode: 200,
+                headers,
+                body: 'ok'
+            };
+        }
+
         if (!body && !action) {
             console.log('[HANDLER] Falling back to default response (no body/action)');
             return {
