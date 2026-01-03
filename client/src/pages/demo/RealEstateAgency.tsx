@@ -268,11 +268,22 @@ export default function RealEstateAgency() {
             </div>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold" data-testid="button-book-hero">
+              <Button 
+                size="lg" 
+                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold" 
+                onClick={scrollToBooking}
+                data-testid="button-book-hero"
+              >
                 <Calendar className="w-5 h-5 mr-2" />
                 Запланировать просмотр
               </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" data-testid="button-properties">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-neutral-700 text-white hover:bg-white/10" 
+                onClick={scrollToProperties}
+                data-testid="button-properties"
+              >
                 Посмотреть объекты
               </Button>
             </div>
@@ -597,103 +608,92 @@ export default function RealEstateAgency() {
             </p>
           </motion.div>
 
-          <Card className="p-8 bg-neutral-800/50 border-neutral-700">
-            <div className="flex items-center gap-4 mb-8">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-emerald-500 text-black' : 'bg-neutral-700'}`}>
-                {step > 1 ? <Check className="w-5 h-5" /> : '1'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-emerald-500 rounded transition-all ${step > 1 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-emerald-500 text-black' : 'bg-neutral-700'}`}>
-                {step > 2 ? <Check className="w-5 h-5" /> : '2'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-emerald-500 rounded transition-all ${step > 2 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-emerald-500 text-black' : 'bg-neutral-700'}`}>
-                3
-              </div>
-            </div>
-
-            {step === 3 && (
+          <Card className="p-8 bg-neutral-800/50 border-neutral-700 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 blur-2xl" />
+            
+            <div className="grid md:grid-cols-2 gap-12 relative z-10">
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm text-neutral-400 mb-2">Выберите дату</label>
-                  <Input 
-                    type="date" 
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="bg-neutral-700 border-neutral-600 text-white"
-                    data-testid="input-date"
-                  />
-                </div>
-                {selectedDate && (
-                  <div>
-                    <label className="block text-sm text-neutral-400 mb-2">Выберите время</label>
-                    <div className="grid grid-cols-4 md:grid-cols-5 gap-2">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          variant={selectedTime === time ? "default" : "outline"}
-                          className={selectedTime === time ? 'bg-emerald-500 text-black' : 'border-neutral-600 text-white hover:bg-neutral-700'}
-                          onClick={() => handleTimeSelect(time)}
-                          data-testid={`button-time-${time}`}
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
+                  <label className="block text-sm text-neutral-400 mb-2">Объект недвижимости</label>
+                  <div className="p-4 rounded-lg bg-neutral-900 border border-neutral-700">
+                    {selectedProperty ? (
+                      <div className="flex items-center gap-3">
+                        <img 
+                          src={properties.find(p => p.id === selectedProperty)?.image} 
+                          className="w-12 h-12 rounded object-cover" 
+                          alt="" 
+                        />
+                        <div>
+                          <p className="font-bold">{properties.find(p => p.id === selectedProperty)?.name}</p>
+                          <p className="text-xs text-emerald-500">{formatPrice(properties.find(p => p.id === selectedProperty)?.price || 0)} ₽</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-neutral-500 text-sm">Выберите объект в каталоге выше</p>
+                    )}
                   </div>
-                )}
-              </div>
-            )}
+                </div>
 
-            {selectedProperty && selectedAgent && selectedTime && selectedDate && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-8 p-4 bg-neutral-700/50 rounded-lg"
-              >
-                <h4 className="font-semibold mb-3">Ваш просмотр:</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Home className="w-4 h-4 text-emerald-400" />
-                    <span>{properties.find(p => p.id === selectedProperty)?.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-emerald-400" />
-                    <span>{agents.find(a => a.id === selectedAgent)?.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-emerald-400" />
-                    <span>{selectedDate}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-emerald-400" />
-                    <span>{selectedTime}</span>
+                <div>
+                  <label className="block text-sm text-neutral-400 mb-2">Ваш персональный агент</label>
+                  <div className="p-4 rounded-lg bg-neutral-900 border border-neutral-700">
+                    {selectedAgent ? (
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                          <User className="w-5 h-5 text-emerald-500" />
+                        </div>
+                        <div>
+                          <p className="font-bold">{agents.find(a => a.id === selectedAgent)?.name}</p>
+                          <p className="text-xs text-neutral-500">{agents.find(a => a.id === selectedAgent)?.role}</p>
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-neutral-500 text-sm">Агент будет назначен автоматически</p>
+                    )}
                   </div>
                 </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-2xl font-bold text-emerald-400">
-                    {formatPrice(properties.find(p => p.id === selectedProperty)?.price || 0)} ₽
-                  </span>
+              </div>
+
+              <div className="space-y-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm text-neutral-400 mb-2">Дата</label>
+                    <Input 
+                      type="date" 
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="bg-neutral-900 border-neutral-700 text-white h-12"
+                      data-testid="input-date"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-neutral-400 mb-2">Время</label>
+                    <select 
+                      className="w-full bg-neutral-900 border border-neutral-700 rounded-md h-12 px-3 text-sm outline-none focus:ring-1 focus:ring-emerald-500"
+                      value={selectedTime || ""}
+                      onChange={(e) => handleTimeSelect(e.target.value)}
+                    >
+                      <option value="">Выберите время</option>
+                      {timeSlots.map(t => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="pt-4">
                   <Button 
-                    className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold"
+                    className="w-full h-14 bg-emerald-500 hover:bg-emerald-600 text-black font-black text-lg shadow-xl shadow-emerald-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!selectedProperty || !selectedDate || !selectedTime}
                     onClick={handleBook}
                     data-testid="button-confirm-booking"
                   >
-                    Запланировать
+                    Забронировать просмотр
                   </Button>
+                  <p className="text-[10px] text-center text-neutral-500 mt-4">
+                    Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных
+                  </p>
                 </div>
-              </motion.div>
-            )}
-
-            {step < 3 && (
-              <p className="text-center text-neutral-400 mt-8">
-                {step === 1 ? 'Выберите объект выше' : 'Выберите агента выше'}
-              </p>
-            )}
+              </div>
+            </div>
           </Card>
         </div>
       </section>
