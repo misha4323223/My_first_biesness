@@ -1,0 +1,175 @@
+
+
+03 янв. 12:52:59.209
+REPORT RequestID: 351371ac-a3a7-49c5-aaac-01184f3c315f Duration: 2.799 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.019 ms CPU Usage: 0.781 %
+
+03 янв. 12:52:59.208
+END RequestID: 351371ac-a3a7-49c5-aaac-01184f3c315f
+
+03 янв. 12:52:59.207
+[VK-CALLBACK] Handling message_read
+
+03 янв. 12:52:59.207
+[HANDLER] Action:
+
+03 янв. 12:52:59.207
+[HANDLER] Body type: message_read
+
+03 янв. 12:52:59.207
+}
+
+03 янв. 12:52:59.207
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:52:59.207
+path: '',
+
+03 янв. 12:52:59.207
+action: '',
+
+03 янв. 12:52:59.207
+method: 'POST',
+
+03 янв. 12:52:59.207
+[REQUEST] {
+
+03 янв. 12:52:59.207
+}
+
+03 янв. 12:52:59.207
+timestamp: '2026-01-03T09:52:59.206Z'
+
+03 янв. 12:52:59.207
+path: undefined,
+
+03 янв. 12:52:59.207
+method: 'POST',
+
+03 янв. 12:52:59.207
+[HANDLER START] {
+
+03 янв. 12:52:59.206
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:52:59.203
+START RequestID: 351371ac-a3a7-49c5-aaac-01184f3c315f Version: d4es8866k0lbiuvb76t9
+
+03 янв. 12:52:58.403
+REPORT RequestID: 61a480b3-1cf7-4d14-8858-186f54959de7 Duration: 3.252 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.048 ms
+
+03 янв. 12:52:58.403
+END RequestID: 61a480b3-1cf7-4d14-8858-186f54959de7
+
+03 янв. 12:52:58.402
+[VK-CALLBACK] Handling message_reply
+
+03 янв. 12:52:58.402
+[HANDLER] Action:
+
+03 янв. 12:52:58.402
+[HANDLER] Body type: message_reply
+
+03 янв. 12:52:58.402
+}
+
+03 янв. 12:52:58.402
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 12:52:58.402
+path: '',
+
+03 янв. 12:52:58.402
+action: '',
+
+03 янв. 12:52:58.402
+method: 'POST',
+
+03 янв. 12:52:58.402
+[REQUEST] {
+
+03 янв. 12:52:58.402
+}
+
+03 янв. 12:52:58.402
+timestamp: '2026-01-03T09:52:58.401Z'
+
+03 янв. 12:52:58.402
+path: undefined,
+
+03 янв. 12:52:58.402
+method: 'POST',
+
+03 янв. 12:52:58.402
+[HANDLER START] {
+
+03 янв. 12:52:58.401
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 12:52:58.397
+START RequestID: 61a480b3-1cf7-4d14-8858-186f54959de7 Version: d4es8866k0lbiuvb76t9
+
+03 янв. 12:52:58.381
+REPORT RequestID: 31921a94-fa14-478d-b9e1-c7cfbd240030 Duration: 2266.740 ms Billed Duration: 2300 ms Memory Size: 512 MB Max Memory Used: 174 MB Queuing Duration: 0.078 ms Function Init Duration: 650.640 ms CPU Usage: 49.902 %
+
+03 янв. 12:52:58.381
+END RequestID: 31921a94-fa14-478d-b9e1-c7cfbd240030
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] ========== REQUEST SUCCESS ==========
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] Total response size: 15 bytes
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] ✨ Response ended after 329ms
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] 📥 Data chunk: 15 bytes (total: 15)
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] 📦 First byte received after 329ms
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] Response headers: content-type=application/json; charset=utf-8, content-length=15
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] Status code: 200
+
+03 янв. 12:52:58.378
+[HTTPS-ba545edf] ✅ Response callback triggered after 329ms
+
+03 янв. 12:52:58.165
+[AI-COMMAND] Product created (JSON block): null
+
+03 янв. 12:52:58.165
+[VK-PRODUCT] VK API Error: {"error_code":100,"error_msg":"One of the parameters specified was missing or invalid: photo not found or already assigned to another item","error_text":"photo not found or already assigned to another item","request_params":[{"key":"method","value":"market.add"},{"key":"oauth","value":"1"},{"key":"v","value":"5.131"},{"key":"owner_id","value":"-234852555"},{"key":"name","value":"Сайт-визитка"},{"key":"description","value":"Одностраничный сайт для компании или специалиста с адаптивным дизайном, контактной информацией, базовым дизайном, SEO-основой, формой обратной связи. Хостинг включён."},{"key":"category_id","value":"600"},{"key":"price","value":"45000"},{"key":"deleted","value":"0"},{"key":"main_photo_id","value":"457239017"}]}
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] ========== REQUEST SUCCESS ==========
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] Total response size: 749 bytes
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] ✨ Response ended after 117ms
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] 📥 Data chunk: 840 bytes (total: 898)
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] 📥 Data chunk: 58 bytes (total: 58)
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] 📦 First byte received after 117ms
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] Response headers: content-type=application/json; charset=utf-8, content-length=undefined
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] Status code: 200

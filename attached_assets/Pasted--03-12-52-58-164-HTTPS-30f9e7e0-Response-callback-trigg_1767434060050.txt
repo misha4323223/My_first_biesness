@@ -1,0 +1,109 @@
+
+
+03 янв. 12:52:58.164
+[HTTPS-30f9e7e0] ✅ Response callback triggered after 117ms
+
+03 янв. 12:52:58.096
+[HTTPS-ba545edf] 🔒 TLS handshake complete after 47ms
+
+03 янв. 12:52:58.092
+[HTTPS-30f9e7e0] 🔒 TLS handshake complete after 45ms
+
+03 янв. 12:52:58.071
+[HTTPS-ba545edf] 🌐 TCP connected after 22ms
+
+03 янв. 12:52:58.070
+[HTTPS-30f9e7e0] 🌐 TCP connected after 23ms
+
+03 янв. 12:52:58.053
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-ba545edf] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.052
+[HTTPS-30f9e7e0] 🔍 DNS lookup started
+
+03 янв. 12:52:58.051
+[HTTPS-ba545edf] 🔌 Socket created, fd: unknown
+
+03 янв. 12:52:58.051
+[HTTPS-30f9e7e0] 🔌 Socket created, fd: unknown
+
+03 янв. 12:52:58.050
+[HTTPS-ba545edf] Waiting for response...
+
+03 янв. 12:52:58.050
+[HTTPS-ba545edf] 🚀 Calling req.end()
+
+03 янв. 12:52:58.050
+[HTTPS-ba545edf] Body written successfully
+
+03 янв. 12:52:58.050
+[HTTPS-ba545edf] 📤 Writing body (487 bytes): peer_id=583487548&message=%D0%9A%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B0+%D1%82%D0%BE%D0%B2%D0%B0%...
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Setting main timeout: 12000ms
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Headers: Content-Type
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Request body size: 487 bytes
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Path: /method/messages.send
+
+03 янв. 12:52:58.049
+[HTTPS-ba545edf] Hostname: api.vk.com:443

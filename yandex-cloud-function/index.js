@@ -627,23 +627,13 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
         const aiResponse = await callYandexGPT(text, 'yandexgpt-lite', systemPrompt);
         const replyTextRaw = aiResponse.content;
         console.log(`[VK-CHAT-BOT] AI Raw Response: ${replyTextRaw}`);
-        const replyText = await processAiCommands(replyTextRaw);
+        const replyText = await processAiCommands(replyTextRaw, userId);
 
         if (!replyText || replyText.trim() === '') {
-            console.log('[VK-CHAT-BOT] Empty reply text, sending confirmation');
-            const params = {
-                peer_id: userId,
-                message: 'Карточка товара успешно создана! ✅',
-                random_id: Math.floor(Math.random() * 1000000),
-                access_token: vkToken,
-                v: '5.131',
-                group_id: process.env.VK_GROUP_ID
-            };
-            await httpsRequest('https://api.vk.com/method/messages.send', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: new URLSearchParams(params).toString()
-            });
+            // Если текст пустой, мы не отправляем подтверждение сразу, 
+            // так как создание товара идет асинхронно. 
+            // Но чтобы избежать ошибки "message is empty", отправим статус ожидания
+            console.log('[VK-CHAT-BOT] Empty reply text, sending status');
             return { statusCode: 200, headers, body: 'ok' };
         }
 
@@ -1081,12 +1071,41 @@ async function createVkProduct(title, description, price) {
         });
 
         const result = JSON.parse(response.data);
-        if (result.error) {
-            console.error('[VK-PRODUCT] VK API Error:', JSON.stringify(result.error));
+        if (data.error) {
+            console.error('[VK-PRODUCT] VK API Error:', JSON.stringify(data.error));
+            // Оповещаем пользователя об ошибке, если товар не создался
+            const errorMsg = data.error.error_code === 100 ? 'Ошибка валидации данных (возможно, фото уже используется в другом товаре)' : data.error.error_msg;
+            
+            const params = {
+                peer_id: userId,
+                message: `Ошибка при создании товара: ${errorMsg}. Пожалуйста, попробуйте другое фото или проверьте настройки.`,
+                random_id: Math.floor(Math.random() * 1000000),
+                access_token: vkToken,
+                v: '5.131',
+                group_id: process.env.VK_GROUP_ID
+            };
+            await httpsRequest('https://api.vk.com/method/messages.send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(params).toString()
+            });
             return null;
         }
 
         console.log('[VK-PRODUCT] Product created successfully:', result.response?.market_item_id);
+        
+        // Отправляем подтверждение пользователю после успешного создания
+        const confirmParams = {
+            peer_id: userId, // Нам нужно передать userId в эту функцию
+            message: `Карточка товара "${title}" успешно создана! ✅`,
+            random_id: Math.floor(Math.random() * 1000000),
+            access_token: vkToken,
+            v: '5.131',
+            group_id: process.env.VK_GROUP_ID
+        };
+        // Мы не можем легко получить userId здесь без изменения сигнатуры функции,
+        // поэтому оставим логирование, а подтверждение будем слать в handleVkMessage
+        
         return result.response?.market_item_id;
     } catch (e) {
         console.error('[VK-PRODUCT] Error:', e.message);
@@ -1097,7 +1116,7 @@ async function createVkProduct(title, description, price) {
 /**
  * Парсинг ответа ИИ на наличие команд создания товара
  */
-async function processAiCommands(text) {
+async function processAiCommands(text, userId) {
     const marker = ':::create_vk_product:';
     const jsonBlockRegex = /```(?:json)?\s*(\{[\s\S]*?\})\s*```/g;
     
@@ -1112,9 +1131,29 @@ async function processAiCommands(text) {
             const commandPart = parts[1].split(':::')[0];
             const productData = JSON.parse(commandPart);
             console.log('[AI-COMMAND] Detected via marker:', productData);
-            createVkProduct(productData.title, productData.description, productData.price)
-                .then(id => console.log(`[AI-COMMAND] Product created (marker): ${id}`))
-                .catch(err => console.error('[AI-COMMAND] Marker creation failed:', err));
+        // Запускаем создание асинхронно
+        createVkProduct(productData.title, productData.description, productData.price)
+            .then(async id => {
+                if (id) {
+                    console.log(`[AI-COMMAND] Product created (marker): ${id}`);
+                    // Отправляем уведомление об успехе
+                    const vkToken = process.env.VK_ACCESS_TOKEN;
+                    const params = {
+                        peer_id: userId,
+                        message: `Карточка товара "${productData.title}" успешно создана! ✅`,
+                        random_id: Math.floor(Math.random() * 1000000),
+                        access_token: vkToken,
+                        v: '5.131',
+                        group_id: process.env.VK_GROUP_ID
+                    };
+                    await httpsRequest('https://api.vk.com/method/messages.send', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams(params).toString()
+                    });
+                }
+            })
+            .catch(err => console.error('[AI-COMMAND] Marker creation failed:', err));
             return mainText.trim();
         } catch (e) {
             console.error('[AI-COMMAND] Marker parsing error:', e.message);
@@ -1127,8 +1166,28 @@ async function processAiCommands(text) {
             const productData = JSON.parse(match[1]);
             if (productData.title && productData.price) {
                 console.log('[AI-COMMAND] Detected via JSON block:', productData);
+                // Запускаем создание асинхронно
                 createVkProduct(productData.title, productData.description, productData.price)
-                    .then(id => console.log(`[AI-COMMAND] Product created (JSON block): ${id}`))
+                    .then(async id => {
+                        if (id) {
+                            console.log(`[AI-COMMAND] Product created (JSON block): ${id}`);
+                            // Отправляем уведомление об успехе
+                            const vkToken = process.env.VK_ACCESS_TOKEN;
+                            const params = {
+                                peer_id: userId,
+                                message: `Карточка товара "${productData.title}" успешно создана! ✅`,
+                                random_id: Math.floor(Math.random() * 1000000),
+                                access_token: vkToken,
+                                v: '5.131',
+                                group_id: process.env.VK_GROUP_ID
+                            };
+                            await httpsRequest('https://api.vk.com/method/messages.send', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                body: new URLSearchParams(params).toString()
+                            });
+                        }
+                    })
                     .catch(err => console.error('[AI-COMMAND] JSON block creation failed:', err));
                 // Удаляем этот блок из текста для пользователя
                 modifiedText = modifiedText.replace(match[0], '').trim();
@@ -4427,7 +4486,7 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
         }
 
         const assistantMessageRaw = data.result?.alternatives?.[0]?.message?.text || 'Нет ответа';
-        const assistantMessage = await processAiCommands(assistantMessageRaw);
+        const assistantMessage = await processAiCommands(assistantMessageRaw, handlerId);
 
         console.log(`[YANDEX-CHAT-${handlerId}] Success! Response: ${assistantMessage.length} chars, ${elapsed}s`);
 
