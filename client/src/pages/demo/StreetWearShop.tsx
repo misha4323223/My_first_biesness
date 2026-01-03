@@ -13,6 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import heroImg from "@assets/generated_images/streetwear_hero_banner_dark.webp";
+import generatedVideo from "@assets/generated_videos/streetwear_fashion_urban_cinematic_video.mp4";
 import hoodieImg from "@assets/generated_images/black_oversized_hoodie_product.webp";
 import tshirtImg from "@assets/generated_images/black_t-shirt_product_photo.webp";
 import cargoImg from "@assets/generated_images/black_cargo_pants_product.webp";
@@ -580,6 +581,30 @@ export default function StreetWearShop() {
               <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" onClick={scrollToBrands} data-testid="button-brands">
                 Бренды
               </Button>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="hidden md:block absolute right-6 top-1/2 -translate-y-1/2 w-[320px] lg:w-[400px]"
+          >
+            <div className="relative aspect-[9/16] rounded-2xl overflow-hidden border-4 border-white/10 shadow-2xl shadow-amber-500/20 group">
+              <video
+                src={generatedVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                <div className="space-y-2">
+                  <Badge className="bg-amber-500 text-black border-0">LOOKBOOK 2024</Badge>
+                  <p className="text-sm font-bold">Уличная эстетика в движении</p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
