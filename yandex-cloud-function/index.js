@@ -508,6 +508,22 @@ module.exports.handler = async function (event, context) {
             }
         }
 
+        // VK Callback API Handler
+        if (body.type === 'confirmation') {
+            const VK_CONFIRMATION_CODE = process.env.VK_CONFIRMATION_CODE || '12345678';
+            console.log('[VK-CALLBACK] Handling confirmation request');
+            return {
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/plain' },
+                body: VK_CONFIRMATION_CODE
+            };
+        }
+
+        if (body.type === 'message_new') {
+            console.log('[VK-CALLBACK] New message detected');
+            return await handleVkMessage(body, headers);
+        }
+
         // VK Automation Trigger
         const isTimerTrigger = event.messages && event.messages[0]?.event_metadata?.event_type?.includes('TimerMessage');
         if (action === 'vk-auto-post' || isTimerTrigger) {
@@ -545,6 +561,49 @@ module.exports.handler = async function (event, context) {
 
 // ============ Telegram Bot Webhook ============
 
+
+async function handleVkMessage(body, headers) {
+    try {
+        const vkToken = process.env.VK_ACCESS_TOKEN;
+        const messageObj = body.object.message;
+        const userId = messageObj.from_id;
+        const text = messageObj.text;
+
+        if (!text || userId < 0) return { statusCode: 200, headers, body: 'ok' };
+
+        console.log(`[VK-CHAT-BOT] Message from ${userId}: ${text}`);
+
+        const systemPrompt = `Ты — вежливый AI-ассистент веб-студии MP.WebStudio. 
+Мы создаем качественные сайты с уникальным дизайном, внедряем нейросети и автоматизируем бизнес. 
+Отвечай кратко, профессионально и дружелюбно. 
+Наш сайт: mp-webstudio.ru | Наш Telegram: t.me/MPWebStudio_ru
+Если не знаешь ответа, предложи связаться с нами по телефону +7 (953) 181-41-36.`;
+
+        const aiResponse = await callYandexGPT(text, 'yandexgpt-lite', systemPrompt);
+        const replyText = aiResponse.content;
+
+        const vkUrl = 'https://api.vk.com/method/messages.send';
+        const params = new URLSearchParams({
+            user_id: userId,
+            message: replyText,
+            random_id: Math.floor(Math.random() * 1000000),
+            access_token: vkToken,
+            v: '5.131'
+        });
+
+        await httpsRequest(vkUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params.toString()
+        });
+
+        console.log(`[VK-CHAT-BOT] Replied to ${userId}`);
+        return { statusCode: 200, headers, body: 'ok' };
+    } catch (error) {
+        console.error('[VK-CHAT-BOT] Error:', error.message);
+        return { statusCode: 200, headers, body: 'ok' }; // Всегда возвращаем ok для ВК
+    }
+}
 
 async function handleVkAutoPostYandex(headers) {
     try {
