@@ -520,8 +520,9 @@ module.exports.handler = async function (event, context) {
         }
 
         if (body.type === 'message_new') {
-            console.log('[VK-CALLBACK] New message detected');
-            return await handleVkMessage(body, headers);
+            console.log('[VK-CALLBACK] New message detected:', JSON.stringify(body));
+            const response = await handleVkMessage(body, headers);
+            return response;
         }
 
         // VK Automation Trigger
