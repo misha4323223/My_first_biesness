@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Scissors, Clock, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, Instagram, X, Plus, Minus } from "lucide-react";
+import { ShoppingCart, Scissors, Clock, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, Instagram, X, Plus, Minus, MessageSquare, Quote, HelpCircle, ShieldCheck, Zap, Coffee, Map as MapIcon, LogIn } from "lucide-react";
+import { SiVk } from "react-icons/si";
 import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
@@ -11,6 +12,7 @@ import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { useAggregateRatingSchema } from "@/lib/useAggregateRatingSchema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CartItem {
   id: number;
@@ -31,6 +33,69 @@ import galleryImg4 from "@assets/generated_images/trendy_textured_crop_fade.webp
 import pomadeImg from "@assets/generated_images/premium_hair_pomade_product_photography.png";
 import beardOilImg from "@assets/generated_images/luxury_beard_oil_product_photography.png";
 import shampooImg from "@assets/generated_images/premium_beard_shampoo_product_photography.png";
+
+const reviews = [
+  {
+    id: 1,
+    author: "Иван С.",
+    date: "15 октября 2025",
+    text: "Лучший барбершоп в городе! Алексей настоящий мастер своего дела. Стрижка идеальная, атмосфера на высоте.",
+    rating: 5,
+    source: "Яндекс.Карты"
+  },
+  {
+    id: 2,
+    author: "Михаил П.",
+    date: "2 ноября 2025",
+    text: "Хожу сюда уже год. Всегда отличный результат и вкусный кофе. Рекомендую 'Стрижку + бороду'.",
+    rating: 5,
+    source: "Google Maps"
+  },
+  {
+    id: 3,
+    author: "Артем К.",
+    date: "12 декабря 2025",
+    text: "Приятное место, стерильные инструменты и вежливый персонал. Цены полностью оправданы качеством.",
+    rating: 4,
+    source: "Яндекс.Карты"
+  }
+];
+
+const faqs = [
+  {
+    question: "Нужно ли мыть голову перед стрижкой?",
+    answer: "Не обязательно. Мытье головы входит в стоимость любой стрижки и выполняется мастером перед началом работы."
+  },
+  {
+    question: "Как выбрать подходящего мастера?",
+    answer: "Вы можете ознакомиться с портфолио мастеров на сайте или в нашей группе VK. Все наши барберы — профессионалы высокого уровня."
+  },
+  {
+    question: "Есть ли у вас скидки для новых клиентов?",
+    answer: "Да, на первый визит действует скидка 20%. Просто скажите об этом администратору или выберите соответствующую акцию при записи."
+  }
+];
+
+const features = [
+  { icon: Coffee, title: "Бесплатный напиток", desc: "Кофе, чай или прохладительные напитки для каждого гостя" },
+  { icon: Zap, title: "Стрижка за 45 минут", desc: "Ценим ваше время без ущерба качеству" },
+  { icon: ShieldCheck, title: "Стерильность по ГОСТу", desc: "Многоступенчатая очистка всех инструментов" }
+];
+
+const offers = [
+  { title: "Первый визит", desc: "Скидка 20% на любую стрижку", badge: "-20%" },
+  { title: "Папа + Сын", desc: "Специальная цена на парную стрижку", badge: "Выгодно" },
+  { title: "Сертификаты", desc: "Идеальный подарок для мужчины", badge: "New" }
+];
+
+const vkFeed = [
+  galleryImg1,
+  galleryImg2,
+  galleryImg3,
+  galleryImg4,
+  galleryImg1,
+  galleryImg2
+];
 
 const products = [
   {
@@ -270,6 +335,15 @@ export default function BarberShop() {
           <div className="flex items-center gap-3">
             <Button 
               variant="ghost" 
+              size="sm" 
+              className="text-neutral-300 hover:text-amber-400 gap-2"
+              data-testid="button-login"
+            >
+              <LogIn className="w-4 h-4" />
+              <span className="hidden sm:inline">Войти</span>
+            </Button>
+            <Button 
+              variant="ghost" 
               size="icon" 
               className="relative text-neutral-300 hover:text-amber-400"
               onClick={() => setIsCartOpen(true)}
@@ -304,13 +378,18 @@ export default function BarberShop() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Badge className="mb-6 bg-amber-500/20 text-amber-400 border-amber-500/30">
-              Премиум барбершоп
-            </Badge>
+            <div className="flex items-center gap-4 mb-6">
+              <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+                Премиум барбершоп
+              </Badge>
+              <Badge variant="outline" className="border-amber-500/50 text-amber-500 animate-pulse">
+                Скидка 20% на первый визит
+              </Badge>
+            </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
               Стиль — это
               <br />
@@ -319,14 +398,14 @@ export default function BarberShop() {
               </span>
             </h1>
             <p className="text-xl text-neutral-400 mb-8 max-w-lg">
-              Мужская парикмахерская с атмосферой и вниманием к деталям. Только лучшие мастера.
+              Мужская парикмахерская с атмосферой и вниманием к деталям. Только лучшие мастера и премиальный уход.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold" data-testid="button-book-hero">
+              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold" data-testid="button-book-hero" onClick={scrollToBooking}>
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться онлайн
               </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" data-testid="button-prices">
+              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" data-testid="button-prices" onClick={scrollToServices}>
                 Посмотреть цены
               </Button>
             </div>
@@ -337,16 +416,64 @@ export default function BarberShop() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-amber-400" />
-                <span className="text-neutral-400">ул. Пушкина, 15</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-amber-400" />
-                <a href="tel:+79991234567" className="text-neutral-400 hover:text-amber-400 transition-colors">+7 (999) 123-45-67</a>
+                <span className="text-neutral-400">Тула, ул. Пушкина, 15</span>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
+
+      <section className="py-20 bg-neutral-950 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-12">
+            {features.map((f, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex gap-4"
+              >
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                  <f.icon className="w-6 h-6 text-amber-500" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-1">{f.title}</h3>
+                  <p className="text-sm text-neutral-400 leading-relaxed">{f.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-6">
+            {offers.map((offer, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <Card className="p-8 bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-amber-500 text-black">{offer.badge}</Badge>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2 group-hover:text-amber-400 transition-colors">{offer.title}</h3>
+                  <p className="text-neutral-400 mb-6">{offer.desc}</p>
+                  <Button variant="link" className="p-0 h-auto text-amber-500 font-semibold" onClick={scrollToBooking}>
+                    Воспользоваться →
+                  </Button>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section ref={servicesRef} id="services" className="py-20 bg-neutral-900">
         <div className="max-w-7xl mx-auto px-6">
@@ -558,122 +685,7 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section ref={bookingRef} id="booking" className="py-20 bg-neutral-900">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Онлайн-запись</h2>
-            <p className="text-neutral-400">
-              Выберите услугу, мастера и удобное время
-            </p>
-          </motion.div>
-
-          <Card className="p-8 bg-neutral-800/50 border-neutral-700">
-            <div className="flex items-center gap-4 mb-8">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-amber-500 text-black' : 'bg-neutral-700'}`}>
-                {step > 1 ? <Check className="w-5 h-5" /> : '1'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-amber-500 rounded transition-all ${step > 1 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-amber-500 text-black' : 'bg-neutral-700'}`}>
-                {step > 2 ? <Check className="w-5 h-5" /> : '2'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-amber-500 rounded transition-all ${step > 2 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-amber-500 text-black' : 'bg-neutral-700'}`}>
-                3
-              </div>
-            </div>
-
-            {step === 3 && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm text-neutral-400 mb-2">Выберите дату</label>
-                  <Input 
-                    type="date" 
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="bg-neutral-700 border-neutral-600 text-white"
-                    data-testid="input-date"
-                  />
-                </div>
-                {selectedDate && (
-                  <div>
-                    <label className="block text-sm text-neutral-400 mb-2">Выберите время</label>
-                    <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          variant={selectedTime === time ? "default" : "outline"}
-                          className={selectedTime === time ? 'bg-amber-500 text-black' : 'border-neutral-600 text-white hover:bg-neutral-700'}
-                          onClick={() => handleTimeSelect(time)}
-                          data-testid={`button-time-${time}`}
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {selectedService && selectedBarber && selectedTime && selectedDate && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-8 p-4 bg-neutral-700/50 rounded-lg"
-              >
-                <h4 className="font-semibold mb-3">Ваша запись:</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Scissors className="w-4 h-4 text-amber-400" />
-                    <span>{services.find(s => s.id === selectedService)?.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-amber-400" />
-                    <span>{barbers.find(b => b.id === selectedBarber)?.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-amber-400" />
-                    <span>{selectedDate}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-400" />
-                    <span>{selectedTime}</span>
-                  </div>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-2xl font-bold text-amber-400">
-                    {formatPrice(services.find(s => s.id === selectedService)?.price || 0)} ₽
-                  </span>
-                  <Button 
-                    className="bg-amber-500 hover:bg-amber-600 text-black font-semibold"
-                    onClick={handleBook}
-                    data-testid="button-confirm-booking"
-                  >
-                    Подтвердить запись
-                  </Button>
-                </div>
-              </motion.div>
-            )}
-
-            {step < 3 && (
-              <p className="text-center text-neutral-400 mt-8">
-                {step === 1 ? 'Выберите услугу выше' : 'Выберите мастера выше'}
-              </p>
-            )}
-          </Card>
-        </div>
-      </section>
-
-      <section className="py-20">
+      <section className="py-20 bg-neutral-950">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -681,31 +693,319 @@ export default function BarberShop() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши работы</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Отзывы клиентов</h2>
+            <p className="text-neutral-400 max-w-xl mx-auto">Что говорят о нас те, кто уже доверил нам свой стиль</p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {gallery.map((img, i) => (
+          <div className="grid md:grid-cols-3 gap-6">
+            {reviews.map((review, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                key={review.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="aspect-square overflow-hidden rounded-lg"
               >
-                <img 
-                  src={img} 
-                  alt={`Gallery ${i + 1}`}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                />
+                <Card className="p-6 bg-neutral-900 border-neutral-800 h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, idx) => (
+                        <Star key={idx} className={`w-4 h-4 ${idx < review.rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-700'}`} />
+                      ))}
+                    </div>
+                    <span className="text-xs text-neutral-500 font-medium">{review.source}</span>
+                  </div>
+                  <Quote className="w-8 h-8 text-amber-500/20 mb-4" />
+                  <p className="text-neutral-300 mb-6 flex-grow italic">"{review.text}"</p>
+                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                    <span className="font-bold text-white">{review.author}</span>
+                    <span className="text-xs text-neutral-500">{review.date}</span>
+                  </div>
+                </Card>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <footer ref={contactRef} id="contact" className="py-12 bg-neutral-900 border-t border-neutral-800">
+      <section className="py-20 bg-neutral-900/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3">
+                <SiVk className="text-[#4C75A3]" />
+                Мы в VK
+              </h2>
+              <p className="text-neutral-400">Следите за нашими работами и акциями в реальном времени</p>
+            </div>
+            <Button variant="outline" className="border-neutral-700 hover:bg-[#4C75A3] hover:text-white transition-colors gap-2">
+              <SiVk />
+              Подписаться на группу
+            </Button>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {vkFeed.map((img, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ scale: 1.05 }}
+                className="aspect-square rounded-lg overflow-hidden relative group cursor-pointer"
+              >
+                <img src={img} alt={`Work ${i}`} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <SiVk className="text-white w-8 h-8" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-neutral-950">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <HelpCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Частые вопросы</h2>
+          </motion.div>
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border-neutral-800">
+                <AccordionTrigger className="text-left hover:text-amber-400 transition-colors">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-neutral-400 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      <section ref={bookingRef} id="booking" className="py-20 bg-neutral-900">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-4xl font-bold mb-6">Онлайн запись</h2>
+              <p className="text-neutral-400 mb-8">Запишитесь за 30 секунд. Выберите услугу, мастера и удобное время.</p>
+              
+              <div className="space-y-6">
+                <div className="flex gap-4 mb-12">
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold transition-colors ${step >= 1 ? 'bg-amber-500 text-black' : 'bg-neutral-800 text-neutral-500'}`}>1</div>
+                  <div className={`h-px bg-neutral-800 flex-1 mt-6 transition-colors ${step >= 2 ? 'bg-amber-500' : ''}`} />
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold transition-colors ${step >= 2 ? 'bg-amber-500 text-black' : 'bg-neutral-800 text-neutral-500'}`}>2</div>
+                  <div className={`h-px bg-neutral-800 flex-1 mt-6 transition-colors ${step >= 3 ? 'bg-amber-500' : ''}`} />
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold transition-colors ${step >= 3 ? 'bg-amber-500 text-black' : 'bg-neutral-800 text-neutral-500'}`}>3</div>
+                </div>
+
+                {step === 1 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                      <Scissors className="w-5 h-5 text-amber-400" />
+                      Выберите услугу
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {services.map(s => (
+                        <Button
+                          key={s.id}
+                          variant={selectedService === s.id ? "default" : "outline"}
+                          className={`justify-between h-auto py-4 px-4 ${selectedService === s.id ? 'bg-amber-500 text-black border-amber-500' : 'border-neutral-700 text-white hover:bg-white/5'}`}
+                          onClick={() => handleServiceSelect(s.id)}
+                        >
+                          <div className="text-left">
+                            <div className="font-bold">{s.name}</div>
+                            <div className="text-xs opacity-70">{s.duration}</div>
+                          </div>
+                          <div className="font-bold">{s.price}₽</div>
+                        </Button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {step === 2 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
+                    <Button variant="ghost" className="mb-4 -ml-2 text-neutral-400 hover:text-white" onClick={() => setStep(1)}>
+                      ← Назад к услугам
+                    </Button>
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                      <User className="w-5 h-5 text-amber-400" />
+                      Выберите мастера
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {barbers.map(b => (
+                        <button
+                          key={b.id}
+                          onClick={() => handleBarberSelect(b.id)}
+                          className={`p-4 rounded-xl border transition-all text-center group ${selectedBarber === b.id ? 'border-amber-500 bg-amber-500/10' : 'border-neutral-800 bg-neutral-900 hover:border-neutral-700'}`}
+                        >
+                          <div className="w-16 h-16 rounded-full overflow-hidden mx-auto mb-3 border-2 border-transparent group-hover:border-amber-500/50 transition-colors">
+                            <img src={b.image} alt={b.name} className="w-full h-full object-cover" />
+                          </div>
+                          <div className="font-bold text-sm">{b.name}</div>
+                          <div className="text-[10px] text-amber-400 uppercase tracking-tighter">{b.role}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+
+                {step === 3 && (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
+                    <Button variant="ghost" className="mb-4 -ml-2 text-neutral-400 hover:text-white" onClick={() => setStep(2)}>
+                      ← Назад к мастерам
+                    </Button>
+                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-amber-400" />
+                      Выберите время
+                    </h3>
+                    <div className="mb-6">
+                      <label className="text-sm text-neutral-500 mb-2 block">Дата визита</label>
+                      <Input 
+                        type="date" 
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        className="bg-neutral-900 border-neutral-800 text-white"
+                      />
+                    </div>
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {timeSlots.map(time => (
+                        <Button
+                          key={time}
+                          variant={selectedTime === time ? "default" : "outline"}
+                          className={`h-10 ${selectedTime === time ? 'bg-amber-500 text-black border-amber-500' : 'border-neutral-800 text-neutral-400 hover:text-white'}`}
+                          onClick={() => handleTimeSelect(time)}
+                        >
+                          {time}
+                        </Button>
+                      ))}
+                    </div>
+                    <div className="pt-8 border-t border-neutral-800 mt-8">
+                      <div className="flex justify-between mb-4">
+                        <span className="text-neutral-400">Итого к оплате:</span>
+                        <span className="text-2xl font-bold text-amber-500">
+                          {selectedService ? services.find(s => s.id === selectedService)?.price : 0} ₽
+                        </span>
+                      </div>
+                      <Button 
+                        className="w-full h-12 bg-amber-500 hover:bg-amber-600 text-black font-bold text-lg"
+                        disabled={!selectedTime || !selectedDate}
+                        onClick={handleBook}
+                        data-testid="button-confirm-booking"
+                      >
+                        Подтвердить запись
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+
+            <Card className="p-8 bg-neutral-900 border-neutral-800 sticky top-24">
+              <h3 className="text-2xl font-bold mb-6">Ваш визит</h3>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <Scissors className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-neutral-500 uppercase font-bold tracking-wider mb-1">Услуга</div>
+                    <div className="text-white font-medium">{selectedService ? services.find(s => s.id === selectedService)?.name : "Не выбрана"}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <User className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-neutral-500 uppercase font-bold tracking-wider mb-1">Мастер</div>
+                    <div className="text-white font-medium">{selectedBarber ? barbers.find(b => b.id === selectedBarber)?.name : "Не выбран"}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-neutral-500 uppercase font-bold tracking-wider mb-1">Дата и время</div>
+                    <div className="text-white font-medium">
+                      {selectedDate && selectedTime ? `${selectedDate} в ${selectedTime}` : "Не выбраны"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section ref={contactRef} id="contacts" className="py-20 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold mb-8">Наши контакты</h2>
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-1 text-lg">Адрес</h4>
+                    <p className="text-neutral-400">г. Тула, ул. Пушкина, 15</p>
+                    <p className="text-xs text-neutral-500 mt-1">Рядом с ТЦ «Гостиный Двор»</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-1 text-lg">Телефон</h4>
+                    <a href="tel:+79991234567" className="text-neutral-400 hover:text-amber-400 transition-colors">+7 (999) 123-45-67</a>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                    <SiVk className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-1 text-lg">Социальные сети</h4>
+                    <p className="text-neutral-400">vk.com/blade_tula</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-12 p-6 rounded-2xl bg-amber-500 text-black">
+                <h3 className="text-2xl font-bold mb-2">Запись по телефону</h3>
+                <p className="font-medium mb-4">Если вам удобнее записаться через администратора</p>
+                <Button size="lg" className="bg-black text-white hover:bg-neutral-800 w-full font-bold">
+                  Позвонить нам
+                </Button>
+              </div>
+            </div>
+            
+            <div className="rounded-2xl overflow-hidden h-[400px] border border-white/5 relative group">
+              <div className="absolute inset-0 bg-neutral-900 flex flex-col items-center justify-center text-center p-8">
+                <MapIcon className="w-16 h-16 text-amber-500/30 mb-4 group-hover:scale-110 transition-transform duration-500" />
+                <h3 className="text-xl font-bold mb-2 text-white">Интерактивная карта</h3>
+                <p className="text-neutral-500 max-w-xs mb-6">Здесь будет расположена Яндекс.Карта с меткой нашего барбершопа</p>
+                <div className="flex gap-4">
+                  <Button variant="outline" className="border-neutral-700 text-white">В Яндекс.Картах</Button>
+                  <Button variant="outline" className="border-neutral-700 text-white">В 2ГИС</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="py-12 bg-neutral-900 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
