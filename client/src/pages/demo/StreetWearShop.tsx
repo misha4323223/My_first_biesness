@@ -116,6 +116,7 @@ export default function StreetWearShop() {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(15000);
   const [sortBy, setSortBy] = useState<"name" | "price-asc" | "price-desc" | "new">("name");
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const productsRef = useRef<HTMLElement>(null);
   const brandsRef = useRef<HTMLElement>(null);
@@ -225,7 +226,7 @@ export default function StreetWearShop() {
       setCartOpen(false);
       setOrderSuccess(false);
       setCart({});
-      setOrderForm({ name: "", phone: "" });
+      setOrderForm({ name: "", phone: "", email: "" });
       setLocation("/demo/streetwear/success");
     }, 1500);
   };
