@@ -629,6 +629,24 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
         console.log(`[VK-CHAT-BOT] AI Raw Response: ${replyTextRaw}`);
         const replyText = await processAiCommands(replyTextRaw);
 
+        if (!replyText || replyText.trim() === '') {
+            console.log('[VK-CHAT-BOT] Empty reply text, sending confirmation');
+            const params = {
+                peer_id: userId,
+                message: 'Карточка товара успешно создана! ✅',
+                random_id: Math.floor(Math.random() * 1000000),
+                access_token: vkToken,
+                v: '5.131',
+                group_id: process.env.VK_GROUP_ID
+            };
+            await httpsRequest('https://api.vk.com/method/messages.send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(params).toString()
+            });
+            return { statusCode: 200, headers, body: 'ok' };
+        }
+
         const vkUrl = 'https://api.vk.com/method/messages.send';
         const params = {
             peer_id: userId,
@@ -1058,7 +1076,7 @@ async function createVkProduct(title, description, price) {
                 category_id: categoryId,
                 price: price,
                 deleted: 0,
-                main_photo_id: '' // Можно добавить загрузку фото позже
+                main_photo_id: process.env.VK_DEFAULT_PRODUCT_PHOTO_ID || ''
             }).toString()
         });
 
