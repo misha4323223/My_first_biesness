@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Home, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, DollarSign, Bed, Bath } from "lucide-react";
+import { 
+  Home, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, 
+  DollarSign, Bed, Bath, Search, Shield, Key, FileCheck, PlayCircle, Map as MapIcon, ChevronRight
+} from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
@@ -67,7 +71,25 @@ export default function RealEstateAgency() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [step, setStep] = useState(1);
+  const [filterType, setFilterType] = useState("Все");
+  const [filterPrice, setFilterPrice] = useState("Все");
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [quizStep, setQuizStep] = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const { toast } = useToast();
+
+  const dealSteps = [
+    { icon: Search, title: "Подбор", desc: "Анализируем ваши пожелания и подбираем лучшие варианты" },
+    { icon: Shield, title: "Проверка", desc: "Юридическая проверка объекта и чистоты сделки" },
+    { icon: FileCheck, title: "Сделка", desc: "Профессиональное сопровождение на всех этапах" },
+    { icon: Key, title: "Ключи", desc: "Поздравляем с новосельем в вашем идеальном доме" }
+  ];
+
+  const quizQuestions = [
+    { id: "purpose", q: "Какова цель покупки?", options: ["Инвестиции", "Для жизни", "Коммерция"] },
+    { id: "budget", q: "Ваш бюджет?", options: ["до 10 млн", "10-30 млн", "от 30 млн"] },
+    { id: "urgency", q: "Сроки покупки?", options: ["Срочно", "В течение месяца", "Присматриваюсь"] }
+  ];
   const propertiesRef = useRef<HTMLElement>(null);
   const agentsRef = useRef<HTMLElement>(null);
   const bookingRef = useRef<HTMLElement>(null);
@@ -208,6 +230,42 @@ export default function RealEstateAgency() {
             <p className="text-xl text-neutral-400 mb-8 max-w-lg">
               Более 300 проектов успешно завершено. Апартаменты, дома, коммерческая недвижимость. Прозрачность и честность во всём.
             </p>
+
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-2 rounded-xl flex flex-col md:flex-row gap-2 max-w-3xl mb-8">
+              <div className="flex-1 px-4 py-2 border-r border-white/10 last:border-0">
+                <label className="block text-[10px] text-neutral-500 uppercase font-bold mb-1">Тип объекта</label>
+                <select 
+                  className="bg-transparent text-sm w-full outline-none cursor-pointer"
+                  value={filterType}
+                  onChange={(e) => setFilterType(e.target.value)}
+                >
+                  <option value="Все" className="bg-neutral-900">Все типы</option>
+                  <option value="Квартира" className="bg-neutral-900">Квартиры</option>
+                  <option value="Дом" className="bg-neutral-900">Дома</option>
+                  <option value="Апартаменты" className="bg-neutral-900">Апартаменты</option>
+                </select>
+              </div>
+              <div className="flex-1 px-4 py-2 border-r border-white/10 last:border-0">
+                <label className="block text-[10px] text-neutral-500 uppercase font-bold mb-1">Бюджет</label>
+                <select 
+                  className="bg-transparent text-sm w-full outline-none cursor-pointer"
+                  value={filterPrice}
+                  onChange={(e) => setFilterPrice(e.target.value)}
+                >
+                  <option value="Все" className="bg-neutral-900">Любой</option>
+                  <option value="до 10" className="bg-neutral-900">до 10 млн ₽</option>
+                  <option value="10-50" className="bg-neutral-900">10-50 млн ₽</option>
+                  <option value="от 50" className="bg-neutral-900">от 50 млн ₽</option>
+                </select>
+              </div>
+              <Button 
+                className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-8 h-12 md:h-auto"
+                onClick={scrollToProperties}
+              >
+                Найти
+              </Button>
+            </div>
+
             <div className="flex flex-wrap gap-4">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold" data-testid="button-book-hero">
                 <Calendar className="w-5 h-5 mr-2" />
@@ -237,6 +295,26 @@ export default function RealEstateAgency() {
 
       <section ref={propertiesRef} id="properties" className="py-20 bg-neutral-900">
         <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid lg:grid-cols-4 gap-8 mb-20"
+          >
+            {dealSteps.map((s, i) => (
+              <div key={i} className="relative group">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
+                  <s.icon className="w-6 h-6 text-emerald-500" />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{s.title}</h3>
+                <p className="text-sm text-neutral-500">{s.desc}</p>
+                {i < dealSteps.length - 1 && (
+                  <div className="hidden lg:block absolute top-6 left-full w-full h-[1px] bg-gradient-to-r from-emerald-500/30 to-transparent -ml-4" />
+                )}
+              </div>
+            ))}
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -271,11 +349,14 @@ export default function RealEstateAgency() {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    {property.popular && (
-                      <div className="absolute top-3 right-3">
+                    <div className="absolute top-3 left-3 flex gap-2">
+                      <Badge className="bg-black/60 backdrop-blur-md text-white border-white/10 flex items-center gap-1">
+                        <PlayCircle className="w-3 h-3" /> 3D ТУР
+                      </Badge>
+                      {property.popular && (
                         <Badge className="bg-emerald-500 text-black border-0">Хит</Badge>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-lg font-semibold mb-2 text-white">{property.name}</h3>
@@ -304,6 +385,105 @@ export default function RealEstateAgency() {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-neutral-950 overflow-hidden relative">
+        <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full -left-1/4" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-4xl font-bold mb-6">Ваш будущий дом на карте</h2>
+              <p className="text-neutral-400 mb-8">
+                Мы отобрали лучшие локации в Москве и Подмосковье. Посмотрите расположение наших объектов и инфраструктуру районов.
+              </p>
+              <div className="space-y-4">
+                {["Центральные апартаменты", "Загородные резиденции", "Бизнес-кварталы"].map(item => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="text-neutral-300 font-medium">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative aspect-square lg:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+              <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
+                <MapIcon className="w-24 h-24 text-neutral-700" />
+                <div className="absolute top-1/4 left-1/3 animate-bounce">
+                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <Home className="w-4 h-4 text-black" />
+                  </div>
+                </div>
+                <div className="absolute top-1/2 left-2/3 animate-bounce delay-100">
+                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                    <Home className="w-4 h-4 text-black" />
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+              <Badge className="absolute bottom-4 left-4 bg-emerald-500 text-black font-bold">ИНТЕРАКТИВНАЯ КАРТА</Badge>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-emerald-500">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-black text-black mb-6">Сложно выбрать?</h2>
+          <p className="text-emerald-950 text-xl mb-8 font-medium">
+            Ответьте на 3 вопроса и получите персональную подборку объектов за 1 минуту
+          </p>
+          <Dialog open={quizOpen} onOpenChange={setQuizOpen}>
+            <DialogTrigger asChild>
+              <Button size="lg" className="bg-black text-white hover:bg-neutral-800 font-bold px-12 h-16 text-lg rounded-full shadow-2xl">
+                Помочь с выбором
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold">Подбор недвижимости</DialogTitle>
+              </DialogHeader>
+              <div className="py-6">
+                {quizStep < quizQuestions.length ? (
+                  <motion.div key={quizStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <p className="text-emerald-500 font-bold text-sm mb-2 uppercase tracking-widest">Вопрос {quizStep + 1} из 3</p>
+                    <h3 className="text-xl font-bold mb-6">{quizQuestions[quizStep].q}</h3>
+                    <div className="grid gap-3">
+                      {quizQuestions[quizStep].options.map(opt => (
+                        <Button 
+                          key={opt} 
+                          variant="outline" 
+                          className="justify-between h-auto py-4 px-6 border-neutral-700 hover:border-emerald-500 hover:bg-emerald-500/10 text-left"
+                          onClick={() => {
+                            setQuizAnswers({...quizAnswers, [quizQuestions[quizStep].id]: opt});
+                            setQuizStep(quizStep + 1);
+                          }}
+                        >
+                          {opt}
+                          <ChevronRight className="w-4 h-4 text-neutral-600" />
+                        </Button>
+                      ))}
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
+                    <div className="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Check className="w-8 h-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">Готово!</h3>
+                    <p className="text-neutral-400 mb-6">Мы подготовили для вас 5 идеальных вариантов на основе ваших предпочтений.</p>
+                    <Button className="w-full bg-emerald-500 text-black font-bold h-12" onClick={() => {
+                      setQuizOpen(false);
+                      setQuizStep(0);
+                      toast({ title: "Подборка готова!", description: "Мы отправили её вам в Telegram" });
+                    }}>
+                      Посмотреть подборку
+                    </Button>
+                  </motion.div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
 
