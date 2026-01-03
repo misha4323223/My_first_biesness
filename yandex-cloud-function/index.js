@@ -1071,10 +1071,10 @@ async function createVkProduct(title, description, price) {
         });
 
         const result = JSON.parse(response.data);
-        if (data.error) {
-            console.error('[VK-PRODUCT] VK API Error:', JSON.stringify(data.error));
+        if (result.error) {
+            console.error('[VK-PRODUCT] VK API Error:', JSON.stringify(result.error));
             // Оповещаем пользователя об ошибке, если товар не создался
-            const errorMsg = data.error.error_code === 100 ? 'Ошибка валидации данных (возможно, фото уже используется в другом товаре)' : data.error.error_msg;
+            const errorMsg = result.error.error_code === 100 ? 'Ошибка валидации данных (возможно, фото уже используется в другом товаре)' : result.error.error_msg;
             
             const params = {
                 peer_id: userId,

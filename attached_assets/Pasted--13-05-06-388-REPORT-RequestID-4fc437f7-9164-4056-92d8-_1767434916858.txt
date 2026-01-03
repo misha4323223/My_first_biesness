@@ -1,0 +1,299 @@
+янв. 13:05:06.388
+REPORT RequestID: 4fc437f7-9164-4056-92d8-b452fedeb7b5 Duration: 811.054 ms Billed Duration: 900 ms Memory Size: 512 MB Max Memory Used: 157 MB Queuing Duration: 0.032 ms Function Init Duration: 792.525 ms CPU Usage: 99.902 %
+
+03 янв. 13:05:06.388
+END RequestID: 4fc437f7-9164-4056-92d8-b452fedeb7b5
+
+03 янв. 13:05:05.984
+[VK-CALLBACK] Handling message_read
+
+03 янв. 13:05:05.984
+[HANDLER] Action:
+
+03 янв. 13:05:05.984
+[HANDLER] Body type: message_read
+
+03 янв. 13:05:05.983
+}
+
+03 янв. 13:05:05.983
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 13:05:05.983
+path: '',
+
+03 янв. 13:05:05.983
+action: '',
+
+03 янв. 13:05:05.983
+method: 'POST',
+
+03 янв. 13:05:05.983
+[REQUEST] {
+
+03 янв. 13:05:05.983
+}
+
+03 янв. 13:05:05.983
+timestamp: '2026-01-03T10:05:05.980Z'
+
+03 янв. 13:05:05.983
+path: undefined,
+
+03 янв. 13:05:05.983
+method: 'POST',
+
+03 янв. 13:05:05.983
+[HANDLER START] {
+
+03 янв. 13:05:05.983
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 13:05:05.213
+REPORT RequestID: 0f024457-bd78-45c3-a620-b7f4fab0ff1d Duration: 1996.192 ms Billed Duration: 2000 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.101 ms Function Init Duration: 735.426 ms CPU Usage: 58.594 %
+
+03 янв. 13:05:05.213
+END RequestID: 0f024457-bd78-45c3-a620-b7f4fab0ff1d
+
+03 янв. 13:05:05.211
+[VK-CHAT-BOT] Replied to 583487548
+
+03 янв. 13:05:05.211
+[VK-CHAT-BOT] VK Response: {"statusCode":200,"data":"{\"response\":49}"}
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] ========== REQUEST SUCCESS ==========
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] Total response size: 15 bytes
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] ✨ Response ended after 195ms
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] 📥 Data chunk: 15 bytes (total: 15)
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] 📦 First byte received after 195ms
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] Response headers: content-type=application/json; charset=utf-8, content-length=15
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] Status code: 200
+
+03 янв. 13:05:05.210
+[HTTPS-565b8d96] ✅ Response callback triggered after 195ms
+
+03 янв. 13:05:05.207
+START RequestID: 4fc437f7-9164-4056-92d8-b452fedeb7b5 Version: d4euvk02lnp511j6kt8i
+
+03 янв. 13:05:05.149
+[VK-PRODUCT] Error: data is not defined
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] ========== REQUEST SUCCESS ==========
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] Total response size: 682 bytes
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] ✨ Response ended after 134ms
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] 📥 Data chunk: 720 bytes (total: 778)
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] 📥 Data chunk: 58 bytes (total: 58)
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] 📦 First byte received after 134ms
+
+03 янв. 13:05:05.148
+[HTTPS-39486cee] Response headers: content-type=application/json; charset=utf-8, content-length=undefined
+
+03 янв. 13:05:05.147
+[HTTPS-39486cee] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 13:05:05.147
+[HTTPS-39486cee] Status code: 200
+
+03 янв. 13:05:05.147
+[HTTPS-39486cee] ✅ Response callback triggered after 133ms
+
+03 янв. 13:05:05.053
+[HTTPS-39486cee] 🔒 TLS handshake complete after 39ms
+
+03 янв. 13:05:05.049
+[HTTPS-565b8d96] 🔒 TLS handshake complete after 34ms
+
+03 янв. 13:05:05.032
+[HTTPS-39486cee] 🌐 TCP connected after 18ms
+
+03 янв. 13:05:05.032
+[HTTPS-565b8d96] 🌐 TCP connected after 17ms
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-565b8d96] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.018
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.017
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.017
+[HTTPS-39486cee] 🔍 DNS lookup started
+
+03 янв. 13:05:05.017
+[HTTPS-565b8d96] 🔌 Socket created, fd: unknown
+
+03 янв. 13:05:05.017
+[HTTPS-39486cee] 🔌 Socket created, fd: unknown
+
+03 янв. 13:05:05.017
+[HTTPS-565b8d96] Waiting for response...
+
+03 янв. 13:05:05.017
+[HTTPS-565b8d96] 🚀 Calling req.end()
+
+03 янв. 13:05:05.017
+[HTTPS-565b8d96] Body written successfully
+
+03 янв. 13:05:05.017
+[HTTPS-565b8d96] 📤 Writing body (746 bytes): peer_id=583487548&message=%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82-%D0%BC%D0%B0%D0%B3%D0%B0%...
+
+03 янв. 13:05:05.016
+[HTTPS-565b8d96] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 13:05:05.016
+[HTTPS-565b8d96] Setting main timeout: 12000ms
+
+03 янв. 13:05:05.016
+[HTTPS-565b8d96] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 13:05:05.016
+[HTTPS-565b8d96] Headers: Content-Type
+
+03 янв. 13:05:05.016
+[HTTPS-565b8d96] Request body size: 746 bytes
+
+03 янв. 13:05:05.016
+[HTTPS-565b8d96] Path: /method/messages.send
+
+03 янв. 13:05:05.015
+[HTTPS-565b8d96] Hostname: api.vk.com:443
+
+03 янв. 13:05:05.015
+[HTTPS-565b8d96] Method: POST
+
+03 янв. 13:05:05.015
+[HTTPS-565b8d96] URL: https://api.vk.com/method/messages.send
+
+03 янв. 13:05:05.015
+[HTTPS-565b8d96] ========== HTTPS REQUEST START ==========
+
+03 янв. 13:05:05.015
+[VK-CHAT-BOT] Sending to VK: {"peer_id":583487548,"message":"Интернет-магазин (e-commerce с каталогом, корзиной, оплатой и интеграцией доставки) стоит 200,000₽.","random_id":907942,"access_token":"vk1.a.QBUL1n2Jk-SrFCf4AAjMlvAYLo9kZmbWEPv4fjLwd3piAJdRwDAhD79L8n8ZnJKCjWeyuiPQHINmNgXXch6pQL5uCY6-voxj0RbLgULzLzEl_AYtW_d8LdggURc6KRx7x2Y5nXDG8JPpSpUG47Mqx5YZu6gqhNSkoatrCUc6lWfwLQ2imtolcoGXxytBU4um32LaK4QcknmbCWD9h3lvGA","v":"5.131","group_id":"234852555"}
+
+03 янв. 13:05:05.015
+[HTTPS-39486cee] Waiting for response...
+
+03 янв. 13:05:05.015
+[HTTPS-39486cee] 🚀 Calling req.end()
+
+03 янв. 13:05:05.015
+[HTTPS-39486cee] Body written successfully
+
+03 янв. 13:05:05.015
+[HTTPS-39486cee] 📤 Writing body (937 bytes): access_token=vk1.a.QBUL1n2Jk-SrFCf4AAjMlvAYLo9kZmbWEPv4fjLwd3piAJdRwDAhD79L8n8ZnJKCjWeyuiPQHINmNgXXc...
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Setting main timeout: 12000ms
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Headers: Content-Type
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Request body size: 937 bytes
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Path: /method/market.add
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Hostname: api.vk.com:443
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] Method: POST
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] URL: https://api.vk.com/method/market.add
+
+03 янв. 13:05:05.014
+[HTTPS-39486cee] ========== HTTPS REQUEST START ==========
+
+03 янв. 13:05:05.013
+[VK-PRODUCT] Creating product: Интернет-магазин, price: 200000
+
+03 янв. 13:05:05.013
+}
+
+03 янв. 13:05:05.013
+price: 200000
+
+03 янв. 13:05:05.013
+description: 'Создание интернет-магазина с каталогом товаров, корзиной, интеграцией систем оплаты и доставки',
+
+03 янв. 13:05:05.013
+title: 'Интернет-магазин',

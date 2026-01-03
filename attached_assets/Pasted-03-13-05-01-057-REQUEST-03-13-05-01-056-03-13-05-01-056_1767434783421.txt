@@ -1,0 +1,161 @@
+03 янв. 13:05:01.057
+[REQUEST] {
+
+03 янв. 13:05:01.056
+}
+
+03 янв. 13:05:01.056
+timestamp: '2026-01-03T10:05:01.053Z'
+
+03 янв. 13:05:01.056
+path: undefined,
+
+03 янв. 13:05:01.056
+method: 'POST',
+
+03 янв. 13:05:01.056
+[HANDLER START] {
+
+03 янв. 13:05:01.056
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 13:05:01.048
+START RequestID: 4a0254af-6ff8-4377-98ea-b625dd3823a2 Version: d4euvk02lnp511j6kt8i
+
+03 янв. 13:04:56.090
+[HTTPS-df5e79f8] ❌ Socket closed (hadError: false) after 20259ms
+
+03 янв. 13:04:56.089
+[HTTPS-df5e79f8] ❌ SOCKET TIMEOUT after 20259ms - destroying request
+
+03 янв. 13:04:55.992
+REPORT RequestID: b1209f38-965a-4262-b714-5be1bafc9e57 Duration: 4.033 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.066 ms CPU Usage: 0.391 %
+
+03 янв. 13:04:55.992
+END RequestID: b1209f38-965a-4262-b714-5be1bafc9e57
+
+03 янв. 13:04:55.991
+[VK-CALLBACK] Typing state from user: 583487548
+
+03 янв. 13:04:55.991
+[HANDLER] Action:
+
+03 янв. 13:04:55.991
+[HANDLER] Body type: message_typing_state
+
+03 янв. 13:04:55.991
+}
+
+03 янв. 13:04:55.991
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 13:04:55.991
+path: '',
+
+03 янв. 13:04:55.991
+action: '',
+
+03 янв. 13:04:55.991
+method: 'POST',
+
+03 янв. 13:04:55.991
+[REQUEST] {
+
+03 янв. 13:04:55.991
+}
+
+03 янв. 13:04:55.991
+timestamp: '2026-01-03T10:04:55.988Z'
+
+03 янв. 13:04:55.991
+path: undefined,
+
+03 янв. 13:04:55.991
+method: 'POST',
+
+03 янв. 13:04:55.991
+[HANDLER START] {
+
+03 янв. 13:04:55.991
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 13:04:55.985
+START RequestID: b1209f38-965a-4262-b714-5be1bafc9e57 Version: d4euvk02lnp511j6kt8i
+
+03 янв. 13:04:40.830
+[HTTPS-d7cfefe4] ❌ Socket closed (hadError: false) after 5972ms
+
+03 янв. 13:04:40.830
+[HTTPS-d7cfefe4] ❌ SOCKET TIMEOUT after 5972ms - destroying request
+
+03 янв. 13:04:35.958
+[VK-PRODUCT] Error: data is not defined
+
+03 янв. 13:04:35.958
+[HTTPS-df5e79f8] ========== REQUEST SUCCESS ==========
+
+03 янв. 13:04:35.958
+[HTTPS-df5e79f8] Total response size: 769 bytes
+
+03 янв. 13:04:35.958
+[HTTPS-df5e79f8] ✨ Response ended after 128ms
+
+03 янв. 13:04:35.958
+[HTTPS-df5e79f8] 📥 Data chunk: 871 bytes (total: 929)
+
+03 янв. 13:04:35.958
+[HTTPS-df5e79f8] 📥 Data chunk: 58 bytes (total: 58)
+
+03 янв. 13:04:35.958
+[HTTPS-df5e79f8] 📦 First byte received after 128ms
+
+03 янв. 13:04:35.957
+[HTTPS-df5e79f8] Response headers: content-type=application/json; charset=utf-8, content-length=undefined
+
+03 янв. 13:04:35.957
+[HTTPS-df5e79f8] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 13:04:35.957
+[HTTPS-df5e79f8] Status code: 200
+
+03 янв. 13:04:35.957
+[HTTPS-df5e79f8] ✅ Response callback triggered after 127ms
+
+03 янв. 13:04:35.871
+[HTTPS-df5e79f8] 🔒 TLS handshake complete after 41ms
+
+03 янв. 13:04:35.848
+[HTTPS-df5e79f8] 🌐 TCP connected after 18ms
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+[HTTPS-df5e79f8] 🔍 DNS lookup started
+
+03 янв. 13:04:35.833
+REPORT RequestID: 74f4c483-c1d0-4735-ab2d-81948f7a3c2d Duration: 977.371 ms Billed Duration: 1000 ms Memory Size: 512 MB Max Memory Used: 174 MB Queuing Duration: 0.085 ms CPU Usage: 3.906 %
+
+03 янв. 13:04:35.833
+END RequestID: 74f4c483-c1d0-4735-ab2d-81948f7a3c2d
