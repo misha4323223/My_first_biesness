@@ -1,0 +1,151 @@
+
+
+03 янв. 11:24:23.764
+[HTTPS-43d6c201] 🚀 Calling req.end()
+
+03 янв. 11:24:23.764
+[HTTPS-43d6c201] Body written successfully
+
+03 янв. 11:24:23.763
+[HTTPS-43d6c201] 📤 Writing body (782 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Setting main timeout: 12000ms
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Headers: Content-Type, Authorization
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Request body size: 782 bytes
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Path: /foundationModels/v1/completion
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Hostname: llm.api.cloud.yandex.net:443
+
+03 янв. 11:24:23.729
+[HTTPS-43d6c201] Method: POST
+
+03 янв. 11:24:23.728
+[HTTPS-43d6c201] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+03 янв. 11:24:23.728
+[HTTPS-43d6c201] ========== HTTPS REQUEST START ==========
+
+03 янв. 11:24:23.727
+[YANDEX-AUTH] Key length: 40
+
+03 янв. 11:24:23.727
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+03 янв. 11:24:23.727
+[YANDEX-GPT] Sending request to Yandex AI...
+
+03 янв. 11:24:23.727
+[VK-CHAT-BOT] Message from 583487548: Здравствуйте
+
+03 янв. 11:24:23.727
+[VK-CALLBACK] New message detected: {"group_id":234852555,"type":"message_new","event_id":"17c0a637fa14b38a813cd293b3bbedd4edd14651","v":"5.199","object":{"client_info":{"button_actions":["text","vkpay","open_app","location","open_link","open_photo","callback","intent_subscribe","intent_unsubscribe"],"keyboard":true,"inline_keyboard":true,"carousel":true,"lang_id":0},"message":{"date":1767428662,"from_id":583487548,"id":12,"version":10000035,"out":0,"fwd_messages":[],"important":false,"is_hidden":false,"attachments":[],"conversation_message_id":6,"text":"Здравствуйте","peer_id":583487548,"random_id":0}}}
+
+03 янв. 11:24:23.726
+[HANDLER] Action:
+
+03 янв. 11:24:23.726
+[HANDLER] Body type: message_new
+
+03 янв. 11:24:23.726
+}
+
+03 янв. 11:24:23.726
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 11:24:23.726
+path: '',
+
+03 янв. 11:24:23.726
+action: '',
+
+03 янв. 11:24:23.726
+method: 'POST',
+
+03 янв. 11:24:23.726
+[REQUEST] {
+
+03 янв. 11:24:23.726
+}
+
+03 янв. 11:24:23.726
+timestamp: '2026-01-03T08:24:23.720Z'
+
+03 янв. 11:24:23.726
+path: undefined,
+
+03 янв. 11:24:23.726
+method: 'POST',
+
+03 янв. 11:24:23.726
+[HANDLER START] {
+
+03 янв. 11:24:23.720
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 11:24:22.945
+START RequestID: cea443db-17d7-4c01-bf6b-b43a10fa6005 Version: d4eue99sl9l9099i1i3l
+
+03 янв. 11:24:20.236
+REPORT RequestID: 8961d6d9-1076-43e0-a065-5297d9d37cae Duration: 820.948 ms Billed Duration: 900 ms Memory Size: 512 MB Max Memory Used: 158 MB Queuing Duration: 0.074 ms Function Init Duration: 802.063 ms CPU Usage: 13.965 %
+
+03 янв. 11:24:20.236
+END RequestID: 8961d6d9-1076-43e0-a065-5297d9d37cae
+
+03 янв. 11:24:20.234
+[HANDLER] Action:
+
+03 янв. 11:24:20.234
+[HANDLER] Body type: message_typing_state
+
+03 янв. 11:24:20.234
+}
+
+03 янв. 11:24:20.234
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 11:24:20.234
+path: '',
+
+03 янв. 11:24:20.234
+action: '',
+
+03 янв. 11:24:20.234
+method: 'POST',
+
+03 янв. 11:24:20.234
+[REQUEST] {
+
+03 янв. 11:24:20.233
+}
+
+03 янв. 11:24:20.233
+timestamp: '2026-01-03T08:24:20.227Z'
+
+03 янв. 11:24:20.233
+path: undefined,
+
+03 янв. 11:24:20.233
+method: 'POST',
+
+03 янв. 11:24:20.233
+[HANDLER START] {
+
+03 янв. 11:24:20.228
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 11:24:19.411
+START RequestID: 8961d6d9-1076-43e0-a065-5297d9d37cae Version: d4eue99sl9l9099i1i3l

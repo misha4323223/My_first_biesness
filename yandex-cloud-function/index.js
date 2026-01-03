@@ -582,18 +582,20 @@ async function handleVkMessage(body, headers) {
         const replyText = aiResponse.content;
 
         const vkUrl = 'https://api.vk.com/method/messages.send';
-        const params = new URLSearchParams({
+        const params = {
             user_id: userId,
             message: replyText,
             random_id: Math.floor(Math.random() * 1000000),
             access_token: vkToken,
             v: '5.131'
-        });
+        };
+
+        console.log(`[VK-CHAT-BOT] Sending to VK: ${JSON.stringify(params)}`);
 
         const response = await httpsRequest(vkUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: params.toString()
+            body: new URLSearchParams(params).toString()
         });
 
         console.log(`[VK-CHAT-BOT] VK Response: ${JSON.stringify(response)}`);
