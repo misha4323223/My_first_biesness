@@ -130,8 +130,34 @@ const steps = [
 
 export default function ApartmentRenovation() {
   const [formData, setFormData] = useState({ name: "", phone: "", area: "", description: "" });
+  const [quizStep, setQuizStep] = useState(0);
+  const [quizData, setQuizData] = useState({ type: "", rooms: "", area: "40" });
+  const [sliderPos, setSliderPos] = useState(50);
   const [callbackOpen, setCallbackOpen] = useState(false);
   const [callbackSuccess, setCallbackSuccess] = useState(false);
+
+  const quizSteps = [
+    {
+      title: "Тип жилья",
+      options: ["Новостройка", "Вторичное жилье", "Коттедж/Дом"]
+    },
+    {
+      title: "Количество комнат",
+      options: ["Студия", "1-комнатная", "2-комнатная", "3-комнатная+"]
+    }
+  ];
+
+  const calculateQuizPrice = () => {
+    const basePrice = quizData.type === "Новостройка" ? 8000 : 10000;
+    const area = parseInt(quizData.area) || 0;
+    return basePrice * area;
+  };
+
+  const handleQuizNext = (val: string) => {
+    if (quizStep === 0) setQuizData({ ...quizData, type: val });
+    else if (quizStep === 1) setQuizData({ ...quizData, rooms: val });
+    setQuizStep(quizStep + 1);
+  };
   const { toast } = useToast();
   const servicesRef = useRef<HTMLElement>(null);
   const portfolioRef = useRef<HTMLElement>(null);
@@ -328,14 +354,35 @@ export default function ApartmentRenovation() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative hidden lg:block"
+            className="relative hidden lg:block group"
           >
-            <img 
-              src={beforeAfterImg} 
-              alt="До и после ремонта" 
-              className="rounded-2xl shadow-2xl"
-            />
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg">
+            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl select-none touch-none"
+                 onMouseMove={(e) => {
+                   const rect = e.currentTarget.getBoundingClientRect();
+                   const x = ((e.clientX - rect.left) / rect.width) * 100;
+                   setSliderPos(x);
+                 }}
+                 onTouchMove={(e) => {
+                   const rect = e.currentTarget.getBoundingClientRect();
+                   const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+                   setSliderPos(x);
+                 }}>
+              <img src={livingRoomImg} alt="После" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ width: `${sliderPos}%` }}>
+                <img src={beforeAfterImg} alt="До" className="absolute inset-0 h-full object-cover max-w-none" style={{ width: "100vw" }} />
+              </div>
+              <div className="absolute inset-y-0 w-1 bg-white cursor-ew-resize" style={{ left: `${sliderPos}%` }}>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                  <div className="flex gap-0.5">
+                    <div className="w-1 h-3 bg-amber-500 rounded-full" />
+                    <div className="w-1 h-3 bg-amber-500 rounded-full" />
+                  </div>
+                </div>
+              </div>
+              <Badge className="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md">ДО</Badge>
+              <Badge className="absolute bottom-4 right-4 bg-amber-500">ПОСЛЕ</Badge>
+            </div>
+            <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg z-20">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
                   <Star className="w-6 h-6 text-amber-500" />
@@ -353,6 +400,72 @@ export default function ApartmentRenovation() {
       {/* Advantages */}
       <section className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 mb-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+            <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h3 className="text-2xl font-bold mb-4">Узнайте стоимость ремонта за 1 минуту</h3>
+                <p className="text-gray-600 mb-6">Ответьте на 3 вопроса и получите предварительную смету со скидкой 10%</p>
+                <div className="flex items-center gap-2 text-sm text-amber-600 font-bold mb-8">
+                  <Star className="w-4 h-4 fill-current" />
+                  <span>Акция: Скидка 10% при заказе через сайт</span>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 min-h-[300px] flex flex-col justify-center">
+                {quizStep < 2 ? (
+                  <motion.div key={quizStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <p className="text-xs text-amber-600 font-bold uppercase tracking-wider mb-2">Шаг {quizStep + 1} из 3</p>
+                    <h4 className="text-xl font-bold mb-6">{quizSteps[quizStep].title}</h4>
+                    <div className="grid grid-cols-1 gap-3">
+                      {quizSteps[quizStep].options.map(opt => (
+                        <Button 
+                          key={opt} 
+                          variant="outline" 
+                          className="justify-start h-auto py-4 px-6 border-gray-200 hover:border-amber-500 hover:bg-amber-50/50"
+                          onClick={() => handleQuizNext(opt)}
+                        >
+                          {opt}
+                        </Button>
+                      ))}
+                    </div>
+                  </motion.div>
+                ) : quizStep === 2 ? (
+                  <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                    <p className="text-xs text-amber-600 font-bold uppercase tracking-wider mb-2">Шаг 3 из 3</p>
+                    <h4 className="text-xl font-bold mb-6">Укажите площадь (м²)</h4>
+                    <div className="space-y-6">
+                      <Input 
+                        type="number" 
+                        value={quizData.area} 
+                        onChange={(e) => setQuizData({...quizData, area: e.target.value})}
+                        className="text-2xl font-bold h-16 text-center"
+                      />
+                      <Button className="w-full h-14 bg-amber-500 text-lg font-bold" onClick={() => setQuizStep(3)}>
+                        Рассчитать результат
+                      </Button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
+                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Check className="w-8 h-8" />
+                    </div>
+                    <h4 className="text-2xl font-bold mb-2">Расчет готов!</h4>
+                    <p className="text-gray-500 mb-6">Предварительная стоимость вашего ремонта:</p>
+                    <div className="text-4xl font-black text-amber-600 mb-6">
+                      ~ {formatPrice(calculateQuizPrice())} ₽
+                    </div>
+                    <Button className="w-full h-12 bg-amber-500" onClick={scrollToContact}>
+                      Получить детальную смету
+                    </Button>
+                    <button className="text-sm text-gray-400 mt-4 hover:text-gray-600" onClick={() => setQuizStep(0)}>Сбросить расчет</button>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {advantages.map((adv, i) => (
               <motion.div
