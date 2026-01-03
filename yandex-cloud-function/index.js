@@ -508,8 +508,10 @@ module.exports.handler = async function (event, context) {
             }
         }
 
-        // VK Callback API Handler
-        if (body.type === 'confirmation') {
+        console.log('[HANDLER] Body type:', body?.type);
+        console.log('[HANDLER] Action:', action);
+
+        if (body?.type === 'confirmation') {
             const VK_CONFIRMATION_CODE = process.env.VK_CONFIRMATION_CODE || '2310963c';
             console.log('[VK-CALLBACK] Handling confirmation request');
             return {
@@ -519,36 +521,19 @@ module.exports.handler = async function (event, context) {
             };
         }
 
-        if (body.type === 'message_new') {
+        if (body?.type === 'message_new') {
             console.log('[VK-CALLBACK] New message detected:', JSON.stringify(body));
-            const response = await handleVkMessage(body, headers);
-            return response;
+            return await handleVkMessage(body, headers);
         }
 
-        // VK Automation Trigger
-        const isTimerTrigger = event.messages && event.messages[0]?.event_metadata?.event_type?.includes('TimerMessage');
-        if (action === 'vk-auto-post' || isTimerTrigger) {
-            console.log('[VK-AUTO-POST] Triggered by:', isTimerTrigger ? 'TIMER' : 'MANUAL');
-            return await handleVkAutoPostYandex(headers);
-        }
-
-        if (action === 'health' || path.includes('/health') || method === 'GET') {
+        if (!body && !action) {
+            console.log('[HANDLER] Falling back to default response (no body/action)');
             return {
                 statusCode: 200,
                 headers,
-                body: JSON.stringify({ 
-                    status: 'ok', 
-                    timestamp: new Date().toISOString(),
-                    database: 'YDB Serverless',
-                }),
+                body: JSON.stringify({ success: true, message: "Service is active" })
             };
         }
-
-        return {
-            statusCode: 404,
-            headers,
-            body: JSON.stringify({ success: false, message: 'Endpoint not found' }),
-        };
 
     } catch (error) {
         console.error('Handler error:', error.message, error.stack);
