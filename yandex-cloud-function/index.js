@@ -992,7 +992,83 @@ async function uploadPhotoToVk(token, groupId, imageData) {
     }
 }
 
-async function callYandexGPT(prompt, modelName = 'yandexgpt', systemText = 'Ты — полезный ассистент.') {
+
+/**
+ * Создание товара в ВК
+ */
+async function createVkProduct(title, description, price) {
+    try {
+        const vkToken = process.env.VK_ACCESS_TOKEN;
+        const ownerId = process.env.VK_GROUP_ID; // Обычно отрицательный для групп
+        
+        if (!vkToken || !ownerId) {
+            console.error('[VK-PRODUCT] Missing VK_ACCESS_TOKEN or VK_GROUP_ID');
+            return null;
+        }
+
+        console.log(`[VK-PRODUCT] Creating product: ${title}, price: ${price}`);
+
+        // 1. Получаем категорию (упрощенно - первая попавшаяся или дефолтная)
+        // В реальности лучше задать конкретную категорию ID
+        const categoryId = 600; // Разработка ПО / Сайты (примерный ID)
+
+        const response = await httpsRequest('https://api.vk.com/method/market.add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                access_token: vkToken,
+                v: '5.131',
+                owner_id: ownerId.startsWith('-') ? ownerId : `-${ownerId}`,
+                name: title,
+                description: description,
+                category_id: categoryId,
+                price: price,
+                deleted: 0,
+                main_photo_id: '' // Можно добавить загрузку фото позже
+            }).toString()
+        });
+
+        const result = JSON.parse(response.data);
+        if (result.error) {
+            console.error('[VK-PRODUCT] VK API Error:', JSON.stringify(result.error));
+            return null;
+        }
+
+        console.log('[VK-PRODUCT] Product created successfully:', result.response?.market_item_id);
+        return result.response?.market_item_id;
+    } catch (e) {
+        console.error('[VK-PRODUCT] Error:', e.message);
+        return null;
+    }
+}
+
+/**
+ * Парсинг ответа ИИ на наличие команд создания товара
+ */
+async function processAiCommands(text) {
+    const marker = ':::create_vk_product:';
+    if (!text.includes(marker)) return text;
+
+    try {
+        const parts = text.split(marker);
+        const mainText = parts[0];
+        const commandPart = parts[1].split(':::')[0];
+        
+        const productData = JSON.parse(commandPart);
+        console.log('[AI-COMMAND] Detected product creation:', productData);
+        
+        // Запускаем создание асинхронно, не дожидаясь ответа для пользователя
+        createVkProduct(productData.title, productData.description, productData.price)
+            .then(id => console.log(`[AI-COMMAND] Product created with ID: ${id}`))
+            .catch(err => console.error('[AI-COMMAND] Creation failed:', err));
+
+        return mainText.trim();
+    } catch (e) {
+        console.error('[AI-COMMAND] Parsing error:', e.message);
+        return text.replace(/:::create_vk_product:.*?:::/g, '').trim();
+    }
+}
+
     const folderId = process.env.YC_FOLDER_ID;
 
     if (!folderId) {
@@ -4277,8 +4353,8 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
             };
         }
 
-        const data = JSON.parse(response.data);
-        const assistantMessage = data.result?.alternatives?.[0]?.message?.text || 'Нет ответа';
+        const assistantMessageRaw = data.result?.alternatives?.[0]?.message?.text || 'Нет ответа';
+        const assistantMessage = await processAiCommands(assistantMessageRaw);
 
         console.log(`[YANDEX-CHAT-${handlerId}] Success! Response: ${assistantMessage.length} chars, ${elapsed}s`);
 
