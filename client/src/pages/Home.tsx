@@ -24,6 +24,19 @@ export default function Home() {
   });
 
   useEffect(() => {
+    // Handle anchor scrolling on mount/URL change
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500); // Small delay to ensure content is rendered
+    }
+  }, []);
+
+  useEffect(() => {
     // JSON-LD for Organization
     const script = document.createElement('script');
     script.type = 'application/ld+json';
