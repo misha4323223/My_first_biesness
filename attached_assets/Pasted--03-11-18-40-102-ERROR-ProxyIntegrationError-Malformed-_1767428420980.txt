@@ -1,0 +1,127 @@
+
+
+03 янв. 11:18:40.102
+[ERROR] ProxyIntegrationError: Malformed serverless function response: not a valid json
+
+03 янв. 11:18:40.102
+REPORT RequestID: 4be5be9f-f418-4961-9a6e-e3a4d7ea5e07 Duration: 6.347 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.068 ms
+
+03 янв. 11:18:40.102
+END RequestID: 4be5be9f-f418-4961-9a6e-e3a4d7ea5e07
+
+03 янв. 11:18:40.100
+[HANDLER] Action:
+
+03 янв. 11:18:40.100
+[HANDLER] Body type: message_typing_state
+
+03 янв. 11:18:40.100
+}
+
+03 янв. 11:18:40.100
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 11:18:40.100
+path: '',
+
+03 янв. 11:18:40.100
+action: '',
+
+03 янв. 11:18:40.100
+method: 'POST',
+
+03 янв. 11:18:40.100
+[REQUEST] {
+
+03 янв. 11:18:40.100
+}
+
+03 янв. 11:18:40.100
+timestamp: '2026-01-03T08:18:40.097Z'
+
+03 янв. 11:18:40.100
+path: undefined,
+
+03 янв. 11:18:40.100
+method: 'POST',
+
+03 янв. 11:18:40.100
+[HANDLER START] {
+
+03 янв. 11:18:40.099
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 11:18:40.091
+START RequestID: 4be5be9f-f418-4961-9a6e-e3a4d7ea5e07 Version: d4e3onrpgthfsu7ntaou
+
+03 янв. 11:18:37.028
+[HTTPS-1154120b] ❌ Socket closed (hadError: false) after 5172ms
+
+03 янв. 11:18:37.028
+[HTTPS-1154120b] ❌ SOCKET TIMEOUT after 5171ms - destroying request
+
+03 янв. 11:18:36.857
+[HTTPS-8f97d9c5] ❌ Socket closed (hadError: false) after 5282ms
+
+03 янв. 11:18:36.857
+[HTTPS-8f97d9c5] ❌ SOCKET TIMEOUT after 5281ms - destroying request
+
+03 янв. 11:18:32.029
+REPORT RequestID: bfe9f21c-6003-4c56-ae5c-c410df567f31 Duration: 456.619 ms Billed Duration: 500 ms Memory Size: 512 MB Max Memory Used: 173 MB Queuing Duration: 0.071 ms CPU Usage: 15.918 %
+
+03 янв. 11:18:32.029
+END RequestID: bfe9f21c-6003-4c56-ae5c-c410df567f31
+
+03 янв. 11:18:32.027
+[VK-CHAT-BOT] Replied to 583487548
+
+03 янв. 11:18:32.027
+[VK-CHAT-BOT] VK Response: {"statusCode":200,"data":"{\"response\":336473}"}
+
+03 янв. 11:18:32.027
+[HTTPS-1154120b] ========== REQUEST SUCCESS ==========
+
+03 янв. 11:18:32.027
+[HTTPS-1154120b] Total response size: 19 bytes
+
+03 янв. 11:18:32.027
+[HTTPS-1154120b] ✨ Response ended after 170ms
+
+03 янв. 11:18:32.027
+[HTTPS-1154120b] 📥 Data chunk: 19 bytes (total: 19)
+
+03 янв. 11:18:32.027
+[HTTPS-1154120b] 📦 First byte received after 170ms
+
+03 янв. 11:18:32.026
+[HTTPS-1154120b] Response headers: content-type=application/json; charset=utf-8, content-length=19
+
+03 янв. 11:18:32.026
+[HTTPS-1154120b] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+03 янв. 11:18:32.026
+[HTTPS-1154120b] Status code: 200
+
+03 янв. 11:18:32.026
+[HTTPS-1154120b] ✅ Response callback triggered after 169ms
+
+03 янв. 11:18:31.891
+[HTTPS-1154120b] 🔒 TLS handshake complete after 34ms
+
+03 янв. 11:18:31.873
+[HTTPS-1154120b] 🌐 TCP connected after 17ms
+
+03 янв. 11:18:31.860
+[HTTPS-1154120b] 🔍 DNS lookup started
+
+03 янв. 11:18:31.860
+[HTTPS-1154120b] 🔍 DNS lookup started
+
+03 янв. 11:18:31.860
+[HTTPS-1154120b] 🔍 DNS lookup started
+
+03 янв. 11:18:31.860
+[HTTPS-1154120b] 🔍 DNS lookup started
+
+03 янв. 11:18:31.860
+[HTTPS-1154120b] 🔍 DNS lookup started

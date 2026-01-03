@@ -1,0 +1,134 @@
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] Headers: Content-Type, Authorization
+
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] Request body size: 782 bytes
+
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] Path: /foundationModels/v1/completion
+
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] Hostname: llm.api.cloud.yandex.net:443
+
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] Method: POST
+
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+03 янв. 11:18:31.576
+[HTTPS-8f97d9c5] ========== HTTPS REQUEST START ==========
+
+03 янв. 11:18:31.575
+[YANDEX-AUTH] Key length: 40
+
+03 янв. 11:18:31.575
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+03 янв. 11:18:31.575
+[YANDEX-GPT] Sending request to Yandex AI...
+
+03 янв. 11:18:31.574
+[VK-CHAT-BOT] Message from 583487548: Здравствуйте
+
+03 янв. 11:18:31.574
+[VK-CALLBACK] New message detected: {"group_id":234852555,"type":"message_new","event_id":"ca2231804196fb36056e5ce9f86f84d2e557285a","v":"5.199","object":{"client_info":{"button_actions":["text","vkpay","open_app","location","open_link","open_photo","callback","intent_subscribe","intent_unsubscribe"],"keyboard":true,"inline_keyboard":true,"carousel":true,"lang_id":0},"message":{"date":1767428311,"from_id":583487548,"id":11,"version":10000034,"out":0,"fwd_messages":[],"important":false,"is_hidden":false,"attachments":[],"conversation_message_id":5,"text":"Здравствуйте","peer_id":583487548,"random_id":0}}}
+
+03 янв. 11:18:31.574
+[HANDLER] Action:
+
+03 янв. 11:18:31.574
+[HANDLER] Body type: message_new
+
+03 янв. 11:18:31.574
+}
+
+03 янв. 11:18:31.574
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 11:18:31.574
+path: '',
+
+03 янв. 11:18:31.574
+action: '',
+
+03 янв. 11:18:31.574
+method: 'POST',
+
+03 янв. 11:18:31.574
+[REQUEST] {
+
+03 янв. 11:18:31.573
+}
+
+03 янв. 11:18:31.573
+timestamp: '2026-01-03T08:18:31.573Z'
+
+03 янв. 11:18:31.573
+path: undefined,
+
+03 янв. 11:18:31.573
+method: 'POST',
+
+03 янв. 11:18:31.573
+[HANDLER START] {
+
+03 янв. 11:18:31.573
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 11:18:31.569
+START RequestID: bfe9f21c-6003-4c56-ae5c-c410df567f31 Version: d4e3onrpgthfsu7ntaou
+
+03 янв. 11:18:30.455
+[ERROR] ProxyIntegrationError: Malformed serverless function response: not a valid json
+
+03 янв. 11:18:30.455
+REPORT RequestID: 0bb3c1a9-110a-44dc-a2d7-841b4d522787 Duration: 792.187 ms Billed Duration: 800 ms Memory Size: 512 MB Max Memory Used: 158 MB Queuing Duration: 0.060 ms Function Init Duration: 778.163 ms CPU Usage: 99.902 %
+
+03 янв. 11:18:30.455
+END RequestID: 0bb3c1a9-110a-44dc-a2d7-841b4d522787
+
+03 янв. 11:18:30.454
+[HANDLER] Action:
+
+03 янв. 11:18:30.454
+[HANDLER] Body type: message_typing_state
+
+03 янв. 11:18:30.453
+}
+
+03 янв. 11:18:30.453
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 11:18:30.453
+path: '',
+
+03 янв. 11:18:30.453
+action: '',
+
+03 янв. 11:18:30.453
+method: 'POST',
+
+03 янв. 11:18:30.453
+[REQUEST] {
+
+03 янв. 11:18:30.453
+}
+
+03 янв. 11:18:30.453
+timestamp: '2026-01-03T08:18:30.447Z'
+
+03 янв. 11:18:30.453
+path: undefined,
+
+03 янв. 11:18:30.453
+method: 'POST',
+
+03 янв. 11:18:30.453
+[HANDLER START] {
+
+03 янв. 11:18:30.448
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 11:18:29.660
+START RequestID: 0bb3c1a9-110a-44dc-a2d7-841b4d522787 Version: d4e3onrpgthfsu7ntaou

@@ -523,7 +523,20 @@ module.exports.handler = async function (event, context) {
 
         if (body?.type === 'message_new') {
             console.log('[VK-CALLBACK] New message detected:', JSON.stringify(body));
-            return await handleVkMessage(body, headers);
+            await handleVkMessage(body, headers);
+            return {
+                statusCode: 200,
+                headers,
+                body: 'ok'
+            };
+        }
+
+        if (body?.type === 'message_typing_state') {
+            return {
+                statusCode: 200,
+                headers,
+                body: 'ok'
+            };
         }
 
         if (!body && !action) {
@@ -585,8 +598,14 @@ async function handleVkMessage(body, headers) {
 
         console.log(`[VK-CHAT-BOT] VK Response: ${JSON.stringify(response)}`);
 
-        if (response.body && response.body.includes('error')) {
-            console.error('[VK-CHAT-BOT] VK API Error:', response.body);
+        // Check for VK API internal error
+        try {
+            const vkResponseBody = typeof response.body === 'string' ? JSON.parse(response.body) : response.body;
+            if (vkResponseBody && vkResponseBody.error) {
+                console.error('[VK-CHAT-BOT] VK API Error Detail:', JSON.stringify(vkResponseBody.error));
+            }
+        } catch (e) {
+            console.log('[VK-CHAT-BOT] Could not parse VK response body as JSON');
         }
 
         console.log(`[VK-CHAT-BOT] Replied to ${userId}`);
