@@ -1,0 +1,115 @@
+
+
+03 янв. 11:30:45.230
+[HTTPS-6e7fe489] 🔒 TLS handshake complete after 111ms
+
+03 янв. 11:30:45.167
+[HTTPS-6e7fe489] 🌐 TCP connected after 48ms
+
+03 янв. 11:30:45.150
+[HTTPS-6e7fe489] 🔍 DNS lookup started
+
+03 янв. 11:30:45.150
+[HTTPS-6e7fe489] 🔌 Socket created, fd: unknown
+
+03 янв. 11:30:45.149
+[HTTPS-6e7fe489] Waiting for response...
+
+03 янв. 11:30:45.149
+[HTTPS-6e7fe489] 🚀 Calling req.end()
+
+03 янв. 11:30:45.149
+[HTTPS-6e7fe489] Body written successfully
+
+03 янв. 11:30:45.149
+[HTTPS-6e7fe489] 📤 Writing body (779 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Creating HTTPS request with timeout: 15000ms
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Setting main timeout: 12000ms
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Headers: Content-Type, Authorization
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Request body size: 779 bytes
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Path: /foundationModels/v1/completion
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Hostname: llm.api.cloud.yandex.net:443
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] Method: POST
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+03 янв. 11:30:45.120
+[HTTPS-6e7fe489] ========== HTTPS REQUEST START ==========
+
+03 янв. 11:30:45.119
+[YANDEX-AUTH] Key length: 40
+
+03 янв. 11:30:45.119
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+03 янв. 11:30:45.119
+[YANDEX-GPT] Sending request to Yandex AI...
+
+03 янв. 11:30:45.118
+[VK-CHAT-BOT] Message from 583487548: Добрый день
+
+03 янв. 11:30:45.118
+[VK-CALLBACK] New message detected: {"group_id":234852555,"type":"message_new","event_id":"a16fc73d970304d61db742e06f0ccea24bfa8c7e","v":"5.199","object":{"client_info":{"button_actions":["text","vkpay","open_app","location","open_link","open_photo","callback","intent_subscribe","intent_unsubscribe"],"keyboard":true,"inline_keyboard":true,"carousel":true,"lang_id":0},"message":{"date":1767429044,"from_id":583487548,"id":14,"version":10000037,"out":0,"fwd_messages":[],"important":false,"is_hidden":false,"attachments":[],"conversation_message_id":8,"text":"Добрый день","peer_id":583487548,"random_id":0}}}
+
+03 янв. 11:30:45.118
+[HANDLER] Action:
+
+03 янв. 11:30:45.118
+[HANDLER] Body type: message_new
+
+03 янв. 11:30:45.118
+}
+
+03 янв. 11:30:45.118
+bodyKeys: [ 'group_id', 'type', 'event_id', 'v', 'object' ]
+
+03 янв. 11:30:45.118
+path: '',
+
+03 янв. 11:30:45.118
+action: '',
+
+03 янв. 11:30:45.118
+method: 'POST',
+
+03 янв. 11:30:45.118
+[REQUEST] {
+
+03 янв. 11:30:45.118
+}
+
+03 янв. 11:30:45.118
+timestamp: '2026-01-03T08:30:45.114Z'
+
+03 янв. 11:30:45.117
+path: undefined,
+
+03 янв. 11:30:45.117
+method: 'POST',
+
+03 янв. 11:30:45.117
+[HANDLER START] {
+
+03 янв. 11:30:45.114
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+03 янв. 11:30:44.510
+START RequestID: c8bda5d7-fba2-47b0-8f1f-8f0343de5d79 Version: d4eb5cjteovsd70m1gag

@@ -583,7 +583,7 @@ async function handleVkMessage(body, headers) {
 
         const vkUrl = 'https://api.vk.com/method/messages.send';
         const params = {
-            user_id: userId,
+            peer_id: userId,
             message: replyText,
             random_id: Math.floor(Math.random() * 1000000),
             access_token: vkToken,
