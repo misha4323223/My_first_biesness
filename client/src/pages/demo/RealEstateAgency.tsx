@@ -21,6 +21,7 @@ import propertyImg3 from "@/assets/generated_images/minimalist_compact_studio_ap
 import propertyImg4 from "@/assets/generated_images/luxury_penthouse_with_panoramic_views.png";
 import propertyImg5 from "@/assets/generated_images/modern_townhouse_near_forest_park.png";
 import propertyImg6 from "@/assets/generated_images/class_a_premium_office_space_interior.png";
+import stockMapImg from "@assets/stock_images/aerial_view_of_mosco_c086c0ae.jpg";
 
 const properties = [
   { id: 1, name: "Апартаменты в центре", beds: 3, baths: 2, area: 120, price: 12500000, type: "Квартира", image: propertyImg1 },
@@ -407,20 +408,52 @@ export default function RealEstateAgency() {
               </div>
             </div>
             <div className="relative aspect-square lg:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
-              <div className="absolute inset-0 bg-neutral-800 flex items-center justify-center">
-                <MapIcon className="w-24 h-24 text-neutral-700" />
-                <div className="absolute top-1/4 left-1/3 animate-bounce">
-                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                    <Home className="w-4 h-4 text-black" />
+              <div className="absolute inset-0 bg-neutral-800">
+                <img 
+                  src={stockMapImg} 
+                  alt="Moscow Map View" 
+                  className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent" />
+                
+                {/* Interactive Pulsing Pins */}
+                <div className="absolute top-1/3 left-1/4 group/pin">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
+                    <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
+                      <Home className="w-4 h-4 text-black" />
+                    </div>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none">
+                      Пентхаус Сити
+                    </div>
                   </div>
                 </div>
-                <div className="absolute top-1/2 left-2/3 animate-bounce delay-100">
-                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
-                    <Home className="w-4 h-4 text-black" />
+
+                <div className="absolute top-1/2 left-2/3 group/pin">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-300" />
+                    <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
+                      <Home className="w-4 h-4 text-black" />
+                    </div>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none">
+                      Резиденция Арбат
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-2/3 left-1/2 group/pin">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-700" />
+                    <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
+                      <Home className="w-4 h-4 text-black" />
+                    </div>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-neutral-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-opacity whitespace-nowrap border border-white/10 pointer-events-none">
+                      Офис Класса А
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none" />
               <Badge className="absolute bottom-4 left-4 bg-emerald-500 text-black font-bold">ИНТЕРАКТИВНАЯ КАРТА</Badge>
             </div>
           </div>
