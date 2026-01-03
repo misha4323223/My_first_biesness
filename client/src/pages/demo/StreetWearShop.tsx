@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -6,7 +6,8 @@ import { ShoppingCart, Heart, Menu, Truck, CreditCard, RefreshCw, ArrowLeft, Plu
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Link } from "wouter";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Link, useLocation } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
@@ -109,6 +110,8 @@ export default function StreetWearShop() {
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [flyer, setFlyer] = useState<{ id: number; x: number; y: number } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(15000);
@@ -143,7 +146,12 @@ export default function StreetWearShop() {
     setFavorites(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
-  const addToCart = (id: number) => {
+  const addToCart = (id: number, e?: React.MouseEvent) => {
+    if (e) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      setFlyer({ id, x: rect.left, y: rect.top });
+      setTimeout(() => setFlyer(null), 800);
+    }
     setCart(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
   };
 
@@ -217,13 +225,31 @@ export default function StreetWearShop() {
       setCartOpen(false);
       setOrderSuccess(false);
       setCart({});
-      setOrderForm({ name: "", phone: "", email: "" });
-    }, 2000);
+      setOrderForm({ name: "", phone: "" });
+      setLocation("/demo/streetwear/success");
+    }, 1500);
   };
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
-      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
+      {flyer && (
+        <motion.div
+          initial={{ x: flyer.x, y: flyer.y, scale: 1, opacity: 1 }}
+          animate={{ 
+            x: window.innerWidth - 100, 
+            y: 20, 
+            scale: 0.2, 
+            opacity: 0 
+          }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          className="fixed z-50 pointer-events-none"
+        >
+          <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
+            <ShoppingCart className="text-black" />
+          </div>
+        </motion.div>
+      )}
+      <Dialog open={!!selectedProduct} onOpenChange={() => { setSelectedProduct(null); setSelectedSize(null); }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
           {selectedProduct && (
             <div className="grid md:grid-cols-2 gap-6">
@@ -251,13 +277,15 @@ export default function StreetWearShop() {
                     {selectedProduct.sizes.map(size => (
                       <Button
                         key={size}
-                        variant="outline"
-                        className="border-neutral-700 text-neutral-300 hover:border-amber-500 hover:text-amber-500"
+                        variant={selectedSize === size ? "default" : "outline"}
+                        className={`border-neutral-700 ${selectedSize === size ? "bg-amber-500 text-black" : "text-neutral-300 hover:border-amber-500 hover:text-amber-500"}`}
+                        onClick={() => setSelectedSize(size)}
                       >
                         {size}
                       </Button>
                     ))}
                   </div>
+                  {selectedProduct.id === 1 && <p className="text-xs text-red-500 mt-2">Осталось всего 2 шт. в размере M!</p>}
                 </div>
 
                 <div className="mb-6">
@@ -270,14 +298,16 @@ export default function StreetWearShop() {
 
                 <Button
                   className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold mb-3"
-                  onClick={() => {
-                    addToCart(selectedProduct.id);
+                  disabled={!selectedSize}
+                  onClick={(e) => {
+                    addToCart(selectedProduct.id, e);
                     setSelectedProduct(null);
+                    setSelectedSize(null);
                     toast({ title: "Добавлено в корзину!" });
                   }}
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Добавить в корзину
+                  {selectedSize ? "Добавить в корзину" : "Выберите размер"}
                 </Button>
                 <Button
                   variant="outline"
@@ -424,14 +454,62 @@ export default function StreetWearShop() {
                 </span>
               )}
             </Button>
-            <Button variant="ghost" size="icon" className="relative text-neutral-400 hover:text-white" onClick={() => setCartOpen(true)} data-testid="button-cart">
-              <ShoppingCart className="w-5 h-5" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </Button>
+            
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative text-neutral-400 hover:text-white" data-testid="button-cart-trigger">
+                  <ShoppingCart className="w-5 h-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 bg-neutral-900 border-neutral-800 p-0 overflow-hidden" align="end">
+                <div className="p-4 border-b border-neutral-800">
+                  <h3 className="font-bold text-white flex items-center gap-2">
+                    <ShoppingCart className="w-4 h-4 text-amber-500" />
+                    Корзина ({cartCount})
+                  </h3>
+                </div>
+                <div className="max-h-60 overflow-y-auto p-2">
+                  {cartItems.length === 0 ? (
+                    <p className="text-center text-neutral-500 py-8 text-sm">Корзина пуста</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {cartItems.map(({ product, quantity }) => (
+                        <div key={product.id} className="flex items-center gap-3 p-2 rounded-md bg-neutral-800/50">
+                          <img src={product.image} alt={product.name} className="w-10 h-10 rounded-md object-cover" />
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-xs truncate text-white">{product.name}</p>
+                            <p className="text-xs text-amber-500">{product.price.toLocaleString()} р x {quantity}</p>
+                          </div>
+                          <Button size="icon" variant="ghost" className="h-6 w-6 text-red-500 hover:text-red-400" onClick={() => clearItem(product.id)}>
+                            <X className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {cartItems.length > 0 && (
+                  <div className="p-4 bg-neutral-800/30 border-t border-neutral-800">
+                    <div className="flex justify-between mb-3">
+                      <span className="text-xs text-neutral-400">Итого:</span>
+                      <span className="text-sm font-bold text-amber-500">{cartTotal.toLocaleString()} р</span>
+                    </div>
+                    <Button 
+                      className="w-full h-8 bg-amber-500 hover:bg-amber-600 text-black font-bold text-xs"
+                      onClick={() => setCartOpen(true)}
+                    >
+                      Оформить заказ
+                    </Button>
+                  </div>
+                )}
+              </PopoverContent>
+            </Popover>
+
             <Button 
               variant="ghost" 
               size="icon" 

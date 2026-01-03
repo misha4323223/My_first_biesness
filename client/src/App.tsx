@@ -18,6 +18,7 @@ import FoodDelivery from "@/pages/demo/FoodDelivery";
 import FitnessStudio from "@/pages/demo/FitnessStudio";
 import CosmeticsShop from "@/pages/demo/CosmeticsShop";
 import StreetWearShop from "@/pages/demo/StreetWearShop";
+import StreetWearSuccess from "@/pages/demo/StreetWearSuccess";
 import SocksShop from "@/pages/demo/SocksShop";
 import TravelAgency from "@/pages/demo/TravelAgency";
 import BarberShop from "@/pages/demo/BarberShop";
@@ -51,6 +52,7 @@ function Router() {
       <Route path="/demo/fitness" component={FitnessStudio} />
       <Route path="/demo/cosmetics" component={CosmeticsShop} />
       <Route path="/demo/streetwear" component={StreetWearShop} />
+      <Route path="/demo/streetwear/success" component={StreetWearSuccess} />
       <Route path="/demo/socks" component={SocksShop} />
       <Route path="/demo/travel" component={TravelAgency} />
       <Route path="/demo/barber" component={BarberShop} />
