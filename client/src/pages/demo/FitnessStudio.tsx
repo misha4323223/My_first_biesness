@@ -6,6 +6,7 @@ import { Clock, MapPin, Phone, Dumbbell, Users, Calendar, Zap, Heart, Trophy, Ar
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -40,8 +41,27 @@ export default function FitnessStudio() {
   const [trialOpen, setTrialOpen] = useState(false);
   const [trialForm, setTrialForm] = useState({ name: "", phone: "" });
   const [trialSuccess, setTrialSuccess] = useState(false);
+  const [bmi, setBmi] = useState({ weight: "", height: "", result: null as number | null });
+  const [activeDay, setActiveDay] = useState("Пн");
   const [email, setEmail] = useState("");
   const { toast } = useToast();
+
+  const days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+
+  const calculateBmi = () => {
+    const w = parseFloat(bmi.weight);
+    const h = parseFloat(bmi.height) / 100;
+    if (w > 0 && h > 0) {
+      setBmi(prev => ({ ...prev, result: parseFloat((w / (h * h)).toFixed(1)) }));
+    }
+  };
+
+  const getBmiCategory = (val: number) => {
+    if (val < 18.5) return { label: "Дефицит массы", color: "text-blue-400" };
+    if (val < 25) return { label: "Норма", color: "text-green-400" };
+    if (val < 30) return { label: "Избыточный вес", color: "text-yellow-400" };
+    return { label: "Ожирение", color: "text-red-400" };
+  };
   const scheduleRef = useRef<HTMLElement>(null);
   const pricingRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
@@ -288,57 +308,166 @@ export default function FitnessStudio() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Расписание на сегодня</h2>
-            <p className="text-neutral-400">Выберите занятие и запишитесь онлайн</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Расписание занятий</h2>
+            <p className="text-neutral-400">Выберите удобное время и запишитесь онлайн</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {classes.map((cls, index) => {
-              const isBooked = bookedClasses.includes(cls.id);
-              return (
-                <motion.div
-                  key={cls.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
+          <Tabs defaultValue="Пн" className="w-full" onValueChange={setActiveDay}>
+            <TabsList className="flex flex-wrap justify-center mb-10 bg-neutral-800 border-neutral-700 p-1">
+              {days.map(day => (
+                <TabsTrigger 
+                  key={day} 
+                  value={day}
+                  className="px-6 py-2 data-[state=active]:bg-violet-600 data-[state=active]:text-white transition-all"
                 >
-                  <Card className={`p-5 border transition-colors ${isBooked ? 'border-violet-500 bg-violet-500/10' : 'border-neutral-700 bg-neutral-800/50 hover:border-violet-500/50'}`} data-testid={`card-class-${cls.id}`}>
-                    <div className="flex items-start justify-between gap-4 mb-3">
-                      <div>
-                        <h3 className="font-semibold text-white">{cls.name}</h3>
-                        <p className="text-sm text-neutral-400">Тренер: {cls.trainer}</p>
-                      </div>
-                      {isBooked ? (
-                        <Badge className="bg-violet-500 text-white border-0">
-                          <Check className="w-3 h-3 mr-1" />
-                          Записан
-                        </Badge>
-                      ) : (
-                        <Badge variant="secondary" className="bg-violet-500/20 text-violet-300 border-0">
-                          {cls.spots} мест
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {cls.time}
-                      </span>
-                      <span>{cls.duration}</span>
-                    </div>
-                    <Button 
-                      variant={isBooked ? "default" : "outline"}
-                      className={`w-full ${isBooked ? 'bg-violet-600 hover:bg-violet-700' : 'border-neutral-600 text-neutral-200 hover:bg-violet-600 hover:border-violet-600 hover:text-white'}`}
-                      onClick={() => bookClass(cls.id)}
-                      data-testid={`button-book-${cls.id}`}
-                    >
-                      {isBooked ? "Отменить запись" : "Записаться"}
-                    </Button>
-                  </Card>
+                  {day}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            
+            <AnimatePresence mode="wait">
+              <TabsContent value={activeDay} key={activeDay}>
+                <motion.div 
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-4"
+                >
+                  {classes.map((cls, index) => {
+                    const isBooked = bookedClasses.includes(cls.id);
+                    return (
+                      <motion.div
+                        key={cls.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Card className={`p-5 border transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10 ${isBooked ? 'border-violet-500 bg-violet-500/10' : 'border-neutral-700 bg-neutral-800/50 hover:border-violet-500/50'}`} data-testid={`card-class-${cls.id}`}>
+                          <div className="flex items-start justify-between gap-4 mb-3">
+                            <div>
+                              <h3 className="font-semibold text-white">{cls.name}</h3>
+                              <p className="text-sm text-neutral-400">Тренер: {cls.trainer}</p>
+                            </div>
+                            {isBooked ? (
+                              <Badge className="bg-violet-500 text-white border-0">
+                                <Check className="w-3 h-3 mr-1" />
+                                Записан
+                              </Badge>
+                            ) : (
+                              <Badge variant="secondary" className="bg-violet-500/20 text-violet-300 border-0">
+                                {cls.spots} мест
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-4 h-4" />
+                              {cls.time}
+                            </span>
+                            <span>{cls.duration}</span>
+                          </div>
+                          <Button 
+                            variant={isBooked ? "default" : "outline"}
+                            className={`w-full transition-all active-elevate-2 ${isBooked ? 'bg-violet-600 hover:bg-violet-700' : 'border-neutral-600 text-neutral-200 hover:bg-violet-600 hover:border-violet-600 hover:text-white'}`}
+                            onClick={() => bookClass(cls.id)}
+                            data-testid={`button-book-${cls.id}`}
+                          >
+                            {isBooked ? "Отменить запись" : "Записаться"}
+                          </Button>
+                        </Card>
+                      </motion.div>
+                    );
+                  })}
                 </motion.div>
-              );
-            })}
+              </TabsContent>
+            </AnimatePresence>
+          </Tabs>
+        </div>
+      </section>
+
+      <section className="py-20 bg-black/50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Badge className="mb-4 bg-violet-500 text-white border-0">Инструменты</Badge>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6">Калькулятор ИМТ</h2>
+              <p className="text-neutral-400 mb-8">
+                Индекс массы тела (ИМТ) — это простой способ оценить соответствие вашего веса вашему росту. Узнайте свою норму прямо сейчас.
+              </p>
+              
+              <div className="bg-neutral-900 border border-neutral-800 p-8 rounded-2xl">
+                <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                  <div className="space-y-2">
+                    <Label className="text-neutral-300">Вес (кг)</Label>
+                    <Input 
+                      type="number" 
+                      placeholder="70" 
+                      className="bg-neutral-800 border-neutral-700 h-12"
+                      value={bmi.weight}
+                      onChange={(e) => setBmi(prev => ({ ...prev, weight: e.target.value }))}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-neutral-300">Рост (см)</Label>
+                    <Input 
+                      type="number" 
+                      placeholder="175" 
+                      className="bg-neutral-800 border-neutral-700 h-12"
+                      value={bmi.height}
+                      onChange={(e) => setBmi(prev => ({ ...prev, height: e.target.value }))}
+                    />
+                  </div>
+                </div>
+                
+                <Button 
+                  className="w-full h-12 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 font-bold mb-6"
+                  onClick={calculateBmi}
+                >
+                  Рассчитать ИМТ
+                </Button>
+
+                {bmi.result && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center p-6 bg-neutral-800 rounded-xl border border-violet-500/30"
+                  >
+                    <div className="text-sm text-neutral-400 mb-1">Ваш результат</div>
+                    <div className="text-4xl font-bold mb-2">{bmi.result}</div>
+                    <div className={`font-bold uppercase tracking-widest ${getBmiCategory(bmi.result).color}`}>
+                      {getBmiCategory(bmi.result).label}
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative aspect-square"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 blur-3xl rounded-full" />
+              <div className="relative h-full border border-white/5 bg-neutral-900/40 backdrop-blur-sm rounded-3xl p-8 flex flex-col justify-center text-center">
+                <Dumbbell className="w-20 h-20 text-violet-500 mx-auto mb-8 animate-bounce" />
+                <h3 className="text-3xl font-bold mb-4">Готовы к изменениям?</h3>
+                <p className="text-neutral-400 mb-8">
+                  Начните сегодня с бесплатной тренировки и консультации профессионала.
+                </p>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-black hover:bg-neutral-200"
+                  onClick={() => setTrialOpen(true)}
+                >
+                  Записаться на тест-драйв
+                </Button>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
