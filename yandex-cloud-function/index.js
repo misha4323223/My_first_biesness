@@ -577,11 +577,17 @@ async function handleVkMessage(body, headers) {
             v: '5.131'
         });
 
-        await httpsRequest(vkUrl, {
+        const response = await httpsRequest(vkUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: params.toString()
         });
+
+        console.log(`[VK-CHAT-BOT] VK Response: ${JSON.stringify(response)}`);
+
+        if (response.body && response.body.includes('error')) {
+            console.error('[VK-CHAT-BOT] VK API Error:', response.body);
+        }
 
         console.log(`[VK-CHAT-BOT] Replied to ${userId}`);
         return { statusCode: 200, headers, body: 'ok' };
