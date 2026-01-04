@@ -371,9 +371,9 @@ export default function FoodDelivery() {
               </Button>
               <div className="flex items-center gap-4 px-6 border border-white/10 rounded-2xl backdrop-blur-sm bg-white/5">
                 <div className="flex -space-x-3">
-                  {[1,2,3].map(i => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-neutral-900 bg-neutral-800 flex items-center justify-center text-[10px] font-bold text-white">
-                      {i === 1 ? 'JD' : i === 2 ? 'AK' : 'MS'}
+                  {['МД', 'АК', 'МС'].map((initials, i) => (
+                    <div key={i} className="w-10 h-10 rounded-full border-2 border-neutral-900 bg-neutral-800 flex items-center justify-center text-[10px] font-bold text-white uppercase tracking-tighter">
+                      {initials}
                     </div>
                   ))}
                 </div>
