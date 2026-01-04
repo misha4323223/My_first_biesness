@@ -555,7 +555,7 @@ export default function CosmeticsShop() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className={`absolute top-3 right-3 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 active:scale-95 z-30 pointer-events-auto ${favorites.includes(product.id) ? 'text-rose-500' : 'text-stone-400'}`}
+                        className={`absolute top-3 -right-2 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 active:scale-95 z-30 pointer-events-auto ${favorites.includes(product.id) ? 'text-rose-500' : 'text-stone-400'}`}
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
