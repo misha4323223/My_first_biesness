@@ -590,72 +590,92 @@ export default function FoodDelivery() {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-b from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl font-bold text-white mb-2">Закажите прямо сейчас</h2>
-              <p className="text-white/80">Доставка от 30 минут в любую точку города</p>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" variant="secondary" asChild data-testid="button-call">
-                <a href="tel:+79991234567">
-                  <Phone className="w-4 h-4 mr-2" />
-                  Позвонить
-                </a>
-              </Button>
+      <section className="py-24 bg-neutral-950 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="bg-gradient-to-br from-orange-500 to-red-600 rounded-[4rem] p-12 md:p-20 overflow-hidden relative shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-3xl -mr-48 -mt-48 rounded-full" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 blur-3xl -ml-32 -mb-32 rounded-full" />
+            
+            <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+              <div className="max-w-xl text-center md:text-left">
+                <h2 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase italic leading-tight tracking-tighter">
+                  Готовы к <br />
+                  <span className="text-black/30">вкусному</span> ужину?
+                </h2>
+                <p className="text-white/80 text-lg mb-10 font-medium italic">
+                  Закажите сейчас и получите скидку 10% на первый заказ через наше новое мобильное приложение.
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                  <Button size="lg" className="bg-white text-orange-600 hover:bg-neutral-100 h-16 px-10 rounded-2xl text-lg font-black uppercase italic shadow-xl" onClick={scrollToMenu}>
+                    Заказать сейчас
+                  </Button>
+                </div>
+              </div>
+              <div className="relative">
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center p-8"
+                >
+                  <div className="w-full h-full rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+                    <Flame className="w-24 h-24 text-white opacity-20" />
+                  </div>
+                </motion.div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-white rounded-3xl p-6 shadow-2xl transform -rotate-12 scale-110">
+                    <span className="text-4xl font-black text-orange-500 italic">-10%</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="py-12 bg-gradient-to-b from-neutral-900 to-neutral-950 text-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8">
-            <div className="col-span-2 sm:col-span-1">
-              <div className="flex items-center gap-2 mb-4">
-                <Flame className="w-6 h-6 text-orange-500" />
-                <span className="text-xl font-bold">ВкусДом</span>
-              </div>
-              <p className="text-neutral-400 text-sm">Доставка азиатской кухни в вашем городе</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-sm">Контакты</h4>
-              <div className="space-y-2 text-neutral-400 text-sm">
-                <a href="tel:+79991234567" className="flex items-center gap-2 hover:text-white transition-colors"><Phone className="w-4 h-4" /> +7 (999) 123-45-67</a>
-                <p className="flex items-center gap-2"><MapPin className="w-4 h-4" /> ул. Примерная, 1</p>
-                <p className="flex items-center gap-2"><Clock className="w-4 h-4" /> 10:00 - 23:00</p>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-sm">Рейтинг</h4>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex gap-0.5">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
+      <footer className="py-20 bg-neutral-950 text-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-4 gap-12 mb-20">
+            <div className="col-span-2">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center">
+                  <Flame className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-neutral-400 text-sm">4.9 / 5</span>
+                <span className="text-2xl font-black tracking-tighter uppercase italic">Food<span className="text-orange-500">Flow</span></span>
               </div>
+              <p className="text-neutral-500 max-w-sm mb-8 font-medium italic leading-relaxed">
+                Мы создаем не просто еду, а гастрономический опыт, который меняет ваше представление о доставке. Каждое блюдо — это история вкуса.
+              </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-sm">Способы оплаты</h4>
-              <div className="flex gap-3">
-                {paymentMethods.map((method) => (
-                  <div
-                    key={method.name}
-                    className="w-10 h-10 rounded-full bg-neutral-800 hover:bg-orange-500/20 transition-colors flex items-center justify-center cursor-pointer group"
-                    title={method.name}
-                    data-testid={`payment-${method.name.toLowerCase().replace(/\s/g, '-')}`}
-                  >
-                    <method.icon className="w-5 h-5 text-neutral-400 group-hover:text-orange-500 transition-colors" />
-                  </div>
-                ))}
-              </div>
+              <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-orange-500">Навигация</h4>
+              <ul className="space-y-4 text-neutral-400 font-bold italic">
+                <li><button onClick={scrollToMenu} className="hover:text-white transition-colors">Меню</button></li>
+                <li><button className="hover:text-white transition-colors">Доставка</button></li>
+                <li><button className="hover:text-white transition-colors">Контакты</button></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-orange-500">Контакты</h4>
+              <ul className="space-y-4 text-neutral-400 font-bold italic">
+                <li className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-orange-500" />
+                  +7 (999) 123-45-67
+                </li>
+                <li className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-orange-500" />
+                  г. Тула, пр. Ленина, 1
+                </li>
+                <li className="flex items-center gap-3">
+                  <Clock className="w-4 h-4 text-orange-500" />
+                  10:00 — 23:00
+                </li>
+              </ul>
             </div>
           </div>
-          <div className="border-t border-neutral-800 pt-8 text-center text-neutral-500 text-sm">
-            Демо-сайт от WebStudio
+          <div className="pt-12 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-6 text-neutral-600 text-xs font-black uppercase tracking-widest">
+            <p>© 2026 FOODFLOW. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</p>
+            <p>ДИЗАЙН И РАЗРАБОТКА — MP.WEBSTUDIO</p>
           </div>
         </div>
       </footer>
