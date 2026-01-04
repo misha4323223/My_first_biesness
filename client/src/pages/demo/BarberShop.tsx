@@ -573,45 +573,59 @@ export default function BarberShop() {
             <h2 className="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tighter italic">Услуги и цены</h2>
             <p className="text-neutral-400 max-w-2xl mx-auto">Премиальный уход для настоящих джентльменов</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
-            {services.map((s) => (
-              <motion.div
-                key={s.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="group"
-              >
-                <Card 
-                  className={`p-4 sm:p-6 bg-neutral-900/50 border-neutral-800 hover:border-amber-500/50 transition-all cursor-pointer relative overflow-hidden ${selectedService === s.id ? 'border-amber-500 bg-amber-500/5' : ''}`}
-                  onClick={() => handleServiceSelect(s.id)}
-                >
-                  {s.popular && (
-                    <div className="absolute top-0 right-0">
-                      <div className="bg-amber-500 text-black text-[10px] font-black px-3 py-1 uppercase tracking-tighter transform rotate-45 translate-x-4 translate-y-2">
-                        BEST
-                      </div>
-                    </div>
-                  )}
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${selectedService === s.id ? 'bg-amber-500 text-black' : 'bg-white/5 text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors'}`}>
-                        <s.icon className="w-5 h-5 sm:w-6 sm:h-6" />
-                      </div>
-                      <div className="min-w-0">
-                        <h3 className="font-bold text-sm sm:text-lg uppercase tracking-tight truncate">{s.name}</h3>
-                        <p className="text-xs text-neutral-500 font-medium">{s.duration}</p>
-                      </div>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <div className="text-base sm:text-xl font-black text-amber-400 tracking-tighter">{formatPrice(s.price)}</div>
-                    </div>
+
+          <Accordion type="single" collapsible className="w-full max-w-4xl mx-auto">
+            <AccordionItem value="services" className="border-neutral-800 bg-neutral-900/50 rounded-2xl overflow-hidden px-4 sm:px-6">
+              <AccordionTrigger className="hover:no-underline py-6">
+                <div className="flex items-center gap-4 text-left">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                    <Scissors className="w-5 h-5 text-amber-500" />
                   </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                  <div>
+                    <h3 className="font-bold text-lg uppercase tracking-tight">Посмотреть все услуги</h3>
+                    <p className="text-xs text-neutral-500 font-bold uppercase tracking-widest mt-0.5">Полный список и актуальные цены</p>
+                  </div>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="pb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 mt-4">
+                  {services.map((s) => (
+                    <motion.div
+                      key={s.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="group"
+                    >
+                      <Card 
+                        className={`p-4 bg-neutral-900 border-neutral-800 hover:border-amber-500/50 transition-all cursor-pointer relative overflow-hidden group hover-elevate ${selectedService === s.id ? 'border-amber-500 bg-amber-500/5' : ''}`}
+                        onClick={() => handleServiceSelect(s.id)}
+                      >
+                        {s.popular && (
+                          <div className="absolute top-0 right-0 bg-amber-500 text-black text-[9px] font-black px-2 py-0.5 uppercase tracking-tighter rounded-bl-lg">
+                            BEST
+                          </div>
+                        )}
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${selectedService === s.id ? 'bg-amber-500 text-black' : 'bg-neutral-800 text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors'}`}>
+                              <s.icon className="w-5 h-5" />
+                            </div>
+                            <div className="min-w-0">
+                              <h3 className="font-bold text-sm uppercase tracking-tight truncate group-hover:text-amber-400 transition-colors">{s.name}</h3>
+                              <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider">{s.duration}</p>
+                            </div>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <div className="text-base font-black text-amber-400 tracking-tighter">{formatPrice(s.price)}</div>
+                          </div>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
       </section>
 
