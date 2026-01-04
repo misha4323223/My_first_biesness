@@ -239,7 +239,7 @@ export default function AutoService() {
             <button onClick={scrollToBooking} className="hover:text-blue-400 transition-colors cursor-pointer">Запись</button>
             <button onClick={scrollToContact} className="hover:text-blue-400 transition-colors cursor-pointer">Контакты</button>
           </div>
-          <Button className="bg-blue-500 hover:bg-blue-600 text-black font-semibold" data-testid="button-book-header">
+          <Button className="bg-blue-500 hover:bg-blue-600 text-black font-semibold" onClick={scrollToBooking} data-testid="button-book-header">
             Записаться
           </Button>
         </nav>
@@ -264,11 +264,11 @@ export default function AutoService() {
               Полное техническое обслуживание и ремонт автомобилей любых марок. Современное оборудование и опытные механики.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold" data-testid="button-book-hero">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold" onClick={scrollToBooking} data-testid="button-book-hero">
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться онлайн
               </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" data-testid="button-prices">
+              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" onClick={scrollToServices} data-testid="button-prices">
                 Посмотреть цены
               </Button>
             </div>
@@ -635,6 +635,67 @@ export default function AutoService() {
               </p>
             )}
           </Card>
+        </div>
+      </section>
+
+      <section id="smart-diagnosis" className="py-20 bg-neutral-900">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <Badge className="mb-4 bg-blue-500/10 text-blue-400 border-blue-500/20 px-4 py-1">AI Ассистент</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Умная самодиагностика</h2>
+            <p className="text-neutral-400">Выберите симптом, и мы подскажем, что может быть не так</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="bg-neutral-800/50 border-neutral-700 p-6">
+              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
+                <Activity className="w-5 h-5 text-blue-400" /> Что беспокоит?
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { id: "noise", label: "Странный шум при движении", icon: "🔊" },
+                  { id: "brakes", label: "Скрежет при торможении", icon: "🛑" },
+                  { id: "engine", label: "Троит или глохнет двигатель", icon: "⚙️" },
+                  { id: "fluid", label: "Подтёки под машиной", icon: "💧" },
+                ].map((symptom) => (
+                  <Button
+                    key={symptom.id}
+                    variant="outline"
+                    className="w-full justify-start gap-3 h-14 border-neutral-700 hover:border-blue-500/50 hover:bg-blue-500/5"
+                    onClick={() => {
+                      toast({
+                        title: "Предварительный диагноз",
+                        description: `Для симптома "${symptom.label}" рекомендуем записаться на диагностику ходовой или двигателя.`,
+                      });
+                    }}
+                  >
+                    <span className="text-xl">{symptom.icon}</span>
+                    <span className="text-sm">{symptom.label}</span>
+                  </Button>
+                ))}
+              </div>
+            </Card>
+
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-blue-600/20 to-neutral-900 p-8 flex flex-col justify-center">
+              <div className="absolute top-0 right-0 p-4">
+                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center animate-pulse">
+                  <Activity className="w-6 h-6 text-blue-400" />
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold mb-4 italic">"Не затягивайте с ремонтом"</h3>
+              <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
+                Своевременное обращение в сервис экономит до <span className="text-blue-400 font-bold">40%</span> на стоимости запчастей, предотвращая поломку смежных узлов.
+              </p>
+              <Button className="w-fit bg-white text-black font-bold" onClick={scrollToBooking}>
+                Получить консультацию
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
