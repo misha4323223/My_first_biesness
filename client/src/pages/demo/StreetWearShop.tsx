@@ -259,6 +259,16 @@ export default function StreetWearShop() {
     });
   }, [scrollY]);
 
+  // Performance optimization: Prevent heavy background processes on mobile
+  useEffect(() => {
+    if (isMobile) {
+      document.body.style.overscrollBehavior = 'none';
+    }
+    return () => {
+      document.body.style.overscrollBehavior = 'auto';
+    };
+  }, [isMobile]);
+
   return (
     <div className="min-h-screen bg-neutral-950 text-white pb-24 md:pb-0">
       {/* Luxury Floating Action Bar (Mobile Only) */}
@@ -277,7 +287,7 @@ export default function StreetWearShop() {
                 className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "home" ? "text-amber-500" : "text-neutral-400"}`}
               >
                 <Home className={`w-5 h-5 ${activeTab === "home" ? "scale-110" : ""}`} />
-                <span className="text-[10px] font-bold uppercase tracking-tighter">Home</span>
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Главная</span>
               </button>
               
               <button
@@ -285,7 +295,7 @@ export default function StreetWearShop() {
                 className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "catalog" ? "text-amber-500" : "text-neutral-400"}`}
               >
                 <Grid className={`w-5 h-5 ${activeTab === "catalog" ? "scale-110" : ""}`} />
-                <span className="text-[10px] font-bold uppercase tracking-tighter">Shop</span>
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Магазин</span>
               </button>
 
               <div className="relative -top-6">
@@ -307,7 +317,7 @@ export default function StreetWearShop() {
                 className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "favorites" ? "text-amber-500" : "text-neutral-400"}`}
               >
                 <Heart className={`w-5 h-5 ${activeTab === "favorites" ? "scale-110 fill-amber-500/20" : ""}`} />
-                <span className="text-[10px] font-bold uppercase tracking-tighter">Likes</span>
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Лайки</span>
               </button>
 
               <button
@@ -315,7 +325,7 @@ export default function StreetWearShop() {
                 className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "profile" ? "text-amber-500" : "text-neutral-400"}`}
               >
                 <User className={`w-5 h-5 ${activeTab === "profile" ? "scale-110" : ""}`} />
-                <span className="text-[10px] font-bold uppercase tracking-tighter">Account</span>
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Профиль</span>
               </button>
             </div>
           </motion.div>
@@ -894,7 +904,7 @@ export default function StreetWearShop() {
 
                         <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                           <Button className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl">
-                            VIEW DETAILS
+                            ПОДРОБНЕЕ
                           </Button>
                         </div>
                       </div>
@@ -909,7 +919,7 @@ export default function StreetWearShop() {
                         
                         {/* Quick Size Selection - Mobile Friendly */}
                         <div className="mb-4">
-                          <p className="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-3">Select Size</p>
+                          <p className="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-3">Выберите размер</p>
                           <div className="flex flex-wrap gap-2">
                             {product.sizes.map(size => (
                               <button
@@ -955,7 +965,7 @@ export default function StreetWearShop() {
                               });
                               toast({ 
                                 title: "ДОБАВЛЕНО В КОРЗИНУ", 
-                                description: `${product.name} [SIZE: ${quickSizes[product.id]}]` 
+                                description: `${product.name} [РАЗМЕР: ${quickSizes[product.id]}]` 
                               });
                             }}
                             data-testid={`button-add-cart-${product.id}`}
