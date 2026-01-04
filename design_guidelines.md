@@ -1,114 +1,134 @@
-# Дизайн-Гайдлайны: Сайт Веб-Студии
+# Design Guidelines: Premium Travel Agency Website
 
-## Подход к Дизайну
+## Design Approach
 
-**Reference-Based подход** с вдохновением от лучших современных веб-студий (Awwwards, Active Theory, Resn, Locomotive) — это портфолио-сайт, который сам является демонстрацией возможностей. Кинетический дизайн с матричными акцентами, темная тема с неоновым свечением.
+**Reference-Based** inspired by Airbnb's spatial design + luxury hotel websites (Four Seasons, Ritz-Carlton) + modern travel platforms (Luxury Escapes). Focus: immersive visual storytelling with sophisticated, restrained elegance.
 
-## Типографика
+## Typography
 
-**Основной шрифт:** Inter или Manrope (Google Fonts)
-- Hero заголовки: 4xl-6xl (64-96px), font-bold, leading-tight
-- Секционные заголовки: 3xl-4xl (48-60px), font-bold
-- Подзаголовки: xl-2xl (24-32px), font-semibold
-- Основной текст: base-lg (16-18px), font-normal
-- Акцентный текст: sm-base (14-16px), font-medium, uppercase для меток
+**Primary Font:** Playfair Display (serif) for headlines - luxury, editorial feel
+- Hero headlines: 5xl-6xl (72-96px), font-bold, leading-tight
+- Section headers: 3xl-4xl (48-60px), font-semibold
+- Featured destinations: 2xl-3xl (32-48px), font-bold
 
-**Акцентный шрифт:** JetBrains Mono для технических элементов, кода, меток технологий
+**Body Font:** Inter (sans-serif) for readability
+- Body text: base-lg (16-18px), font-normal, leading-relaxed
+- Captions/labels: sm (14px), font-medium
+- Buttons: base (16px), font-semibold, tracking-wide
 
-## Система Интервалов
+## Spacing System
 
-Используем Tailwind единицы: **4, 6, 8, 12, 16, 20, 24, 32** для создания ритмичного дизайна.
-- Секции: py-20 до py-32 (desktop), py-12 до py-16 (mobile)
-- Внутренние отступы: p-6, p-8, p-12
-- Промежутки между элементами: gap-4, gap-6, gap-8, gap-12
+Tailwind units: **4, 6, 8, 12, 16, 20, 24, 32** for luxurious breathing room.
+- Sections: py-24 to py-32 (desktop), py-16 to py-20 (mobile)
+- Cards/containers: p-8 to p-12
+- Element gaps: gap-6, gap-8, gap-12
 
-## Структура Секций
+## Section Structure
 
-### 1. Hero (100vh)
-- Полноэкранная секция с анимированным particle-фоном (матричная сетка/geometric shapes)
-- Крупный заголовок по центру: "Создаём сайты, которые работают" + подзаголовок
-- CTA-кнопка с blur-эффектом на темном фоне: "Обсудить проект"
-- Animated scroll indicator внизу
-- Gradient overlay: темно-синий → черный с неоновыми акцентами
+### 1. Hero (80vh)
+Full-width luxury destination imagery with gradient overlay (deep ocean blue 40% opacity)
+- Centered headline: "Discover Your Next Extraordinary Journey"
+- Subheadline + Quick Search Bar (destination, dates, guests)
+- Blurred-background CTA button: "Explore Destinations"
+- Subtle parallax scroll on image
 
-### 2. О Студии (2-column layout)
-- Левая колонка: текст о студии (max-w-prose)
-- Правая колонка: анимированные статистики (проекты, клиенты, лет опыта) с подсчетом при скролле
-- Floating geometric shapes в фоне
-
-### 3. Портфолио (grid layout)
-- Сетка 2 колонки (lg:grid-cols-2)
-- Крупные карточки проектов с hover-эффектом (масштабирование, glow)
-- Каждая карточка: крупное изображение проекта, название, технологии (pills), краткое описание
-- Наведение: subtle zoom, неоновая обводка
-
-### 4. Услуги (grid 3 columns)
+### 2. Featured Destinations (3-column grid)
 - lg:grid-cols-3, md:grid-cols-2, mobile: grid-cols-1
-- Иконки услуг (Font Awesome или Heroicons)
-- Карточки с gradient borders, появляются при скролле с stagger-эффектом
-- Каждая: иконка, заголовок, краткое описание
+- Large destination cards with high-quality imagery
+- Each card: destination name, starting price, "View Details" CTA
+- Hover: subtle image zoom (1.05x), gold border glow
+- 6-9 destinations total
 
-### 5. Технологии (masonry/pills layout)
-- Облако технологий: React, Vue, Node.js, Python, Tailwind и т.д.
-- Интерактивные pills с hover-glow эффектом
-- Размещение в виде плавающих элементов
+### 3. Personalized Trip Planner (2-column split)
+- Left: Interactive multi-step form (Travel Style, Budget, Duration, Interests)
+- Right: Dynamic preview showing recommended destinations based on selections
+- Progress indicator at top
+- Gold accent progress bar
+- "Generate Custom Itinerary" CTA
 
-### 6. Процесс Работы (horizontal timeline)
-- 4-5 этапов в горизонтальной линии с цифрами
-- Каждый этап: номер, название, описание
-- Connecting line с animated progress при скролле
+### 4. Experience Categories (4-column grid)
+- lg:grid-cols-4, md:grid-cols-2
+- Categories: Adventure, Relaxation, Culture, Luxury
+- Icon + category name + brief description
+- Cards with subtle gradient overlays, gold accent on hover
 
-### 7. Контактная Форма (2-column split)
-- Левая: форма (имя, email, сообщение) с современными floating labels
-- Правая: контактная информация, социальные сети, время работы
-- CTA: "Отправить заявку"
+### 5. Why Choose Us (asymmetric 2-column)
+- Left: Larger column with compelling copy + statistics (destinations, satisfied travelers, years)
+- Right: Stacked benefit cards with icons
+- Gold-accented numbers for stats
 
-### 8. Footer
-- Логотип, навигация, социальные сети
-- Copyright
-- Subtle particle animation в фоне
+### 6. Testimonials (carousel/slider)
+- Large testimonial cards (3 visible on desktop)
+- Client photo, quote, name, destination traveled
+- Navigation dots with gold active state
+- Subtle auto-rotate
 
-## Библиотека Компонентов
+### 7. Exclusive Deals (masonry grid)
+- Varied card sizes showcasing limited-time offers
+- Countdown timers, discount badges (gold)
+- High-impact imagery
+- Mix of 2-3 column layouts
 
-**Навигация:** Fixed header с blur-backdrop, logo слева, меню справа, burger на mobile
-**Кнопки:** Rounded-full, px-8 py-4, с gradient background и glow-эффектом при hover
-**Карточки:** rounded-2xl, backdrop-blur, gradient borders, subtle shadow
-**Inputs:** Темный фон, rounded-lg, border с неоновым glow при focus, floating labels
-**Pills (теги):** rounded-full, px-4 py-2, маленький текст, gradient или solid с opacity
+### 8. Newsletter + Contact (split section)
+- Left: Newsletter signup with elegant form
+- Right: Contact options (phone, email, office hours)
+- Gold accent divider
+- Footer below with navigation, social links, trust badges
 
-## Визуальные Эффекты
+## Component Library
 
-**Кинетические анимации:**
-- Particle system в Hero (canvas-based или CSS)
-- Плавные fade-in при скролле (Framer Motion/GSAP)
-- Parallax на некоторых секциях
-- Smooth scroll behavior
+**Navigation:** Sticky header, white background with subtle shadow on scroll, logo left, main nav center, "Book Now" CTA right (gold outline)
 
-**Матричные элементы:**
-- Geometric grid patterns в фоне (opacity: 0.05-0.1)
-- Animated gradient meshes
-- Floating shapes (triangles, circles) с медленным движением
+**Buttons:** 
+- Primary: Ocean blue background, white text, px-8 py-3, rounded-full
+- Secondary: Gold border, ocean blue text, hover fills gold
+- Overlay (Hero): Blurred white/light background, dark text, subtle shadow
 
-**НЕ переборщить:** эффекты должны быть subtle, не отвлекать от контента
+**Cards:** rounded-xl, overflow-hidden for images, white background, shadow-lg, subtle transform on hover
 
-## Изображения
+**Form Inputs:** Clean white background, rounded-lg, border (light gray), focus: ocean blue border, px-4 py-3
 
-**Hero:** Абстрактный gradient mesh или particle visualization (через canvas/Three.js) вместо статичного изображения
+**Search Bar:** Large rounded-full container, white background, shadow-xl, segmented inputs (destination | dates | guests), gold search button
 
-**Портфолио:** 4-6 screenshots реальных проектов (десктоп + мобильная версии), high-quality mockups на темном фоне
+**Badges/Pills:** Gold background, white text, rounded-full, px-3 py-1, uppercase text
 
-**О студии:** Опционально - команда за работой (если есть), иначе просто градиенты
+## Visual Effects
 
-## Иконки
+**Subtle animations only:**
+- Smooth fade-in on scroll (300ms)
+- Image parallax in hero (0.5x scroll speed)
+- Card hover transforms (scale 1.02, shadow increase)
+- No distracting particle effects or excessive motion
 
-Lucide React и React Icons для иконок услуг, социальных сетей, технологий (встроены в проект)
+**Gold Accents:**
+- Borders on featured elements
+- CTA button outlines
+- Progress indicators
+- Active states
+- Badge backgrounds
 
-## Ключевые Принципы
+## Images
 
-1. **Темная тема**: background черный (#0a0a0a) до темно-синий (#0f172a)
-2. **Неоновые акценты**: cyan (#06b6d4), purple (#a855f7), blue (#3b82f6) для gradients, glow, borders
-3. **Минимализм**: пространство > загромождение
-4. **Интерактивность**: каждый hover - это микро-событие (glow, scale, color shift)
-5. **Плавность**: transitions 300-500ms, easing curves
-6. **Адаптивность**: Mobile-first, breakpoints на md: и lg:
-7. **Performance**: оптимизированные анимации (transform, opacity), lazy loading
+**Critical: Use high-quality, professional travel photography throughout**
+
+**Hero Section:** Stunning luxury destination (e.g., Maldives overwater villa, Santorini sunset, Alpine resort) - full-width, 80vh height
+
+**Featured Destinations:** 6-9 high-resolution images (beaches, mountains, cities, resorts) - each 800x600px minimum, landscape orientation
+
+**Experience Categories:** 4 lifestyle images representing each category
+
+**Testimonials:** Client portrait photos (circular crop)
+
+**Exclusive Deals:** 4-6 varied destination imagery for offer cards
+
+**All images:** Professional quality, vibrant colors, aspirational compositions that evoke luxury and wanderlust
+
+## Layout Principles
+
+1. **Generous whitespace:** Don't crowd - let imagery breathe
+2. **Image-first:** Photography drives the experience
+3. **Hierarchical depth:** Layer information with cards and overlays
+4. **Strategic multi-column:** Use grids for galleries, single column for storytelling
+5. **Mobile responsiveness:** Stack columns gracefully, maintain image impact
+6. **Gold as accent only:** 5-10% of visual elements, not dominant
+7. **Clean, sophisticated:** Luxury through restraint, not excess

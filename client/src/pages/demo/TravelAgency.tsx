@@ -20,6 +20,8 @@ import baliImg from "@assets/generated_images/bali_rice_terraces_tropical.webp";
 import dubaiImg from "@assets/generated_images/dubai_skyline_night_burj.webp";
 import santoriniImg from "@assets/generated_images/santorini_greece_blue_domes.webp";
 import tokyoImg from "@assets/generated_images/tokyo_neon_cityscape_night.webp";
+import luxuryHero from "@assets/generated_images/luxury_overwater_villa_maldives_luxury_travel_hero.png";
+import itineraryPreview from "@assets/generated_images/personalized_travel_itinerary_generator_interface_preview.png";
 
 const destinations = [
   { 
@@ -112,6 +114,8 @@ export default function TravelAgency() {
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [bookingForm, setBookingForm] = useState({ name: "", phone: "", email: "" });
   const [consultPhone, setConsultPhone] = useState("");
+  const [plannerStep, setPlannerStep] = useState(0);
+  const [plannerData, setPlannerData] = useState({ style: "", budget: "", duration: "" });
   const { toast } = useToast();
   const destinationsRef = useRef<HTMLElement>(null);
   const categoriesRef = useRef<HTMLElement>(null);
@@ -274,87 +278,210 @@ export default function TravelAgency() {
       </Dialog>
 
       <header className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-400 via-sky-500 to-teal-500 pointer-events-none" />
-        <div className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-40 pointer-events-none" style={{ backgroundImage: `url(${travelHeroImg})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-slate-950 pointer-events-none" />
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-60 pointer-events-none transition-transform duration-1000 scale-105" 
+          style={{ 
+            backgroundImage: `url(${luxuryHero})`,
+            filter: "brightness(0.7)"
+          }} 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent pointer-events-none" />
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4 pointer-events-auto">
-          <div className="flex items-center gap-3">
+        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-8 flex items-center justify-between gap-4 pointer-events-auto">
+          <div className="flex items-center gap-4">
             <Link href="/#portfolio">
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="bg-white/20 border border-white/30 hover:bg-white/30"
+                className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 no-default-hover-elevate"
                 data-testid="button-back-home"
               >
                 <ArrowLeft className="w-5 h-5 text-white" />
               </Button>
             </Link>
-            <div className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <Plane className="w-5 h-5 text-white" />
+            <div className="flex flex-col">
+              <span className="text-2xl font-bold text-white tracking-tighter flex items-center gap-2">
+                <Plane className="w-6 h-6 text-amber-400" />
+                TravelDream
+              </span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-amber-400/80 font-medium">Luxury Expeditions</span>
             </div>
-            <span className="text-xl font-bold text-white">TravelDream</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm text-white/80">
-            <button onClick={scrollToDestinations} className="hover:text-white transition-colors cursor-pointer">Направления</button>
-            <button onClick={scrollToCategories} className="hover:text-white transition-colors cursor-pointer">Категории</button>
-            <button onClick={scrollToContact} className="hover:text-white transition-colors cursor-pointer">Контакты</button>
+          <div className="hidden lg:flex items-center gap-10 text-[13px] uppercase tracking-widest text-white/70 font-medium">
+            <button onClick={scrollToDestinations} className="hover:text-amber-400 transition-colors cursor-pointer">Destinations</button>
+            <button onClick={scrollToCategories} className="hover:text-amber-400 transition-colors cursor-pointer">Experiences</button>
+            <button onClick={scrollToContact} className="hover:text-amber-400 transition-colors cursor-pointer">Concierge</button>
           </div>
-          <Button className="bg-white text-sky-600 hover:bg-white/90" data-testid="button-consultation">
-            Консультация
+          <Button className="bg-amber-400 text-slate-950 hover:bg-amber-300 font-bold px-8 rounded-full transition-all hover:scale-105" data-testid="button-consultation">
+            BOOK A CALL
           </Button>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="max-w-3xl"
           >
-            <Badge className="mb-6 bg-white/20 text-white border-white/30 backdrop-blur-sm">
-              Горящие туры со скидкой до 40%
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
-              Открой мир
-              <br />
-              <span className="text-yellow-300">
-                мечты
-              </span>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-[1px] w-12 bg-amber-400" />
+              <span className="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold">World-Class Destinations</span>
+            </div>
+            <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-[0.9] text-white tracking-tighter">
+              DISCOVER <br />
+              <span className="italic font-serif text-amber-400">Extraordinary</span> <br />
+              JOURNEYS
             </h1>
-            <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-              Подберём идеальный тур для вашего незабываемого отпуска. Более 100 направлений по всему миру.
+            <p className="text-lg md:text-xl text-white/70 mb-12 max-w-xl leading-relaxed">
+              Curating bespoke travel experiences for those who seek the exceptional. Beyond tourism, we create legacies.
             </p>
 
-            <Card className="max-w-3xl mx-auto p-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-0 shadow-2xl">
-              <div className="flex flex-col md:flex-row gap-3">
-                <div className="flex-1 relative">
-                  <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <Card className="p-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden">
+              <div className="flex flex-col md:flex-row gap-2">
+                <div className="flex-1 relative group">
+                  <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-400" />
                   <Input 
-                    placeholder="Куда хотите поехать?" 
-                    className="pl-10 h-12 border-slate-200"
+                    placeholder="Where to next?" 
+                    className="pl-12 h-16 border-0 bg-transparent text-white placeholder:text-white/40 text-lg focus-visible:ring-0"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    data-testid="input-destination"
                   />
                 </div>
+                <div className="w-[1px] bg-white/20 hidden md:block my-3" />
                 <div className="flex-1 relative">
-                  <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                  <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-400" />
                   <Input 
                     type="date" 
-                    className="pl-10 h-12 border-slate-200"
-                    data-testid="input-date"
+                    className="pl-12 h-16 border-0 bg-transparent text-white [color-scheme:dark] text-lg focus-visible:ring-0"
                   />
                 </div>
-                <Button className="h-12 px-8 bg-gradient-to-r from-sky-500 to-teal-500 hover:from-sky-600 hover:to-teal-600" onClick={scrollToDestinations} data-testid="button-search">
-                  Найти туры
+                <Button className="h-16 px-10 bg-amber-400 text-slate-950 hover:bg-amber-300 font-bold text-lg rounded-xl" onClick={scrollToDestinations}>
+                  EXPLORE
                 </Button>
               </div>
             </Card>
           </motion.div>
         </div>
-
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-50 dark:from-slate-950 h-32" />
       </header>
+
+      {/* Unique AI Feature Section */}
+      <section className="py-32 bg-slate-950 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-amber-400/5 blur-[120px] rounded-full" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <span className="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold mb-4 block">Experimental Technology</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                SMART <span className="text-amber-400 italic font-serif">Itinerary</span> GENERATOR
+              </h2>
+              <p className="text-slate-400 text-lg mb-12 leading-relaxed">
+                Experience the future of travel planning. Our intelligent engine designs a day-by-day journey based on your unique personality and preferences. Something your standard CMS simply can't do.
+              </p>
+              
+              <div className="space-y-6">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-white font-bold">Step {plannerStep + 1} of 3</span>
+                    <div className="flex gap-1">
+                      {[0, 1, 2].map(i => (
+                        <div key={i} className={`h-1 w-8 rounded-full ${i <= plannerStep ? 'bg-amber-400' : 'bg-white/20'}`} />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {plannerStep === 0 && (
+                    <div className="space-y-4">
+                      <p className="text-white/80">Select your travel style:</p>
+                      <div className="grid grid-cols-2 gap-3">
+                        {['Relaxation', 'Adventure', 'Cultural', 'Gastronomic'].map(style => (
+                          <Button 
+                            key={style}
+                            variant="outline" 
+                            className={`h-14 border-white/10 text-white hover:bg-amber-400 hover:text-slate-950 ${plannerData.style === style ? 'bg-amber-400 text-slate-950' : ''}`}
+                            onClick={() => setPlannerData(d => ({ ...d, style }))}
+                          >
+                            {style}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {plannerStep === 1 && (
+                    <div className="space-y-4">
+                      <p className="text-white/80">Select your budget level:</p>
+                      <div className="grid grid-cols-3 gap-3">
+                        {['Premium', 'Luxury', 'Ultra-Luxe'].map(b => (
+                          <Button 
+                            key={b}
+                            variant="outline" 
+                            className={`h-14 border-white/10 text-white hover:bg-amber-400 hover:text-slate-950 ${plannerData.budget === b ? 'bg-amber-400 text-slate-950' : ''}`}
+                            onClick={() => setPlannerData(d => ({ ...d, budget: b }))}
+                          >
+                            {b}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {plannerStep === 2 && (
+                    <div className="py-4 text-center">
+                      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-400 text-slate-950 mb-4">
+                        <Star className="w-8 h-8 fill-current" />
+                      </div>
+                      <h3 className="text-white text-xl font-bold mb-2">Ready to generate?</h3>
+                      <p className="text-white/60 mb-6">Our engine is processing your unique {plannerData.style} {plannerData.budget} expedition.</p>
+                      <Button className="w-full h-14 bg-amber-400 text-slate-950 font-bold" onClick={() => {
+                        toast({ title: "Itinerary Generated", description: "Check your email for the custom PDF!" });
+                        setPlannerStep(0);
+                      }}>
+                        GENERATE ITINERARY
+                      </Button>
+                    </div>
+                  )}
+
+                  {plannerStep < 2 && (
+                    <Button 
+                      className="w-full mt-6 h-14 bg-white/10 text-white border border-white/20 hover:bg-white/20"
+                      onClick={() => setPlannerStep(s => s + 1)}
+                      disabled={plannerStep === 0 ? !plannerData.style : !plannerData.budget}
+                    >
+                      CONTINUE
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-amber-400/20 blur-[100px] rounded-full animate-pulse" />
+              <Card className="relative overflow-hidden border-white/10 bg-slate-900 shadow-2xl rounded-3xl">
+                <img src={itineraryPreview} alt="Itinerary Engine" className="w-full h-full object-cover opacity-80" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20">
+                  <div className="flex items-center gap-4 mb-3">
+                    <div className="w-3 h-3 rounded-full bg-amber-400 animate-ping" />
+                    <span className="text-white font-medium text-sm">Real-time Computation</span>
+                  </div>
+                  <p className="text-white/80 text-sm">Engineered to deliver unique paths that no standard website builder can replicate.</p>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       <section className="py-16 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto px-6">
