@@ -497,9 +497,20 @@ export default function OnlineAcademy() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {microLessons.map((lesson, i) => (
               <Card key={i} className="p-4 hover-elevate cursor-pointer border-blue-500/10">
-                <div className="aspect-video rounded-lg bg-neutral-100 dark:bg-neutral-800 mb-4 flex items-center justify-center relative group">
-                  <Play className="w-8 h-8 text-blue-500 group-hover:scale-110 transition-transform" />
-                  <Badge className="absolute bottom-2 right-2 bg-black/60">{lesson.duration}</Badge>
+                <div className="aspect-video rounded-lg bg-neutral-100 dark:bg-neutral-800 mb-4 flex items-center justify-center relative group overflow-hidden">
+                  <img 
+                    src={thumbnailsImg} 
+                    alt={lesson.title} 
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
+                    style={{ 
+                      objectPosition: `${i * 50}% center` // Assuming 3 sections in the generated thumbnail
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black/20" />
+                  <Play className="w-8 h-8 text-white relative z-10 group-hover:scale-110 transition-transform drop-shadow-lg" />
+                  <div className="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded text-[10px] text-white font-medium backdrop-blur-sm z-10">
+                    {lesson.duration}
+                  </div>
                 </div>
                 <h4 className="font-bold mb-1">{lesson.title}</h4>
                 <p className="text-xs text-muted-foreground">{lesson.views} просмотров</p>
