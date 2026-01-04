@@ -745,24 +745,25 @@ export default function StreetWearShop() {
         </div>
       </section>
 
-      <section className="py-8 border-b border-neutral-800 bg-neutral-900/50">
+      {/* Features Section */}
+      <section className="py-8 md:py-12 border-b border-neutral-800 bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-6">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {features.map((feature, idx) => (
+              <motion.div 
+                key={idx} 
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-4"
+                transition={{ delay: idx * 0.1 }}
+                className="flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 rounded-md bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-amber-500/50 transition-colors duration-500 flex-shrink-0">
                   <feature.icon className="w-5 h-5 text-amber-500" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-white">{feature.title}</h3>
-                  <p className="text-sm text-neutral-500">{feature.desc}</p>
+                  <h3 className="text-[11px] md:text-xs font-black uppercase tracking-widest text-white leading-none mb-1">{feature.title}</h3>
+                  <p className="text-[9px] md:text-[10px] text-neutral-500 font-bold uppercase tracking-tight leading-none">{feature.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -770,28 +771,51 @@ export default function StreetWearShop() {
         </div>
       </section>
 
-      <section ref={brandsRef} className="py-12 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-6">Бренды</h3>
-          <div className="flex flex-wrap gap-3">
-            <Button
-              variant={!activeBrand ? "default" : "outline"}
-              className={!activeBrand ? "bg-amber-500 text-black font-bold" : "border-neutral-700 text-neutral-300 hover:border-amber-500 hover:text-amber-500"}
+      {/* Brands Section */}
+      <section ref={brandsRef} className="py-12 md:py-20 overflow-hidden bg-black">
+        <div className="max-w-7xl mx-auto px-6 mb-8">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl md:text-3xl font-black tracking-tighter uppercase italic">
+              Наши <span className="text-amber-500">Бренды</span>
+            </h2>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className={`text-[10px] font-black uppercase tracking-widest ${!activeBrand ? "text-amber-500" : "text-neutral-500"}`}
               onClick={() => setActiveBrand(null)}
-              data-testid="button-brand-all"
             >
               Все
             </Button>
-            {brands.map(brand => (
-              <Button
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="flex overflow-x-auto no-scrollbar gap-3 px-6 pb-4">
+            {brands.map((brand) => (
+              <button
                 key={brand}
-                variant={activeBrand === brand ? "default" : "outline"}
-                className={activeBrand === brand ? "bg-amber-500 text-black font-bold" : "border-neutral-700 text-neutral-300 hover:border-amber-500 hover:text-amber-500"}
-                onClick={() => setActiveBrand(activeBrand === brand ? null : brand)}
-                data-testid={`button-brand-${brand.toLowerCase()}`}
+                onClick={() => {
+                  setActiveBrand(activeBrand === brand ? null : brand);
+                  scrollToProducts();
+                }}
+                className={`flex-shrink-0 px-6 py-4 md:px-10 md:py-6 border transition-all duration-500 relative overflow-hidden group ${
+                  activeBrand === brand 
+                    ? "border-amber-500 text-white" 
+                    : "bg-neutral-900 border-neutral-800 text-neutral-500 hover:border-neutral-600 hover:text-white"
+                }`}
               >
-                {brand}
-              </Button>
+                <span className="relative z-10 text-lg md:text-2xl font-black italic tracking-tighter uppercase">
+                  {brand}
+                </span>
+                {activeBrand === brand && (
+                  <motion.div 
+                    layoutId="brand-bg"
+                    className="absolute inset-0 bg-amber-500/10"
+                    transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                  />
+                )}
+                <div className={`absolute bottom-0 left-0 h-0.5 bg-amber-500 transition-all duration-500 ${activeBrand === brand ? "w-full" : "w-0 group-hover:w-full"}`} />
+              </button>
             ))}
           </div>
         </div>
