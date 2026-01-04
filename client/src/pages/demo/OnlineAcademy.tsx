@@ -20,6 +20,8 @@ import studentImg from "@assets/generated_images/student_taking_online_course.pn
 import dashboardImg from "@assets/generated_images/online_course_dashboard_interface.png";
 import programmingImg from "@assets/generated_images/programming_course_code_editor.png";
 import certificateImg from "@assets/generated_images/course_completion_certificate.png";
+import avatarsImg from "@assets/generated_images/student_avatars_for_live_stream.png";
+import thumbnailsImg from "@assets/generated_images/micro-learning_video_thumbnails_for_programming.png";
 
 const courses = [
   {
@@ -418,8 +420,16 @@ export default function OnlineAcademy() {
                   <div className="flex items-center gap-4">
                     <div className="flex -space-x-2">
                       {[1, 2, 3].map(i => (
-                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-neutral-900 bg-neutral-200 overflow-hidden">
-                          <img src={`https://i.pravatar.cc/150?u=${i+10}`} alt="user" />
+                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-neutral-900 bg-neutral-200 overflow-hidden relative">
+                          <img 
+                            src={avatarsImg} 
+                            alt={`user ${i}`} 
+                            className="absolute inset-0 w-full h-full object-cover"
+                            style={{ 
+                              objectPosition: `${(i-1) * 33}% 0%`,
+                              transform: "scale(3)" // Focusing on individual faces from the group shot
+                            }}
+                          />
                         </div>
                       ))}
                     </div>
