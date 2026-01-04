@@ -185,14 +185,14 @@ export default function FoodDelivery() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-amber-50 dark:from-neutral-950 dark:to-neutral-900">
-      <Link href="/#portfolio" className="fixed top-4 left-4 z-[100]">
+      <Link href="/#portfolio" className="fixed top-6 right-6 z-[100]">
         <Button 
           variant="ghost" 
           size="icon"
-          className="bg-white/70 dark:bg-black/70 backdrop-blur-sm border border-orange-300/30 dark:border-white/20 hover:bg-white/90 dark:hover:bg-black/90"
+          className="bg-black/50 backdrop-blur-xl border border-white/10 text-white rounded-2xl w-14 h-14 hover:bg-orange-500 hover:border-orange-500 transition-all shadow-2xl"
           data-testid="button-back-home"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <X className="w-6 h-6" />
         </Button>
       </Link>
 
@@ -344,20 +344,22 @@ export default function FoodDelivery() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-              </span>
-              <span className="text-orange-500 text-xs font-bold uppercase tracking-widest">Открыты для заказов</span>
-            </div>
-            <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tighter uppercase italic">
+            <h1 className="text-6xl md:text-8xl font-black text-white mb-8 leading-[0.9] tracking-tighter uppercase italic pt-12">
               Вкус, который <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600">вдохновляет</span>
             </h1>
             <p className="text-xl text-white/60 mb-10 max-w-xl font-medium leading-relaxed">
               Авторская азиатская кухня с доставкой. Мы используем только фермерские продукты и аутентичные специи.
             </p>
+            <div className="flex flex-wrap gap-6 items-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                </span>
+                <span className="text-orange-500 text-xs font-bold uppercase tracking-widest">Открыты для заказов</span>
+              </div>
+            </div>
             <div className="flex flex-wrap gap-6">
               <Button 
                 size="lg" 
