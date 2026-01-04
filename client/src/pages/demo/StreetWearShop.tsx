@@ -512,13 +512,13 @@ export default function StreetWearShop() {
       </Dialog>
 
       <header className="fixed top-0 left-0 right-0 z-40 bg-neutral-950/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <Link href="/#portfolio">
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-white/5 hover:bg-white/10 text-white border border-white/10"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/10 h-9 w-9"
                 data-testid="button-back-home"
               >
                 <ArrowLeft className="w-4 h-4" />
@@ -545,7 +545,7 @@ export default function StreetWearShop() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="relative text-neutral-400 hover:text-white" data-testid="button-favorites">
+            <Button variant="ghost" size="icon" className="relative text-neutral-400 hover:text-white hidden sm:flex" data-testid="button-favorites">
               <Heart className="w-5 h-5" />
               {favorites.length > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">
@@ -621,26 +621,64 @@ export default function StreetWearShop() {
           </div>
         </div>
 
-        {mobileMenuOpen && (
-          <motion.nav 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden border-t border-neutral-800 bg-black/95 backdrop-blur-xl"
-          >
-            <div className="px-6 py-4 flex flex-col gap-3">
-              {["Каталог", "Бренды", "SALE", "О нас"].map(item => (
-                <button
-                  key={item}
-                  onClick={() => handleNavClick(item)}
-                  className={`text-left text-sm font-medium py-2 cursor-pointer ${item === "SALE" ? "text-red-500" : "text-neutral-400 hover:text-white"}`}
-                >
-                  {item}
-                </button>
-              ))}
+        {/* Mobile Sidebar/Drawer (replacing previous inline nav) */}
+        <Dialog open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <DialogContent className="sm:max-w-none w-full h-full m-0 rounded-none bg-neutral-950 border-none p-0">
+            <div className="flex flex-col h-full">
+              <div className="flex items-center justify-between p-6 border-b border-white/5">
+                <div className="flex flex-col">
+                  <span className="text-2xl font-black tracking-tighter text-white leading-none">SHADOW</span>
+                  <span className="text-xs font-bold text-amber-500 tracking-[0.2em] leading-none uppercase">Streetwear</span>
+                </div>
+                <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} className="text-white">
+                  <X className="w-6 h-6" />
+                </Button>
+              </div>
+              
+              <div className="flex-1 overflow-y-auto p-6">
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-widest">Навигация</h3>
+                    <div className="grid gap-2">
+                      {["Каталог", "Бренды", "SALE", "О нас"].map((item) => (
+                        <button
+                          key={item}
+                          onClick={() => { handleNavClick(item); setMobileMenuOpen(false); }}
+                          className={`text-2xl font-black text-left uppercase tracking-tight transition-colors ${item === "SALE" ? "text-red-500" : "text-white"}`}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 pt-8 border-t border-white/5">
+                    <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-widest">Категории</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {categories.map((cat) => (
+                        <Button
+                          key={cat.name}
+                          variant={activeCategory === cat.name ? "default" : "outline"}
+                          size="sm"
+                          className={`rounded-full border-neutral-800 ${activeCategory === cat.name ? "bg-amber-500 text-black" : "text-neutral-400"}`}
+                          onClick={() => { setActiveCategory(cat.name); setMobileMenuOpen(false); scrollToProducts(); }}
+                        >
+                          {cat.name}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 border-t border-white/5">
+                <Button className="w-full bg-amber-500 text-black font-black uppercase py-6" onClick={() => { setMobileMenuOpen(false); setCartOpen(true); }}>
+                  Корзина ({cartCount})
+                </Button>
+              </div>
             </div>
-          </motion.nav>
-        )}
+          </DialogContent>
+        </Dialog>
       </header>
 
       <section className="relative h-[70vh] min-h-[500px] overflow-hidden">
@@ -762,7 +800,7 @@ export default function StreetWearShop() {
       <section ref={productsRef} className="py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-8">
-            <aside className="lg:w-64 flex-shrink-0 space-y-6">
+            <aside className="lg:w-64 flex-shrink-0 space-y-6 hidden lg:block">
               <div>
                 <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-wider mb-4">Категории</h3>
                 <div className="flex flex-row lg:flex-col flex-wrap gap-2">
@@ -849,7 +887,7 @@ export default function StreetWearShop() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
                 {filteredProducts.map((product, index) => (
                   <motion.div
                     key={product.id}
@@ -912,18 +950,18 @@ export default function StreetWearShop() {
                         </div>
                       </div>
                       
-                      <div className="p-6">
-                        <div className="flex justify-between items-start mb-3">
-                          <div className="space-y-1">
-                            <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em]">{product.brand}</p>
-                            <h3 className="text-xl font-black leading-none group-hover:text-amber-500 transition-colors uppercase tracking-tight">{product.name}</h3>
+                      <div className="p-3 md:p-6">
+                        <div className="flex justify-between items-start mb-2 md:mb-3">
+                          <div className="space-y-0.5 md:space-y-1">
+                            <p className="text-[8px] md:text-[10px] font-black text-amber-500 uppercase tracking-[0.2em] md:tracking-[0.3em]">{product.brand}</p>
+                            <h3 className="text-xs md:text-xl font-black leading-tight group-hover:text-amber-500 transition-colors uppercase tracking-tight line-clamp-2 md:line-clamp-none">{product.name}</h3>
                           </div>
                         </div>
                         
                         {/* Quick Size Selection - Mobile Friendly */}
-                        <div className="mb-4">
-                          <p className="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-3">Выберите размер</p>
-                          <div className="flex flex-wrap gap-2">
+                        <div className="mb-3 md:mb-4">
+                          <p className="text-[8px] md:text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-1.5 md:mb-3">Размеры</p>
+                          <div className="flex flex-wrap gap-1 md:gap-2">
                             {product.sizes.map(size => (
                               <button
                                 key={size}
@@ -931,7 +969,7 @@ export default function StreetWearShop() {
                                   e.stopPropagation();
                                   setQuickSizes(prev => ({ ...prev, [product.id]: size }));
                                 }}
-                                className={`text-[11px] px-3 py-1.5 rounded-none border transition-all duration-300 font-black tracking-tighter ${
+                                className={`text-[8px] md:text-[11px] px-1.5 py-0.5 md:px-3 md:py-1.5 rounded-none border transition-all duration-300 font-black tracking-tighter ${
                                   quickSizes[product.id] === size 
                                     ? "bg-amber-500 border-amber-500 text-black scale-105" 
                                     : "border-neutral-800 text-neutral-400 hover:border-neutral-600"
@@ -945,14 +983,14 @@ export default function StreetWearShop() {
 
                         <div className="flex items-center justify-between mt-auto">
                           <div className="flex flex-col">
-                            <span className="text-2xl font-black tracking-tighter text-white">{product.price.toLocaleString()} р</span>
+                            <span className="text-sm md:text-2xl font-black tracking-tighter text-white">{product.price.toLocaleString()} р</span>
                             {product.oldPrice && (
-                              <span className="text-sm text-neutral-600 line-through font-bold tracking-tighter">{product.oldPrice.toLocaleString()} р</span>
+                              <span className="text-[9px] md:text-sm text-neutral-600 line-through font-bold tracking-tighter">{product.oldPrice.toLocaleString()} р</span>
                             )}
                           </div>
                           <Button
                             size="icon"
-                            className={`w-12 h-12 rounded-none transition-all duration-500 ${
+                            className={`w-7 h-7 md:w-12 md:h-12 rounded-none transition-all duration-500 ${
                               quickSizes[product.id] 
                                 ? "bg-amber-500 hover:bg-amber-600 text-black shadow-lg shadow-amber-500/20" 
                                 : "bg-neutral-800 text-neutral-600 cursor-not-allowed"
@@ -973,7 +1011,7 @@ export default function StreetWearShop() {
                             }}
                             data-testid={`button-add-cart-${product.id}`}
                           >
-                            <Plus className={`w-5 h-5 ${quickSizes[product.id] ? "animate-pulse" : ""}`} />
+                            <Plus className={`w-3.5 h-3.5 md:w-5 md:h-5 ${quickSizes[product.id] ? "animate-pulse" : ""}`} />
                           </Button>
                         </div>
                       </div>
