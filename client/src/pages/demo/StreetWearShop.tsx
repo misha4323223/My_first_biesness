@@ -903,7 +903,10 @@ export default function StreetWearShop() {
                         </Button>
 
                         <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                          <Button className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl">
+                          <Button
+                            className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl"
+                            onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
+                          >
                             ПОДРОБНЕЕ
                           </Button>
                         </div>
