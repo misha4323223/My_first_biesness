@@ -226,6 +226,20 @@ export default function OnlineAcademy() {
     { title: "Python для аналитики", progress: 12, status: "В процессе", icon: TrendingUp },
   ];
 
+  const careerRoadmap = [
+    { name: "Основы JS", completed: true },
+    { name: "React Basics", completed: true },
+    { name: "State Management", completed: false },
+    { name: "Next.js & SSR", completed: false },
+    { name: "Финальный проект", completed: false },
+  ];
+
+  const microLessons = [
+    { title: "Flexbox за 5 минут", duration: "5:20", views: "12k" },
+    { title: "Секреты useEffect", duration: "8:45", views: "8k" },
+    { title: "Z-index без боли", duration: "4:15", views: "15k" },
+  ];
+
   const upcomingEvents = [
     { title: "Воркшоп по React Server Components", date: "Сегодня, 19:00", type: "Live" },
     { title: "Разбор портфолио с дизайнером", date: "Завтра, 15:00", type: "Webinar" },
@@ -385,21 +399,36 @@ export default function OnlineAcademy() {
             <p className="text-lg text-muted-foreground mb-8">
               Учитесь в своём темпе. Получайте сертификаты. Развивайте навыки для карьеры вашей мечты.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" variant="default" onClick={scrollToCourses} data-testid="button-browse-courses">
-                Смотреть курсы
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                onClick={() => setShowDashboard(true)} 
-                className="bg-white/10 backdrop-blur-md border-blue-500/50 text-blue-600 dark:text-blue-400"
-                data-testid="button-my-dashboard"
-              >
-                Моё обучение (Личный кабинет)
-              </Button>
-            </div>
-          </motion.div>
+                <div className="flex flex-wrap gap-4">
+                  <Button size="lg" variant="default" onClick={scrollToCourses} data-testid="button-browse-courses">
+                    Смотреть курсы
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    onClick={() => setShowDashboard(true)} 
+                    className="bg-white/10 backdrop-blur-md border-blue-500/50 text-blue-600 dark:text-blue-400"
+                    data-testid="button-my-dashboard"
+                  >
+                    Моё обучение (Личный кабинет)
+                  </Button>
+                </div>
+
+                <div className="mt-8 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-neutral-900 bg-neutral-200 overflow-hidden">
+                          <img src={`https://i.pravatar.cc/150?u=${i+10}`} alt="user" />
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-sm font-medium">
+                      <span className="text-blue-500">● Живой эфир:</span> 1,240 студентов изучают React прямо сейчас
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
         </div>
 
         {/* Features banner */}
@@ -442,6 +471,31 @@ export default function OnlineAcademy() {
               <p className="text-muted-foreground">{benefit.desc}</p>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Micro Learning */}
+      <section className="py-16 bg-white dark:bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-bold mb-2">Микро-обучение</h2>
+              <p className="text-muted-foreground">Короткие уроки для быстрого погружения</p>
+            </div>
+            <Button variant="ghost" className="text-blue-500">Все уроки</Button>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {microLessons.map((lesson, i) => (
+              <Card key={i} className="p-4 hover-elevate cursor-pointer border-blue-500/10">
+                <div className="aspect-video rounded-lg bg-neutral-100 dark:bg-neutral-800 mb-4 flex items-center justify-center relative group">
+                  <Play className="w-8 h-8 text-blue-500 group-hover:scale-110 transition-transform" />
+                  <Badge className="absolute bottom-2 right-2 bg-black/60">{lesson.duration}</Badge>
+                </div>
+                <h4 className="font-bold mb-1">{lesson.title}</h4>
+                <p className="text-xs text-muted-foreground">{lesson.views} просмотров</p>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -807,10 +861,26 @@ export default function OnlineAcademy() {
                       <AccordionContent>
                         <ul className="space-y-3 pl-12">
                           {module.topics.map((topic, j) => (
-                            <li key={j} className="flex items-center gap-3 text-sm text-muted-foreground">
-                              <Play className="w-3 h-3 text-blue-500" />
-                              {topic}
-                              <span className="ml-auto text-xs opacity-50">15:00</span>
+                            <li key={j} className="flex flex-col gap-2 p-3 rounded-lg border border-blue-500/5 bg-blue-50/30 dark:bg-blue-900/10">
+                              <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                <Play className="w-3 h-3 text-blue-500" />
+                                {topic}
+                                <span className="ml-auto text-xs opacity-50">15:00</span>
+                              </div>
+                              {/* Sandbox integration */}
+                              <div className="mt-2 p-3 rounded bg-neutral-900 text-xs font-mono text-blue-300 border border-white/5">
+                                <div className="flex items-center justify-between mb-2 pb-2 border-b border-white/5 opacity-60">
+                                  <span>interactive_sandbox.js</span>
+                                  <Badge variant="outline" className="h-4 text-[9px] border-blue-500/30 text-blue-400">EDITABLE</Badge>
+                                </div>
+                                <div className="space-y-1">
+                                  <p><span className="text-purple-400">function</span> <span className="text-yellow-300">solveProblem</span>() {</p>
+                                  <p className="pl-4 text-neutral-500">// Напишите решение здесь</p>
+                                  <p className="pl-4"><span className="text-purple-400">return</span> <span className="text-green-300">"Success!"</span>;</p>
+                                  <p>}</p>
+                                </div>
+                                <Button size="sm" className="mt-3 h-7 bg-blue-600 hover:bg-blue-700 text-[10px] w-full">Запустить код</Button>
+                              </div>
                             </li>
                           ))}
                         </ul>
