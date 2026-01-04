@@ -217,7 +217,25 @@ export default function OnlineAcademy() {
   const [aiQuery, setAiQuery] = useState("");
   const [aiResponse, setAiResponse] = useState("");
   const [isAiLoading, setIsAiLoading] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
   const coursesRef = useRef<HTMLElement>(null);
+
+  const studentProgress = [
+    { title: "Веб-разработка с React", progress: 65, status: "В процессе", icon: Code },
+    { title: "Дизайн UI/UX", progress: 100, status: "Завершен", icon: Palette },
+    { title: "Python для аналитики", progress: 12, status: "В процессе", icon: TrendingUp },
+  ];
+
+  const upcomingEvents = [
+    { title: "Воркшоп по React Server Components", date: "Сегодня, 19:00", type: "Live" },
+    { title: "Разбор портфолио с дизайнером", date: "Завтра, 15:00", type: "Webinar" },
+  ];
+
+  const achievements = [
+    { title: "Первые шаги", desc: "Завершил первый урок", icon: Star, color: "text-yellow-500" },
+    { title: "Код-мастер", desc: "10 дней подряд без пропусков", icon: CheckCircle2, color: "text-green-500" },
+    { title: "Помощник", desc: "Ответил на 5 вопросов в чате", icon: Users, color: "text-blue-500" },
+  ];
 
   const askAi = async () => {
     if (!aiQuery.trim()) return;
@@ -371,8 +389,14 @@ export default function OnlineAcademy() {
               <Button size="lg" variant="default" onClick={scrollToCourses} data-testid="button-browse-courses">
                 Смотреть курсы
               </Button>
-              <Button size="lg" variant="outline" onClick={scrollToCourses} data-testid="button-learn-more">
-                Узнать больше
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => setShowDashboard(true)} 
+                className="bg-white/10 backdrop-blur-md border-blue-500/50 text-blue-600 dark:text-blue-400"
+                data-testid="button-my-dashboard"
+              >
+                Моё обучение (Личный кабинет)
               </Button>
             </div>
           </motion.div>
@@ -678,46 +702,63 @@ export default function OnlineAcademy() {
             </Accordion>
           </div>
           
-          <Card className="p-6 bg-blue-600 text-white border-0 shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-white/20 transition-all" />
-            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <Code className="w-6 h-6" />
-              Интеллектуальный помощник
-            </h3>
-            <p className="text-blue-100 mb-6">
-              Задайте любой вопрос о наших курсах. GigaChat проанализирует базу знаний и ответит в реальном времени.
-            </p>
-            <div className="space-y-4">
-              <div className="relative">
-                <Input 
-                  placeholder="Например: Поможете ли вы с трудоустройством?" 
-                  className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 pr-12"
-                  value={aiQuery}
-                  onChange={(e) => setAiQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && askAi()}
-                />
-                <Button 
-                  size="icon" 
-                  variant="ghost" 
-                  className="absolute right-1 top-1 text-white hover:bg-white/20"
-                  onClick={askAi}
-                  disabled={isAiLoading}
-                >
-                  <TrendingUp className={`w-4 h-4 ${isAiLoading ? 'animate-pulse' : ''}`} />
-                </Button>
+          <div className="space-y-6">
+            <Card className="p-6 bg-blue-600 text-white border-0 shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-white/20 transition-all" />
+              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                <Code className="w-6 h-6" />
+                Интеллектуальный помощник
+              </h3>
+              <p className="text-blue-100 mb-6">
+                Задайте любой вопрос о наших курсах. GigaChat проанализирует базу знаний и ответит в реальном времени.
+              </p>
+              <div className="space-y-4">
+                <div className="relative">
+                  <Input 
+                    placeholder="Например: Поможете ли вы с трудоустройством?" 
+                    className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 pr-12"
+                    value={aiQuery}
+                    onChange={(e) => setAiQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && askAi()}
+                  />
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    className="absolute right-1 top-1 text-white hover:bg-white/20"
+                    onClick={askAi}
+                    disabled={isAiLoading}
+                  >
+                    <TrendingUp className={`w-4 h-4 ${isAiLoading ? 'animate-pulse' : ''}`} />
+                  </Button>
+                </div>
+                
+                {aiResponse && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-white/10 rounded-lg border border-white/20 text-sm italic"
+                  >
+                    <strong>AI:</strong> {aiResponse}
+                  </motion.div>
+                )}
               </div>
-              
-              {aiResponse && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-white/10 rounded-lg border border-white/20 text-sm italic"
-                >
-                  <strong>AI:</strong> {aiResponse}
-                </motion.div>
-              )}
-            </div>
-          </Card>
+            </Card>
+
+            <Card className="p-6 bg-purple-600 text-white border-0 shadow-xl overflow-hidden">
+              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                <Star className="w-5 h-5" />
+                Геймификация
+              </h3>
+              <div className="grid grid-cols-3 gap-2">
+                {achievements.map((ach) => (
+                  <div key={ach.title} className="bg-white/10 p-2 rounded-lg text-center group hover:bg-white/20 transition-colors cursor-help">
+                    <ach.icon className={`w-6 h-6 mx-auto mb-1 ${ach.color}`} />
+                    <p className="text-[10px] font-bold uppercase tracking-tighter">{ach.title}</p>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -922,6 +963,81 @@ export default function OnlineAcademy() {
               </div>
             ) : null;
           })()}
+        </DialogContent>
+      </Dialog>
+
+      {/* Student Dashboard Dialog */}
+      <Dialog open={showDashboard} onOpenChange={setShowDashboard}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold">Личный кабинет студента</DialogTitle>
+          </DialogHeader>
+          <div className="grid md:grid-cols-3 gap-6 pt-4">
+            <div className="md:col-span-2 space-y-6">
+              <h3 className="text-xl font-semibold flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-blue-500" />
+                Мой прогресс
+              </h3>
+              <div className="grid gap-4">
+                {studentProgress.map((item) => (
+                  <Card key={item.title} className="p-4 hover-elevate transition-all">
+                    <div className="flex items-center gap-4 mb-3">
+                      <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
+                        <item.icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-medium">{item.title}</h4>
+                        <p className="text-xs text-muted-foreground">{item.status}</p>
+                      </div>
+                      <span className="font-bold">{item.progress}%</span>
+                    </div>
+                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${item.progress}%` }}
+                        className="h-full bg-blue-500"
+                      />
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-purple-500" />
+                  Расписание
+                </h3>
+                <div className="space-y-3">
+                  {upcomingEvents.map((event) => (
+                    <div key={event.title} className="p-3 bg-muted/50 rounded-lg border border-border">
+                      <Badge variant="secondary" className="mb-2">{event.type}</Badge>
+                      <h4 className="text-sm font-bold leading-tight mb-1">{event.title}</h4>
+                      <p className="text-xs text-muted-foreground">{event.date}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  <Star className="w-5 h-5 text-yellow-500" />
+                  Награды
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {achievements.map((ach) => (
+                    <div key={ach.title} title={ach.desc} className="p-2 bg-muted rounded-full hover:bg-muted-foreground/10 transition-colors">
+                      <ach.icon className={`w-5 h-5 ${ach.color}`} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 pt-6 border-t flex justify-end">
+            <Button onClick={() => setShowDashboard(false)}>Вернуться на главную</Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
