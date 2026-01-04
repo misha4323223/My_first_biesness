@@ -1,8 +1,8 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Flame, Heart, Menu, Truck, CreditCard, RefreshCw, ArrowLeft, Plus, X, Minus, Check, Search, ChevronDown } from "lucide-react";
+import { ShoppingCart, Flame, Heart, Menu, Truck, CreditCard, RefreshCw, ArrowLeft, Plus, X, Minus, Check, Search, ChevronDown, User, Home, Grid } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -12,6 +12,7 @@ import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
+import { useIsMobile } from "@/hooks/use-mobile";
 import heroImg from "@assets/generated_images/streetwear_hero_banner_dark.webp";
 import generatedVideo from "@assets/generated_videos/streetwear_fashion_urban_cinematic_video.mp4";
 import hoodieImg from "@assets/generated_images/black_oversized_hoodie_product.webp";
@@ -233,8 +234,83 @@ export default function StreetWearShop() {
     }, 1500);
   };
 
+  const isMobile = useIsMobile();
+  const [activeTab, setActiveTab] = useState("home");
+  const { scrollY } = useScroll();
+  const [showNav, setShowNav] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      const direction = latest > lastScrollY.current ? "down" : "up";
+      if (latest > 100 && direction === "down") setShowNav(false);
+      else setShowNav(true);
+      lastScrollY.current = latest;
+    });
+  }, [scrollY]);
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
+    <div className="min-h-screen bg-neutral-950 text-white pb-24 md:pb-0">
+      {/* Luxury Floating Action Bar (Mobile Only) */}
+      <AnimatePresence>
+        {isMobile && showNav && (
+          <motion.div
+            initial={{ y: 100, x: "-50%", opacity: 0 }}
+            animate={{ y: 0, x: "-50%", opacity: 1 }}
+            exit={{ y: 100, x: "-50%", opacity: 0 }}
+            transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            className="fixed bottom-6 left-1/2 z-50 w-[90%] max-w-[400px]"
+          >
+            <div className="bg-neutral-900/80 backdrop-blur-2xl border border-white/10 rounded-full p-2 flex items-center justify-between shadow-2xl shadow-black/50">
+              <button
+                onClick={() => { setActiveTab("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "home" ? "text-amber-500" : "text-neutral-400"}`}
+              >
+                <Home className={`w-5 h-5 ${activeTab === "home" ? "scale-110" : ""}`} />
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Home</span>
+              </button>
+              
+              <button
+                onClick={() => { setActiveTab("catalog"); scrollToProducts(); }}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "catalog" ? "text-amber-500" : "text-neutral-400"}`}
+              >
+                <Grid className={`w-5 h-5 ${activeTab === "catalog" ? "scale-110" : ""}`} />
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Shop</span>
+              </button>
+
+              <div className="relative -top-6">
+                <button
+                  onClick={() => setCartOpen(true)}
+                  className="w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/20 active:scale-90 transition-transform border-4 border-neutral-950"
+                >
+                  <ShoppingCart className="w-6 h-6 text-black" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-white text-black text-[10px] font-black rounded-full flex items-center justify-center border-2 border-amber-500">
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              <button
+                onClick={() => setActiveTab("favorites")}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "favorites" ? "text-amber-500" : "text-neutral-400"}`}
+              >
+                <Heart className={`w-5 h-5 ${activeTab === "favorites" ? "scale-110 fill-amber-500/20" : ""}`} />
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Likes</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab("profile")}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "profile" ? "text-amber-500" : "text-neutral-400"}`}
+              >
+                <User className={`w-5 h-5 ${activeTab === "profile" ? "scale-110" : ""}`} />
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Account</span>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {flyer && (
         <motion.div
           initial={{ x: flyer.x, y: flyer.y, scale: 1, opacity: 1 }}
