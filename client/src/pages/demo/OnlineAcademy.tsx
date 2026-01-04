@@ -874,10 +874,10 @@ export default function OnlineAcademy() {
                                   <Badge variant="outline" className="h-4 text-[9px] border-blue-500/30 text-blue-400">EDITABLE</Badge>
                                 </div>
                                 <div className="space-y-1">
-                                  <p><span className="text-purple-400">function</span> <span className="text-yellow-300">solveProblem</span>() {</p>
+                                  <p><span className="text-purple-400">function</span> <span className="text-yellow-300">solveProblem</span>() {'{'}</p>
                                   <p className="pl-4 text-neutral-500">// Напишите решение здесь</p>
                                   <p className="pl-4"><span className="text-purple-400">return</span> <span className="text-green-300">"Success!"</span>;</p>
-                                  <p>}</p>
+                                  <p>{'}'}</p>
                                 </div>
                                 <Button size="sm" className="mt-3 h-7 bg-blue-600 hover:bg-blue-700 text-[10px] w-full">Запустить код</Button>
                               </div>
