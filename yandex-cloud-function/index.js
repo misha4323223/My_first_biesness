@@ -697,40 +697,46 @@ async function handleVkAutoPostYandex(headers) {
 
         // YC_API_KEY проверяется внутри getYandexAuthHeader()
 
-        // 1. Генерируем ТЕКСТ через Yandex GPT (Свободная генерация)
+        // 1. Генерируем ТЕКСТ через Yandex GPT
         console.log('[VK-AUTO-POST-YANDEX] Generating dynamic text...');
-        const systemPrompt = `Ты — эксперт веб-студии MP.WebStudio. Твоя задача — написать профессиональный, вовлекающий и современный пост для ВКонтакте. 
-Мы создаем качественные сайты с уникальным дизайном, внедряем современные технологии (включая нейросети), автоматизируем бизнес-процессы и предлагаем широкий спектр ИТ-услуг.
-Стиль: деловой, экспертный, но живой и понятный. Избегай клише и излишней восторженности. 
+        
+        const themes = [
+            {
+                title: "Тренды веб-дизайна 2026",
+                prompt: "Напиши пост о трендах веб-дизайна в 2026 году. Упомяни минимализм, нейросети в интерфейсах и скорость работы. Сделай упор на то, что MP.WebStudio уже внедряет это.",
+                imagePrompt: "Futuristic 2026 web design trends, sleek UI interface, minimal glowing elements, 'MP.WebStudio' digital logo, high-tech aesthetic, 8k"
+            },
+            {
+                title: "Скорость сайта = Прибыль",
+                prompt: "Напиши пост о том, как медленный сайт убивает продажи. Объясни, почему важна техническая оптимизация и как MP.WebStudio делает сайты 'летающими'.",
+                imagePrompt: "Fast website speed concept, motion blur, fiber optic data flow, professional web development, 'MP.WebStudio' branding, blue neon lighting"
+            },
+            {
+                title: "Нейросети для бизнеса",
+                prompt: "Напиши пост о пользе нейросетей для бизнеса. Расскажи про умные чаты и автоматизацию контента, которую мы предлагаем в MP.WebStudio.",
+                imagePrompt: "Artificial Intelligence for business automation, neural network visualization, smart interface, 'MP.WebStudio' tech logo, deep blue and purple tones"
+            }
+        ];
 
-ВАЖНОЕ ПРАВИЛО ДЛЯ ССЫЛОК:
-НЕ ИСПОЛЬЗУЙ Markdown-разметку для ссылок (никаких [текст](ссылка)). 
-Пиши ссылки просто текстом, чтобы ВК сам их распознал.
-Например: mp-webstudio.ru
+        const selectedTheme = themes[Math.floor(Math.random() * themes.length)];
+        console.log(`[VK-AUTO-POST-YANDEX] Selected theme: ${selectedTheme.title}`);
 
-В конце каждого поста обязательно добавляй блок контактов:
+        const systemPrompt = `Ты — эксперт веб-студии MP.WebStudio. Пиши посты для ВКонтакте.
+ПРАВИЛА:
+- Язык: Живой, понятный русский без сложной терминологии.
+- Структура: Заголовок, 3-4 абзаца, призыв к действию, контакты.
+- СТИЛЬ: Профессионально, но дружелюбно. Не лей воду.
+- ССЫЛКИ: Пиши ссылки ПРОСТО ТЕКСТОМ (никаких [текст](ссылка)).
 Наш сайт: mp-webstudio.ru
 Наш Telegram: t.me/MPWebStudio_ru
-Обязательно используй хэштеги в конце поста (например: #MPWebStudio #ВебРазработка #WebDesign #Бизнес2026 #Инновации).`;
+- ХЭШТЕГИ: #MPWebStudio #ВебСтудия #СайтыДляБизнеса #AI`;
 
-        const userPrompt = `Придумай и напиши новый актуальный пост. Выбери ОДНУ из следующих тем, чтобы контент был разнообразным: 
-1. Тренды веб-дизайна и UX/UI: что делает сайт удобным для клиента.
-2. Почему старый или медленный сайт — это потеря прибыли и доверия.
-3. Как нейросети и современные технологии помогают бизнесу экономить время и деньги.
-4. Преимущества разработки сайтов «под ключ» в MP.WebStudio: от идеи до запуска.
-5. Важность мобильной адаптации: почему ваш сайт должен идеально работать на смартфонах.
-6. Как автоматизация процессов на сайте упрощает жизнь владельцу бизнеса.
-7. Презентация новой услуги: опиши одну полезную услугу, которую может оказать веб-студия (например, аудит безопасности, SEO-оптимизация или разработка чат-бота).
-Будь креативен, начни с интересного факта или вопроса. Старайся не повторяться.`;
-
-        const textResponse = await callYandexGPT(userPrompt, 'yandexgpt-lite', systemPrompt);
+        const textResponse = await callYandexGPT(selectedTheme.prompt, 'yandexgpt-lite', systemPrompt);
         const postText = textResponse.content;
-        console.log('[VK-AUTO-POST-YANDEX] Text generated:', postText.substring(0, 100) + '...');
 
-        // 2. Генерируем КАРТИНКУ (Универсальный технологичный промпт)
-        console.log('[VK-AUTO-POST-YANDEX] Generating image...');
-        const universalImagePrompt = "High-tech futuristic web design concept with 'MP.WebStudio' text logo, professional UI/UX interface elements glowing on dark background, abstract digital technology visualization, 8k resolution, cinematic lighting, sleek corporate aesthetic, blue and neon accents";
-        const imageBuffer = await generateYandexImage(universalImagePrompt);
+        // 2. Генерируем КАРТИНКУ на ту же тему
+        console.log('[VK-AUTO-POST-YANDEX] Generating matching image...');
+        const imageBuffer = await generateYandexImage(selectedTheme.imagePrompt);
         console.log('[VK-AUTO-POST-YANDEX] Image generated, size:', imageBuffer.length, 'bytes');
 
         // 3. Загружаем картинку в ВК
