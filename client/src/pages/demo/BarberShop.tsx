@@ -85,9 +85,9 @@ const features = [
 ];
 
 const offers = [
-  { title: "Первый визит", desc: "Скидка 20% на любую стрижку", badge: "-20%" },
-  { title: "Папа + Сын", desc: "Специальная цена на парную стрижку", badge: "Выгодно" },
-  { title: "Сертификаты", desc: "Идеальный подарок для мужчины", badge: "New" }
+  { title: "Первый визит", desc: "Скидка 20% на любую стрижку. Мы познакомим вас с нашим сервисом и мастерами по специальной цене.", badge: "-20%" },
+  { title: "Папа + Сын", desc: "Специальная цена на парную стрижку. Отличная возможность провести время вместе и обновить стиль.", badge: "Выгодно" },
+  { title: "Сертификаты", desc: "Идеальный подарок для мужчины. Подарите не просто стрижку, а эмоции и безупречный вид.", badge: "New" }
 ];
 
 const vkFeed = [
@@ -256,8 +256,18 @@ export default function BarberShop() {
   const scrollToBarbers = () => barbersRef.current?.scrollIntoView({ behavior: "smooth" });
   const shopRef = useRef<HTMLElement>(null);
   const scrollToShop = () => shopRef.current?.scrollIntoView({ behavior: "smooth" });
-  const scrollToBooking = () => bookingRef.current?.scrollIntoView({ behavior: "smooth" });
   const scrollToContact = () => contactRef.current?.scrollIntoView({ behavior: "smooth" });
+
+  const [selectedOffer, setSelectedOffer] = useState<typeof offers[0] | null>(null);
+
+  const scrollToBooking = () => {
+    bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setSelectedOffer(null);
+  };
+
+  const handleOfferClick = (offer: typeof offers[0]) => {
+    setSelectedOffer(offer);
+  };
 
   const handleServiceSelect = (id: number) => {
     setSelectedService(id);
@@ -512,6 +522,7 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                onClick={() => handleOfferClick(offer)}
               >
                 <Card className="p-4 sm:p-8 h-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
                   <div className="absolute top-2 right-2 sm:top-4 sm:right-4">
@@ -519,7 +530,7 @@ export default function BarberShop() {
                   </div>
                   <h3 className="text-sm sm:text-2xl font-black mb-0.5 sm:mb-2 group-hover:text-amber-400 transition-colors uppercase tracking-tight leading-tight">{offer.title}</h3>
                   <p className="text-[10px] sm:text-base text-neutral-400 mb-2 sm:mb-6 leading-tight sm:leading-relaxed">{offer.desc}</p>
-                  <Button variant="ghost" className="p-0 h-auto text-amber-500 font-black uppercase tracking-widest text-[9px] sm:text-[10px] hover:bg-transparent hover:text-amber-400" onClick={scrollToBooking}>
+                  <Button variant="ghost" className="p-0 h-auto text-amber-500 font-black uppercase tracking-widest text-[9px] sm:text-[10px] hover:bg-transparent hover:text-amber-400">
                     ПОДРОБНЕЕ →
                   </Button>
                 </Card>
@@ -1073,6 +1084,50 @@ export default function BarberShop() {
       )}
 
       {/* Checkout Success Dialog (Demo) */}
+      {/* Offer Modal */}
+      <Dialog open={!!selectedOffer} onOpenChange={() => setSelectedOffer(null)}>
+        <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <Badge className="bg-amber-500 text-black font-black uppercase tracking-tighter">{selectedOffer?.badge}</Badge>
+            </div>
+            <DialogTitle className="text-2xl font-black uppercase tracking-tighter italic text-amber-400">
+              {selectedOffer?.title}
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-4">
+            <p className="text-neutral-300 text-lg mb-6 leading-relaxed">
+              {selectedOffer?.desc}
+            </p>
+            <div className="bg-neutral-800/50 p-4 rounded-xl border border-neutral-700 mb-6">
+              <h4 className="font-bold uppercase tracking-tight text-sm mb-2 text-white">Как воспользоваться:</h4>
+              <ul className="space-y-2 text-sm text-neutral-400">
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500" />
+                  <span>Нажмите кнопку записи ниже</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500" />
+                  <span>Выберите любую услугу и мастера</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Check className="w-4 h-4 text-amber-500" />
+                  <span>Акция применится автоматически</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button 
+              className="w-full bg-amber-500 hover:bg-amber-600 text-black font-black h-12 uppercase tracking-widest"
+              onClick={scrollToBooking}
+            >
+              ЗАПИСАТЬСЯ ПО АКЦИИ
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
         <DialogContent className="bg-neutral-950 border-neutral-800 text-white text-center p-8 sm:p-12 max-w-lg rounded-2xl">
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-amber-500/20 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-amber-500/10">
