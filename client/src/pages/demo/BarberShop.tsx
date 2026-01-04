@@ -177,6 +177,7 @@ const gallery = [
 ];
 
 export default function BarberShop() {
+  const { toast } = useToast();
   const [selectedService, setSelectedService] = useState<number | null>(null);
   const [selectedBarber, setSelectedBarber] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
