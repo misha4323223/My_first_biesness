@@ -64,15 +64,6 @@ const stylists = [
     rating: 4.9,
     reviews: 198
   },
-  { 
-    id: 4, 
-    name: "Александр", 
-    role: "Топ-барбер", 
-    experience: "12 лет",
-    image: "@assets/generated_images/russian_barber_maxim_portrait.webp",
-    rating: 5.0,
-    reviews: 412
-  },
 ];
 
 const timeSlots = [
@@ -304,178 +295,263 @@ export default function BeautySalon() {
         </div>
       </section>
 
-      <section ref={stylistsRef} id="stylists" className="py-20">
+      <section ref={stylistsRef} className="py-32 bg-stone-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши стилисты</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
-              Профессионалы своего дела с многолетним опытом
-            </p>
-          </motion.div>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-xl">
+              <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold mb-4 block">Команда</span>
+              <h2 className="text-5xl font-serif font-light text-stone-900">Artisan Stylists</h2>
+            </div>
+            <p className="text-stone-500 font-light max-w-sm">Наши мастера — архитекторы стиля, создающие искусство в каждой детали вашего образа.</p>
+          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12">
             {stylists.map((stylist, i) => (
               <motion.div
                 key={stylist.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.2 }}
               >
-                <Card 
-                  className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer ${selectedStylist === stylist.id ? 'ring-2 ring-pink-500' : ''}`}
+                <div 
+                  className={`group cursor-pointer transition-all duration-700 ${selectedStylist === stylist.id ? 'scale-105' : ''}`}
                   onClick={() => handleStylistSelect(stylist.id)}
-                  data-testid={`card-stylist-${stylist.id}`}
                 >
-                  <div className="aspect-[4/5] relative overflow-hidden">
+                  <div className="relative aspect-[3/4] overflow-hidden mb-8 shadow-2xl">
                     <img 
                       src={stylist.image} 
                       alt={stylist.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-xl font-bold mb-1">{stylist.name}</h3>
-                      <p className="text-pink-400 text-sm mb-2">{stylist.role}</p>
-                      <div className="flex items-center gap-4 text-sm">
-                        <span className="flex items-center gap-1 text-neutral-300">
-                          <Star className="w-4 h-4 text-pink-400 fill-pink-400" />
-                          {stylist.rating}
-                        </span>
-                        <span className="text-neutral-400">{stylist.reviews} отзывов</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border-t border-neutral-700">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-neutral-400">Опыт: {stylist.experience}</span>
-                      <Button size="sm" className="bg-pink-500/20 text-pink-400 hover:bg-pink-500/30" data-testid={`button-select-stylist-${stylist.id}`}>
-                        Выбрать
+                    <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-700" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <Button className="w-full bg-white text-stone-900 hover:bg-amber-600 hover:text-white rounded-none border-0 tracking-[0.2em] uppercase text-[10px] h-12">
+                        Записаться к мастеру
                       </Button>
                     </div>
                   </div>
-                </Card>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <div className="w-8 h-[1px] bg-amber-600" />
+                      <span className="text-amber-600 uppercase tracking-widest text-[10px] font-bold">{stylist.role}</span>
+                      <div className="w-8 h-[1px] bg-amber-600" />
+                    </div>
+                    <h3 className="text-3xl font-serif text-stone-900 mb-2">{stylist.name}</h3>
+                    <div className="flex items-center justify-center gap-4 text-xs tracking-widest text-stone-400 uppercase">
+                      <span>Опыт {stylist.experience}</span>
+                      <span className="w-1 h-1 bg-stone-300 rounded-full" />
+                      <div className="flex items-center gap-1">
+                        <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
+                        <span className="text-stone-600 font-bold">{stylist.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section ref={bookingRef} id="booking" className="py-20 bg-neutral-900">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Онлайн-запись</h2>
-            <p className="text-neutral-400">
-              Выберите услугу, стилиста и удобное время
-            </p>
-          </motion.div>
+      <section ref={bookingRef} className="py-32 bg-stone-100 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/natural-paper.png')] opacity-20 pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <span className="text-amber-600 uppercase tracking-[0.4em] text-[10px] font-bold mb-4 block">Reservation</span>
+            <h2 className="text-5xl font-serif font-light text-stone-900 mb-6">Онлайн-запись</h2>
+            <div className="w-24 h-[1px] bg-amber-600 mx-auto" />
+          </div>
 
-          <Card className="p-8 bg-neutral-800/50 border-neutral-700">
-            <div className="flex items-center gap-4 mb-8">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-pink-500 text-white' : 'bg-neutral-700'}`}>
-                {step > 1 ? <Check className="w-5 h-5" /> : '1'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-pink-500 rounded transition-all ${step > 1 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-pink-500 text-white' : 'bg-neutral-700'}`}>
-                {step > 2 ? <Check className="w-5 h-5" /> : '2'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-pink-500 rounded transition-all ${step > 2 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-pink-500 text-white' : 'bg-neutral-700'}`}>
-                3
+          <Card className="p-8 bg-white border-stone-200 shadow-xl rounded-2xl overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-amber-600 to-amber-400" />
+            
+            <div className="flex items-center justify-between mb-12">
+              {[1, 2, 3].map((s) => (
+                <div key={s} className="flex flex-col items-center gap-2 z-10">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 shadow-md ${
+                    step >= s ? 'bg-amber-600 text-white scale-110' : 'bg-stone-100 text-stone-400'
+                  }`}>
+                    {step > s ? <Check className="w-6 h-6" /> : (
+                      s === 1 ? <Sparkles className="w-5 h-5" /> : 
+                      s === 2 ? <User className="w-5 h-5" /> : 
+                      <Calendar className="w-5 h-5" />
+                    )}
+                  </div>
+                  <span className={`text-[10px] uppercase tracking-widest font-bold ${step >= s ? 'text-amber-600' : 'text-stone-400'}`}>
+                    {s === 1 ? 'Услуга' : s === 2 ? 'Мастер' : 'Время'}
+                  </span>
+                </div>
+              ))}
+              <div className="absolute top-[52px] left-12 right-12 h-[2px] bg-stone-100 -z-0">
+                <div className="h-full bg-amber-600 transition-all duration-700 ease-in-out" style={{ width: `${(step - 1) * 50}%` }} />
               </div>
             </div>
 
-            {step === 3 && (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm text-neutral-400 mb-2">Выберите дату</label>
-                  <Input 
-                    type="date" 
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="bg-neutral-700 border-neutral-600 text-white"
-                    data-testid="input-date"
-                  />
-                </div>
-                {selectedDate && (
-                  <div>
-                    <label className="block text-sm text-neutral-400 mb-2">Выберите время</label>
-                    <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          variant={selectedTime === time ? "default" : "outline"}
-                          className={selectedTime === time ? 'bg-pink-500 text-white' : 'border-neutral-600 text-white hover:bg-neutral-700'}
-                          onClick={() => handleTimeSelect(time)}
-                          data-testid={`button-time-${time}`}
-                        >
-                          {time}
-                        </Button>
-                      ))}
-                    </div>
+            <div className="min-h-[300px] flex flex-col justify-center">
+              {step === 1 && (
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
+                  <h3 className="text-xl font-serif text-stone-900 mb-6 text-center">Выберите направление ухода</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {services.map((s) => (
+                      <Button
+                        key={s.id}
+                        variant="outline"
+                        className={`h-auto py-4 px-6 justify-between border-stone-200 hover:border-amber-600 hover:bg-amber-50/50 rounded-xl transition-all ${
+                          selectedService === s.id ? 'border-amber-600 bg-amber-50 shadow-inner' : ''
+                        }`}
+                        onClick={() => handleServiceSelect(s.id)}
+                      >
+                        <div className="text-left">
+                          <div className="font-medium text-stone-900">{s.name}</div>
+                          <div className="text-xs text-stone-500">{s.duration}</div>
+                        </div>
+                        <div className="font-serif text-amber-600">{formatPrice(s.price)} ₽</div>
+                      </Button>
+                    ))}
                   </div>
-                )}
-              </div>
-            )}
+                </motion.div>
+              )}
+
+              {step === 2 && (
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
+                  <div className="flex items-center gap-2 mb-6">
+                    <Button variant="ghost" size="sm" onClick={() => setStep(1)} className="text-stone-400 hover:text-stone-900">
+                      <ArrowLeft className="w-4 h-4 mr-2" /> Назад
+                    </Button>
+                    <h3 className="text-xl font-serif text-stone-900 flex-1 text-center">Ваш персональный стилист</h3>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {stylists.map((stylist) => (
+                      <div 
+                        key={stylist.id}
+                        onClick={() => handleStylistSelect(stylist.id)}
+                        className={`cursor-pointer group relative rounded-2xl overflow-hidden border-2 transition-all ${
+                          selectedStylist === stylist.id ? 'border-amber-600 scale-[1.02]' : 'border-transparent grayscale hover:grayscale-0'
+                        }`}
+                      >
+                        <img src={stylist.image} alt={stylist.name} className="w-full aspect-[3/4] object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3 text-white">
+                          <div className="font-bold text-sm">{stylist.name}</div>
+                          <div className="text-[10px] uppercase tracking-tighter opacity-80">{stylist.role}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {step === 3 && (
+                <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Button variant="ghost" size="sm" onClick={() => setStep(2)} className="text-stone-400 hover:text-stone-900">
+                      <ArrowLeft className="w-4 h-4 mr-2" /> Назад
+                    </Button>
+                    <h3 className="text-xl font-serif text-stone-900 flex-1 text-center">Дата и время визита</h3>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-3">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 px-1">Выберите день</label>
+                      <Input 
+                        type="date" 
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        className="h-12 border-stone-200 rounded-xl focus:ring-amber-600 focus:border-amber-600 bg-stone-50/50"
+                      />
+                    </div>
+                    
+                    {selectedDate && (
+                      <div className="space-y-3">
+                        <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-stone-400 px-1">Доступные слоты</label>
+                        <div className="grid grid-cols-3 gap-2">
+                          {timeSlots.map((time) => (
+                            <Button
+                              key={time}
+                              variant={selectedTime === time ? "default" : "outline"}
+                              className={`h-10 rounded-lg text-xs font-bold transition-all ${
+                                selectedTime === time 
+                                ? 'bg-amber-600 text-white border-amber-600 scale-105 shadow-lg' 
+                                : 'border-stone-100 text-stone-600 hover:border-amber-200 hover:bg-amber-50/50'
+                              }`}
+                              onClick={() => handleTimeSelect(time)}
+                            >
+                              {time}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </div>
 
             {selectedService && selectedStylist && selectedTime && selectedDate && (
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-8 p-4 bg-neutral-700/50 rounded-lg"
+                className="mt-12 p-8 bg-stone-900 text-white rounded-2xl shadow-2xl relative overflow-hidden"
               >
-                <h4 className="font-semibold mb-3">Ваша запись:</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-pink-400" />
-                    <span>{services.find(s => s.id === selectedService)?.name}</span>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-600/10 blur-3xl -mr-16 -mt-16" />
+                <div className="relative z-10">
+                  <h4 className="font-serif text-2xl mb-6 italic text-amber-400">Резюме записи</h4>
+                  <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-8">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-amber-400" />
+                      </div>
+                      <div className="text-xs">
+                        <div className="text-stone-400 uppercase tracking-tighter mb-0.5">Услуга</div>
+                        <div className="font-bold">{services.find(s => s.id === selectedService)?.name}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                        <User className="w-4 h-4 text-amber-400" />
+                      </div>
+                      <div className="text-xs">
+                        <div className="text-stone-400 uppercase tracking-tighter mb-0.5">Мастер</div>
+                        <div className="font-bold">{stylists.find(s => s.id === selectedStylist)?.name}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                        <Calendar className="w-4 h-4 text-amber-400" />
+                      </div>
+                      <div className="text-xs">
+                        <div className="text-stone-400 uppercase tracking-tighter mb-0.5">Дата</div>
+                        <div className="font-bold">{selectedDate}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                        <Clock className="w-4 h-4 text-amber-400" />
+                      </div>
+                      <div className="text-xs">
+                        <div className="text-stone-400 uppercase tracking-tighter mb-0.5">Время</div>
+                        <div className="font-bold">{selectedTime}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-pink-400" />
-                    <span>{stylists.find(s => s.id === selectedStylist)?.name}</span>
+                  
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+                    <div className="text-center sm:text-left">
+                      <div className="text-stone-400 text-xs uppercase tracking-[0.2em] mb-1">Итоговая стоимость</div>
+                      <div className="text-3xl font-serif text-amber-400">
+                        {formatPrice(services.find(s => s.id === selectedService)?.price || 0)} ₽
+                      </div>
+                    </div>
+                    <Button 
+                      className="w-full sm:w-auto bg-amber-600 hover:bg-amber-500 text-white font-bold h-14 px-12 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-amber-600/20"
+                      onClick={handleBook}
+                    >
+                      ПОДТВЕРДИТЬ ВИЗИТ
+                    </Button>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-pink-400" />
-                    <span>{selectedDate}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-pink-400" />
-                    <span>{selectedTime}</span>
-                  </div>
-                </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className="text-2xl font-bold text-pink-400">
-                    {formatPrice(services.find(s => s.id === selectedService)?.price || 0)} ₽
-                  </span>
-                  <Button 
-                    className="bg-pink-500 hover:bg-pink-600 text-white font-semibold"
-                    onClick={handleBook}
-                    data-testid="button-confirm-booking"
-                  >
-                    Подтвердить запись
-                  </Button>
                 </div>
               </motion.div>
-            )}
-
-            {step < 3 && (
-              <p className="text-center text-neutral-400 mt-8">
-                {step === 1 ? 'Выберите услугу выше' : 'Выберите стилиста выше'}
-              </p>
             )}
           </Card>
         </div>
