@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star, Users, Clock, BookOpen, Code, Palette, TrendingUp, ArrowLeft, Play, CheckCircle2, X } from "lucide-react";
+import { Star, Users, Clock, BookOpen, Code, Palette, TrendingUp, ArrowLeft, Play, CheckCircle2, X, Quote } from "lucide-react";
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -11,6 +11,8 @@ import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { SiGoogle, SiYcombinator, SiMicrosoft, SiAmazon } from "react-icons/si";
 
 import heroImg from "@assets/generated_images/online_course_platform_hero_image.png";
 import instructorImg from "@assets/generated_images/online_course_instructor_portrait.png";
@@ -34,6 +36,12 @@ const courses = [
     tags: ["React", "JavaScript", "Web"],
     description: "Изучите основы и продвинутые концепции разработки на React. Вы научитесь создавать современные, отзывчивые интерфейсы с использованием самых популярных инструментов и библиотек в экосистеме JavaScript.",
     popular: true,
+    syllabus: [
+      { title: "Введение в React", topics: ["Что такое React?", "Настройка окружения", "JSX основы"] },
+      { title: "Компоненты и Пропсы", topics: ["Функциональные компоненты", "Передача данных", "Типизация с PropTypes"] },
+      { title: "Управление состоянием", topics: ["useState", "useEffect", "Жизненный цикл"] },
+      { title: "Работа с API", topics: ["Fetch и Axios", "Обработка ошибок", "Загрузка данных"] }
+    ]
   },
   {
     id: 2,
@@ -48,6 +56,11 @@ const courses = [
     image: dashboardImg,
     tags: ["Figma", "Design", "UI"],
     description: "Погрузитесь в мир дизайна интерфейсов. Этот курс охватывает все аспекты процесса проектирования — от создания вайрфреймов и прототипов до финального визуального дизайна в Figma.",
+    syllabus: [
+      { title: "Основы дизайна", topics: ["Теория цвета", "Типографика", "Композиция"] },
+      { title: "Работа в Figma", topics: ["Инструменты", "Слои и группы", "Компоненты"] },
+      { title: "Прототипирование", topics: ["Связи", "Анимация", "Тестирование"] }
+    ]
   },
   {
     id: 3,
@@ -62,6 +75,11 @@ const courses = [
     image: programmingImg,
     tags: ["Python", "Data", "Analytics"],
     description: "Освойте Python для анализа данных. Вы научитесь работать с библиотеками Pandas, NumPy и Matplotlib для обработки больших данных, визуализации и извлечения ценных инсайтов.",
+    syllabus: [
+      { title: "Основы Python", topics: ["Синтаксис", "Типы данных", "Функции"] },
+      { title: "Библиотека Pandas", topics: ["DataFrames", "Фильтрация", "Агрегация"] },
+      { title: "Визуализация", topics: ["Matplotlib", "Seaborn", "Построение графиков"] }
+    ]
   },
   {
     id: 4,
@@ -76,7 +94,74 @@ const courses = [
     image: dashboardImg,
     tags: ["Marketing", "Social Media", "SMM"],
     description: "Узнайте, как эффективно продвигать бренды в социальных сетях. Курс научит вас разрабатывать SMM-стратегии, создавать контент и настраивать таргетированную рекламу для привлечения клиентов.",
+    syllabus: [
+      { title: "Стратегия SMM", topics: ["Анализ конкурентов", "Целевая аудитория", "KPI"] },
+      { title: "Контент-план", topics: ["Виды контента", "Сторителлинг", "Копирайтинг"] },
+      { title: "Таргет", topics: ["Рекламный кабинет", "Настройка", "Аналитика"] }
+    ]
   },
+];
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Алексей Волков",
+    role: "Frontend Разработчик",
+    text: "Курс по React превзошел все мои ожидания. Программа очень структурированная, а практические задания помогли собрать портфолио, с которым я нашел работу уже через месяц после окончания!",
+    rating: 5,
+    image: studentImg
+  },
+  {
+    id: 2,
+    name: "Елена Кузнецова",
+    role: "UX Исследователь",
+    text: "Мария Соколова — потрясающий преподаватель. Она объясняет сложные вещи простыми словами. Особенно понравился модуль по прототипированию в Figma.",
+    rating: 5,
+    image: instructorImg
+  }
+];
+
+const faqs = [
+  {
+    question: "Как долго я буду иметь доступ к курсу?",
+    answer: "После покупки вы получаете пожизненный доступ ко всем материалам курса, включая все будущие обновления."
+  },
+  {
+    question: "Есть ли рассрочка оплаты?",
+    answer: "Да, мы предоставляем беспроцентную рассрочку на 6 или 12 месяцев для курсов стоимостью выше 10 000 рублей."
+  },
+  {
+    question: "Выдаете ли вы сертификат?",
+    answer: "Да, после успешного выполнения всех практических заданий и итогового проекта вы получите именной сертификат."
+  }
+];
+
+const pricingPlans = [
+  {
+    name: "Базовый",
+    price: "Бесплатно",
+    desc: "Для ознакомления",
+    features: ["Доступ к вводным урокам", "Сообщество студентов", "Мобильное приложение"],
+    button: "Начать бесплатно",
+    variant: "outline"
+  },
+  {
+    name: "Профи",
+    price: "4 990₽/мес",
+    desc: "Самый популярный",
+    features: ["Все курсы платформы", "Сертификаты", "Домашние задания", "Чат с куратором"],
+    button: "Выбрать Профи",
+    variant: "default",
+    popular: true
+  },
+  {
+    name: "VIP",
+    price: "12 990₽/мес",
+    desc: "Максимальный результат",
+    features: ["Всё из тарифа Профи", "Личный ментор", "Помощь с трудоустройством", "Ревью кода 24/7"],
+    button: "Стать VIP",
+    variant: "outline"
+  }
 ];
 
 const instructors = [
@@ -128,7 +213,20 @@ export default function OnlineAcademy() {
   const [enrolledCourses, setEnrolledCourses] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [enrollForm, setEnrollForm] = useState({ name: "", email: "", phone: "" });
+  const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 34, seconds: 56 });
   const coursesRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
+        if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
+        if (prev.hours > 0) return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
+        return prev;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   useDocumentMeta({
     title: "ОнлайнОкадемия — Онлайн-курсы по программированию и дизайну",
@@ -238,8 +336,9 @@ export default function OnlineAcademy() {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <Badge className="mb-4 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 border-0">
-              Более 10,000 студентов уже обучаются
+            <Badge className="mb-4 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200 border-0 flex items-center gap-2 w-fit">
+              <Clock className="w-3 h-3" />
+              Скидка 50% закончится через {timeLeft.hours}:{timeLeft.minutes.toString().padStart(2, '0')}:{timeLeft.seconds.toString().padStart(2, '0')}
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Онлайн-курсы от экспертов индустрии
@@ -343,8 +442,8 @@ export default function OnlineAcademy() {
                       className="w-full h-full object-cover hover:scale-105 transition-transform"
                     />
                     {course.popular && (
-                      <Badge className="absolute top-2 right-2 bg-orange-500 hover:bg-orange-600">
-                        Популярный
+                      <Badge className="absolute top-2 left-2 bg-orange-500 hover:bg-orange-600">
+                        Осталось 4 места
                       </Badge>
                     )}
                     <div className="absolute inset-0 bg-black/20" />
@@ -414,6 +513,23 @@ export default function OnlineAcademy() {
         </div>
       </section>
 
+      {/* Partners */}
+      <section className="py-12 border-y bg-muted/30 dark:bg-neutral-900/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-center text-sm font-medium text-muted-foreground mb-8 uppercase tracking-wider">
+            Наши выпускники работают в крупнейших компаниях
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all">
+            <SiGoogle className="w-10 h-10" />
+            <SiMicrosoft className="w-10 h-10" />
+            <SiAmazon className="w-10 h-10" />
+            <SiYcombinator className="w-10 h-10" />
+            <div className="text-2xl font-bold">Яндекс</div>
+            <div className="text-2xl font-bold">СБЕР</div>
+          </div>
+        </div>
+      </section>
+
       {/* Instructors */}
       <section className="py-16 max-w-7xl mx-auto px-6">
         <motion.div
@@ -458,6 +574,88 @@ export default function OnlineAcademy() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Pricing Plans */}
+      <section className="py-20 bg-muted/50 dark:bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Тарифные планы</h2>
+            <p className="text-lg text-muted-foreground">Выберите подходящий формат обучения для ваших целей</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {pricingPlans.map((plan) => (
+              <Card key={plan.name} className={`relative p-8 flex flex-col hover-elevate transition-all ${plan.popular ? 'border-blue-500 shadow-xl scale-105 z-10' : ''}`}>
+                {plan.popular && (
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500">Популярный</Badge>
+                )}
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
+                  <p className="text-sm text-muted-foreground">{plan.desc}</p>
+                </div>
+                <div className="mb-6">
+                  <span className="text-3xl font-bold">{plan.price}</span>
+                </div>
+                <ul className="space-y-4 mb-8 flex-1">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-2 text-sm">
+                      <CheckCircle2 className="w-4 h-4 text-green-500" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <Button variant={plan.variant as any} className="w-full">
+                  {plan.button}
+                </Button>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 max-w-7xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Отзывы студентов</h2>
+          <p className="text-lg text-muted-foreground">Истории успеха наших выпускников</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-8">
+          {testimonials.map((testi) => (
+            <Card key={testi.id} className="p-8 hover-elevate transition-all">
+              <Quote className="w-10 h-10 text-blue-500/20 mb-4" />
+              <p className="text-lg italic mb-6">"{testi.text}"</p>
+              <div className="flex items-center gap-4">
+                <img src={testi.image} alt={testi.name} className="w-12 h-12 rounded-full object-cover" />
+                <div>
+                  <h4 className="font-bold">{testi.name}</h4>
+                  <p className="text-sm text-muted-foreground">{testi.role}</p>
+                </div>
+                <div className="ml-auto flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 bg-muted/50 dark:bg-neutral-900/50">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Часто задаваемые вопросы</h2>
+          </div>
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`item-${i}`}>
+                <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                <AccordionContent>{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
