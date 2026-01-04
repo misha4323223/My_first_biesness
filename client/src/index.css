@@ -442,6 +442,32 @@
     scrollbar-width: thin;
   }
 
+  /* Global Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #38bdf8, #a855f7);
+    border-radius: 5px;
+    border: 2px solid hsl(var(--background));
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #0ea5e9, #9333ea);
+  }
+
+  /* Firefox Global Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #38bdf8 hsl(var(--background));
+  }
+
   /* Минимальная подсветка при наведении на десктопе */
   @media (min-width: 769px) {
     .neo-terminal:hover {

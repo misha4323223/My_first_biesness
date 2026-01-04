@@ -650,7 +650,17 @@ export default function OnlineAcademy() {
                     </li>
                   ))}
                 </ul>
-                <Button variant={plan.variant as any} className="w-full">
+                <Button 
+                  variant={plan.variant as any} 
+                  className="w-full"
+                  onClick={() => {
+                    toast({
+                      title: `Выбран тариф "${plan.name}"`,
+                      description: "В демо-режиме выбор тарифа открывает форму записи.",
+                    });
+                    handleEnrollClick(1);
+                  }}
+                >
                   {plan.button}
                 </Button>
               </Card>
