@@ -259,6 +259,28 @@ export default function BarberShop() {
   const scrollToContact = () => contactRef.current?.scrollIntoView({ behavior: "smooth" });
 
   const [selectedOffer, setSelectedOffer] = useState<typeof offers[0] | null>(null);
+  const [isCertificateModalOpen, setIsCertificateModalOpen] = useState(false);
+  const [selectedCertAmount, setSelectedCertAmount] = useState<number | null>(null);
+
+  const certAmounts = [1000, 2000, 3000, 5000, 10000];
+
+  const handleCertSelect = (amount: number) => {
+    setSelectedCertAmount(amount);
+    toast({
+      title: "Сертификат выбран",
+      description: `Сумма: ${amount} ₽`,
+    });
+    // For demo purposes, we can either add to cart or scroll to booking
+    addToCart({
+      id: 100 + amount,
+      name: `Подарочный сертификат ${amount} ₽`,
+      price: amount,
+      image: galleryImg1, // Placeholder
+      description: "Электронный подарочный сертификат"
+    });
+    setIsCertificateModalOpen(false);
+    setIsCartOpen(true);
+  };
 
   const scrollToBooking = () => {
     bookingRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -266,7 +288,11 @@ export default function BarberShop() {
   };
 
   const handleOfferClick = (offer: typeof offers[0]) => {
-    setSelectedOffer(offer);
+    if (offer.title === "Сертификаты") {
+      setIsCertificateModalOpen(true);
+    } else {
+      setSelectedOffer(offer);
+    }
   };
 
   const handleServiceSelect = (id: number) => {
@@ -1084,6 +1110,37 @@ export default function BarberShop() {
       )}
 
       {/* Checkout Success Dialog (Demo) */}
+      {/* Certificate Selection Modal */}
+      <Dialog open={isCertificateModalOpen} onOpenChange={setIsCertificateModalOpen}>
+        <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-black uppercase tracking-tighter italic text-amber-400">
+              Выбор сертификата
+            </DialogTitle>
+          </DialogHeader>
+          <div className="py-6">
+            <p className="text-neutral-400 text-sm mb-6">Выберите номинал подарочного сертификата:</p>
+            <div className="grid grid-cols-2 gap-3">
+              {certAmounts.map((amount) => (
+                <Button
+                  key={amount}
+                  variant="outline"
+                  className="h-16 border-neutral-700 hover:border-amber-500 hover:bg-amber-500/10 flex flex-col items-center justify-center gap-1"
+                  onClick={() => handleCertSelect(amount)}
+                >
+                  <span className="text-lg font-black">{amount} ₽</span>
+                </Button>
+              ))}
+            </div>
+            <div className="mt-8 p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl">
+              <p className="text-xs text-neutral-400 italic leading-relaxed text-center">
+                Сертификат будет отправлен в электронном виде или его можно забрать в барбершопе.
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Offer Modal */}
       <Dialog open={!!selectedOffer} onOpenChange={() => setSelectedOffer(null)}>
         <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md">
