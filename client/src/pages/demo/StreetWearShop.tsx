@@ -349,73 +349,86 @@ export default function StreetWearShop() {
         </motion.div>
       )}
       <Dialog open={!!selectedProduct} onOpenChange={() => { setSelectedProduct(null); setSelectedSize(null); }}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
+        <DialogContent className="max-w-2xl w-[95vw] md:w-full p-0 bg-neutral-900 border-neutral-800 overflow-hidden">
           {selectedProduct && (
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
+            <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
+              <div className="w-full md:w-1/2 aspect-[4/5] md:aspect-auto">
                 <img
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
-                  className="w-full rounded-md aspect-[3/4] object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <div>
-                <DialogTitle className="text-white text-2xl font-black mb-2">{selectedProduct.name}</DialogTitle>
-                <p className="text-amber-500 font-bold uppercase tracking-wider mb-4">{selectedProduct.brand}</p>
+              <div className="flex-1 p-6 md:p-8 flex flex-col overflow-y-auto">
+                <div className="mb-4">
+                  <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em] mb-1">{selectedProduct.brand}</p>
+                  <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase tracking-tight leading-tight">{selectedProduct.name}</DialogTitle>
+                </div>
                 
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="text-3xl font-bold text-white">{selectedProduct.price.toLocaleString()} р</span>
+                <div className="flex items-baseline gap-3 mb-6">
+                  <span className="text-2xl md:text-3xl font-black text-white tracking-tighter">{selectedProduct.price.toLocaleString()} р</span>
                   {selectedProduct.oldPrice && (
-                    <span className="text-lg text-neutral-500 line-through">{selectedProduct.oldPrice.toLocaleString()} р</span>
+                    <span className="text-sm md:text-base text-neutral-600 line-through font-bold">{selectedProduct.oldPrice.toLocaleString()} р</span>
                   )}
                 </div>
 
                 <div className="mb-6">
-                  <h4 className="text-white font-bold mb-3">Размеры</h4>
+                  <div className="flex justify-between items-center mb-3">
+                    <h4 className="text-white text-xs font-black uppercase tracking-widest">Размер</h4>
+                    <button className="text-[10px] text-neutral-500 underline font-bold uppercase tracking-tighter">Таблица размеров</button>
+                  </div>
                   <div className="flex flex-wrap gap-2">
                     {selectedProduct.sizes.map(size => (
                       <Button
                         key={size}
                         variant={selectedSize === size ? "default" : "outline"}
-                        className={`border-neutral-700 ${selectedSize === size ? "bg-amber-500 text-black" : "text-neutral-300 hover:border-amber-500 hover:text-amber-500"}`}
+                        className={`min-w-[3rem] h-10 md:h-12 rounded-none border-neutral-800 font-black transition-all ${
+                          selectedSize === size 
+                            ? "bg-amber-500 text-black border-amber-500" 
+                            : "text-neutral-400 hover:border-neutral-600 hover:text-white"
+                        }`}
                         onClick={() => setSelectedSize(size)}
                       >
                         {size}
                       </Button>
                     ))}
                   </div>
-                  {selectedProduct.id === 1 && <p className="text-xs text-red-500 mt-2">Осталось всего 2 шт. в размере M!</p>}
                 </div>
 
-                <div className="mb-6">
-                  <h4 className="text-white font-bold mb-2">Описание</h4>
-                  <p className="text-neutral-400 text-sm">
-                    Качественная вещь от бренда {selectedProduct.brand}. {selectedProduct.tag === "SALE" ? "Со скидкой! " : ""}
-                    Хороший выбор для стрита и повседневного образа.
+                <div className="mb-8 hidden md:block">
+                  <h4 className="text-white text-xs font-black uppercase tracking-widest mb-2">О товаре</h4>
+                  <p className="text-neutral-400 text-sm leading-relaxed font-medium">
+                    Лимитированная серия от бренда {selectedProduct.brand}. Выполнено из плотного хлопка премиального качества. 
+                    Идеальный крой для создания актуального оверсайз силуэта.
                   </p>
                 </div>
 
-                <Button
-                  className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold mb-3"
-                  disabled={!selectedSize}
-                  onClick={(e) => {
-                    addToCart(selectedProduct.id, e);
-                    setSelectedProduct(null);
-                    setSelectedSize(null);
-                    toast({ title: "Добавлено в корзину!" });
-                  }}
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  {selectedSize ? "Добавить в корзину" : "Выберите размер"}
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full border-neutral-700 text-neutral-300 hover:border-amber-500"
-                  onClick={() => toggleFavorite(selectedProduct.id)}
-                >
-                  <Heart className={`w-4 h-4 mr-2 ${favorites.includes(selectedProduct.id) ? "fill-current text-red-500" : ""}`} />
-                  {favorites.includes(selectedProduct.id) ? "В избранном" : "Добавить в избранное"}
-                </Button>
+                <div className="mt-auto flex gap-3">
+                  <Button
+                    className="flex-1 h-12 md:h-14 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-none"
+                    disabled={!selectedSize}
+                    onClick={(e) => {
+                      addToCart(selectedProduct.id, e);
+                      setSelectedProduct(null);
+                      setSelectedSize(null);
+                      toast({ 
+                        title: "ДОБАВЛЕНО", 
+                        description: `${selectedProduct.name} выбран` 
+                      });
+                    }}
+                  >
+                    {selectedSize ? "В КОРЗИНУ" : "ВЫБЕРИТЕ РАЗМЕР"}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className={`w-12 h-12 md:w-14 md:h-14 rounded-none border-neutral-800 transition-colors ${
+                      favorites.includes(selectedProduct.id) ? "text-red-500 border-red-500/30 bg-red-500/5" : "text-white"
+                    }`}
+                    onClick={() => toggleFavorite(selectedProduct.id)}
+                  >
+                    <Heart className={`w-5 h-5 ${favorites.includes(selectedProduct.id) ? "fill-current" : ""}`} />
+                  </Button>
+                </div>
               </div>
             </div>
           )}
