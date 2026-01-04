@@ -321,13 +321,13 @@ export default function FoodDelivery() {
         </div>
         
         <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-8 flex items-center justify-between pointer-events-auto">
-          <div className="flex items-center gap-3 pl-12">
+          <div className="flex items-center gap-3 pl-12 relative z-50">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
               <Flame className="w-6 h-6 text-white" />
             </div>
             <span className="text-2xl font-black tracking-tighter text-white uppercase italic">Food<span className="text-orange-500">Flow</span></span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-white/90 font-medium text-sm tracking-wider uppercase">
+          <div className="hidden md:flex items-center gap-8 text-white/90 font-medium text-sm tracking-wider uppercase relative z-50">
             <button onClick={scrollToMenu} className="hover:text-orange-500 transition-all hover:scale-110">Меню</button>
             <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
             <span className="flex items-center gap-2">
