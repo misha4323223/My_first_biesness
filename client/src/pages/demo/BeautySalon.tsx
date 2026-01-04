@@ -458,7 +458,7 @@ export default function BeautySalon() {
                         type="date" 
                         value={selectedDate}
                         onChange={(e) => setSelectedDate(e.target.value)}
-                        className="h-12 border-stone-200 rounded-xl focus:ring-amber-600 focus:border-amber-600 bg-stone-50/50"
+                        className="h-12 border-stone-200 rounded-xl focus:ring-amber-600 focus:border-amber-600 bg-white text-stone-900"
                       />
                     </div>
                     
