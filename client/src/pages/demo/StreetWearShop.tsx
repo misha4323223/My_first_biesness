@@ -2,7 +2,7 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ShoppingCart, Flame, Heart, Menu, Truck, CreditCard, RefreshCw, ArrowLeft, Plus, X, Minus, Check, Search, ChevronDown, User, Home, Grid } from "lucide-react";
+import { ShoppingCart, Flame, Heart, Menu, Truck, CreditCard, RefreshCw, ArrowLeft, Plus, X, Minus, Check, Search, ChevronDown, User, Home, Grid, Send } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
