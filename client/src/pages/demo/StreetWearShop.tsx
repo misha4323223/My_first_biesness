@@ -33,6 +33,7 @@ const products = [
     tag: "SALE",
     sizes: ["S", "M", "L", "XL"],
     category: "Худи и свитшоты",
+    description: "Лимитированная серия худи в стиле оверсайз. Выполнено из плотного футера трехнитки с начесом. Высокое качество пошива и материалов обеспечивает комфорт и долговечность.",
   },
   {
     id: 2,
@@ -43,6 +44,7 @@ const products = [
     tag: "Хит",
     sizes: ["M", "L", "XL"],
     category: "Футболки",
+    description: "Классическая футболка прямого кроя. 100% хлопок, плотность 210г/м. Идеально подходит для повседневной носки.",
   },
   {
     id: 3,
@@ -52,6 +54,7 @@ const products = [
     image: cargoImg,
     sizes: ["S", "M", "L"],
     category: "Брюки",
+    description: "Функциональные брюки-карго с множеством карманов. Износостойкий материал с водоотталкивающей пропиткой.",
   },
   {
     id: 4,
@@ -63,6 +66,7 @@ const products = [
     tag: "SALE",
     sizes: ["M", "L", "XL", "XXL"],
     category: "Куртки",
+    description: "Классический авиационный бомбер. Утеплитель позволяет носить куртку до -5 градусов.",
   },
   {
     id: 5,
@@ -73,6 +77,7 @@ const products = [
     tag: "New",
     sizes: ["ONE SIZE"],
     category: "Аксессуары",
+    description: "Тактическая сумка через плечо. Вместительные отделения и надежная фурнитура.",
   },
   {
     id: 6,
@@ -82,6 +87,7 @@ const products = [
     image: beanieImg,
     sizes: ["ONE SIZE"],
     category: "Аксессуары",
+    description: "Теплая шапка бини из мягкой шерсти с добавлением акрила. Хорошо держит форму.",
   },
 ];
 
@@ -349,43 +355,67 @@ export default function StreetWearShop() {
         </motion.div>
       )}
       <Dialog open={!!selectedProduct} onOpenChange={() => { setSelectedProduct(null); setSelectedSize(null); }}>
-        <DialogContent className="max-w-2xl w-[95vw] md:w-full p-0 bg-neutral-900 border-neutral-800 overflow-hidden">
+        <DialogContent className="max-w-4xl w-[95vw] md:w-full p-0 bg-neutral-900 border-neutral-800 overflow-hidden">
           {selectedProduct && (
-            <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
-              <div className="w-full md:w-1/2 aspect-[4/5] md:aspect-auto">
-                <img
+            <div className="flex flex-col md:flex-row h-full max-h-[90vh] md:max-h-[80vh]">
+              {/* Image Section */}
+              <div className="w-full md:w-3/5 h-[40vh] md:h-auto bg-neutral-950 relative overflow-hidden group">
+                <motion.img
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.4 }}
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                 />
+                {selectedProduct.tag && (
+                  <Badge className="absolute top-4 left-4 bg-amber-500 text-black font-black px-3 py-1 rounded-none border-none">
+                    {selectedProduct.tag}
+                  </Badge>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               </div>
-              <div className="flex-1 p-6 md:p-8 flex flex-col overflow-y-auto">
+
+              {/* Content Section */}
+              <div className="flex-1 p-5 md:p-8 flex flex-col bg-neutral-900 overflow-y-auto">
                 <div className="mb-4">
-                  <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em] mb-1">{selectedProduct.brand}</p>
-                  <DialogTitle className="text-white text-xl md:text-2xl font-black uppercase tracking-tight leading-tight">{selectedProduct.name}</DialogTitle>
-                </div>
-                
-                <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-2xl md:text-3xl font-black text-white tracking-tighter">{selectedProduct.price.toLocaleString()} р</span>
-                  {selectedProduct.oldPrice && (
-                    <span className="text-sm md:text-base text-neutral-600 line-through font-bold">{selectedProduct.oldPrice.toLocaleString()} р</span>
-                  )}
+                  <div className="flex items-center justify-between mb-1">
+                    <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em]">{selectedProduct.brand}</p>
+                    <div className="flex gap-2">
+                       <Badge variant="outline" className="text-[8px] border-neutral-800 text-neutral-500 uppercase">{selectedProduct.category}</Badge>
+                    </div>
+                  </div>
+                  <DialogTitle className="text-white text-xl md:text-3xl font-black uppercase tracking-tight leading-tight mb-2">
+                    {selectedProduct.name}
+                  </DialogTitle>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-2xl md:text-3xl font-black text-white tracking-tighter">
+                      {selectedProduct.price.toLocaleString()} р
+                    </span>
+                    {selectedProduct.oldPrice && (
+                      <span className="text-sm md:text-lg text-neutral-600 line-through font-bold">
+                        {selectedProduct.oldPrice.toLocaleString()} р
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                <div className="mb-6">
+                <div className="h-px bg-neutral-800 w-full mb-5" />
+                
+                <div className="mb-5">
                   <div className="flex justify-between items-center mb-3">
-                    <h4 className="text-white text-xs font-black uppercase tracking-widest">Размер</h4>
-                    <button className="text-[10px] text-neutral-500 underline font-bold uppercase tracking-tighter">Таблица размеров</button>
+                    <h4 className="text-white text-[10px] font-black uppercase tracking-widest">Выберите размер</h4>
+                    <button className="text-[9px] text-neutral-500 hover:text-white underline font-bold uppercase tracking-tighter transition-colors">Таблица размеров</button>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {selectedProduct.sizes.map(size => (
                       <Button
                         key={size}
                         variant={selectedSize === size ? "default" : "outline"}
-                        className={`min-w-[3rem] h-10 md:h-12 rounded-none border-neutral-800 font-black transition-all ${
+                        className={`min-w-[3.5rem] h-10 md:h-12 rounded-none border-neutral-800 font-black transition-all text-xs ${
                           selectedSize === size 
                             ? "bg-amber-500 text-black border-amber-500" 
-                            : "text-neutral-400 hover:border-neutral-600 hover:text-white"
+                            : "text-neutral-400 hover:border-neutral-600 hover:text-white bg-transparent"
                         }`}
                         onClick={() => setSelectedSize(size)}
                       >
@@ -395,39 +425,54 @@ export default function StreetWearShop() {
                   </div>
                 </div>
 
-                <div className="mb-8 hidden md:block">
-                  <h4 className="text-white text-xs font-black uppercase tracking-widest mb-2">О товаре</h4>
+                <div className="mb-6">
+                  <h4 className="text-white text-[10px] font-black uppercase tracking-widest mb-3">Описание</h4>
                   <p className="text-neutral-400 text-sm leading-relaxed font-medium">
-                    Лимитированная серия от бренда {selectedProduct.brand}. Выполнено из плотного хлопка премиального качества. 
-                    Идеальный крой для создания актуального оверсайз силуэта.
+                    {selectedProduct.description || `Эксклюзивная модель от ${selectedProduct.brand}. Выполнено из высококачественных материалов, обеспечивающих комфорт и долговечность в городских условиях.`}
                   </p>
                 </div>
 
-                <div className="mt-auto flex gap-3">
+                <div className="mt-auto grid grid-cols-5 gap-3 pt-4">
                   <Button
-                    className="flex-1 h-12 md:h-14 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-none"
+                    className="col-span-4 h-12 md:h-14 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-none text-xs md:text-sm shadow-lg shadow-amber-500/10 active:scale-[0.98] transition-all"
                     disabled={!selectedSize}
                     onClick={(e) => {
                       addToCart(selectedProduct.id, e);
                       setSelectedProduct(null);
                       setSelectedSize(null);
                       toast({ 
-                        title: "ДОБАВЛЕНО", 
-                        description: `${selectedProduct.name} выбран` 
+                        title: "ДОБАВЛЕНО В КОРЗИНУ", 
+                        description: `${selectedProduct.name} (${selectedSize})` 
                       });
                     }}
                   >
-                    {selectedSize ? "В КОРЗИНУ" : "ВЫБЕРИТЕ РАЗМЕР"}
+                    {selectedSize ? (
+                      <span className="flex items-center gap-2">
+                        <ShoppingCart className="w-4 h-4" />
+                        ДОБАВИТЬ В КОРЗИНУ
+                      </span>
+                    ) : "ВЫБЕРИТЕ РАЗМЕР"}
                   </Button>
                   <Button
                     variant="outline"
-                    className={`w-12 h-12 md:w-14 md:h-14 rounded-none border-neutral-800 transition-colors ${
-                      favorites.includes(selectedProduct.id) ? "text-red-500 border-red-500/30 bg-red-500/5" : "text-white"
+                    className={`col-span-1 h-12 md:h-14 rounded-none border-neutral-800 transition-all active:scale-[0.98] ${
+                      favorites.includes(selectedProduct.id) ? "text-red-500 border-red-500/30 bg-red-500/5" : "text-white hover:text-red-500 hover:border-red-500/30"
                     }`}
                     onClick={() => toggleFavorite(selectedProduct.id)}
                   >
                     <Heart className={`w-5 h-5 ${favorites.includes(selectedProduct.id) ? "fill-current" : ""}`} />
                   </Button>
+                </div>
+                
+                <div className="mt-6 flex items-center justify-between text-[9px] text-neutral-500 font-bold uppercase tracking-widest">
+                  <div className="flex items-center gap-2">
+                    <Truck className="w-3 h-3 text-amber-500/50" />
+                    <span>Быстрая доставка</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RefreshCw className="w-3 h-3 text-amber-500/50" />
+                    <span>Легкий возврат</span>
+                  </div>
                 </div>
               </div>
             </div>
