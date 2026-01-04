@@ -487,7 +487,7 @@ export default function SocksShop() {
                     Смотреть каталог
                     <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                  <Button variant="outline" size="lg" className="h-14 px-8 border-2 font-black rounded-2xl">
+                  <Button variant="outline" size="lg" className="h-14 px-8 border-2 font-black rounded-2xl" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
                     О нас
                   </Button>
                 </div>
