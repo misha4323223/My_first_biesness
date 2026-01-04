@@ -1213,17 +1213,41 @@ export default function StreetWearShop() {
         </div>
       </section>
 
-      <section ref={footerRef} className="py-16 bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-black mb-4">
-            Подпишись на <span className="text-amber-500">Telegram</span>
-          </h2>
-          <p className="text-neutral-400 mb-6 max-w-md mx-auto">
-            Скидки, новинки и эксклюзивные дропы первыми. Никакого спама.
-          </p>
-          <Button size="lg" className="bg-[#0088cc] hover:bg-[#0077b5] text-white font-bold" data-testid="button-telegram">
-            Подписаться на канал
-          </Button>
+      <section ref={footerRef} className="py-20 bg-neutral-900 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+          <div className="absolute top-[-10%] right-[-5%] w-64 h-64 bg-amber-500 rounded-full blur-[100px]" />
+          <div className="absolute bottom-[-10%] left-[-5%] w-64 h-64 bg-blue-500 rounded-full blur-[100px]" />
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <div className="bg-black/40 backdrop-blur-xl border border-white/5 p-8 md:p-12 text-center rounded-none shadow-2xl relative">
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-[#0088cc] rounded-full flex items-center justify-center shadow-lg shadow-[#0088cc]/20 border-4 border-neutral-900">
+              <svg viewBox="0 0 24 24" className="w-6 h-6 text-white fill-current">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.75 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.5 4.35-1.76 4.84-1.77.11 0 .35.03.5.16.13.12.17.28.18.39.01.07.01.21 0 .33z"/>
+              </svg>
+            </div>
+            
+            <h2 className="text-2xl md:text-4xl font-black mb-4 uppercase tracking-tighter italic">
+              STREET <span className="text-amber-500">INSIDER</span>
+            </h2>
+            <p className="text-neutral-400 mb-8 text-sm md:text-base font-medium max-w-lg mx-auto leading-relaxed">
+              Скидки, новинки и эксклюзивные дропы первыми. Никакого спама, только важные анонсы в нашем Telegram.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button 
+                size="lg" 
+                className="w-full sm:w-auto bg-[#0088cc] hover:bg-[#0077b5] text-white font-black uppercase tracking-widest px-8 h-14 rounded-none shadow-xl shadow-[#0088cc]/10 active:scale-95 transition-all"
+                data-testid="button-telegram"
+              >
+                Подписаться на канал
+              </Button>
+              <div className="flex items-center gap-2 text-[10px] text-neutral-500 font-black uppercase tracking-[0.2em]">
+                <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                2.4K+ Участников
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
