@@ -214,7 +214,28 @@ export default function OnlineAcademy() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [enrollForm, setEnrollForm] = useState({ name: "", email: "", phone: "" });
   const [timeLeft, setTimeLeft] = useState({ hours: 2, minutes: 34, seconds: 56 });
+  const [aiQuery, setAiQuery] = useState("");
+  const [aiResponse, setAiResponse] = useState("");
+  const [isAiLoading, setIsAiLoading] = useState(false);
   const coursesRef = useRef<HTMLElement>(null);
+
+  const askAi = async () => {
+    if (!aiQuery.trim()) return;
+    setIsAiLoading(true);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: `Вопрос по обучению в ОнлайнОкадемии: ${aiQuery}` }),
+      });
+      const data = await response.json();
+      setAiResponse(data.response);
+    } catch (error) {
+      toast({ title: "Ошибка", description: "Не удалось получить ответ от ИИ", variant: "destructive" });
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -644,18 +665,59 @@ export default function OnlineAcademy() {
 
       {/* FAQ */}
       <section className="py-20 bg-muted/50 dark:bg-neutral-900/50">
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Часто задаваемые вопросы</h2>
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Часто задаваемые вопросы</h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`item-${i}`}>
+                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          
+          <Card className="p-6 bg-blue-600 text-white border-0 shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-white/20 transition-all" />
+            <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <Code className="w-6 h-6" />
+              Интеллектуальный помощник
+            </h3>
+            <p className="text-blue-100 mb-6">
+              Задайте любой вопрос о наших курсах. GigaChat проанализирует базу знаний и ответит в реальном времени.
+            </p>
+            <div className="space-y-4">
+              <div className="relative">
+                <Input 
+                  placeholder="Например: Поможете ли вы с трудоустройством?" 
+                  className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 pr-12"
+                  value={aiQuery}
+                  onChange={(e) => setAiQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && askAi()}
+                />
+                <Button 
+                  size="icon" 
+                  variant="ghost" 
+                  className="absolute right-1 top-1 text-white hover:bg-white/20"
+                  onClick={askAi}
+                  disabled={isAiLoading}
+                >
+                  <TrendingUp className={`w-4 h-4 ${isAiLoading ? 'animate-pulse' : ''}`} />
+                </Button>
+              </div>
+              
+              {aiResponse && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-white/10 rounded-lg border border-white/20 text-sm italic"
+                >
+                  <strong>AI:</strong> {aiResponse}
+                </motion.div>
+              )}
+            </div>
+          </Card>
         </div>
       </section>
 
