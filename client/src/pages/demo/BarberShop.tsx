@@ -635,7 +635,7 @@ export default function BarberShop() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="flex overflow-x-auto pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
             {barbers.map((barber, i) => (
               <motion.div
                 key={barber.id}
@@ -643,7 +643,7 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group"
+                className="min-w-[80vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0 group"
               >
                 <Card 
                   className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer h-full ${selectedBarber === barber.id ? 'ring-2 ring-amber-500 border-amber-500/50' : ''}`}
