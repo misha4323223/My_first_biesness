@@ -35,6 +35,7 @@ import galleryImg4 from "@assets/generated_images/trendy_textured_crop_fade.webp
 import pomadeImg from "@assets/generated_images/premium_hair_pomade_product_photography.png";
 import beardOilImg from "@assets/generated_images/luxury_beard_oil_product_photography.png";
 import shampooImg from "@assets/generated_images/premium_beard_shampoo_product_photography.png";
+import certImg from "@assets/generated_images/elegant_black_and_gold_barbershop_gift_certificate.webp";
 
 const reviews = [
   {
@@ -275,7 +276,7 @@ export default function BarberShop() {
       id: 100 + amount,
       name: `Подарочный сертификат ${amount} ₽`,
       price: amount,
-      image: galleryImg1, // Placeholder
+      image: certImg,
       description: "Электронный подарочный сертификат"
     });
     setIsCertificateModalOpen(false);
