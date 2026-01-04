@@ -20,7 +20,8 @@ import {
   Info, 
   ShoppingBag, 
   Search, 
-  ArrowRight 
+  ArrowRight,
+  Filter 
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
