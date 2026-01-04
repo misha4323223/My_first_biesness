@@ -554,11 +554,17 @@ export default function CosmeticsShop() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className={`absolute top-3 right-3 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full ${favorites.includes(product.id) ? 'text-rose-500' : ''}`}
-                      onClick={() => toggleFavorite(product.id)}
+                      className={`absolute top-3 right-3 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 active:scale-95 ${favorites.includes(product.id) ? 'text-rose-500' : 'text-stone-400'}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(product.id);
+                        if (!favorites.includes(product.id)) {
+                          toast({ title: "Добавлено в избранное", description: `${product.name} теперь в вашем списке желаний` });
+                        }
+                      }}
                       data-testid={`button-favorite-${product.id}`}
                     >
-                      <Heart className={`w-4 h-4 ${favorites.includes(product.id) ? 'fill-current' : ''}`} />
+                      <Heart className={`w-4 h-4 transition-all duration-300 ${favorites.includes(product.id) ? 'fill-current scale-110' : ''}`} />
                     </Button>
                     <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
                       <div className="flex gap-2">
