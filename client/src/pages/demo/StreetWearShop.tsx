@@ -359,21 +359,21 @@ export default function StreetWearShop() {
           {selectedProduct && (
             <div className="flex flex-col md:flex-row h-full max-h-[90vh] md:max-h-[80vh]">
               {/* Image Section */}
-              <div className="w-full md:w-3/5 h-[40vh] md:h-auto bg-neutral-950 relative overflow-hidden group">
+              <div className="w-full md:w-3/5 h-[45vh] md:h-auto bg-neutral-950 relative overflow-hidden group flex items-center justify-center">
                 <motion.img
                   initial={{ scale: 1.1, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.4 }}
                   src={selectedProduct.image}
                   alt={selectedProduct.name}
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-contain md:object-cover object-center"
                 />
                 {selectedProduct.tag && (
-                  <Badge className="absolute top-4 left-4 bg-amber-500 text-black font-black px-3 py-1 rounded-none border-none">
+                  <Badge className="absolute top-4 left-4 bg-amber-500 text-black font-black px-3 py-1 rounded-none border-none z-10">
                     {selectedProduct.tag}
                   </Badge>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <div className="absolute inset-0 bg-neutral-950/20 pointer-events-none" />
               </div>
 
               {/* Content Section */}
