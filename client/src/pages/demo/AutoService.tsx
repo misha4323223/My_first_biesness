@@ -433,6 +433,42 @@ export default function AutoService() {
           </motion.div>
 
           <Card className="p-8 bg-neutral-800/50 border-neutral-700">
+            <div className="mb-8 p-4 bg-blue-500/5 rounded-xl border border-blue-500/20">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-blue-400" />
+                  <h3 className="font-bold">Живая очередь (в реальном времени)</h3>
+                </div>
+                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Свободно 2 бокса</Badge>
+              </div>
+              <div className="grid grid-cols-5 gap-2">
+                {[
+                  { label: "Бокс 1", status: "busy", progress: 75, color: "bg-amber-500" },
+                  { label: "Бокс 2", status: "busy", progress: 40, color: "bg-blue-500" },
+                  { label: "Бокс 3", status: "free", progress: 0, color: "bg-neutral-700" },
+                  { label: "Бокс 4", status: "busy", progress: 90, color: "bg-green-500" },
+                  { label: "Бокс 5", status: "free", progress: 0, color: "bg-neutral-700" },
+                ].map((box, i) => (
+                  <div key={i} className="flex flex-col gap-1">
+                    <div className="h-12 rounded-lg bg-neutral-800 border border-white/5 flex items-center justify-center relative overflow-hidden">
+                      {box.status === "busy" && (
+                        <motion.div 
+                          className={`absolute bottom-0 left-0 h-1 ${box.color}`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${box.progress}%` }}
+                          transition={{ duration: 1 }}
+                        />
+                      )}
+                      <span className="text-[10px] font-bold text-neutral-500">{box.label}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[10px] text-neutral-500 mt-3 flex items-center gap-1">
+                <Clock className="w-3 h-3" /> Ожидаемое время заезда при записи сейчас: <span className="text-blue-400 font-bold">15 минут</span>
+              </p>
+            </div>
+
             <div className="mb-8">
               <h3 className="text-lg font-semibold mb-4">1. Ваш автомобиль</h3>
               <div className="grid grid-cols-3 gap-4">
@@ -599,6 +635,65 @@ export default function AutoService() {
               </p>
             )}
           </Card>
+        </div>
+      </section>
+
+      <section id="portfolio-showcase" className="py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Кейсы: До и После</h2>
+            <p className="text-neutral-400">Результаты нашей работы говорят сами за себя</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Восстановление двигателя",
+                description: "BMW X5: Капитальный ремонт после перегрева. Замена поршневой группы, шлифовка ГБЦ.",
+                before: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80",
+                after: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80",
+                tags: ["Двигатель", "Капремонт"]
+              },
+              {
+                title: "Детейлинг и покраска",
+                description: "Audi A6: Удаление глубоких царапин, полная полировка кузова и нанесение керамики.",
+                before: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80",
+                after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80",
+                tags: ["Кузов", "Детейлинг"]
+              }
+            ].map((caseItem, i) => (
+              <Card key={i} className="bg-neutral-800/50 border-neutral-700 overflow-hidden group">
+                <div className="flex h-64 border-b border-neutral-700">
+                  <div className="w-1/2 relative overflow-hidden border-r border-neutral-700">
+                    <img src={caseItem.before} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="До" />
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-red-500/80 backdrop-blur-md border-0">ДО</Badge>
+                    </div>
+                  </div>
+                  <div className="w-1/2 relative overflow-hidden">
+                    <img src={caseItem.after} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="После" />
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-green-500/80 backdrop-blur-md border-0">ПОСЛЕ</Badge>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex gap-2 mb-3">
+                    {caseItem.tags.map(tag => (
+                      <Badge key={tag} variant="outline" className="border-blue-500/30 text-blue-400">{tag}</Badge>
+                    ))}
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{caseItem.title}</h3>
+                  <p className="text-neutral-400 text-sm leading-relaxed">{caseItem.description}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
