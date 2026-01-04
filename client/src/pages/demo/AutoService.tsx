@@ -120,9 +120,8 @@ export default function AutoService() {
     const service = services.find(s => s.id === selectedService);
     if (!service) return timeSlots;
     
-    // Имитация логики: если услуга долгая (например, переборка двигателя), блокируем часть слотов
     if (service.name.includes("двигателя") || service.duration.includes("8 часов")) {
-      return ["08:00", "09:00"]; // Только утро для длинных работ
+      return ["08:00", "09:00"];
     }
     return timeSlots;
   }, [selectedService, selectedDate]);
@@ -151,6 +150,14 @@ export default function AutoService() {
         description: mechanics.find(m => m.id === id)?.name,
       });
     }, 600);
+  };
+
+  const handleTimeSelect = (time: string) => {
+    setSelectedTime(time);
+    toast({
+      title: "Время выбрано",
+      description: `${selectedDate} в ${time}`,
+    });
   };
 
   const handleBook = () => {
@@ -554,7 +561,32 @@ export default function AutoService() {
       </section>
 
       <section className="py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+        <div className="max-w-7xl mx-auto px-6 text-center text-neutral-400">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h2 className="text-3xl font-bold mb-4 text-white">Остались вопросы?</h2>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
+              <div className="flex items-center gap-3">
+                <Phone className="w-6 h-6 text-blue-400" />
+                <div className="text-left">
+                  <p className="text-sm">Телефон</p>
+                  <a href="tel:+79991234567" className="text-lg font-semibold text-white hover:text-blue-400">+7 (999) 123-45-67</a>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <Clock className="w-6 h-6 text-blue-400" />
+                <div className="text-left">
+                  <p className="text-sm">Режим работы</p>
+                  <p className="text-lg font-semibold text-white">Пн-Сб: 08:00 - 18:00</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           <Button 
             variant="ghost" 
             className="text-neutral-500 hover:text-blue-400 transition-colors"
@@ -621,54 +653,9 @@ export default function AutoService() {
         </div>
       </section>
 
-      <footer ref={contactRef} id="contact" className="py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Остались вопросы?</h2>
-            <p className="text-neutral-400 mb-8 max-w-xl mx-auto">
-              Свяжитесь с нами по телефону, напишите письмо или приезжайте в наш сервис
-            </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-              <div className="flex items-center gap-3">
-                <Phone className="w-6 h-6 text-blue-400" />
-                <div className="text-left">
-                  <p className="text-sm text-neutral-400">Телефон</p>
-                  <a href="tel:+79991234567" className="text-lg font-semibold text-white hover:text-blue-400 transition-colors">
-                    +7 (999) 123-45-67
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <MapPin className="w-6 h-6 text-blue-400" />
-                <div className="text-left">
-                  <p className="text-sm text-neutral-400">Адрес</p>
-                  <p className="text-lg font-semibold text-white">
-                    ул. Автозаводская, 28
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <Clock className="w-6 h-6 text-blue-400" />
-                <div className="text-left">
-                  <p className="text-sm text-neutral-400">График работы</p>
-                  <p className="text-lg font-semibold text-white">
-                    Пн-Сб: 08:00 - 18:00
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       <footer className="py-12 border-t border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 text-center text-neutral-400 text-sm">
-          <p>© 2024 ТехноПро Сервис. Все права защищены. | Дизайн от <span className="text-white">MP.WebStudio</span></p>
+          <p>© 2026 ТехноПро Сервис. Все права защищены. | Демо-концепт <span className="text-white">MP.WebStudio</span></p>
         </div>
       </footer>
     </div>
