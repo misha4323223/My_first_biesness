@@ -146,17 +146,27 @@ export default function StreetWearShop() {
     window.scrollTo(0, 0);
   }, []);
 
-  const toggleFavorite = (id: number) => {
-    setFavorites(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
-  };
-
   const addToCart = (id: number, e?: React.MouseEvent) => {
     if (e) {
       const rect = e.currentTarget.getBoundingClientRect();
       setFlyer({ id, x: rect.left, y: rect.top });
       setTimeout(() => setFlyer(null), 800);
     }
+    
+    // Luxury Haptic-like feedback for mobile
+    if (isMobile && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(20);
+    }
+    
     setCart(prev => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
+  };
+
+  const toggleFavorite = (id: number) => {
+    // Subtle haptic for favorites
+    if (isMobile && window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(10);
+    }
+    setFavorites(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
   };
 
   const removeFromCart = (id: number) => {
@@ -829,37 +839,45 @@ export default function StreetWearShop() {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                 {filteredProducts.map((product, index) => (
                   <motion.div
                     key={product.id}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.05 }}
+                    transition={{ delay: index * 0.05, duration: 0.6 }}
                   >
-                    <Card className="group overflow-hidden border-0 bg-neutral-900 hover:bg-neutral-800 transition-colors cursor-pointer" data-testid={`card-product-${product.id}`} onClick={() => setSelectedProduct(product)}>
-                      <div className="relative aspect-[3/4] overflow-hidden bg-neutral-800">
+                    <Card 
+                      className="group overflow-hidden border-0 bg-neutral-900 hover:bg-neutral-800 transition-all duration-700 cursor-pointer rounded-none shadow-2xl shadow-black/40 hover:shadow-amber-500/10" 
+                      data-testid={`card-product-${product.id}`} 
+                      onClick={() => setSelectedProduct(product)}
+                    >
+                      <div className="relative aspect-[4/5] overflow-hidden bg-neutral-800">
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out"
+                          loading="lazy"
                         />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                        
                         {product.tag && (
-                          <Badge className={`absolute top-3 left-3 border-0 font-bold ${
-                            product.tag === "SALE" ? "bg-red-500 text-white" :
-                            product.tag === "New" ? "bg-green-500 text-white" :
+                          <Badge className={`absolute top-4 left-4 border-0 font-black tracking-tighter rounded-none py-1 px-3 ${
+                            product.tag === "SALE" ? "bg-red-600 text-white" :
+                            product.tag === "New" ? "bg-white text-black" :
                             "bg-amber-500 text-black"
                           }`}>
                             {product.tag}
                           </Badge>
                         )}
+                        
                         <Button
                           variant="ghost"
                           size="icon"
-                          className={`absolute top-3 right-3 z-20 w-10 h-10 rounded-full backdrop-blur-md transition-all duration-300 ${
+                          className={`absolute top-4 right-4 z-20 w-12 h-12 rounded-full backdrop-blur-xl transition-all duration-500 ${
                             favorites.includes(product.id) 
-                              ? "bg-amber-500 text-black scale-110 shadow-[0_0_15px_rgba(245,158,11,0.5)]" 
+                              ? "bg-white text-red-500 scale-110 shadow-xl" 
                               : "bg-black/40 text-white hover:bg-white hover:text-black border border-white/10"
                           }`}
                           onClick={(e) => {
@@ -873,25 +891,26 @@ export default function StreetWearShop() {
                         >
                           <Flame className={`w-5 h-5 transition-transform duration-500 ${favorites.includes(product.id) ? "scale-110 fill-current" : "group-hover:rotate-12"}`} />
                         </Button>
-                        <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Button
-                            className="w-full bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20"
-                            onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
-                          >
-                            Подробнее
+
+                        <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                          <Button className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl">
+                            VIEW DETAILS
                           </Button>
                         </div>
                       </div>
-                      <div className="p-4">
-                        <p className="text-xs text-amber-500 font-bold uppercase tracking-wider mb-1">
-                          {product.brand}
-                        </p>
-                        <h3 className="font-bold text-white mb-2">{product.name}</h3>
+                      
+                      <div className="p-6">
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="space-y-1">
+                            <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.3em]">{product.brand}</p>
+                            <h3 className="text-xl font-black leading-none group-hover:text-amber-500 transition-colors uppercase tracking-tight">{product.name}</h3>
+                          </div>
+                        </div>
                         
-                        {/* Quick Size Selection */}
+                        {/* Quick Size Selection - Mobile Friendly */}
                         <div className="mb-4">
-                          <p className="text-[10px] text-neutral-500 uppercase mb-2">Выберите размер:</p>
-                          <div className="flex flex-wrap gap-1.5">
+                          <p className="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-3">Select Size</p>
+                          <div className="flex flex-wrap gap-2">
                             {product.sizes.map(size => (
                               <button
                                 key={size}
@@ -899,9 +918,9 @@ export default function StreetWearShop() {
                                   e.stopPropagation();
                                   setQuickSizes(prev => ({ ...prev, [product.id]: size }));
                                 }}
-                                className={`text-[10px] px-2 py-1 rounded border transition-colors ${
+                                className={`text-[11px] px-3 py-1.5 rounded-none border transition-all duration-300 font-black tracking-tighter ${
                                   quickSizes[product.id] === size 
-                                    ? "bg-amber-500 border-amber-500 text-black font-bold" 
+                                    ? "bg-amber-500 border-amber-500 text-black scale-105" 
                                     : "border-neutral-800 text-neutral-400 hover:border-neutral-600"
                                 }`}
                               >
@@ -911,19 +930,19 @@ export default function StreetWearShop() {
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between mt-auto">
                           <div className="flex flex-col">
-                            <span className="text-lg font-bold text-white">{product.price.toLocaleString()} р</span>
+                            <span className="text-2xl font-black tracking-tighter text-white">{product.price.toLocaleString()} р</span>
                             {product.oldPrice && (
-                              <span className="text-sm text-neutral-500 line-through">{product.oldPrice.toLocaleString()} р</span>
+                              <span className="text-sm text-neutral-600 line-through font-bold tracking-tighter">{product.oldPrice.toLocaleString()} р</span>
                             )}
                           </div>
                           <Button
                             size="icon"
-                            className={`rounded-full transition-all ${
+                            className={`w-12 h-12 rounded-none transition-all duration-500 ${
                               quickSizes[product.id] 
-                                ? "bg-amber-500 hover:bg-amber-600 text-black" 
-                                : "bg-neutral-800 text-neutral-500 cursor-not-allowed"
+                                ? "bg-amber-500 hover:bg-amber-600 text-black shadow-lg shadow-amber-500/20" 
+                                : "bg-neutral-800 text-neutral-600 cursor-not-allowed"
                             }`}
                             disabled={!quickSizes[product.id]}
                             onClick={(e) => {
@@ -935,13 +954,13 @@ export default function StreetWearShop() {
                                 return next;
                               });
                               toast({ 
-                                title: "Добавлено в корзину!", 
-                                description: `${product.name} (размер ${quickSizes[product.id]})` 
+                                title: "ДОБАВЛЕНО В КОРЗИНУ", 
+                                description: `${product.name} [SIZE: ${quickSizes[product.id]}]` 
                               });
                             }}
                             data-testid={`button-add-cart-${product.id}`}
                           >
-                            <Plus className="w-4 h-4" />
+                            <Plus className={`w-5 h-5 ${quickSizes[product.id] ? "animate-pulse" : ""}`} />
                           </Button>
                         </div>
                       </div>
