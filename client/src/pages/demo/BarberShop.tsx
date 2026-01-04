@@ -302,25 +302,25 @@ export default function BarberShop() {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
-      <header className="fixed top-0 left-0 right-0 z-40 bg-neutral-950/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 sm:gap-4">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-neutral-950/80 backdrop-blur-md border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
             <Link href="/#portfolio">
               <Button
                 variant="ghost"
                 size="icon"
-                className="bg-white/5 hover:bg-white/10 text-white border border-white/10"
+                className="bg-white/5 hover:bg-white/10 text-white border border-white/10 h-8 w-8"
                 data-testid="button-back-home"
               >
                 <ArrowLeft className="w-4 h-4" />
               </Button>
             </Link>
 
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-md bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
-                <Scissors className="w-4 h-4 text-white" />
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-md bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                <Scissors className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="text-xl font-bold tracking-wider">BLADE</span>
+              <span className="text-lg font-bold tracking-wider uppercase">BLADE</span>
             </div>
           </div>
 
@@ -332,101 +332,92 @@ export default function BarberShop() {
             <button onClick={scrollToContact} className="hover:text-amber-400 transition-colors cursor-pointer">Контакты</button>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="text-neutral-300 hover:text-amber-400 gap-2 px-2 sm:px-3"
-              data-testid="button-login"
-            >
-              <LogIn className="w-4 h-4" />
-              <span className="hidden sm:inline">Войти</span>
-            </Button>
+          <div className="flex items-center gap-2">
             <Button 
               variant="ghost" 
               size="icon" 
-              className="relative text-neutral-300 hover:text-amber-400 h-9 w-9"
+              className="relative text-neutral-300 hover:text-amber-400 h-8 w-8"
               onClick={() => setIsCartOpen(true)}
               data-testid="button-cart"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ShoppingCart className="w-4 h-4" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 text-black text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-500 text-black text-[9px] font-bold rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
             </Button>
-            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold h-9 px-3 sm:px-4" data-testid="button-book-header" onClick={scrollToBooking}>
-              <span className="hidden xs:inline">Записаться</span>
-              <Calendar className="w-4 h-4 xs:hidden" />
+            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold h-8 px-3" data-testid="button-book-header" onClick={scrollToBooking}>
+              <span className="text-xs sm:text-sm">Запись</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="relative min-h-screen flex items-center overflow-hidden pt-20">
+      <div className="relative min-h-[100dvh] flex items-center overflow-hidden pt-16">
         <div className="absolute inset-0 bg-neutral-950 pointer-events-none" />
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none"
+          className="absolute inset-0 w-full h-full object-cover opacity-50 pointer-events-none"
         >
           <source src={barberHeroVideo} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-neutral-950/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-neutral-950/40 pointer-events-none" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-32">
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="text-center sm:text-left"
           >
-            <div className="flex items-center gap-4 mb-6">
-              <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 mb-8 sm:mb-6">
+              <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 text-[10px] sm:text-xs">
                 Премиум барбершоп
               </Badge>
-              <Badge variant="outline" className="border-amber-500/50 text-amber-500 animate-pulse">
+              <Badge variant="outline" className="border-amber-500/50 text-amber-500 animate-pulse text-[10px] sm:text-xs">
                 Скидка 20% на первый визит
               </Badge>
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <h1 className="text-4xl xs:text-5xl sm:text-7xl font-bold mb-6 leading-[1.1] tracking-tight">
               Стиль — это
               <br />
-              <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent uppercase">
                 искусство
               </span>
             </h1>
-            <p className="text-xl text-neutral-400 mb-8 max-w-lg">
+            <p className="text-base sm:text-xl text-neutral-300 mb-10 max-w-lg mx-auto sm:mx-0">
               Мужская парикмахерская с атмосферой и вниманием к деталям. Только лучшие мастера и премиальный уход.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold" data-testid="button-book-hero" onClick={scrollToBooking}>
+            <div className="flex flex-col xs:flex-row items-center justify-center sm:justify-start gap-4 mb-12">
+              <Button size="lg" className="w-full xs:w-auto bg-amber-500 hover:bg-amber-600 text-black font-bold h-12 sm:h-14 px-8 text-base" data-testid="button-book-hero" onClick={scrollToBooking}>
                 <Calendar className="w-5 h-5 mr-2" />
-                Записаться онлайн
+                Записаться
               </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" data-testid="button-prices" onClick={scrollToServices}>
-                Посмотреть цены
+              <Button size="lg" variant="outline" className="w-full xs:w-auto border-white/20 text-white hover:bg-white/10 h-12 sm:h-14 px-8 text-base backdrop-blur-sm" data-testid="button-prices" onClick={scrollToServices}>
+                Прайс-лист
               </Button>
             </div>
-            <div className="flex items-center gap-8 mt-12 text-sm">
-              <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-6 sm:gap-10 text-xs sm:text-sm font-medium">
+              <div className="flex items-center gap-2.5 bg-white/5 px-4 py-2 rounded-full border border-white/10">
                 <Clock className="w-4 h-4 text-amber-400" />
-                <span className="text-neutral-400">10:00 - 22:00</span>
+                <span className="text-neutral-200">10:00 - 22:00</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5 bg-white/5 px-4 py-2 rounded-full border border-white/10">
                 <MapPin className="w-4 h-4 text-amber-400" />
-                <span className="text-neutral-400">Тула, ул. Пушкина, 15</span>
+                <span className="text-neutral-200">Тула, ул. Пушкина, 15</span>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      <section className="py-20 bg-neutral-950 border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12">
+      <section className="py-12 sm:py-20 bg-neutral-950 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
             {features.map((f, i) => (
               <motion.div
                 key={i}
@@ -434,13 +425,13 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex gap-4"
+                className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
                   <f.icon className="w-6 h-6 text-amber-500" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1">{f.title}</h3>
+                  <h3 className="font-bold text-lg mb-1 uppercase tracking-tight">{f.title}</h3>
                   <p className="text-sm text-neutral-400 leading-relaxed">{f.desc}</p>
                 </div>
               </motion.div>
@@ -449,9 +440,9 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section className="py-20 bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-6">
+      <section className="py-12 sm:py-20 bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-3 gap-4 sm:gap-6 no-scrollbar snap-x">
             {offers.map((offer, i) => (
               <motion.div
                 key={i}
@@ -459,15 +450,16 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="min-w-[280px] sm:min-w-0 snap-center"
               >
-                <Card className="p-8 bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
+                <Card className="p-6 sm:p-8 h-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
                   <div className="absolute top-4 right-4">
-                    <Badge className="bg-amber-500 text-black">{offer.badge}</Badge>
+                    <Badge className="bg-amber-500 text-black font-bold">{offer.badge}</Badge>
                   </div>
-                  <h3 className="text-2xl font-bold mb-2 group-hover:text-amber-400 transition-colors">{offer.title}</h3>
-                  <p className="text-neutral-400 mb-6">{offer.desc}</p>
-                  <Button variant="link" className="p-0 h-auto text-amber-500 font-semibold" onClick={scrollToBooking}>
-                    Воспользоваться →
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 group-hover:text-amber-400 transition-colors uppercase tracking-tight">{offer.title}</h3>
+                  <p className="text-sm sm:text-base text-neutral-400 mb-6">{offer.desc}</p>
+                  <Button variant="link" className="p-0 h-auto text-amber-500 font-bold" onClick={scrollToBooking}>
+                    ПОДРОБНЕЕ →
                   </Button>
                 </Card>
               </motion.div>
@@ -476,21 +468,21 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section ref={servicesRef} id="services" className="py-20 bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={servicesRef} id="services" className="py-12 sm:py-20 bg-neutral-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши услуги</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
-              Профессиональный уход за волосами и бородой
+            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Наши услуги</h2>
+            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
+              Профессиональный уход за волосами и бородой от мастеров высшей категории
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {services.map((service, i) => (
               <motion.div
                 key={service.id}
@@ -500,29 +492,29 @@ export default function BarberShop() {
                 transition={{ delay: i * 0.1 }}
               >
                 <Card 
-                  className={`p-6 bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer transition-all ${selectedService === service.id ? 'ring-2 ring-amber-500' : ''}`}
+                  className={`p-5 sm:p-6 bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer transition-all h-full flex flex-col ${selectedService === service.id ? 'ring-2 ring-amber-500 border-amber-500/50' : ''}`}
                   onClick={() => handleServiceSelect(service.id)}
                   data-testid={`card-service-${service.id}`}
                 >
                   <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Scissors className="w-6 h-6 text-amber-400" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                      <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
                     </div>
                     {service.popular && (
-                      <Badge className="bg-amber-500 text-black border-0">Хит</Badge>
+                      <Badge className="bg-amber-500 text-black border-0 font-bold text-[10px]">ХИТ</Badge>
                     )}
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-white">{service.name}</h3>
-                  <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
+                  <h3 className="text-base sm:text-lg font-bold mb-1.5 text-white uppercase tracking-tight">{service.name}</h3>
+                  <div className="flex items-center gap-4 text-xs sm:text-sm text-neutral-400 mb-6">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5" />
                       {service.duration}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-amber-400">{formatPrice(service.price)} ₽</span>
-                    <Button size="sm" className="bg-amber-500/20 text-amber-400 hover:bg-amber-500/30" data-testid={`button-select-service-${service.id}`}>
-                      Выбрать
+                  <div className="mt-auto flex items-center justify-between">
+                    <span className="text-xl sm:text-2xl font-black text-amber-400">{formatPrice(service.price)} ₽</span>
+                    <Button size="sm" className="bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 border border-amber-500/30" data-testid={`button-select-service-${service.id}`}>
+                      ВЫБРАТЬ
                     </Button>
                   </div>
                 </Card>
