@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { SiGoogle, SiYcombinator, SiMicrosoft, SiAmazon } from "react-icons/si";
+import { SiGoogle, SiYcombinator, SiAmazon, SiApple } from "react-icons/si";
 
 import heroImg from "@assets/generated_images/online_course_platform_hero_image.png";
 import instructorImg from "@assets/generated_images/online_course_instructor_portrait.png";
@@ -521,7 +521,7 @@ export default function OnlineAcademy() {
           </p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all">
             <SiGoogle className="w-10 h-10" />
-            <SiMicrosoft className="w-10 h-10" />
+            <SiApple className="w-10 h-10" />
             <SiAmazon className="w-10 h-10" />
             <SiYcombinator className="w-10 h-10" />
             <div className="text-2xl font-bold">Яндекс</div>
