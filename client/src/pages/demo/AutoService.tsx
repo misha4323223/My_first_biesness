@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Wrench, Clock, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, Zap, Shield, TrendingUp, Users, Activity } from "lucide-react";
+import { Wrench, Clock, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, Zap, Shield, TrendingUp, Users, Activity, Car, Truck, CarFront, Droplets, Sparkles, ShieldCheck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
 import { useState, useEffect, useRef, useMemo } from "react";
@@ -62,12 +62,43 @@ const timeSlots = [
   "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"
 ];
 
+const vehicleTypes = [
+  { id: "sedan", name: "Седан", multiplier: 1, icon: Car },
+  { id: "suv", name: "Внедорожник", multiplier: 1.3, icon: CarFront },
+  { id: "truck", name: "Грузовой", multiplier: 1.8, icon: Truck },
+];
+
+const additionalServices = [
+  { id: "wash", name: "Мойка кузова", price: 500, icon: Droplets },
+  { id: "cleaning", name: "Чистка салона", price: 1200, icon: Sparkles },
+  { id: "antiseptic", name: "Антисептик", price: 300, icon: ShieldCheck },
+];
+
 export default function AutoService() {
+  const [selectedVehicle, setSelectedVehicle] = useState(vehicleTypes[0].id);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
   const [selectedService, setSelectedService] = useState<number | null>(null);
   const [selectedMechanic, setSelectedMechanic] = useState<number | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [step, setStep] = useState(1);
+  
+  const totalPrice = useMemo(() => {
+    if (!selectedService) return 0;
+    const baseService = services.find(s => s.id === selectedService);
+    if (!baseService) return 0;
+    
+    const vehicle = vehicleTypes.find(v => v.id === selectedVehicle);
+    const multiplier = vehicle?.multiplier || 1;
+    
+    const addonsPrice = selectedAddons.reduce((sum, id) => {
+      const addon = additionalServices.find(a => a.id === id);
+      return sum + (addon?.price || 0);
+    }, 0);
+    
+    return Math.round(baseService.price * multiplier) + addonsPrice;
+  }, [selectedService, selectedVehicle, selectedAddons]);
+
   const { toast } = useToast();
   const servicesRef = useRef<HTMLElement>(null);
   const mechanicsRef = useRef<HTMLElement>(null);
@@ -171,6 +202,8 @@ export default function AutoService() {
       setSelectedMechanic(null);
       setSelectedTime(null);
       setSelectedDate("");
+      setSelectedAddons([]);
+      setSelectedVehicle(vehicleTypes[0].id);
     }
   };
 
@@ -400,6 +433,53 @@ export default function AutoService() {
           </motion.div>
 
           <Card className="p-8 bg-neutral-800/50 border-neutral-700">
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold mb-4">1. Ваш автомобиль</h3>
+              <div className="grid grid-cols-3 gap-4">
+                {vehicleTypes.map((type) => (
+                  <button
+                    key={type.id}
+                    onClick={() => setSelectedVehicle(type.id)}
+                    className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                      selectedVehicle === type.id 
+                        ? "border-blue-500 bg-blue-500/10" 
+                        : "border-neutral-700 bg-neutral-800/50 hover:border-neutral-600"
+                    }`}
+                  >
+                    <type.icon className={`w-8 h-8 ${selectedVehicle === type.id ? "text-blue-400" : "text-neutral-500"}`} />
+                    <span className="text-xs font-medium">{type.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold mb-4">2. Дополнительные услуги</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {additionalServices.map((addon) => (
+                  <button
+                    key={addon.id}
+                    onClick={() => {
+                      setSelectedAddons(prev => 
+                        prev.includes(addon.id) 
+                          ? prev.filter(id => id !== addon.id)
+                          : [...prev, addon.id]
+                      );
+                    }}
+                    className={`p-3 rounded-lg border flex items-center gap-3 transition-all ${
+                      selectedAddons.includes(addon.id)
+                        ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                        : "border-neutral-700 bg-neutral-800/30 text-neutral-400 hover:border-neutral-600"
+                    }`}
+                  >
+                    <addon.icon className="w-4 h-4" />
+                    <span className="text-xs flex-1 text-left">{addon.name}</span>
+                    <span className="text-xs font-bold">+{addon.price} ₽</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="flex items-center gap-4 mb-8">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-500 text-black' : 'bg-neutral-700'}`}>
                 {step > 1 ? <Check className="w-5 h-5" /> : '1'}
@@ -495,11 +575,15 @@ export default function AutoService() {
                   </div>
                 </div>
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-2xl font-bold text-blue-400">
-                    {formatPrice(services.find(s => s.id === selectedService)?.price || 0)} ₽
-                  </span>
+                  <div className="flex flex-col">
+                    <span className="text-xs text-neutral-400 uppercase tracking-wider">Итоговая стоимость</span>
+                    <span className="text-3xl font-bold text-blue-400">
+                      {formatPrice(totalPrice)} ₽
+                    </span>
+                  </div>
                   <Button 
-                    className="bg-blue-500 hover:bg-blue-600 text-black font-semibold"
+                    size="lg"
+                    className="bg-blue-500 hover:bg-blue-600 text-black font-bold h-12 px-8"
                     onClick={handleBook}
                     data-testid="button-confirm-booking"
                   >
