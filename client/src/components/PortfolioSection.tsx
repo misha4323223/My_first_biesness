@@ -489,14 +489,14 @@ function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
     <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
       <defs>
         <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(168, 85, 247, 0.3)" />
-          <stop offset="50%" stopColor="rgba(168, 85, 247, 0.6)" />
-          <stop offset="100%" stopColor="rgba(168, 85, 247, 0.3)" />
+          <stop offset="0%" stopColor="rgba(168, 85, 247, 0.15)" />
+          <stop offset="50%" stopColor="rgba(168, 85, 247, 0.3)" />
+          <stop offset="100%" stopColor="rgba(168, 85, 247, 0.15)" />
         </linearGradient>
         <linearGradient id="lineGradientActive" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(168, 85, 247, 0.5)" />
-          <stop offset="50%" stopColor="rgba(168, 85, 247, 1)" />
-          <stop offset="100%" stopColor="rgba(168, 85, 247, 0.5)" />
+          <stop offset="0%" stopColor="rgba(168, 85, 247, 0.4)" />
+          <stop offset="50%" stopColor="rgba(168, 85, 247, 0.8)" />
+          <stop offset="100%" stopColor="rgba(168, 85, 247, 0.4)" />
         </linearGradient>
       </defs>
       {connections.map(([from, to], index) => {
@@ -509,10 +509,10 @@ function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
             x2={`${starPositions[to].x}%`}
             y2={`${starPositions[to].y}%`}
             stroke={isActive ? "url(#lineGradientActive)" : "url(#lineGradient)"}
-            strokeWidth={isActive ? 2 : 1}
+            strokeWidth={isActive ? 1.5 : 0.5}
             initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: isActive ? 1 : 0.4 }}
-            transition={{ duration: 1.5, delay: index * 0.1 }}
+            animate={{ pathLength: 1, opacity: isActive ? 1 : 0.3 }}
+            transition={{ duration: 1.5, delay: index * 0.05 }}
           />
         );
       })}
@@ -535,8 +535,9 @@ function StarNode({
   onHover: (id: number | null) => void;
   onClick: () => void;
 }) {
-  const starSize = item.badgeType === "live" ? 20 : 14;
-  const glowColor = item.badgeType === "live" ? "rgba(34, 197, 94, 0.6)" : "rgba(168, 85, 247, 0.6)";
+  const starSize = item.badgeType === "live" ? 6 : 4;
+  const glowColor = item.badgeType === "live" ? "rgba(34, 197, 94, 0.4)" : "rgba(168, 85, 247, 0.4)";
+  const coreColor = item.badgeType === "live" ? "#4ade80" : "#c084fc";
   
   return (
     <motion.div
@@ -549,59 +550,104 @@ function StarNode({
       }}
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
       onMouseEnter={() => onHover(index)}
       onMouseLeave={() => onHover(null)}
       onClick={onClick}
       data-testid={`star-${item.id}`}
     >
-      {/* Пульсирующее свечение */}
+      {/* Диффузное свечение (небула вокруг звезды) */}
       <motion.div
-        className="absolute rounded-full"
+        className="absolute rounded-full blur-xl"
         style={{
-          width: starSize * 3,
-          height: starSize * 3,
+          width: starSize * 15,
+          height: starSize * 15,
           left: "50%",
           top: "50%",
           transform: "translate(-50%, -50%)",
           background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
         }}
         animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.5, 0.8, 0.5],
+          opacity: [0.3, 0.6, 0.3],
+          scale: [1, 1.2, 1],
         }}
         transition={{
-          duration: 2,
+          duration: 4 + Math.random() * 2,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       />
       
-      {/* Ядро звезды */}
+      {/* Острое свечение (лучи) */}
       <motion.div
-        className="relative rounded-full"
+        className="absolute w-[2px] h-full bg-white/40 blur-[1px]"
         style={{
-          width: starSize,
-          height: starSize,
-          background: item.badgeType === "live" 
-            ? "radial-gradient(circle, #22c55e 0%, #16a34a 100%)"
-            : "radial-gradient(circle, #a855f7 0%, #7c3aed 100%)",
-          boxShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
+          left: "50%",
+          top: "50%",
+          height: starSize * 6,
+          transform: "translate(-50%, -50%)",
         }}
-        whileHover={{ scale: 1.5 }}
-        transition={{ type: "spring", stiffness: 300 }}
+        animate={{ opacity: [0.2, 0.8, 0.2] }}
+        transition={{ duration: 2, repeat: Infinity }}
       />
+      <motion.div
+        className="absolute h-[2px] w-full bg-white/40 blur-[1px]"
+        style={{
+          left: "50%",
+          top: "50%",
+          width: starSize * 6,
+          transform: "translate(-50%, -50%)",
+        }}
+        animate={{ opacity: [0.2, 0.8, 0.2] }}
+        transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+      />
+
+      {/* Ядро звезды - многослойное */}
+      <motion.div
+        className="relative flex items-center justify-center"
+        animate={{
+          scale: isHovered ? 1.4 : 1,
+        }}
+      >
+        {/* Внешнее мерцающее ядро */}
+        <motion.div
+          className="absolute rounded-full"
+          style={{
+            width: starSize * 2,
+            height: starSize * 2,
+            background: coreColor,
+            filter: "blur(2px)",
+          }}
+          animate={{
+            opacity: [0.4, 1, 0.4],
+          }}
+          transition={{
+            duration: 1 + Math.random(),
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        {/* Центральная точка */}
+        <div
+          className="relative rounded-full bg-white"
+          style={{
+            width: starSize,
+            height: starSize,
+            boxShadow: `0 0 ${starSize * 2}px white`,
+          }}
+        />
+      </motion.div>
 
       {/* Подпись под звездой */}
       <div 
         className="absolute whitespace-nowrap pointer-events-none text-center"
         style={{
-          top: starSize + 10,
+          top: starSize * 2 + 5,
           left: "50%",
           transform: "translateX(-50%)",
         }}
       >
-        <p className="text-[8px] md:text-[10px] text-purple-300/80 font-medium">
+        <p className="text-[9px] md:text-[11px] text-white/60 font-medium tracking-wide">
           {item.subtitle}
         </p>
       </div>
