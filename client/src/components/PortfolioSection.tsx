@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { ParticleBackground } from "./ParticleBackground";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface FlyingLetterProps {
   letter: string;
@@ -398,14 +399,17 @@ function Nebulae() {
 }
 
 function ShootingStars() {
+  const isMobile = useIsMobile();
+  const shootingStarsCount = isMobile ? 1 : 3;
+  
   const shootingStars = useMemo(() => 
-    Array.from({ length: 3 }, (_, i) => ({
+    Array.from({ length: shootingStarsCount }, (_, i) => ({
       id: i,
       startX: 10 + Math.random() * 30,
       startY: 5 + Math.random() * 20,
       duration: 2 + Math.random() * 2,
       delay: i * 4 + Math.random() * 3,
-    })), []
+    })), [shootingStarsCount]
   );
 
   return (
@@ -428,7 +432,7 @@ function ShootingStars() {
             duration: star.duration,
             delay: star.delay,
             repeat: Infinity,
-            repeatDelay: 8,
+            repeatDelay: isMobile ? 15 : 8,
             ease: "easeOut",
           }}
         >
@@ -445,15 +449,18 @@ function ShootingStars() {
 }
 
 function StarParticles() {
+  const isMobile = useIsMobile();
+  const particleCount = isMobile ? 20 : 60;
+  
   const particles = useMemo(() => 
-    Array.from({ length: 60 }, (_, i) => ({
+    Array.from({ length: particleCount }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
       size: Math.random() * 2 + 0.5,
       duration: Math.random() * 3 + 2,
       delay: Math.random() * 2,
-    })), []
+    })), [particleCount]
   );
 
   return (
@@ -468,7 +475,9 @@ function StarParticles() {
             width: particle.size,
             height: particle.size,
           }}
-          animate={{
+          animate={isMobile ? {
+            opacity: [0.3, 0.6, 0.3],
+          } : {
             opacity: [0.2, 0.9, 0.2],
             scale: [1, 1.3, 1],
           }}
@@ -541,6 +550,7 @@ function StarNode({
   onHover: (id: number | null) => void;
   onClick: () => void;
 }) {
+  const isMobile = useIsMobile();
   const starSize = item.badgeType === "live" ? 6 : 4;
   const glowColor = item.badgeType === "live" ? "rgba(34, 197, 94, 0.4)" : "rgba(168, 85, 247, 0.4)";
   const coreColor = item.badgeType === "live" ? "#4ade80" : "#c084fc";
@@ -557,8 +567,8 @@ function StarNode({
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}
+      onMouseEnter={() => !isMobile && onHover(index)}
+      onMouseLeave={() => !isMobile && onHover(null)}
       onClick={onClick}
       data-testid={`star-${item.id}`}
     >
@@ -573,7 +583,9 @@ function StarNode({
           transform: "translate(-50%, -50%)",
           background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
         }}
-        animate={{
+        animate={isMobile ? {
+          opacity: [0.4, 0.5, 0.4],
+        } : {
           opacity: [0.3, 0.6, 0.3],
           scale: [1, 1.2, 1],
         }}
@@ -584,34 +596,38 @@ function StarNode({
         }}
       />
       
-      {/* Острое свечение (лучи) */}
-      <motion.div
-        className="absolute w-[2px] h-full bg-white/40 blur-[1px]"
-        style={{
-          left: "50%",
-          top: "50%",
-          height: starSize * 6,
-          transform: "translate(-50%, -50%)",
-        }}
-        animate={{ opacity: [0.2, 0.8, 0.2] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      />
-      <motion.div
-        className="absolute h-[2px] w-full bg-white/40 blur-[1px]"
-        style={{
-          left: "50%",
-          top: "50%",
-          width: starSize * 6,
-          transform: "translate(-50%, -50%)",
-        }}
-        animate={{ opacity: [0.2, 0.8, 0.2] }}
-        transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-      />
+      {/* Острое свечение (лучи) - скрываем на мобильных */}
+      {!isMobile && (
+        <>
+          <motion.div
+            className="absolute w-[2px] h-full bg-white/40 blur-[1px]"
+            style={{
+              left: "50%",
+              top: "50%",
+              height: starSize * 6,
+              transform: "translate(-50%, -50%)",
+            }}
+            animate={{ opacity: [0.2, 0.8, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.div
+            className="absolute h-[2px] w-full bg-white/40 blur-[1px]"
+            style={{
+              left: "50%",
+              top: "50%",
+              width: starSize * 6,
+              transform: "translate(-50%, -50%)",
+            }}
+            animate={{ opacity: [0.2, 0.8, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+          />
+        </>
+      )}
 
       {/* Ядро звезды - многослойное */}
       <motion.div
         className="relative flex items-center justify-center"
-        animate={{
+        animate={isMobile ? {} : {
           scale: isHovered ? 1.4 : 1,
         }}
       >
@@ -624,7 +640,7 @@ function StarNode({
             background: coreColor,
             filter: "blur(2px)",
           }}
-          animate={{
+          animate={isMobile ? {} : {
             opacity: [0.4, 1, 0.4],
           }}
           transition={{
@@ -639,7 +655,7 @@ function StarNode({
           style={{
             width: starSize,
             height: starSize,
-            boxShadow: `0 0 ${starSize * 2}px white`,
+            boxShadow: isMobile ? `0 0 ${starSize}px white` : `0 0 ${starSize * 2}px white`,
           }}
         />
       </motion.div>
