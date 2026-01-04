@@ -320,9 +320,9 @@ export default function FitnessStudio() {
         </motion.div>
       </header>
 
-      <section className="py-16 sm:py-24 border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <section className="py-10 sm:py-24 border-t border-neutral-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-3 gap-2 sm:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -330,13 +330,13 @@ export default function FitnessStudio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center group p-6 rounded-2xl bg-white/5 border border-white/5 sm:bg-transparent sm:border-0"
+                className="text-center group p-2 sm:p-6 rounded-xl bg-white/5 border border-white/5 sm:bg-transparent sm:border-0"
               >
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 border border-white/5 flex items-center justify-center mx-auto mb-4 sm:mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-violet-400" />
+                <div className="w-8 h-8 sm:w-16 sm:h-16 rounded-lg sm:rounded-2xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 border border-white/5 flex items-center justify-center mx-auto mb-2 sm:mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="w-4 h-4 sm:w-8 sm:h-8 text-violet-400" />
                 </div>
-                <div className="text-3xl sm:text-5xl font-bold mb-1 sm:mb-2 tracking-tight">{stat.value}</div>
-                <div className="text-neutral-500 text-xs sm:text-base font-medium uppercase tracking-wider">{stat.label}</div>
+                <div className="text-xl sm:text-5xl font-bold mb-0.5 sm:mb-2 tracking-tight">{stat.value}</div>
+                <div className="text-neutral-500 text-[8px] sm:text-base font-medium uppercase tracking-wider leading-tight">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -376,7 +376,7 @@ export default function FitnessStudio() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6"
                 >
                   {classes.map((cls, index) => {
                     const isBooked = bookedClasses.includes(cls.id);
@@ -387,40 +387,41 @@ export default function FitnessStudio() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.05 }}
                       >
-                        <Card className={`p-6 border-2 transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/5 ${isBooked ? 'border-violet-500 bg-violet-500/5' : 'border-white/5 bg-neutral-800/40 hover:border-violet-500/40'}`} data-testid={`card-class-${cls.id}`}>
-                          <div className="flex items-start justify-between gap-4 mb-4">
+                        <Card className={`p-4 sm:p-6 border-2 transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/5 ${isBooked ? 'border-violet-500 bg-violet-500/5' : 'border-white/5 bg-neutral-800/40 hover:border-violet-500/40'}`} data-testid={`card-class-${cls.id}`}>
+                          <div className="flex items-center justify-between gap-4 mb-3 sm:mb-4">
                             <div className="min-w-0">
-                              <h3 className="font-bold text-lg text-white mb-1 truncate">{cls.name}</h3>
-                              <p className="text-sm text-neutral-400 font-medium">Тренер: {cls.trainer}</p>
+                              <h3 className="font-bold text-base sm:text-lg text-white truncate">{cls.name}</h3>
+                              <p className="text-xs sm:text-sm text-neutral-400 font-medium">Тренер: {cls.trainer}</p>
                             </div>
                             {isBooked ? (
-                              <Badge className="bg-violet-500 text-white border-0 shrink-0">
-                                <Check className="w-3.5 h-3.5 mr-1" />
+                              <Badge className="bg-violet-500 text-white border-0 shrink-0 text-[10px] sm:text-xs">
+                                <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1" />
                                 Записан
                               </Badge>
                             ) : (
-                              <Badge variant="secondary" className="bg-violet-500/10 text-violet-300 border-0 shrink-0">
+                              <Badge variant="secondary" className="bg-violet-500/10 text-violet-300 border-0 shrink-0 text-[10px] sm:text-xs">
                                 {cls.spots} мест
                               </Badge>
                             )}
                           </div>
-                          <div className="flex items-center gap-6 text-sm text-neutral-400 mb-6">
-                            <div className="flex items-center gap-2">
-                              <Clock className="w-4 h-4 text-violet-400" />
+                          <div className="flex items-center gap-4 sm:gap-6 text-[10px] sm:text-sm text-neutral-400 mb-4 sm:mb-6">
+                            <div className="flex items-center gap-1.5">
+                              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-violet-400" />
                               <span className="font-semibold">{cls.time}</span>
                             </div>
-                            <div className="flex items-center gap-2">
-                              <Dumbbell className="w-4 h-4 text-violet-400" />
+                            <div className="flex items-center gap-1.5">
+                              <Dumbbell className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-violet-400" />
                               <span>{cls.duration}</span>
                             </div>
                           </div>
                           <Button 
                             variant={isBooked ? "default" : "outline"}
-                            className={`w-full h-11 transition-all active-elevate-2 font-bold ${isBooked ? 'bg-violet-600 hover:bg-violet-700 border-violet-600 shadow-lg shadow-violet-600/20' : 'border-neutral-700 text-neutral-200 hover:bg-violet-600 hover:border-violet-600 hover:text-white'}`}
+                            size="sm"
+                            className={`w-full h-9 sm:h-11 transition-all active-elevate-2 font-bold text-xs sm:text-base ${isBooked ? 'bg-violet-600 hover:bg-violet-700 border-violet-600 shadow-lg shadow-violet-600/20' : 'border-neutral-700 text-neutral-200 hover:bg-violet-600 hover:border-violet-600 hover:text-white'}`}
                             onClick={() => bookClass(cls.id)}
                             data-testid={`button-book-${cls.id}`}
                           >
-                            {isBooked ? "Отменить запись" : "Записаться"}
+                            {isBooked ? "Отменить" : "Записаться"}
                           </Button>
                         </Card>
                       </motion.div>
@@ -435,37 +436,37 @@ export default function FitnessStudio() {
 
       <section className="py-16 sm:py-24 bg-black overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-12 sm:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-10 sm:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-4 bg-violet-500 text-white border-0 py-1 px-3">Инструменты</Badge>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 tracking-tight">Калькулятор ИМТ</h2>
-              <p className="text-lg text-neutral-400 mb-10 leading-relaxed">
+              <Badge className="mb-3 sm:mb-4 bg-violet-500 text-white border-0 py-1 px-3">Инструменты</Badge>
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 tracking-tight">Калькулятор ИМТ</h2>
+              <p className="text-sm sm:text-lg text-neutral-400 mb-6 sm:mb-10 leading-relaxed">
                 Индекс массы тела (ИМТ) — это простой способ оценить соответствие вашего веса вашему росту. Узнайте свою норму прямо сейчас и получите персональные рекомендации.
               </p>
               
-              <div className="bg-neutral-900/50 border border-white/5 p-6 sm:p-10 rounded-3xl backdrop-blur-sm relative overflow-hidden group">
+              <div className="bg-neutral-900/50 border border-white/5 p-5 sm:p-10 rounded-2xl sm:rounded-3xl backdrop-blur-sm relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent pointer-events-none" />
-                <div className="grid sm:grid-cols-2 gap-6 mb-8 relative z-10">
-                  <div className="space-y-3">
-                    <Label className="text-neutral-300 font-semibold text-base">Вес (кг)</Label>
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 relative z-10">
+                  <div className="space-y-2 sm:space-y-3">
+                    <Label className="text-neutral-300 font-semibold text-sm sm:text-base">Вес (кг)</Label>
                     <Input 
                       type="number" 
                       placeholder="70" 
-                      className="bg-neutral-800/80 border-white/5 h-14 text-lg focus:ring-violet-500/50 transition-all rounded-xl"
+                      className="bg-neutral-800/80 border-white/5 h-11 sm:h-14 text-base sm:text-lg focus:ring-violet-500/50 transition-all rounded-xl"
                       value={bmi.weight}
                       onChange={(e) => setBmi(prev => ({ ...prev, weight: e.target.value }))}
                     />
                   </div>
-                  <div className="space-y-3">
-                    <Label className="text-neutral-300 font-semibold text-base">Рост (см)</Label>
+                  <div className="space-y-2 sm:space-y-3">
+                    <Label className="text-neutral-300 font-semibold text-sm sm:text-base">Рост (см)</Label>
                     <Input 
                       type="number" 
                       placeholder="175" 
-                      className="bg-neutral-800/80 border-white/5 h-14 text-lg focus:ring-violet-500/50 transition-all rounded-xl"
+                      className="bg-neutral-800/80 border-white/5 h-11 sm:h-14 text-base sm:text-lg focus:ring-violet-500/50 transition-all rounded-xl"
                       value={bmi.height}
                       onChange={(e) => setBmi(prev => ({ ...prev, height: e.target.value }))}
                     />
@@ -473,7 +474,7 @@ export default function FitnessStudio() {
                 </div>
                 
                 <Button 
-                  className="w-full h-14 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 font-bold text-lg rounded-xl shadow-lg shadow-violet-600/20 mb-8 relative z-10"
+                  className="w-full h-11 sm:h-14 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 font-bold text-sm sm:text-lg rounded-xl shadow-lg shadow-violet-600/20 mb-6 sm:mb-8 relative z-10"
                   onClick={calculateBmi}
                 >
                   Рассчитать ИМТ
@@ -483,11 +484,11 @@ export default function FitnessStudio() {
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="text-center p-8 bg-neutral-800/80 rounded-2xl border border-violet-500/30 relative z-10"
+                    className="text-center p-4 sm:p-8 bg-neutral-800/80 rounded-2xl border border-violet-500/30 relative z-10"
                   >
-                    <div className="text-sm text-neutral-400 mb-1 font-medium uppercase tracking-wider">Ваш результат</div>
-                    <div className="text-5xl font-bold mb-3 tracking-tighter text-white">{bmi.result}</div>
-                    <div className={`text-lg font-bold uppercase tracking-widest px-4 py-1.5 rounded-full inline-block bg-white/5 ${getBmiCategory(bmi.result).color}`}>
+                    <div className="text-[10px] sm:text-sm text-neutral-400 mb-0.5 sm:mb-1 font-medium uppercase tracking-wider">Ваш результат</div>
+                    <div className="text-3xl sm:text-5xl font-bold mb-2 sm:mb-3 tracking-tighter text-white">{bmi.result}</div>
+                    <div className={`text-sm sm:text-lg font-bold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full inline-block bg-white/5 ${getBmiCategory(bmi.result).color}`}>
                       {getBmiCategory(bmi.result).label}
                     </div>
                   </motion.div>
@@ -502,17 +503,17 @@ export default function FitnessStudio() {
               className="relative aspect-square sm:aspect-[4/3] lg:aspect-square"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 blur-[100px] rounded-full opacity-50" />
-              <div className="relative h-full border border-white/10 bg-neutral-900/40 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-12 flex flex-col justify-center text-center shadow-2xl">
-                <div className="w-24 h-24 rounded-3xl bg-violet-500/10 flex items-center justify-center mx-auto mb-8">
-                  <Dumbbell className="w-12 h-12 text-violet-500 animate-pulse" />
+              <div className="relative h-full border border-white/10 bg-neutral-900/40 backdrop-blur-md rounded-2xl sm:rounded-[2.5rem] p-6 sm:p-12 flex flex-col justify-center text-center shadow-2xl">
+                <div className="w-16 h-16 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-violet-500/10 flex items-center justify-center mx-auto mb-6 sm:mb-8">
+                  <Dumbbell className="w-8 h-8 sm:w-12 sm:h-12 text-violet-500 animate-pulse" />
                 </div>
-                <h3 className="text-3xl sm:text-4xl font-bold mb-6 text-white leading-tight">Готовы к изменениям?</h3>
-                <p className="text-lg text-neutral-400 mb-10 leading-relaxed mx-auto max-w-sm">
+                <h3 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6 text-white leading-tight">Готовы к изменениям?</h3>
+                <p className="text-sm sm:text-lg text-neutral-400 mb-8 sm:mb-10 leading-relaxed mx-auto max-w-sm">
                   Начните свой путь к идеальному телу сегодня с бесплатной тренировки и консультации.
                 </p>
                 <Button 
                   size="lg" 
-                  className="bg-white text-black hover:bg-neutral-200 h-14 rounded-xl text-lg font-bold shadow-xl shadow-white/5"
+                  className="bg-white text-black hover:bg-neutral-200 h-12 sm:h-14 rounded-xl text-base sm:text-lg font-bold shadow-xl shadow-white/5"
                   onClick={() => setTrialOpen(true)}
                 >
                   Записаться на тест-драйв
@@ -523,19 +524,19 @@ export default function FitnessStudio() {
         </div>
       </section>
 
-      <section ref={pricingRef} id="pricing" className="py-16 sm:py-24 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={pricingRef} id="pricing" className="py-10 sm:py-24 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-20"
+            className="text-center mb-8 sm:mb-20"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">Абонементы</h2>
-            <p className="text-neutral-400 max-w-2xl mx-auto text-lg">Инвестируйте в своё здоровье. Мы предлагаем гибкие тарифы для любых целей и уровня подготовки.</p>
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-6 text-white">Абонементы</h2>
+            <p className="text-neutral-400 max-w-2xl mx-auto text-xs sm:text-lg leading-relaxed">Гибкие тарифы для любых целей и уровня подготовки.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-8">
             {plans.map((plan, index) => {
               const isSelected = selectedPlan === plan.name;
               return (
@@ -546,26 +547,26 @@ export default function FitnessStudio() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className={`relative h-full p-8 sm:p-10 flex flex-col border-2 transition-all duration-500 rounded-[2rem] overflow-hidden ${plan.popular ? 'border-violet-500 bg-neutral-900/80' : 'border-white/5 bg-neutral-900/40 hover:border-white/10'}`}>
+                  <Card className={`relative h-full p-4 sm:p-10 flex flex-col border-2 transition-all duration-500 rounded-xl sm:rounded-[2rem] overflow-hidden ${plan.popular ? 'border-violet-500 bg-neutral-900/80 shadow-xl shadow-violet-500/10' : 'border-white/5 bg-neutral-900/40 hover:border-white/10'}`}>
                     {plan.popular && (
-                      <div className="absolute top-0 right-0 bg-violet-500 text-white text-xs font-bold px-5 py-2 rounded-bl-2xl uppercase tracking-widest">
-                        Популярный
+                      <div className="absolute top-0 right-0 bg-violet-500 text-white text-[8px] sm:text-xs font-bold px-3 py-1 sm:px-5 sm:py-2 rounded-bl-lg sm:rounded-bl-2xl uppercase tracking-widest">
+                        TOP
                       </div>
                     )}
                     
-                    <div className="mb-8">
-                      <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
+                    <div className="mb-3 sm:mb-8">
+                      <h3 className="text-lg sm:text-2xl font-bold text-white mb-0.5 sm:mb-2">{plan.name}</h3>
                       <div className="flex items-baseline gap-1">
-                        <span className="text-4xl font-bold text-white">{plan.price}</span>
-                        <span className="text-neutral-400">₽/мес</span>
+                        <span className="text-2xl sm:text-4xl font-bold text-white">{plan.price}</span>
+                        <span className="text-[10px] sm:text-base text-neutral-400 font-medium">₽/мес</span>
                       </div>
                     </div>
 
-                    <ul className="space-y-4 mb-10 flex-grow">
+                    <ul className="space-y-1.5 sm:space-y-4 mb-4 sm:mb-10 flex-grow">
                       {plan.features.map(feature => (
-                        <li key={feature} className="flex items-center gap-3 text-neutral-300 font-medium">
-                          <div className="w-5 h-5 rounded-full bg-violet-500/10 flex items-center justify-center shrink-0">
-                            <Check className="w-3 h-3 text-violet-400" />
+                        <li key={feature} className="flex items-center gap-2.5 sm:gap-3 text-[10px] sm:text-base text-neutral-300 font-medium leading-tight">
+                          <div className="w-3 h-3 sm:w-5 sm:h-5 rounded-full bg-violet-500/10 flex items-center justify-center shrink-0">
+                            <Check className="w-2 h-2 sm:w-3 sm:h-3 text-violet-400" />
                           </div>
                           {feature}
                         </li>
@@ -573,11 +574,12 @@ export default function FitnessStudio() {
                     </ul>
 
                     <Button 
-                      className={`w-full h-14 rounded-xl text-lg font-bold transition-all active-elevate-2 ${plan.popular ? 'bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-600/20' : 'bg-neutral-800 text-white hover:bg-neutral-700'}`}
+                      size="sm"
+                      className={`w-full h-9 sm:h-14 rounded-lg sm:rounded-xl text-xs sm:text-lg font-bold transition-all active-elevate-2 ${plan.popular ? 'bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-600/20' : 'bg-neutral-800 text-white hover:bg-neutral-700'}`}
                       onClick={() => selectPlan(plan.name)}
                       data-testid={`button-plan-${index}`}
                     >
-                      {isSelected ? "Выбрано" : "Выбрать тариф"}
+                      {isSelected ? "Выбрано" : "Выбрать"}
                     </Button>
                   </Card>
                 </motion.div>
@@ -587,68 +589,68 @@ export default function FitnessStudio() {
         </div>
       </section>
 
-      <section ref={contactRef} className="py-16 sm:py-24 bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-neutral-800/30 border border-white/5 rounded-[3rem] p-8 sm:p-16 relative overflow-hidden">
+      <section ref={contactRef} id="contact" className="py-12 sm:py-24 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="bg-neutral-900/50 border border-white/5 rounded-2xl sm:rounded-[3rem] p-6 sm:p-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-violet-500/5 to-transparent pointer-events-none" />
             
-            <div className="grid lg:grid-cols-2 gap-16 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 relative z-10">
               <div>
-                <h2 className="text-3xl sm:text-4xl font-bold mb-8">Свяжитесь с нами</h2>
-                <div className="space-y-8">
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center shrink-0">
-                      <MapPin className="w-6 h-6 text-violet-400" />
+                <h2 className="text-2xl sm:text-4xl font-bold mb-6 sm:mb-8 text-white">Свяжитесь с нами</h2>
+                <div className="space-y-6 sm:space-y-8">
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-violet-500/10 flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-violet-400" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white mb-1">Наш адрес</h4>
-                      <p className="text-neutral-400 leading-relaxed">г. Тула, проспект Ленина, 85, ТЦ "Ликерка Лофт"</p>
+                      <h4 className="font-bold text-sm sm:text-base text-white mb-0.5 sm:mb-1">Наш адрес</h4>
+                      <p className="text-xs sm:text-base text-neutral-400 leading-relaxed">г. Тула, проспект Ленина, 85, ТЦ "Ликерка Лофт"</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center shrink-0">
-                      <Phone className="w-6 h-6 text-violet-400" />
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-violet-500/10 flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-violet-400" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white mb-1">Телефон</h4>
-                      <p className="text-neutral-400 leading-relaxed text-lg">+7 (4872) 12-34-56</p>
+                      <h4 className="font-bold text-sm sm:text-base text-white mb-0.5 sm:mb-1">Телефон</h4>
+                      <p className="text-sm sm:text-lg text-neutral-400 leading-relaxed">+7 (4872) 12-34-56</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 rounded-2xl bg-violet-500/10 flex items-center justify-center shrink-0">
-                      <Clock className="w-6 h-6 text-violet-400" />
+                  <div className="flex items-start gap-4 sm:gap-5">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-violet-500/10 flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-violet-400" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white mb-1">Режим работы</h4>
-                      <p className="text-neutral-400 leading-relaxed">Ежедневно: 07:00 – 23:00</p>
+                      <h4 className="font-bold text-sm sm:text-base text-white mb-0.5 sm:mb-1">Режим работы</h4>
+                      <p className="text-xs sm:text-base text-neutral-400 leading-relaxed">Ежедневно: 07:00 – 23:00</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-12 flex gap-4">
+                <div className="mt-8 sm:mt-12 flex gap-3 sm:gap-4">
                   {['VK', 'TG', 'WA'].map(social => (
-                    <Button key={social} variant="outline" className="w-12 h-12 rounded-xl border-white/5 hover:bg-white/5 text-white p-0">
+                    <Button key={social} variant="outline" size="sm" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-white/5 hover:bg-white/5 text-white p-0 text-xs sm:text-base">
                       {social}
                     </Button>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-neutral-900/50 p-8 sm:p-10 rounded-[2rem] border border-white/5 shadow-2xl">
-                <h3 className="text-2xl font-bold mb-2">Спецпредложения</h3>
-                <p className="text-neutral-400 mb-8">Подпишитесь на нашу рассылку, чтобы получать информацию об акциях и новых направлениях.</p>
-                <div className="space-y-4">
+              <div className="bg-neutral-900/50 p-6 sm:p-10 rounded-2xl sm:rounded-[2rem] border border-white/5 shadow-2xl">
+                <h3 className="text-lg sm:text-2xl font-bold mb-2">Спецпредложения</h3>
+                <p className="text-xs sm:text-base text-neutral-400 mb-6 sm:mb-8">Подпишитесь на рассылку об акциях и новых направлениях.</p>
+                <div className="space-y-3 sm:space-y-4">
                   <Input 
                     placeholder="Ваш Email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="h-14 bg-neutral-800 border-white/5 rounded-xl text-lg px-6"
+                    className="h-11 sm:h-14 bg-neutral-800 border-white/5 rounded-xl text-sm sm:text-lg px-4 sm:px-6"
                   />
-                  <Button className="w-full h-14 bg-violet-600 hover:bg-violet-700 text-lg font-bold rounded-xl shadow-lg shadow-violet-600/20" onClick={handleSubscribe}>
+                  <Button size="sm" className="w-full h-11 sm:h-14 bg-violet-600 hover:bg-violet-700 text-sm sm:text-lg font-bold rounded-xl shadow-lg shadow-violet-600/20" onClick={handleSubscribe}>
                     Подписаться
                   </Button>
                 </div>
-                <p className="text-xs text-neutral-500 mt-6 text-center leading-relaxed">
+                <p className="text-[10px] sm:text-xs text-neutral-500 mt-4 sm:mt-6 text-center leading-relaxed">
                   Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности.
                 </p>
               </div>
