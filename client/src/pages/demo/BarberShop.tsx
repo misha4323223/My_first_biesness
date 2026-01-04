@@ -502,9 +502,9 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-20 bg-neutral-900/50">
+      <section className="py-8 sm:py-20 bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6">
             {offers.map((offer, i) => (
               <motion.div
                 key={i}
@@ -513,13 +513,13 @@ export default function BarberShop() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="p-5 sm:p-8 h-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
-                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
-                    <Badge className="bg-amber-500 text-black font-black text-[10px] sm:text-xs uppercase tracking-tighter">{offer.badge}</Badge>
+                <Card className="p-4 sm:p-8 h-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
+                  <div className="absolute top-2 right-2 sm:top-4 sm:right-4">
+                    <Badge className="bg-amber-500 text-black font-black text-[9px] sm:text-xs uppercase tracking-tighter px-1.5 py-0 sm:px-2.5 sm:py-0.5">{offer.badge}</Badge>
                   </div>
-                  <h3 className="text-lg sm:text-2xl font-black mb-1 sm:mb-2 group-hover:text-amber-400 transition-colors uppercase tracking-tight leading-tight">{offer.title}</h3>
-                  <p className="text-xs sm:text-base text-neutral-400 mb-4 sm:mb-6 leading-relaxed">{offer.desc}</p>
-                  <Button variant="ghost" className="p-0 h-auto text-amber-500 font-black uppercase tracking-widest text-[10px] hover:bg-transparent hover:text-amber-400" onClick={scrollToBooking}>
+                  <h3 className="text-sm sm:text-2xl font-black mb-0.5 sm:mb-2 group-hover:text-amber-400 transition-colors uppercase tracking-tight leading-tight">{offer.title}</h3>
+                  <p className="text-[10px] sm:text-base text-neutral-400 mb-2 sm:mb-6 leading-tight sm:leading-relaxed">{offer.desc}</p>
+                  <Button variant="ghost" className="p-0 h-auto text-amber-500 font-black uppercase tracking-widest text-[9px] sm:text-[10px] hover:bg-transparent hover:text-amber-400" onClick={scrollToBooking}>
                     ПОДРОБНЕЕ →
                   </Button>
                 </Card>
@@ -670,19 +670,19 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-20 bg-neutral-950">
+      <section className="py-8 sm:py-20 bg-neutral-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-6 sm:mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter italic">Отзывы клиентов</h2>
-            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">Что говорят о нас те, кто уже доверил нам свой стиль</p>
+            <h2 className="text-2xl sm:text-4xl font-black mb-2 sm:mb-4 uppercase tracking-tighter italic">Отзывы клиентов</h2>
+            <p className="text-xs sm:text-base text-neutral-400 max-w-xl mx-auto">Что говорят о нас те, кто уже доверил нам свой стиль</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-6">
             {reviews.map((review, i) => (
               <motion.div
                 key={review.id}
@@ -691,20 +691,20 @@ export default function BarberShop() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="p-4 sm:p-6 bg-neutral-900 border-neutral-800 h-full flex flex-col group hover-elevate">
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <div className="flex items-center gap-0.5 sm:gap-1">
+                <Card className="p-3 sm:p-6 bg-neutral-900 border-neutral-800 h-full flex flex-col group hover-elevate">
+                  <div className="flex items-center justify-between mb-2 sm:mb-4">
+                    <div className="flex items-center gap-0.5">
                       {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className={`w-3 h-3 sm:w-4 sm:h-4 ${idx < review.rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-700'}`} />
+                        <Star key={idx} className={`w-2.5 h-2.5 sm:w-4 sm:h-4 ${idx < review.rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-700'}`} />
                       ))}
                     </div>
-                    <span className="text-[9px] sm:text-xs text-neutral-500 font-bold uppercase tracking-wider">{review.source}</span>
+                    <span className="text-[8px] sm:text-xs text-neutral-500 font-bold uppercase tracking-wider">{review.source}</span>
                   </div>
-                  <Quote className="w-6 h-6 sm:w-8 sm:h-8 text-amber-500/10 mb-3 sm:mb-4 group-hover:text-amber-500/20 transition-colors" />
-                  <p className="text-xs sm:text-base text-neutral-300 mb-4 sm:mb-6 flex-grow italic leading-relaxed">"{review.text}"</p>
-                  <div className="flex items-center justify-between mt-auto pt-3 sm:pt-4 border-t border-white/5">
-                    <span className="font-bold text-xs sm:text-base text-white uppercase tracking-tight">{review.author}</span>
-                    <span className="text-[9px] sm:text-xs text-neutral-500">{review.date}</span>
+                  <Quote className="w-4 h-4 sm:w-8 sm:h-8 text-amber-500/10 mb-2 sm:mb-4 group-hover:text-amber-500/20 transition-colors" />
+                  <p className="text-[10px] sm:text-base text-neutral-300 mb-3 sm:mb-6 flex-grow italic leading-snug sm:leading-relaxed">"{review.text}"</p>
+                  <div className="flex items-center justify-between mt-auto pt-2 sm:pt-4 border-t border-white/5">
+                    <span className="font-bold text-[10px] sm:text-base text-white uppercase tracking-tight">{review.author}</span>
+                    <span className="text-[8px] sm:text-xs text-neutral-500">{review.date}</span>
                   </div>
                 </Card>
               </motion.div>
