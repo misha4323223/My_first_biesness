@@ -290,14 +290,14 @@ export default function FitnessStudio() {
                 форма
               </span>
             </h1>
-            <p className="text-lg sm:text-xl text-neutral-400 mb-8 sm:mb-10 max-w-lg leading-relaxed">
+            <p className="text-base sm:text-xl text-neutral-400 mb-8 sm:mb-10 max-w-lg leading-relaxed">
               Современный фитнес-клуб с профессиональными тренерами и новейшим оборудованием. Создай тело своей мечты вместе с нами.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-base h-14 px-8 shadow-lg shadow-violet-600/20" onClick={scrollToSchedule} data-testid="button-start">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Button size="lg" className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 text-base h-12 sm:h-14 px-8 shadow-lg shadow-violet-600/20 w-full sm:w-auto" onClick={scrollToSchedule} data-testid="button-start">
                 Начать тренировки
               </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/5 text-base h-14 px-8" onClick={scrollToPricing} data-testid="button-tour">
+              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/5 text-base h-12 sm:h-14 px-8 w-full sm:w-auto" onClick={scrollToPricing} data-testid="button-tour">
                 Выбрать абонемент
               </Button>
             </div>
@@ -322,7 +322,7 @@ export default function FitnessStudio() {
 
       <section className="py-16 sm:py-24 border-t border-neutral-900">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -330,13 +330,13 @@ export default function FitnessStudio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center group"
+                className="text-center group p-6 rounded-2xl bg-white/5 border border-white/5 sm:bg-transparent sm:border-0"
               >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 border border-white/5 flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <stat.icon className="w-8 h-8 text-violet-400" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 border border-white/5 flex items-center justify-center mx-auto mb-4 sm:mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <stat.icon className="w-6 h-6 sm:w-8 sm:h-8 text-violet-400" />
                 </div>
-                <div className="text-4xl sm:text-5xl font-bold mb-2 tracking-tight">{stat.value}</div>
-                <div className="text-neutral-500 text-sm sm:text-base font-medium uppercase tracking-wider">{stat.label}</div>
+                <div className="text-3xl sm:text-5xl font-bold mb-1 sm:mb-2 tracking-tight">{stat.value}</div>
+                <div className="text-neutral-500 text-xs sm:text-base font-medium uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -356,13 +356,13 @@ export default function FitnessStudio() {
           </motion.div>
 
           <Tabs defaultValue="Пн" className="w-full" onValueChange={setActiveDay}>
-            <div className="flex justify-center mb-8 px-2">
-              <TabsList className="flex w-full max-w-2xl bg-neutral-800/50 border border-white/5 p-1 rounded-xl h-auto">
+            <div className="sticky top-[72px] z-20 bg-neutral-950/95 backdrop-blur-md py-4 mb-4 -mx-4 px-4 sm:static sm:bg-transparent sm:p-0 sm:mb-8 sm:mx-0">
+              <TabsList className="flex w-full max-w-2xl bg-neutral-800/50 border border-white/5 p-1 rounded-xl h-auto overflow-x-auto no-scrollbar justify-start sm:justify-center">
                 {days.map(day => (
                   <TabsTrigger 
                     key={day} 
                     value={day}
-                    className="flex-1 px-0 sm:px-6 py-2.5 data-[state=active]:bg-violet-600 data-[state=active]:text-white rounded-lg transition-all text-sm sm:text-base font-medium"
+                    className="flex-shrink-0 min-w-[50px] sm:flex-1 px-4 sm:px-6 py-2.5 data-[state=active]:bg-violet-600 data-[state=active]:text-white rounded-lg transition-all text-sm sm:text-base font-medium"
                   >
                     {day}
                   </TabsTrigger>
