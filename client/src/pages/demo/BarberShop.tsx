@@ -504,7 +504,7 @@ export default function BarberShop() {
 
       <section className="py-12 sm:py-20 bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-3 gap-3 sm:gap-6 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {offers.map((offer, i) => (
               <motion.div
                 key={i}
@@ -512,7 +512,6 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="min-w-[85vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0"
               >
                 <Card className="p-5 sm:p-8 h-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
                   <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
@@ -683,7 +682,7 @@ export default function BarberShop() {
             <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">Что говорят о нас те, кто уже доверил нам свой стиль</p>
           </motion.div>
 
-          <div className="flex overflow-x-auto pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
             {reviews.map((review, i) => (
               <motion.div
                 key={review.id}
@@ -691,7 +690,6 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="min-w-[80vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0"
               >
                 <Card className="p-4 sm:p-6 bg-neutral-900 border-neutral-800 h-full flex flex-col group hover-elevate">
                   <div className="flex items-center justify-between mb-3 sm:mb-4">
