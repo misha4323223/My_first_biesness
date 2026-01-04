@@ -4485,7 +4485,8 @@ ${companyContext || 'MP.WebStudio — веб-студия полного цик�
             };
         }
 
-        const assistantMessageRaw = data.result?.alternatives?.[0]?.message?.text || 'Нет ответа';
+        const responseData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
+        const assistantMessageRaw = responseData.result?.alternatives?.[0]?.message?.text || 'Нет ответа';
         const assistantMessage = await processAiCommands(assistantMessageRaw, handlerId);
 
         console.log(`[YANDEX-CHAT-${handlerId}] Success! Response: ${assistantMessage.length} chars, ${elapsed}s`);
