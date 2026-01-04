@@ -659,6 +659,66 @@ export default function OnlineAcademy() {
         </div>
       </section>
 
+      {/* Course Preview Dialog */}
+      <Dialog open={previewCourse !== null} onOpenChange={(open) => !open && setPreviewCourse(null)}>
+        <DialogContent className="max-w-3xl p-0 overflow-hidden" data-testid="dialog-preview-course">
+          {previewCourse !== null && (
+            <div className="flex flex-col">
+              <div className="relative aspect-video bg-black flex items-center justify-center">
+                <div className="text-white text-center p-8">
+                  <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4 border border-white/30 backdrop-blur-sm">
+                    <Play className="w-10 h-10 text-white fill-white ml-1" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">Превью курса: {courses.find(c => c.id === previewCourse)?.title}</h3>
+                  <p className="text-white/70">Начните обучение с бесплатного ознакомительного урока</p>
+                </div>
+                <DialogClose className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70">
+                  <X className="w-5 h-5" />
+                </DialogClose>
+              </div>
+              <div className="p-6 max-h-[60vh] overflow-y-auto">
+                <DialogHeader className="mb-6">
+                  <DialogTitle className="text-2xl">Программа обучения</DialogTitle>
+                </DialogHeader>
+                <Accordion type="single" collapsible className="w-full">
+                  {courses.find(c => c.id === previewCourse)?.syllabus?.map((module, i) => (
+                    <AccordionItem key={i} value={`module-${i}`}>
+                      <AccordionTrigger className="hover:no-underline py-4">
+                        <div className="flex items-center gap-4">
+                          <Badge variant="outline" className="w-8 h-8 rounded-full p-0 flex items-center justify-center border-blue-200">
+                            {i + 1}
+                          </Badge>
+                          <span className="font-semibold">{module.title}</span>
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ul className="space-y-3 pl-12">
+                          {module.topics.map((topic, j) => (
+                            <li key={j} className="flex items-center gap-3 text-sm text-muted-foreground">
+                              <Play className="w-3 h-3 text-blue-500" />
+                              {topic}
+                              <span className="ml-auto text-xs opacity-50">15:00</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+                <div className="mt-8 flex justify-end gap-4 border-t pt-6">
+                  <Button variant="outline" onClick={() => setPreviewCourse(null)}>Закрыть</Button>
+                  <Button onClick={() => {
+                    const id = previewCourse;
+                    setPreviewCourse(null);
+                    handleEnrollClick(id);
+                  }}>Записаться на курс</Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
       {/* CTA */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
@@ -724,72 +784,15 @@ export default function OnlineAcademy() {
         </div>
       </footer>
 
-      {/* Preview Course Modal */}
-      <Dialog open={previewCourse !== null} onOpenChange={(open) => !open && setPreviewCourse(null)}>
-        <DialogContent className="max-w-2xl" data-testid="dialog-preview-course">
-          <DialogHeader>
-            <DialogTitle>Предпросмотр курса</DialogTitle>
-          </DialogHeader>
-          {previewCourse && (() => {
-            const course = courses.find(c => c.id === previewCourse);
-            return course ? (
-              <div className="space-y-4">
-                <img src={course.image} alt={course.title} className="w-full h-64 object-cover rounded-lg" />
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">{course.title}</h3>
-                  <p className="text-muted-foreground mb-4">{course.description}</p>
-                  <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div>
-                      <p className="text-sm text-muted-foreground">Преподаватель</p>
-                      <p className="font-semibold">{course.instructor}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Длительность</p>
-                      <p className="font-semibold">{course.duration}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Уровень</p>
-                      <p className="font-semibold">{course.level}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">Цена</p>
-                      <p className="font-semibold text-blue-600">{course.price}₽</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="default" 
-                      onClick={() => {
-                        setPreviewCourse(null);
-                        handleEnrollClick(course.id);
-                      }}
-                      data-testid="button-enroll-from-preview"
-                    >
-                      Записаться на курс
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      onClick={() => setPreviewCourse(null)}
-                    >
-                      Закрыть
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ) : null;
-          })()}
-        </DialogContent>
-      </Dialog>
-
       {/* Enroll Form Modal */}
       <Dialog open={enrollingCourse !== null} onOpenChange={(open) => !open && setEnrollingCourse(null)}>
         <DialogContent data-testid="dialog-enroll-form">
           <DialogHeader>
             <DialogTitle>
-              {enrolledCourses.includes(enrollingCourse!) ? "Отписаться от курса?" : "Записаться на курс"}
+              {enrollingCourse !== null && enrolledCourses.includes(enrollingCourse) ? "Отписаться от курса?" : "Записаться на курс"}
             </DialogTitle>
           </DialogHeader>
-          {enrollingCourse && (() => {
+          {enrollingCourse !== null && (() => {
             const course = courses.find(c => c.id === enrollingCourse);
             const isEnrolled = enrolledCourses.includes(enrollingCourse);
             return course ? (
