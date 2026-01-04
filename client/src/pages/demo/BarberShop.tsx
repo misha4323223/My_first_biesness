@@ -530,211 +530,139 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section ref={servicesRef} id="services" className="py-12 sm:py-20 bg-neutral-900">
+      <section ref={servicesRef} className="py-12 sm:py-20 bg-neutral-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10 sm:mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Наши услуги</h2>
-            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
-              Профессиональный уход за волосами и бородой от мастеров высшей категории
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {services.map((service, i) => (
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tighter italic">Услуги и цены</h2>
+            <p className="text-neutral-400 max-w-2xl mx-auto">Премиальный уход для настоящих джентльменов</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+            {services.map((s) => (
               <motion.div
-                key={service.id}
+                key={s.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -5 }}
+                className="group"
               >
                 <Card 
-                  className={`p-5 sm:p-6 bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer transition-all h-full flex flex-col ${selectedService === service.id ? 'ring-2 ring-amber-500 border-amber-500/50' : ''}`}
-                  onClick={() => handleServiceSelect(service.id)}
-                  data-testid={`card-service-${service.id}`}
+                  className={`p-4 sm:p-6 bg-neutral-900/50 border-neutral-800 hover:border-amber-500/50 transition-all cursor-pointer relative overflow-hidden ${selectedService === s.id ? 'border-amber-500 bg-amber-500/5' : ''}`}
+                  onClick={() => handleServiceSelect(s.id)}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
-                      <service.icon className="w-5 h-5 sm:w-6 sm:h-6 text-amber-400" />
+                  {s.popular && (
+                    <div className="absolute top-0 right-0">
+                      <div className="bg-amber-500 text-black text-[10px] font-black px-3 py-1 uppercase tracking-tighter transform rotate-45 translate-x-4 translate-y-2">
+                        BEST
+                      </div>
                     </div>
-                    {service.popular && (
-                      <Badge className="bg-amber-500 text-black border-0 font-bold text-[10px]">ХИТ</Badge>
-                    )}
+                  )}
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center shrink-0 ${selectedService === s.id ? 'bg-amber-500 text-black' : 'bg-white/5 text-amber-500 group-hover:bg-amber-500 group-hover:text-black transition-colors'}`}>
+                        <s.icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                      </div>
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-sm sm:text-lg uppercase tracking-tight truncate">{s.name}</h3>
+                        <p className="text-xs text-neutral-500 font-medium">{s.duration}</p>
+                      </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <div className="text-base sm:text-xl font-black text-amber-400 tracking-tighter">{formatPrice(s.price)}</div>
+                    </div>
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold mb-1.5 text-white uppercase tracking-tight">{service.name}</h3>
-                  <div className="flex items-center gap-4 text-xs sm:text-sm text-neutral-400 mb-6">
-                    <span className="flex items-center gap-1.5">
-                      <Clock className="w-3.5 h-3.5" />
-                      {service.duration}
-                    </span>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section ref={barbersRef} className="py-12 sm:py-20 bg-neutral-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tighter italic">Мастера</h2>
+            <p className="text-neutral-400 max-w-2xl mx-auto">Команда профессионалов, влюбленных в свое дело</p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
+            {barbers.map((b) => (
+              <motion.div
+                key={b.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <Card 
+                  className={`overflow-hidden bg-neutral-900 border-neutral-800 hover:border-amber-500/50 transition-all cursor-pointer ${selectedBarber === b.id ? 'border-amber-500 ring-1 ring-amber-500' : ''}`}
+                  onClick={() => handleBarberSelect(b.id)}
+                >
+                  <div className="relative aspect-[4/5] sm:aspect-square overflow-hidden">
+                    <img 
+                      src={b.image} 
+                      alt={b.name} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent opacity-80" />
+                    <div className="absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4">
+                      <div className="flex items-center gap-1 sm:gap-2 mb-0.5 sm:mb-1">
+                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
+                        <span className="text-[10px] sm:text-sm font-bold">{b.rating}</span>
+                      </div>
+                      <h3 className="text-sm sm:text-xl font-black uppercase tracking-tight">{b.name}</h3>
+                      <p className="text-[10px] sm:text-sm text-neutral-400 font-medium uppercase tracking-wider">{b.role}</p>
+                    </div>
                   </div>
-                  <div className="mt-auto flex items-center justify-between">
-                    <span className="text-xl sm:text-2xl font-black text-amber-400">{formatPrice(service.price)} ₽</span>
-                    <Button size="sm" className="bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 border border-amber-500/30" data-testid={`button-select-service-${service.id}`}>
-                      ВЫБРАТЬ
+                  <div className="p-2 sm:p-4 flex items-center justify-between border-t border-neutral-800 bg-neutral-950/50">
+                    <span className="text-[10px] sm:text-xs text-neutral-500 font-bold uppercase tracking-widest">Опыт {b.experience}</span>
+                    <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-black transition-colors">
+                      <Plus className="w-3 h-3 sm:w-4 sm:h-4" />
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section ref={shopRef} className="py-12 sm:py-20 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10 sm:mb-16">
+            <div className="text-center sm:text-left">
+              <h2 className="text-3xl sm:text-5xl font-black mb-4 uppercase tracking-tighter italic">Магазин</h2>
+              <p className="text-neutral-400">Профессиональная косметика для домашнего ухода</p>
+            </div>
+            <Button variant="outline" className="border-amber-500/20 text-amber-500 hover:bg-amber-500 hover:text-black font-bold uppercase tracking-widest text-xs h-10 px-6">
+              Весь каталог
+            </Button>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
+            {products.map((p) => (
+              <motion.div
+                key={p.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <Card className="h-full bg-neutral-900 border-neutral-800 overflow-hidden hover-elevate group">
+                  <div className="relative aspect-square sm:aspect-[4/5] bg-neutral-800 overflow-hidden">
+                    <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-transparent transition-colors" />
+                    <Button 
+                      className="absolute bottom-2 left-2 right-2 sm:bottom-4 sm:left-4 sm:right-4 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-tighter text-[10px] sm:text-xs h-8 sm:h-10"
+                      onClick={() => addToCart(p)}
+                    >
+                      <ShoppingCart className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      В корзину
                     </Button>
                   </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 sm:py-20 bg-neutral-950 border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            <div className="text-center group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
-                <Scissors className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Топ Мастера</h3>
-              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Профессионалы</p>
-            </div>
-            <div className="text-center group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
-                <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Запись 24/7</h3>
-              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Онлайн-сервис</p>
-            </div>
-            <div className="text-center group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
-                <Star className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Премиум Уход</h3>
-              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Косметика</p>
-            </div>
-            <div className="text-center group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
-                <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />
-              </div>
-              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Центр города</h3>
-              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Парковка</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section ref={barbersRef} id="barbers" className="py-12 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Наши мастера</h2>
-            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
-              Профессионалы своего дела с многолетним опытом
-            </p>
-          </motion.div>
-
-          <div className="flex overflow-x-auto pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
-            {barbers.map((barber, i) => (
-              <motion.div
-                key={barber.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="min-w-[80vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0 group"
-              >
-                <Card 
-                  className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer h-full ${selectedBarber === barber.id ? 'ring-2 ring-amber-500 border-amber-500/50' : ''}`}
-                  onClick={() => handleBarberSelect(barber.id)}
-                  data-testid={`card-barber-${barber.id}`}
-                >
-                  <div className="aspect-[4/5] relative overflow-hidden">
-                    <img 
-                      src={barber.image} 
-                      alt={barber.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                      <h3 className="text-lg sm:text-xl font-bold mb-0.5 sm:mb-1 uppercase tracking-tight">{barber.name}</h3>
-                      <p className="text-amber-400 text-xs sm:text-sm mb-2 font-medium uppercase tracking-wider">{barber.role}</p>
-                      <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm">
-                        <span className="flex items-center gap-1 text-neutral-300">
-                          <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
-                          {barber.rating}
-                        </span>
-                        <span className="text-neutral-400">{barber.reviews} отзывов</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 border-t border-neutral-700/50">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm text-neutral-400">Опыт: {barber.experience}</span>
-                      <Button size="sm" className="bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 border border-amber-500/30 font-bold uppercase tracking-widest text-[10px]" data-testid={`button-select-barber-${barber.id}`}>
-                        ВЫБРАТЬ
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section ref={shopRef} id="shop" className="py-12 sm:py-20 bg-neutral-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Магазин косметики</h2>
-            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
-              Профессиональные средства для ухода, которые мы используем в работе
-            </p>
-          </motion.div>
-
-          <div className="flex overflow-x-auto pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
-            {products.map((product, i) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="min-w-[75vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0"
-              >
-                <Card className="overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate group h-full flex flex-col">
-                  <div className="aspect-square relative overflow-hidden bg-neutral-900">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-5 sm:p-6 flex flex-col flex-1">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <p className="text-amber-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">{product.brand}</p>
-                        <h3 className="text-lg sm:text-xl font-bold uppercase tracking-tight">{product.name}</h3>
-                      </div>
-                    </div>
-                    <p className="text-neutral-400 text-xs sm:text-sm mb-6 line-clamp-2 flex-1">{product.description}</p>
-                      <div className="flex items-center justify-between gap-4">
-                      <span className="text-xl sm:text-2xl font-black text-white">{formatPrice(product.price)}</span>
-                      <Button 
-                        size="sm"
-                        className="bg-amber-500 hover:bg-amber-600 text-black font-black h-10 px-4 uppercase tracking-widest text-[10px]"
-                        onClick={() => addToCart(product)}
-                      >
-                        <ShoppingCart className="w-4 h-4 mr-2" />
-                        В КОРЗИНУ
-                      </Button>
-                    </div>
+                  <div className="p-3 sm:p-6">
+                    <div className="text-[10px] sm:text-xs text-amber-500 font-bold uppercase tracking-widest mb-1">{p.brand}</div>
+                    <h3 className="font-black text-sm sm:text-xl uppercase tracking-tight mb-1 truncate">{p.name}</h3>
+                    <p className="text-[10px] sm:text-sm text-neutral-500 mb-3 sm:mb-4 line-clamp-2 h-8 sm:h-10 leading-tight">{p.description}</p>
+                    <div className="text-base sm:text-2xl font-black text-white tracking-tighter">{formatPrice(p.price)}</div>
                   </div>
                 </Card>
               </motion.div>
