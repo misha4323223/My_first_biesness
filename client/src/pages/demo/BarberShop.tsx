@@ -300,6 +300,8 @@ export default function BarberShop() {
     }
   };
 
+   const formatPrice = (price: number) => `${price} ₽`;
+
   const CartContent = () => (
     <div className="space-y-4 py-4">
       {cart.length === 0 ? (
@@ -314,7 +316,7 @@ export default function BarberShop() {
                 <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
                 <div className="flex-1 min-w-0">
                   <h4 className="font-bold truncate uppercase tracking-tight text-sm sm:text-base">{item.name}</h4>
-                  <p className="text-amber-400 text-sm font-black">{item.price} ₽</p>
+                  <p className="text-amber-400 text-sm font-black">{formatPrice(item.price)}</p>
                 </div>
                 <div className="flex items-center gap-2 bg-neutral-900 rounded-lg p-1 border border-neutral-700">
                   <Button 
@@ -342,7 +344,7 @@ export default function BarberShop() {
           <div className="pt-4 border-t border-neutral-800">
             <div className="flex justify-between items-center mb-6">
               <span className="text-neutral-400 font-medium">Итого:</span>
-              <span className="text-2xl font-black text-amber-400 uppercase tracking-tighter">{cartTotal} ₽</span>
+              <span className="text-2xl font-black text-amber-400 uppercase tracking-tighter">{formatPrice(cartTotal)}</span>
             </div>
             <Button 
               className="w-full bg-amber-500 hover:bg-amber-600 text-black font-black h-12 uppercase tracking-widest"
@@ -721,8 +723,8 @@ export default function BarberShop() {
                       </div>
                     </div>
                     <p className="text-neutral-400 text-xs sm:text-sm mb-6 line-clamp-2 flex-1">{product.description}</p>
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-xl sm:text-2xl font-black text-white">{product.price} ₽</span>
+                      <div className="flex items-center justify-between gap-4">
+                      <span className="text-xl sm:text-2xl font-black text-white">{formatPrice(product.price)}</span>
                       <Button 
                         size="sm"
                         className="bg-amber-500 hover:bg-amber-600 text-black font-black h-10 px-4 uppercase tracking-widest text-[10px]"
