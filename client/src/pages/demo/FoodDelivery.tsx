@@ -185,7 +185,7 @@ export default function FoodDelivery() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-amber-50 dark:from-neutral-950 dark:to-neutral-900">
-      <Link href="/#portfolio" className="fixed top-6 left-6 z-[100]">
+      <Link href="/#portfolio" className="fixed top-2 left-6 z-[100]">
         <Button 
           variant="ghost" 
           size="icon"
