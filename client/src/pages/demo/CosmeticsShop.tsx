@@ -32,6 +32,9 @@ const products = [
     reviews: 124,
     tag: "Хит",
     category: "Увлажнение",
+    description: "Глубокое увлажнение на 24 часа. Легкая текстура быстро впитывается, не оставляя жирного блеска. Обогащен гиалуроновой кислотой.",
+    ingredients: ["Гиалуроновая кислота", "Экстракт алоэ", "Витамин Е"],
+    howToUse: "Наносить утром и вечером на очищенную кожу лица легкими массирующими движениями.",
   },
   {
     id: 2,
@@ -43,6 +46,9 @@ const products = [
     reviews: 89,
     tag: "Новинка",
     category: "Антивозрастной",
+    description: "Мощный антиоксидантный комплекс для сияния вашей кожи. Выравнивает тон и стимулирует выработку коллагена.",
+    ingredients: ["Витамин С 15%", "Феруловая кислота", "Витамин Е"],
+    howToUse: "Нанесите 3-4 капли на очищенную кожу лица перед использованием крема.",
   },
   {
     id: 3,
@@ -53,6 +59,9 @@ const products = [
     rating: 4.7,
     reviews: 256,
     category: "Очищение",
+    description: "Бережное удаление макияжа и загрязнений. Не требует смывания и не раздражает глаза.",
+    ingredients: ["Мицеллы", "Пантенол", "Экстракт ромашки"],
+    howToUse: "Смочите ватный диск и бережно протрите кожу лица, глаз и губ.",
   },
   {
     id: 4,
@@ -64,6 +73,9 @@ const products = [
     reviews: 78,
     tag: "Веган",
     category: "Очищение",
+    description: "Глубокое очищение пор и детокс-эффект. Успокаивает воспаления и выравнивает текстуру.",
+    ingredients: ["Белая глина", "Масло чайного дерева", "Цинк"],
+    howToUse: "Нанесите на чистую кожу на 10-15 минут, затем смойте теплой водой.",
   },
   {
     id: 5,
@@ -74,6 +86,9 @@ const products = [
     rating: 4.8,
     reviews: 145,
     category: "Увлажнение",
+    description: "Восстанавливает pH-баланс и подготавливает кожу к дальнейшему уходу. Мгновенно освежает.",
+    ingredients: ["Низкомолекулярная гиалуроновая кислота", "Ниацинамид"],
+    howToUse: "После очищения нанесите небольшое количество на ладони или ватный диск и распределите по лицу.",
   },
   {
     id: 6,
@@ -86,6 +101,9 @@ const products = [
     reviews: 67,
     tag: "Скидка",
     category: "Антивозрастной",
+    description: "Интенсивное восстановление кожи во время сна. Сокращает морщины и повышает упругость.",
+    ingredients: ["Ретинол", "Пептиды", "Масло ши"],
+    howToUse: "Наносите вечером на очищенную кожу лица за 30 минут до сна.",
   },
 ];
 
@@ -105,6 +123,7 @@ export default function CosmeticsShop() {
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
   const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const { toast } = useToast();
   const productsRef = useRef<HTMLElement>(null);
 
@@ -479,15 +498,24 @@ export default function CosmeticsShop() {
                     >
                       <Heart className={`w-4 h-4 ${favorites.includes(product.id) ? 'fill-current' : ''}`} />
                     </Button>
-                    <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button
-                        className="w-full bg-rose-500 hover:bg-rose-600 rounded-full"
-                        onClick={() => addToCart(product.id)}
-                        data-testid={`button-add-cart-${product.id}`}
-                      >
-                        <Plus className="w-4 h-4 mr-2" />
-                        В корзину
-                      </Button>
+                    <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <div className="flex gap-2">
+                        <Button
+                          className="flex-1 bg-white/90 hover:bg-white text-stone-900 border border-stone-200 rounded-full"
+                          onClick={() => setSelectedProduct(product)}
+                          data-testid={`button-view-details-${product.id}`}
+                        >
+                          Детали
+                        </Button>
+                        <Button
+                          size="icon"
+                          className="bg-rose-500 hover:bg-rose-600 rounded-full"
+                          onClick={() => addToCart(product.id)}
+                          data-testid={`button-add-cart-${product.id}`}
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                   <div className="p-4">
@@ -517,6 +545,55 @@ export default function CosmeticsShop() {
           </div>
         </div>
       </section>
+
+      <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
+        <DialogContent className="max-w-2xl">
+          {selectedProduct && (
+            <div className="grid md:grid-cols-2 gap-8 py-4">
+              <div className="aspect-square rounded-xl overflow-hidden bg-stone-100">
+                <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-xs text-rose-500 uppercase tracking-widest font-semibold mb-2">{selectedProduct.brand}</p>
+                <DialogTitle className="text-2xl font-light mb-4">{selectedProduct.name}</DialogTitle>
+                <div className="flex items-center gap-2 mb-6">
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(selectedProduct.rating) ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}`} />
+                    ))}
+                  </div>
+                  <span className="text-sm text-stone-500">({selectedProduct.reviews} отзывов)</span>
+                </div>
+                <div className="text-2xl font-medium mb-6">{selectedProduct.price} р</div>
+                <p className="text-stone-600 dark:text-neutral-400 text-sm mb-6 leading-relaxed">
+                  {selectedProduct.description}
+                </p>
+                <div className="space-y-4 mb-8">
+                  <div className="text-sm">
+                    <span className="font-semibold block mb-1">Активные ингредиенты:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.ingredients?.map(ing => (
+                        <Badge key={ing} variant="outline" className="font-normal text-stone-500 border-stone-200">{ing}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <Button 
+                  className="w-full bg-rose-500 hover:bg-rose-600 rounded-full mt-auto"
+                  onClick={() => {
+                    addToCart(selectedProduct.id);
+                    setSelectedProduct(null);
+                    toast({ title: "Добавлено", description: `${selectedProduct.name} теперь в корзине` });
+                  }}
+                >
+                  <ShoppingBag className="w-4 h-4 mr-2" />
+                  Добавить в корзину
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <section className="py-16 bg-rose-50 dark:bg-rose-950/20">
         <div className="max-w-7xl mx-auto px-6 text-center">

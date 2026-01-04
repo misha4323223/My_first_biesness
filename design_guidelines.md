@@ -1,134 +1,126 @@
-# Design Guidelines: Premium Travel Agency Website
+# Design Guidelines: NATURA Premium Cosmetics
 
 ## Design Approach
 
-**Reference-Based** inspired by Airbnb's spatial design + luxury hotel websites (Four Seasons, Ritz-Carlton) + modern travel platforms (Luxury Escapes). Focus: immersive visual storytelling with sophisticated, restrained elegance.
+**Reference-Based** inspired by Aesop's minimalist sophistication + Glossier's clean aesthetic + luxury skincare sites (La Mer, Augustinus Bader). Focus: refined simplicity, tactile elegance, editorial product presentation.
 
 ## Typography
 
-**Primary Font:** Playfair Display (serif) for headlines - luxury, editorial feel
-- Hero headlines: 5xl-6xl (72-96px), font-bold, leading-tight
-- Section headers: 3xl-4xl (48-60px), font-semibold
-- Featured destinations: 2xl-3xl (32-48px), font-bold
+**Primary Font:** Cormorant Garamond (serif) - elegant, refined luxury
+- Headlines: 4xl-5xl (56-72px), font-light, tracking-wider, leading-tight
+- Product names: 2xl-3xl (32-48px), font-normal, tracking-wide
+- Section headers: 3xl (36px), font-light, tracking-widest
 
-**Body Font:** Inter (sans-serif) for readability
-- Body text: base-lg (16-18px), font-normal, leading-relaxed
-- Captions/labels: sm (14px), font-medium
-- Buttons: base (16px), font-semibold, tracking-wide
+**Body Font:** Inter (sans-serif) - clean readability
+- Body text: base (16px), font-light, leading-relaxed, tracking-wide
+- Product descriptions: sm-base (14-16px), font-normal, leading-loose
+- Labels/prices: xs-sm (12-14px), font-medium, uppercase, tracking-widest
 
 ## Spacing System
 
-Tailwind units: **4, 6, 8, 12, 16, 20, 24, 32** for luxurious breathing room.
-- Sections: py-24 to py-32 (desktop), py-16 to py-20 (mobile)
-- Cards/containers: p-8 to p-12
-- Element gaps: gap-6, gap-8, gap-12
+Tailwind units: **4, 6, 8, 12, 16, 24, 32** - emphasizing generous breathing room.
+- Sections: py-24 to py-32 (desktop), py-16 (mobile)
+- Product grids: gap-8 to gap-12
+- Card padding: p-8 to p-12
 
 ## Section Structure
 
-### 1. Hero (80vh)
-Full-width luxury destination imagery with gradient overlay (deep ocean blue 40% opacity)
-- Centered headline: "Discover Your Next Extraordinary Journey"
-- Subheadline + Quick Search Bar (destination, dates, guests)
-- Blurred-background CTA button: "Explore Destinations"
-- Subtle parallax scroll on image
+### 1. Hero (90vh)
+Full-width lifestyle image (serene bathroom scene with NATURA products, soft natural light)
+- Off-center minimal text: "NATURA" wordmark + tagline "Pure. Intentional. Transformative."
+- Single blurred-background CTA: "Discover Collection"
 
-### 2. Featured Destinations (3-column grid)
-- lg:grid-cols-3, md:grid-cols-2, mobile: grid-cols-1
-- Large destination cards with high-quality imagery
-- Each card: destination name, starting price, "View Details" CTA
-- Hover: subtle image zoom (1.05x), gold border glow
-- 6-9 destinations total
+### 2. Philosophy Statement (centered, full-width)
+- max-w-3xl container, centered text
+- Elegant copy about brand values and ingredients
+- Soft muted rose divider line
 
-### 3. Personalized Trip Planner (2-column split)
-- Left: Interactive multi-step form (Travel Style, Budget, Duration, Interests)
-- Right: Dynamic preview showing recommended destinations based on selections
-- Progress indicator at top
-- Gold accent progress bar
-- "Generate Custom Itinerary" CTA
+### 3. Featured Products (3-column grid)
+- lg:grid-cols-3, md:grid-cols-2, single on mobile
+- Clean product photography on soft beige backgrounds
+- Product name, key ingredient, price, "Add to Cart" text link
+- 6-9 featured items
 
-### 4. Experience Categories (4-column grid)
+### 4. Ingredient Spotlight (2-column asymmetric)
+- Left: Large botanical/ingredient photography (60% width)
+- Right: Ingredient story, benefits, featured products using it
+- Muted rose accent heading
+
+### 5. Product Categories (4-column grid)
 - lg:grid-cols-4, md:grid-cols-2
-- Categories: Adventure, Relaxation, Culture, Luxury
-- Icon + category name + brief description
-- Cards with subtle gradient overlays, gold accent on hover
+- Categories: Cleanse, Treat, Hydrate, Protect
+- Minimal category image, category name, product count
+- Subtle hover state (slight opacity change)
 
-### 5. Why Choose Us (asymmetric 2-column)
-- Left: Larger column with compelling copy + statistics (destinations, satisfied travelers, years)
-- Right: Stacked benefit cards with icons
-- Gold-accented numbers for stats
+### 6. The NATURA Ritual (stepped layout)
+- 3-step skincare routine visualization
+- Each step: number (large, charcoal), product image, description
+- Vertical progression with connecting soft lines
 
-### 6. Testimonials (carousel/slider)
-- Large testimonial cards (3 visible on desktop)
-- Client photo, quote, name, destination traveled
-- Navigation dots with gold active state
-- Subtle auto-rotate
+### 7. Social Proof (masonry/card layout)
+- Before/after imagery, customer testimonials with photos
+- User-generated content aesthetic
+- 2-3 column varied heights
 
-### 7. Exclusive Deals (masonry grid)
-- Varied card sizes showcasing limited-time offers
-- Countdown timers, discount badges (gold)
-- High-impact imagery
-- Mix of 2-3 column layouts
+### 8. Bestsellers Carousel
+- Horizontal scroll, 4-5 products visible
+- Larger product cards with ratings
+- "Shop All Bestsellers" CTA
 
-### 8. Newsletter + Contact (split section)
-- Left: Newsletter signup with elegant form
-- Right: Contact options (phone, email, office hours)
-- Gold accent divider
-- Footer below with navigation, social links, trust badges
+### 9. Newsletter + Values (split section)
+- Left: Newsletter signup with refined form
+- Right: Brand commitments (cruelty-free, sustainable, dermatologist-tested icons)
+- Footer: minimal navigation, social links, payment badges
 
 ## Component Library
 
-**Navigation:** Sticky header, white background with subtle shadow on scroll, logo left, main nav center, "Book Now" CTA right (gold outline)
+**Navigation:** Clean white background, NATURA wordmark center, minimal menu left (Shop, About, Journal), icons right (Search, Account, Cart)
 
-**Buttons:** 
-- Primary: Ocean blue background, white text, px-8 py-3, rounded-full
-- Secondary: Gold border, ocean blue text, hover fills gold
-- Overlay (Hero): Blurred white/light background, dark text, subtle shadow
+**Buttons:**
+- Primary: Deep charcoal background, white text, px-10 py-3, rounded-full, tracking-wide
+- Secondary: Muted rose border, charcoal text, hover fills rose
+- Text Links: Uppercase, tracking-widest, underline on hover
 
-**Cards:** rounded-xl, overflow-hidden for images, white background, shadow-lg, subtle transform on hover
+**Product Cards:** No borders, white background, minimal shadow, clean product image (square ratio), name, price stacked below, centered alignment
 
-**Form Inputs:** Clean white background, rounded-lg, border (light gray), focus: ocean blue border, px-4 py-3
+**Form Inputs:** Soft beige background, no border, rounded-md, px-4 py-3, placeholder in charcoal-light, focus: subtle charcoal border
 
-**Search Bar:** Large rounded-full container, white background, shadow-xl, segmented inputs (destination | dates | guests), gold search button
-
-**Badges/Pills:** Gold background, white text, rounded-full, px-3 py-1, uppercase text
-
-## Visual Effects
-
-**Subtle animations only:**
-- Smooth fade-in on scroll (300ms)
-- Image parallax in hero (0.5x scroll speed)
-- Card hover transforms (scale 1.02, shadow increase)
-- No distracting particle effects or excessive motion
-
-**Gold Accents:**
-- Borders on featured elements
-- CTA button outlines
-- Progress indicators
-- Active states
-- Badge backgrounds
+**Badges:** Muted rose or soft beige background, charcoal text, rounded-full, px-3 py-1, "NEW" or "BESTSELLER"
 
 ## Images
 
-**Critical: Use high-quality, professional travel photography throughout**
+**Hero:** Spa-like bathroom scene with NATURA products, natural light, soft shadows - 90vh full-width
 
-**Hero Section:** Stunning luxury destination (e.g., Maldives overwater villa, Santorini sunset, Alpine resort) - full-width, 80vh height
+**Featured Products:** 6-9 clean product shots on soft beige backgrounds, consistent lighting, minimal styling
 
-**Featured Destinations:** 6-9 high-resolution images (beaches, mountains, cities, resorts) - each 800x600px minimum, landscape orientation
+**Ingredient Spotlight:** 1 large botanical/nature macro photography (flower, plant, water droplet)
 
-**Experience Categories:** 4 lifestyle images representing each category
+**Category Images:** 4 lifestyle images (hands applying product, close-ups of textures)
 
-**Testimonials:** Client portrait photos (circular crop)
+**Ritual Section:** 3 product flatlay images
 
-**Exclusive Deals:** 4-6 varied destination imagery for offer cards
+**Social Proof:** 4-6 customer lifestyle photos, authentic aesthetic
 
-**All images:** Professional quality, vibrant colors, aspirational compositions that evoke luxury and wanderlust
+**All images:** Professional, soft lighting, muted tones matching color palette, editorial quality
+
+## Visual Effects
+
+**Minimal animations:**
+- Subtle fade-in on scroll (400ms ease)
+- Product image gentle scale on hover (1.03x)
+- Smooth cart icon bounce on add
+- No parallax, no excessive motion
+
+**Accent Usage:**
+- Muted rose for section dividers, badges, hover states
+- Soft beige for backgrounds, alternating sections
+- Deep charcoal for all text, primary buttons
+- Clean white for cards, forms, spacious breathing room
 
 ## Layout Principles
 
-1. **Generous whitespace:** Don't crowd - let imagery breathe
-2. **Image-first:** Photography drives the experience
-3. **Hierarchical depth:** Layer information with cards and overlays
-4. **Strategic multi-column:** Use grids for galleries, single column for storytelling
-5. **Mobile responsiveness:** Stack columns gracefully, maintain image impact
-6. **Gold as accent only:** 5-10% of visual elements, not dominant
-7. **Clean, sophisticated:** Luxury through restraint, not excess
+1. **Abundant whitespace:** Luxury through space, not density
+2. **Editorial composition:** Photography as hero, text supports
+3. **Centered alignment:** Symmetrical balance, refined restraint
+4. **Soft grid systems:** Asymmetric where elegant, structured where needed
+5. **Tactile minimalism:** Subtle textures, sophisticated simplicity
