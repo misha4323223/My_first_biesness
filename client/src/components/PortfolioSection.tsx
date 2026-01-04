@@ -519,26 +519,6 @@ function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
               animate={{ pathLength: 1, opacity: isActive ? 1 : 0.3 }}
               transition={{ duration: 1.5, delay: index * 0.05 }}
             />
-            <motion.line
-              x1={`${starPositions[from].x}%`}
-              y1={`${starPositions[from].y}%`}
-              x2={`${starPositions[to].x}%`}
-              y2={`${starPositions[to].y}%`}
-              stroke="url(#pulseGradient)"
-              strokeWidth={isActive ? 2 : 1}
-              strokeDasharray="20 100"
-              initial={{ strokeDashoffset: 120, opacity: 0 }}
-              animate={{ 
-                strokeDashoffset: -120,
-                opacity: [0, 0.8, 0],
-              }}
-              transition={{ 
-                duration: 3, 
-                repeat: Infinity, 
-                delay: index * 0.5,
-                ease: "linear"
-              }}
-            />
           </g>
         );
       })}
