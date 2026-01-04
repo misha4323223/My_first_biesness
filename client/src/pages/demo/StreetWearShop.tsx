@@ -781,11 +781,21 @@ export default function StreetWearShop() {
                         <Button
                           variant="ghost"
                           size="icon"
-                          className={`absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-md ${favorites.includes(product.id) ? 'text-red-500' : 'text-white'}`}
-                          onClick={(e) => { e.stopPropagation(); toggleFavorite(product.id); }}
-                          data-testid={`button-favorite-${product.id}`}
+                          className={`absolute top-3 right-3 z-20 w-10 h-10 rounded-full backdrop-blur-md transition-all duration-300 ${
+                            favorites.includes(product.id) 
+                              ? "bg-amber-500 text-black scale-110 shadow-[0_0_15px_rgba(245,158,11,0.5)]" 
+                              : "bg-black/40 text-white hover:bg-white hover:text-black border border-white/10"
+                          }`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavorite(product.id);
+                            if (!favorites.includes(product.id)) {
+                              toast({ title: "В избранном", description: "Товар добавлен в ваш список желаний" });
+                            }
+                          }}
+                          data-testid={`button-like-${product.id}`}
                         >
-                          <Heart className={`w-4 h-4 ${favorites.includes(product.id) ? 'fill-current' : ''}`} />
+                          <Flame className={`w-5 h-5 transition-transform duration-500 ${favorites.includes(product.id) ? "scale-110 fill-current" : "group-hover:rotate-12"}`} />
                         </Button>
                         <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Button
