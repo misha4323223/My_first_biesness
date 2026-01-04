@@ -594,7 +594,7 @@ export default function StreetWearShop() {
                 <Heart className="w-12 h-12 text-neutral-800 mx-auto mb-4" />
                 <p className="text-neutral-500 font-bold uppercase text-xs tracking-widest">Список пуст</p>
                 <Button 
-                  variant="link" 
+                  variant="ghost" 
                   className="text-amber-500 text-xs mt-2 font-black uppercase"
                   onClick={() => { setFavoritesOpen(false); scrollToProducts(); }}
                 >
@@ -602,38 +602,41 @@ export default function StreetWearShop() {
                 </Button>
               </div>
             ) : (
-              favoriteItems.map((product) => (
-                <div key={product.id} className="flex items-center gap-4 group">
-                  <div className="w-20 h-24 bg-neutral-950 overflow-hidden">
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+              <div className="grid grid-cols-2 gap-3 py-4">
+                {favoriteItems.map((product) => (
+                  <div key={product.id} className="group relative bg-neutral-950 border border-neutral-800 flex flex-col">
+                    <div className="aspect-[3/4] overflow-hidden relative">
+                      <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      <div className="absolute top-1 right-1 flex flex-col gap-1">
+                        <Button 
+                          size="icon" 
+                          variant="ghost" 
+                          className="w-7 h-7 bg-black/60 backdrop-blur-md text-red-500 hover:text-red-400 border-none rounded-none"
+                          onClick={() => toggleFavorite(product.id)}
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="p-3 flex-1 flex flex-col">
+                      <p className="text-[8px] font-black text-amber-500 uppercase tracking-widest mb-1">{product.brand}</p>
+                      <h4 className="text-white font-black uppercase text-[10px] truncate mb-1 leading-tight">{product.name}</h4>
+                      <p className="text-white font-black text-xs mb-3">{product.price.toLocaleString()} р</p>
+                      <Button 
+                        size="sm"
+                        className="w-full mt-auto bg-amber-500 text-black hover:bg-amber-600 rounded-none h-8 text-[10px] font-black uppercase"
+                        onClick={() => {
+                          setSelectedProduct(product);
+                          setFavoritesOpen(false);
+                        }}
+                      >
+                        <ShoppingCart className="w-3 h-3 mr-1" />
+                        Купить
+                      </Button>
+                    </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">{product.brand}</p>
-                    <h4 className="text-white font-black uppercase text-sm truncate mb-1">{product.name}</h4>
-                    <p className="text-white font-black text-sm">{product.price.toLocaleString()} р</p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
-                      className="text-neutral-500 hover:text-red-500"
-                      onClick={() => toggleFavorite(product.id)}
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
-                    <Button 
-                      size="icon" 
-                      className="bg-amber-500 text-black hover:bg-amber-600"
-                      onClick={() => {
-                        setSelectedProduct(product);
-                        setFavoritesOpen(false);
-                      }}
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              ))
+                ))}
+              </div>
             )}
           </div>
         </DialogContent>
