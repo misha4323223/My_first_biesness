@@ -19,6 +19,7 @@ import micellarImg from "@assets/stock_images/micellar_water_clean_dda3e93a.webp
 import maskImg from "@assets/stock_images/face_mask_cosmetic_s_4961cbaf.webp";
 import tonerImg from "@assets/stock_images/toner_bottle_skincar_632250d7.webp";
 import nightCreamImg from "@assets/stock_images/night_cream_luxury_s_7bf4c694.webp";
+import ritualHeroImg from "@assets/stock_images/luxury_skincare_rout_51feeee5.jpg";
 
 const products = [
   {
@@ -281,9 +282,26 @@ export default function CosmeticsShop() {
                   </div>
                   
                   <div className="border-t pt-4 mb-4">
-                    <div className="flex justify-between text-lg font-semibold">
+                    <div className="flex justify-between text-lg font-semibold mb-4">
                       <span>Итого:</span>
                       <span className="text-rose-500">{cartTotal} р</span>
+                    </div>
+                    
+                    <div className="bg-rose-100/50 dark:bg-rose-900/20 p-4 rounded-xl mb-6">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-rose-600 dark:text-rose-400 mb-3 flex items-center gap-2">
+                        <Sparkles className="w-3 h-3" />
+                        Спецпредложение для вас
+                      </p>
+                      <div className="flex gap-3 items-center">
+                        <img src={maskImg} className="w-12 h-12 rounded-lg object-cover" alt="Mask" />
+                        <div className="flex-1">
+                          <p className="text-xs font-medium">Маска CARE</p>
+                          <p className="text-xs text-muted-foreground">Добавьте за 990 р (вместо 1290)</p>
+                        </div>
+                        <Button size="sm" variant="outline" className="h-8 rounded-full text-xs" onClick={() => addToCart(4)}>
+                          Добавить
+                        </Button>
+                      </div>
                     </div>
                   </div>
 
@@ -371,47 +389,91 @@ export default function CosmeticsShop() {
         </div>
       </header>
 
-      <section className="relative py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-rose-100 via-stone-100 to-amber-50 dark:from-rose-950/30 dark:via-neutral-950 dark:to-amber-950/20 pointer-events-none" />
-        <img 
-          src={heroImg} 
-          alt="Косметика" 
-          className="absolute inset-0 w-full h-full object-cover opacity-30 dark:opacity-20 pointer-events-none"
-        />
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Badge className="mb-4 bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-300 border-0">
-                Новая коллекция
-              </Badge>
-              <h2 className="text-4xl md:text-6xl font-light text-stone-800 dark:text-white mb-6 leading-tight">
-                Естественная
-                <br />
-                <span className="font-normal italic text-rose-500">красота</span>
-              </h2>
-              <p className="text-lg text-stone-600 dark:text-neutral-400 mb-8">
-                Корейская косметика с натуральным составом для вашей ежедневной заботы о коже
-              </p>
-              <Button size="lg" className="bg-rose-500 hover:bg-rose-600 text-white rounded-full px-8" onClick={scrollToProducts} data-testid="button-shop-now">
-                Смотреть каталог
+      <section className="relative h-[90vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={ritualHeroImg} 
+            alt="Premium Skincare" 
+            className="w-full h-full object-cover brightness-[0.85] dark:brightness-[0.7]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="max-w-xl"
+          >
+            <span className="text-white/80 uppercase tracking-[0.3em] text-sm mb-4 block font-light">Pure. Intentional. Transformative.</span>
+            <h2 className="text-5xl md:text-7xl font-serif text-white mb-8 leading-tight font-light">
+              Искусство <br />
+              <span className="italic">ухода</span>
+            </h2>
+            <div className="flex gap-4">
+              <Button 
+                size="lg" 
+                className="bg-white text-stone-900 hover:bg-stone-100 rounded-full px-8 h-12 text-base font-light tracking-wide transition-all hover:scale-105" 
+                onClick={scrollToProducts}
+              >
+                Откройте коллекцию
               </Button>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="hidden md:block"
-            >
-              <img 
-                src={heroImg} 
-                alt="Коллекция косметики" 
-                className="w-full h-auto rounded-2xl shadow-2xl"
-              />
-            </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-white dark:bg-neutral-950">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl font-serif mb-8 font-light tracking-wide text-stone-800 dark:text-stone-200">Философия NATURA</h2>
+            <div className="w-12 h-[1px] bg-rose-200 mx-auto mb-8" />
+            <p className="text-lg text-stone-600 dark:text-stone-400 font-light leading-relaxed tracking-wide">
+              Мы верим, что истинная красота рождается в гармонии с природой. Наши формулы — это сочетание чистейших ботанических экстрактов и передовых научных достижений для здоровья и сияния вашей кожи.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-stone-50 dark:bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-serif font-light tracking-widest text-stone-800 dark:text-stone-200 uppercase">Ритуал NATURA</h2>
+            <p className="text-stone-500 mt-4 font-light">3 простых шага к безупречной коже</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-12 relative">
+            <div className="hidden md:block absolute top-1/2 left-0 right-0 h-[1px] bg-stone-200 -translate-y-1/2 z-0" />
+            
+            {[
+              { step: "01", title: "Очищение", desc: "Удаление загрязнений и подготовка к уходу", img: micellarImg },
+              { step: "02", title: "Увлажнение", desc: "Насыщение влагой и активными компонентами", img: moisturizerImg },
+              { step: "03", title: "Защита", desc: "Запечатывание влаги и защита от внешних факторов", img: serumImg },
+            ].map((item, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="relative z-10 text-center"
+              >
+                <div className="w-16 h-16 rounded-full bg-white dark:bg-neutral-800 border border-stone-100 dark:border-neutral-700 flex items-center justify-center mx-auto mb-8 shadow-sm">
+                  <span className="text-xl font-serif text-stone-400">{item.step}</span>
+                </div>
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-md hover:shadow-xl transition-shadow duration-500">
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                </div>
+                <h3 className="text-xl font-serif font-light mb-3 text-stone-800 dark:text-stone-200">{item.title}</h3>
+                <p className="text-sm text-stone-500 font-light leading-relaxed px-4">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -477,7 +539,7 @@ export default function CosmeticsShop() {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
                     />
                     {product.tag && (
                       <Badge className={`absolute top-3 left-3 border-0 ${
@@ -595,7 +657,55 @@ export default function CosmeticsShop() {
         </DialogContent>
       </Dialog>
 
-      <section className="py-16 bg-rose-50 dark:bg-rose-950/20">
+      <section className="py-24 bg-white dark:bg-neutral-950 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-rose-500 uppercase tracking-widest text-xs font-semibold mb-4 block">Ингредиенты</span>
+              <h2 className="text-4xl font-serif font-light mb-8 text-stone-800 dark:text-stone-200">Сила чистой природы</h2>
+              <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed mb-8">
+                Мы отбираем только самые эффективные природные компоненты. Каждая капля наших средств наполнена энергией растений, чтобы ваша кожа светилась изнутри.
+              </p>
+              <div className="space-y-6">
+                {[
+                  { name: "Экстракт центеллы", desc: "Успокаивает и восстанавливает защитный барьер" },
+                  { name: "Масло семян зеленого чая", desc: "Мощный антиоксидант для детокс-эффекта" },
+                  { name: "Корейский женьшень", desc: "Тонизирует и замедляет процессы старения" }
+                ].map((ing, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <div className="w-2 h-2 rounded-full bg-rose-200 mt-2 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-medium text-stone-800 dark:text-stone-200">{ing.name}</h4>
+                      <p className="text-sm text-stone-500 font-light">{ing.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="relative"
+            >
+              <div className="aspect-square rounded-full bg-rose-50 absolute -top-12 -right-12 w-64 h-64 -z-10" />
+              <img 
+                src={serumImg} 
+                alt="Natural Ingredients" 
+                className="w-full h-auto rounded-3xl shadow-2xl relative z-10"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-rose-50 dark:bg-rose-950/20">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-light text-stone-800 dark:text-white mb-4">
             Подпишитесь на рассылку
