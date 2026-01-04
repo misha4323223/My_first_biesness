@@ -1,12 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Wrench, Clock, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, Zap } from "lucide-react";
+import { Wrench, Clock, MapPin, Phone, Star, Calendar, User, Check, ArrowLeft, Zap, Shield, TrendingUp, Users, Activity } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Link } from "wouter";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { useAggregateRatingSchema } from "@/lib/useAggregateRatingSchema";
@@ -34,7 +35,8 @@ const mechanics = [
     role: "Главный механик", 
     experience: "12 лет",
     rating: 4.9,
-    reviews: 187
+    reviews: 187,
+    status: "online"
   },
   { 
     id: 2, 
@@ -42,7 +44,8 @@ const mechanics = [
     role: "Мастер по ходовой", 
     experience: "8 лет",
     rating: 4.8,
-    reviews: 142
+    reviews: 142,
+    status: "busy"
   },
   { 
     id: 3, 
@@ -50,7 +53,8 @@ const mechanics = [
     role: "Мастер по двигателям", 
     experience: "10 лет",
     rating: 4.9,
-    reviews: 165
+    reviews: 165,
+    status: "online"
   },
 ];
 
@@ -108,37 +112,52 @@ export default function AutoService() {
   const scrollToBooking = () => bookingRef.current?.scrollIntoView({ behavior: "smooth" });
   const scrollToContact = () => contactRef.current?.scrollIntoView({ behavior: "smooth" });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  const availableTimeSlots = useMemo(() => {
+    if (!selectedService || !selectedDate) return timeSlots;
+    const service = services.find(s => s.id === selectedService);
+    if (!service) return timeSlots;
+    
+    // Имитация логики: если услуга долгая (например, переборка двигателя), блокируем часть слотов
+    if (service.name.includes("двигателя") || service.duration.includes("8 часов")) {
+      return ["08:00", "09:00"]; // Только утро для длинных работ
+    }
+    return timeSlots;
+  }, [selectedService, selectedDate]);
+
   const handleServiceSelect = (id: number) => {
-    setSelectedService(id);
-    setStep(2);
-    toast({
-      title: "Услуга выбрана",
-      description: services.find(s => s.id === id)?.name,
-    });
+    setIsLoading(true);
+    setTimeout(() => {
+      setSelectedService(id);
+      setStep(2);
+      setIsLoading(false);
+      toast({
+        title: "Услуга выбрана",
+        description: services.find(s => s.id === id)?.name,
+      });
+    }, 600);
   };
 
   const handleMechanicSelect = (id: number) => {
-    setSelectedMechanic(id);
-    setStep(3);
-    toast({
-      title: "Мастер выбран",
-      description: mechanics.find(m => m.id === id)?.name,
-    });
-  };
-
-  const handleTimeSelect = (time: string) => {
-    setSelectedTime(time);
-    toast({
-      title: "Время выбрано",
-      description: `${selectedDate} в ${time}`,
-    });
+    setIsLoading(true);
+    setTimeout(() => {
+      setSelectedMechanic(id);
+      setStep(3);
+      setIsLoading(false);
+      toast({
+        title: "Мастер выбран",
+        description: mechanics.find(m => m.id === id)?.name,
+      });
+    }, 600);
   };
 
   const handleBook = () => {
     if (selectedService && selectedMechanic && selectedTime && selectedDate) {
       toast({
-        title: "Вы записаны!",
-        description: `${services.find(s => s.id === selectedService)?.name} у ${mechanics.find(m => m.id === selectedMechanic)?.name}`,
+        title: "Запись подтверждена!",
+        description: "Уведомление отправлено мастеру в Telegram",
       });
       setStep(1);
       setSelectedService(null);
@@ -325,6 +344,12 @@ export default function AutoService() {
                 >
                   <div className="aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-blue-600 to-neutral-900 flex items-center justify-center">
                     <User className="w-24 h-24 text-blue-200/40" />
+                    <div className="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+                      <div className={`w-2 h-2 rounded-full animate-pulse ${mechanic.status === 'online' ? 'bg-green-500' : 'bg-amber-500'}`} />
+                      <span className="text-[10px] uppercase tracking-wider font-bold">
+                        {mechanic.status === 'online' ? 'В боксе' : 'Занят'}
+                      </span>
+                    </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <h3 className="text-xl font-bold mb-1">{mechanic.name}</h3>
@@ -388,33 +413,51 @@ export default function AutoService() {
 
             {step === 3 && (
               <div className="space-y-6">
-                <div>
-                  <label className="block text-sm text-neutral-400 mb-2">Выберите дату</label>
-                  <Input 
-                    type="date" 
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="bg-neutral-700 border-neutral-600 text-white"
-                    data-testid="input-date"
-                  />
-                </div>
-                {selectedDate && (
-                  <div>
-                    <label className="block text-sm text-neutral-400 mb-2">Выберите время</label>
-                    <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
-                      {timeSlots.map((time) => (
-                        <Button
-                          key={time}
-                          variant={selectedTime === time ? "default" : "outline"}
-                          className={selectedTime === time ? 'bg-blue-500 text-black' : 'border-neutral-600 text-white hover:bg-neutral-700'}
-                          onClick={() => handleTimeSelect(time)}
-                          data-testid={`button-time-${time}`}
-                        >
-                          {time}
-                        </Button>
-                      ))}
+                {isLoading ? (
+                  <div className="space-y-4">
+                    <Skeleton className="h-10 w-full bg-neutral-700" />
+                    <div className="grid grid-cols-4 gap-2">
+                      {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-10 bg-neutral-700" />)}
                     </div>
                   </div>
+                ) : (
+                  <>
+                    <div>
+                      <label className="block text-sm text-neutral-400 mb-2">Выберите дату</label>
+                      <Input 
+                        type="date" 
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        className="bg-neutral-700 border-neutral-600 text-white"
+                        data-testid="input-date"
+                      />
+                    </div>
+                    {selectedDate && (
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <label className="block text-sm text-neutral-400">Выберите время</label>
+                          {selectedService === 6 && (
+                            <Badge variant="outline" className="text-[10px] border-amber-500/50 text-amber-400">
+                              Длительная работа: только утро
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
+                          {availableTimeSlots.map((time) => (
+                            <Button
+                              key={time}
+                              variant={selectedTime === time ? "default" : "outline"}
+                              className={selectedTime === time ? 'bg-blue-500 text-black' : 'border-neutral-600 text-white hover:bg-neutral-700'}
+                              onClick={() => handleTimeSelect(time)}
+                              data-testid={`button-time-${time}`}
+                            >
+                              {time}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -468,7 +511,117 @@ export default function AutoService() {
         </div>
       </section>
 
-      <section ref={contactRef} id="contact" className="py-20">
+      <section id="location" className="py-20 bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">Как нас найти</h2>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Адрес</h4>
+                    <p className="text-neutral-400">г. Москва, ул. Автозаводская, д. 28, стр. 1</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Гарантия</h4>
+                    <p className="text-neutral-400">1 год на все виды работ и запчасти</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="h-[400px] rounded-2xl overflow-hidden border border-white/10 relative group">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80')] bg-cover bg-center grayscale opacity-50 group-hover:grayscale-0 transition-all duration-700" />
+              <div className="absolute inset-0 bg-blue-900/20 mix-blend-multiply" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="bg-neutral-900/90 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-2xl">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full animate-ping" />
+                    <span className="font-bold">ТЕХНОПРО СЕРВИС</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <Button 
+            variant="ghost" 
+            className="text-neutral-500 hover:text-blue-400 transition-colors"
+            onClick={() => setShowDashboard(!showDashboard)}
+          >
+            {showDashboard ? "Скрыть панель управления" : "Посмотреть панель управления (для владельца)"}
+          </Button>
+
+          <AnimatePresence>
+            {showDashboard && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mt-12 overflow-hidden"
+              >
+                <div className="grid md:grid-cols-4 gap-6 text-left">
+                  <Card className="bg-neutral-900 border-white/10">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                      <CardTitle className="text-sm font-medium text-neutral-400">Доход за сегодня</CardTitle>
+                      <TrendingUp className="w-4 h-4 text-green-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">142,500 ₽</div>
+                      <p className="text-xs text-green-500">+12% к вчера</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-neutral-900 border-white/10">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                      <CardTitle className="text-sm font-medium text-neutral-400">Загрузка боксов</CardTitle>
+                      <Activity className="w-4 h-4 text-blue-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">85%</div>
+                      <div className="w-full h-1 bg-neutral-800 mt-2 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 w-[85%]" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-neutral-900 border-white/10">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                      <CardTitle className="text-sm font-medium text-neutral-400">Новых клиентов</CardTitle>
+                      <Users className="w-4 h-4 text-purple-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">+14</div>
+                      <p className="text-xs text-neutral-500">За последние 24 часа</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="bg-neutral-900 border-white/10">
+                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                      <CardTitle className="text-sm font-medium text-neutral-400">Telegram активен</CardTitle>
+                      <Zap className="w-4 h-4 text-amber-500" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">Online</div>
+                      <p className="text-xs text-amber-500">Бот синхронизирован</p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      <footer ref={contactRef} id="contact" className="py-20 border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
