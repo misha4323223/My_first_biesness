@@ -376,18 +376,18 @@ export default function TravelAgency() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <span className="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold mb-4 block">Experimental Technology</span>
+              <span className="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold mb-4 block">Экспериментальные технологии</span>
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
-                SMART <span className="text-amber-400 italic font-serif">Itinerary</span> GENERATOR
+                УМНЫЙ <span className="text-amber-400 italic font-serif">Генератор</span> МАРШРУТОВ
               </h2>
               <p className="text-slate-400 text-lg mb-12 leading-relaxed">
-                Experience the future of travel planning. Our intelligent engine designs a day-by-day journey based on your unique personality and preferences. Something your standard CMS simply can't do.
+                Испытайте будущее планирования путешествий. Наш интеллектуальный движок создает пошаговый маршрут, основанный на вашей уникальной личности и предпочтениях. Это то, что обычные сайты на WordPress или Bitrix просто не могут предложить.
               </p>
               
               <div className="space-y-6">
                 <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-white font-bold">Step {plannerStep + 1} of 3</span>
+                    <span className="text-white font-bold">Шаг {plannerStep + 1} из 3</span>
                     <div className="flex gap-1">
                       {[0, 1, 2].map(i => (
                         <div key={i} className={`h-1 w-8 rounded-full ${i <= plannerStep ? 'bg-amber-400' : 'bg-white/20'}`} />
@@ -397,9 +397,9 @@ export default function TravelAgency() {
                   
                   {plannerStep === 0 && (
                     <div className="space-y-4">
-                      <p className="text-white/80">Select your travel style:</p>
+                      <p className="text-white/80">Выберите стиль путешествия:</p>
                       <div className="grid grid-cols-2 gap-3">
-                        {['Relaxation', 'Adventure', 'Cultural', 'Gastronomic'].map(style => (
+                        {['Релакс', 'Приключения', 'Культура', 'Гастрономия'].map(style => (
                           <Button 
                             key={style}
                             variant="outline" 
@@ -415,9 +415,9 @@ export default function TravelAgency() {
 
                   {plannerStep === 1 && (
                     <div className="space-y-4">
-                      <p className="text-white/80">Select your budget level:</p>
+                      <p className="text-white/80">Выберите уровень бюджета:</p>
                       <div className="grid grid-cols-3 gap-3">
-                        {['Premium', 'Luxury', 'Ultra-Luxe'].map(b => (
+                        {['Премиум', 'Люкс', 'Ультра-Люкс'].map(b => (
                           <Button 
                             key={b}
                             variant="outline" 
@@ -436,13 +436,13 @@ export default function TravelAgency() {
                       <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-400 text-slate-950 mb-4">
                         <Star className="w-8 h-8 fill-current" />
                       </div>
-                      <h3 className="text-white text-xl font-bold mb-2">Ready to generate?</h3>
-                      <p className="text-white/60 mb-6">Our engine is processing your unique {plannerData.style} {plannerData.budget} expedition.</p>
+                      <h3 className="text-white text-xl font-bold mb-2">Готово к генерации?</h3>
+                      <p className="text-white/60 mb-6">Наш движок обрабатывает вашу уникальную {plannerData.style} экспедицию уровня {plannerData.budget}.</p>
                       <Button className="w-full h-14 bg-amber-400 text-slate-950 font-bold" onClick={() => {
-                        toast({ title: "Itinerary Generated", description: "Check your email for the custom PDF!" });
+                        toast({ title: "Маршрут сгенерирован", description: "Проверьте почту, мы отправили ваш персональный PDF!" });
                         setPlannerStep(0);
                       }}>
-                        GENERATE ITINERARY
+                        СГЕНЕРИРОВАТЬ МАРШРУТ
                       </Button>
                     </div>
                   )}
@@ -453,7 +453,7 @@ export default function TravelAgency() {
                       onClick={() => setPlannerStep(s => s + 1)}
                       disabled={plannerStep === 0 ? !plannerData.style : !plannerData.budget}
                     >
-                      CONTINUE
+                      ПРОДОЛЖИТЬ
                     </Button>
                   )}
                 </div>
@@ -473,9 +473,9 @@ export default function TravelAgency() {
                 <div className="absolute bottom-8 left-8 right-8 p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20">
                   <div className="flex items-center gap-4 mb-3">
                     <div className="w-3 h-3 rounded-full bg-amber-400 animate-ping" />
-                    <span className="text-white font-medium text-sm">Real-time Computation</span>
+                    <span className="text-white font-medium text-sm">Вычисления в реальном времени</span>
                   </div>
-                  <p className="text-white/80 text-sm">Engineered to deliver unique paths that no standard website builder can replicate.</p>
+                  <p className="text-white/80 text-sm">Разработано для создания уникальных путей, которые невозможно воссоздать в стандартных конструкторах.</p>
                 </div>
               </Card>
             </motion.div>
