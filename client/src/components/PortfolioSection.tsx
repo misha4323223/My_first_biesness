@@ -498,22 +498,48 @@ function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
           <stop offset="50%" stopColor="rgba(168, 85, 247, 0.8)" />
           <stop offset="100%" stopColor="rgba(168, 85, 247, 0.4)" />
         </linearGradient>
+        <linearGradient id="pulseGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="rgba(168, 85, 247, 0)" />
+          <stop offset="50%" stopColor="rgba(255, 255, 255, 0.8)" />
+          <stop offset="100%" stopColor="rgba(168, 85, 247, 0)" />
+        </linearGradient>
       </defs>
       {connections.map(([from, to], index) => {
         const isActive = hoveredId !== null && (from === hoveredId || to === hoveredId);
         return (
-          <motion.line
-            key={index}
-            x1={`${starPositions[from].x}%`}
-            y1={`${starPositions[from].y}%`}
-            x2={`${starPositions[to].x}%`}
-            y2={`${starPositions[to].y}%`}
-            stroke={isActive ? "url(#lineGradientActive)" : "url(#lineGradient)"}
-            strokeWidth={isActive ? 1.5 : 0.5}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: isActive ? 1 : 0.3 }}
-            transition={{ duration: 1.5, delay: index * 0.05 }}
-          />
+          <g key={index}>
+            <motion.line
+              x1={`${starPositions[from].x}%`}
+              y1={`${starPositions[from].y}%`}
+              x2={`${starPositions[to].x}%`}
+              y2={`${starPositions[to].y}%`}
+              stroke={isActive ? "url(#lineGradientActive)" : "url(#lineGradient)"}
+              strokeWidth={isActive ? 1.5 : 0.5}
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: isActive ? 1 : 0.3 }}
+              transition={{ duration: 1.5, delay: index * 0.05 }}
+            />
+            <motion.line
+              x1={`${starPositions[from].x}%`}
+              y1={`${starPositions[from].y}%`}
+              x2={`${starPositions[to].x}%`}
+              y2={`${starPositions[to].y}%`}
+              stroke="url(#pulseGradient)"
+              strokeWidth={isActive ? 2 : 1}
+              strokeDasharray="20 100"
+              initial={{ strokeDashoffset: 120, opacity: 0 }}
+              animate={{ 
+                strokeDashoffset: -120,
+                opacity: [0, 0.8, 0],
+              }}
+              transition={{ 
+                duration: 3, 
+                repeat: Infinity, 
+                delay: index * 0.5,
+                ease: "linear"
+              }}
+            />
+          </g>
         );
       })}
     </svg>
