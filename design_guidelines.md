@@ -1,126 +1,131 @@
-# Design Guidelines: NATURA Premium Cosmetics
+# Design Guidelines: LUMINA Premium Beauty Salon
 
 ## Design Approach
 
-**Reference-Based** inspired by Aesop's minimalist sophistication + Glossier's clean aesthetic + luxury skincare sites (La Mer, Augustinus Bader). Focus: refined simplicity, tactile elegance, editorial product presentation.
+**Reference-Based** inspired by Aesop's architectural minimalism + high-end hotel spa aesthetics (Aman, Four Seasons) + luxury salon sites (Rossano Ferretti, Frédéric Fekkai). Focus: serene sophistication, professional excellence, tactile luxury.
 
 ## Typography
 
-**Primary Font:** Cormorant Garamond (serif) - elegant, refined luxury
-- Headlines: 4xl-5xl (56-72px), font-light, tracking-wider, leading-tight
-- Product names: 2xl-3xl (32-48px), font-normal, tracking-wide
-- Section headers: 3xl (36px), font-light, tracking-widest
+**Primary Font:** Playfair Display (serif) - elegant, timeless luxury
+- Headlines: 5xl-6xl (48-64px), font-light, tracking-wide, leading-tight
+- Service names: 3xl-4xl (36-48px), font-normal, tracking-normal
+- Section headers: 4xl (40px), font-light, tracking-widest
 
-**Body Font:** Inter (sans-serif) - clean readability
-- Body text: base (16px), font-light, leading-relaxed, tracking-wide
-- Product descriptions: sm-base (14-16px), font-normal, leading-loose
-- Labels/prices: xs-sm (12-14px), font-medium, uppercase, tracking-widest
+**Body Font:** Inter (sans-serif) - professional clarity
+- Body text: base-lg (16-18px), font-light, leading-relaxed, tracking-normal
+- Service descriptions: base (16px), font-normal, leading-loose
+- Labels/prices: sm (14px), font-medium, tracking-wide
 
 ## Spacing System
 
-Tailwind units: **4, 6, 8, 12, 16, 24, 32** - emphasizing generous breathing room.
+Tailwind units: **4, 6, 8, 12, 16, 20, 24, 32** - luxurious breathing room
 - Sections: py-24 to py-32 (desktop), py-16 (mobile)
-- Product grids: gap-8 to gap-12
+- Service grids: gap-8 to gap-12
 - Card padding: p-8 to p-12
 
 ## Section Structure
 
-### 1. Hero (90vh)
-Full-width lifestyle image (serene bathroom scene with NATURA products, soft natural light)
-- Off-center minimal text: "NATURA" wordmark + tagline "Pure. Intentional. Transformative."
-- Single blurred-background CTA: "Discover Collection"
+### 1. Hero (85vh)
+Full-width serene salon interior image with natural light, minimalist design aesthetic
+- Centered overlay: "LUMINA" wordmark (gold accent), tagline "Where Beauty Meets Artistry"
+- Blurred-background CTA: "Book Your Experience"
 
-### 2. Philosophy Statement (centered, full-width)
-- max-w-3xl container, centered text
-- Elegant copy about brand values and ingredients
-- Soft muted rose divider line
+### 2. Philosophy Statement
+Centered max-w-4xl container, refined introduction to LUMINA's approach to beauty
+Gold accent divider line above and below
 
-### 3. Featured Products (3-column grid)
-- lg:grid-cols-3, md:grid-cols-2, single on mobile
-- Clean product photography on soft beige backgrounds
-- Product name, key ingredient, price, "Add to Cart" text link
-- 6-9 featured items
+### 3. Signature Services (3-column grid)
+lg:grid-cols-3, md:grid-cols-2 layout
+Featured services: Facial Treatments, Hair Artistry, Advanced Skincare
+Each card: elegant service image, service name, brief description, duration, "Learn More" link
+6 featured services total
 
-### 4. Ingredient Spotlight (2-column asymmetric)
-- Left: Large botanical/ingredient photography (60% width)
-- Right: Ingredient story, benefits, featured products using it
-- Muted rose accent heading
+### 4. The LUMINA Experience (2-column asymmetric)
+Left: Large atmospheric salon photography (60% width)
+Right: Key differentiators, expert stylists, premium products, personalized consultations
+Forest green accent heading
 
-### 5. Product Categories (4-column grid)
-- lg:grid-cols-4, md:grid-cols-2
-- Categories: Cleanse, Treat, Hydrate, Protect
-- Minimal category image, category name, product count
-- Subtle hover state (slight opacity change)
+### 5. Service Categories (4-column grid)
+lg:grid-cols-4, md:grid-cols-2
+Categories: Face, Hair, Body, Wellness
+Minimalist category imagery, category name, service count
+Hover: subtle gold border glow
 
-### 6. The NATURA Ritual (stepped layout)
-- 3-step skincare routine visualization
-- Each step: number (large, charcoal), product image, description
-- Vertical progression with connecting soft lines
+### 6. Expert Team (3-column grid)
+Professional team portraits, stylist name, specialization, years of experience
+Brief bio, "View Portfolio" link
+6-9 team members
 
-### 7. Social Proof (masonry/card layout)
-- Before/after imagery, customer testimonials with photos
-- User-generated content aesthetic
-- 2-3 column varied heights
+### 7. Transformations Gallery (masonry layout)
+Before/after imagery in elegant presentation
+2-3 column varied heights, professional photography
+Subtle gold frame treatment
 
-### 8. Bestsellers Carousel
-- Horizontal scroll, 4-5 products visible
-- Larger product cards with ratings
-- "Shop All Bestsellers" CTA
+### 8. Client Testimonials (carousel/grid)
+Client photos with testimonials, star ratings
+3-column grid or horizontal scroll
+8-10 testimonials
 
-### 9. Newsletter + Values (split section)
-- Left: Newsletter signup with refined form
-- Right: Brand commitments (cruelty-free, sustainable, dermatologist-tested icons)
-- Footer: minimal navigation, social links, payment badges
+### 9. Booking Experience
+Centered booking form with service selection, preferred date/time, stylist preference
+Adjacent: Operating hours, location, parking info, preparation tips
+Gold accent submit button
+
+### 10. Footer
+Minimal navigation, social links, location map preview, awards/certifications, newsletter signup
 
 ## Component Library
 
-**Navigation:** Clean white background, NATURA wordmark center, minimal menu left (Shop, About, Journal), icons right (Search, Account, Cart)
+**Navigation:** Forest green header bar, LUMINA wordmark center (gold), minimal menu (Services, Team, Gallery, Contact), Book Now button right
 
 **Buttons:**
-- Primary: Deep charcoal background, white text, px-10 py-3, rounded-full, tracking-wide
-- Secondary: Muted rose border, charcoal text, hover fills rose
-- Text Links: Uppercase, tracking-widest, underline on hover
+- Primary: Deep forest green, gold text, px-12 py-4, tracking-wide, subtle shadow
+- Secondary: Gold border, forest green text, hover fills gold
+- Blurred backgrounds when on images: backdrop-blur-md, bg-cream/20
 
-**Product Cards:** No borders, white background, minimal shadow, clean product image (square ratio), name, price stacked below, centered alignment
+**Service Cards:** Soft cream background, subtle shadow, service image (16:9 ratio), service name, description, price, centered alignment
 
-**Form Inputs:** Soft beige background, no border, rounded-md, px-4 py-3, placeholder in charcoal-light, focus: subtle charcoal border
+**Form Inputs:** Charcoal border, soft cream focus background, rounded-sm, px-6 py-4, placeholder in charcoal-light
 
-**Badges:** Muted rose or soft beige background, charcoal text, rounded-full, px-3 py-1, "NEW" or "BESTSELLER"
+**Badges:** Gold background, forest green text, "SIGNATURE" or "NEW"
 
 ## Images
 
-**Hero:** Spa-like bathroom scene with NATURA products, natural light, soft shadows - 90vh full-width
+**Hero:** 1 luxurious salon interior, natural light streaming through large windows, minimalist furniture, plants - 85vh full-width
 
-**Featured Products:** 6-9 clean product shots on soft beige backgrounds, consistent lighting, minimal styling
+**Signature Services:** 6 elegant close-up shots of treatments in progress, professional lighting, soft focus backgrounds
 
-**Ingredient Spotlight:** 1 large botanical/nature macro photography (flower, plant, water droplet)
+**Experience Section:** 1 wide atmospheric salon shot showing professional ambiance
 
-**Category Images:** 4 lifestyle images (hands applying product, close-ups of textures)
+**Category Images:** 4 refined lifestyle images showing service moments
 
-**Ritual Section:** 3 product flatlay images
+**Team Portraits:** 6-9 professional headshots, consistent lighting and background (soft cream backdrop)
 
-**Social Proof:** 4-6 customer lifestyle photos, authentic aesthetic
+**Transformations:** 8-12 before/after professional beauty shots
 
-**All images:** Professional, soft lighting, muted tones matching color palette, editorial quality
+**Testimonials:** 8-10 client portraits (optional, can use initials instead)
+
+**All images:** Professional photography, soft lighting, muted luxury palette, editorial salon magazine quality
 
 ## Visual Effects
 
-**Minimal animations:**
-- Subtle fade-in on scroll (400ms ease)
-- Product image gentle scale on hover (1.03x)
-- Smooth cart icon bounce on add
-- No parallax, no excessive motion
+Minimal, refined animations:
+- Gentle fade-in on scroll (350ms ease)
+- Image subtle scale on hover (1.02x)
+- Gold accent glow transitions (300ms)
+- No parallax, restrained motion
 
-**Accent Usage:**
-- Muted rose for section dividers, badges, hover states
-- Soft beige for backgrounds, alternating sections
-- Deep charcoal for all text, primary buttons
-- Clean white for cards, forms, spacious breathing room
+**Accent Distribution:**
+- Gold for CTAs, dividers, highlights, hover states
+- Forest green for headers, key sections, primary buttons
+- Soft cream for backgrounds, cards, alternating sections
+- Charcoal for body text, secondary elements
+- Clean white for breathing room, forms
 
 ## Layout Principles
 
-1. **Abundant whitespace:** Luxury through space, not density
-2. **Editorial composition:** Photography as hero, text supports
-3. **Centered alignment:** Symmetrical balance, refined restraint
-4. **Soft grid systems:** Asymmetric where elegant, structured where needed
-5. **Tactile minimalism:** Subtle textures, sophisticated simplicity
+1. **Architectural space:** Luxury through generous whitespace
+2. **Professional precision:** Aligned grids, consistent rhythm
+3. **Centered focal points:** Symmetrical elegance
+4. **Editorial photography:** Images communicate quality
+5. **Restrained opulence:** Gold accents used sparingly for maximum impact

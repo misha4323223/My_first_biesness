@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { useAggregateRatingSchema } from "@/lib/useAggregateRatingSchema";
-import salonHeroImg from "@assets/generated_images/luxury_beauty_salon_interior_4k.png";
+import salonHeroImg from "@assets/stock_images/luxury_beauty_salon__6ff34376.jpg";
 import stylist1Img from "@assets/generated_images/professional_woman_portrait_photography.webp";
 import stylist2Img from "@assets/generated_images/professional_woman_stylist_portrait_2.png";
 import stylist3Img from "@assets/generated_images/professional_woman_stylist_portrait_3.png";
@@ -63,6 +63,15 @@ const stylists = [
     image: stylist3Img,
     rating: 4.9,
     reviews: 198
+  },
+  { 
+    id: 4, 
+    name: "Александр", 
+    role: "Топ-барбер", 
+    experience: "12 лет",
+    image: "@assets/generated_images/russian_barber_maxim_portrait.webp",
+    rating: 5.0,
+    reviews: 412
   },
 ];
 
@@ -172,102 +181,93 @@ export default function BeautySalon() {
   const formatPrice = (price: number) => new Intl.NumberFormat("ru-RU").format(price);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
+    <div className="min-h-screen bg-stone-50 text-stone-900 font-sans">
       <Link href="/#portfolio" className="fixed top-4 left-4 z-[100]">
         <Button 
           variant="ghost" 
           size="icon"
-          className="bg-black/70 backdrop-blur-sm border border-white/20 hover:bg-black/90"
+          className="bg-white/80 backdrop-blur-sm border border-stone-200 hover:bg-white shadow-sm"
           data-testid="button-back-home"
         >
-          <ArrowLeft className="w-5 h-5 text-white" />
+          <ArrowLeft className="w-5 h-5 text-stone-900" />
         </Button>
       </Link>
 
-      <header className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-900/40 via-neutral-950 to-neutral-950 pointer-events-none" />
-        <div className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none" style={{ backgroundImage: `url(${salonHeroImg})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent pointer-events-none" />
+      <header className="relative h-[85vh] flex items-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={salonHeroImg} 
+            alt="LUMINA Salon" 
+            className="w-full h-full object-cover brightness-[0.9]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-stone-900/20 via-transparent to-stone-50" />
+        </div>
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between gap-4 pointer-events-auto">
+        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-8 flex items-center justify-between pointer-events-auto">
           <div className="flex items-center gap-3 pl-12">
-            <div className="w-10 h-10 rounded-md bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold tracking-wider">LUMINA</span>
+            <span className="text-3xl font-serif tracking-[0.2em] text-stone-900">LUMINA</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm text-neutral-300">
-            <button onClick={scrollToServices} className="hover:text-pink-400 transition-colors cursor-pointer">Услуги</button>
-            <button onClick={scrollToStylists} className="hover:text-pink-400 transition-colors cursor-pointer">Стилисты</button>
-            <button onClick={scrollToBooking} className="hover:text-pink-400 transition-colors cursor-pointer">Запись</button>
-            <button onClick={scrollToContact} className="hover:text-pink-400 transition-colors cursor-pointer">Контакты</button>
+          <div className="hidden md:flex items-center gap-10 text-sm uppercase tracking-widest font-medium text-stone-800">
+            <button onClick={scrollToServices} className="hover:text-amber-600 transition-colors">Услуги</button>
+            <button onClick={scrollToStylists} className="hover:text-amber-600 transition-colors">Команда</button>
+            <button onClick={scrollToBooking} className="hover:text-amber-600 transition-colors">Запись</button>
           </div>
-          <Button className="bg-pink-500 hover:bg-pink-600 text-white font-semibold" data-testid="button-book-header">
+          <Button className="bg-stone-900 text-white hover:bg-stone-800 rounded-none px-8 py-6 tracking-widest uppercase text-xs" onClick={scrollToBooking}>
             Записаться
           </Button>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
           >
-            <Badge className="mb-6 bg-pink-500/20 text-pink-400 border-pink-500/30">
-              Премиум салон красоты
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
-              Красота —
-              <br />
-              <span className="bg-gradient-to-r from-pink-400 to-rose-500 bg-clip-text text-transparent">
-                это ваш стиль
-              </span>
+            <span className="text-stone-600 uppercase tracking-[0.4em] text-sm mb-6 block">Where Beauty Meets Artistry</span>
+            <h1 className="text-6xl md:text-8xl font-serif text-stone-900 mb-8 leading-tight font-light">
+              Эстетика <br />
+              <span className="italic">совершенства</span>
             </h1>
-            <p className="text-xl text-neutral-400 mb-8 max-w-lg">
-              Салон красоты с атмосферой люкса. Профессиональные стилисты и уход премиум-класса.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-pink-500 hover:bg-pink-600 text-white font-semibold" data-testid="button-book-hero">
-                <Calendar className="w-5 h-5 mr-2" />
-                Записаться онлайн
-              </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" data-testid="button-prices">
-                Посмотреть цены
-              </Button>
-            </div>
-            <div className="flex items-center gap-8 mt-12 text-sm">
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-pink-400" />
-                <span className="text-neutral-400">09:00 - 20:00</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-pink-400" />
-                <span className="text-neutral-400">ул. Красоты, 42</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-pink-400" />
-                <a href="tel:+79991234567" className="text-neutral-400 hover:text-pink-400 transition-colors">+7 (999) 123-45-67</a>
-              </div>
-            </div>
+            <Button 
+              size="lg" 
+              className="bg-amber-600/90 backdrop-blur-sm text-white hover:bg-amber-700 rounded-none px-12 h-14 tracking-widest uppercase text-xs transition-all hover:scale-105" 
+              onClick={scrollToBooking}
+            >
+              Забронировать визит
+            </Button>
           </motion.div>
         </div>
       </header>
 
-      <section ref={servicesRef} id="services" className="py-20 bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-32 bg-stone-50">
+        <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши услуги</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
-              Полный спектр услуг для вашей красоты и ухода
+            <div className="w-20 h-[1px] bg-amber-600 mx-auto mb-12" />
+            <h2 className="text-4xl font-serif mb-10 font-light tracking-wide text-stone-900">Философия LUMINA</h2>
+            <p className="text-xl text-stone-600 font-light leading-relaxed tracking-wide italic">
+              "Мы не просто создаем образы. Мы раскрываем внутренний свет каждого гостя через архитектурную точность стрижек и магию цвета."
             </p>
+            <div className="w-20 h-[1px] bg-amber-600 mx-auto mt-12" />
           </motion.div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section ref={servicesRef} className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div className="max-w-xl">
+              <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold mb-4 block">Наши услуги</span>
+              <h2 className="text-5xl font-serif font-light text-stone-900">Signature Services</h2>
+            </div>
+            <p className="text-stone-500 font-light max-w-sm">Исключительный уход, объединяющий традиции и инновации для вашего преображения.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
             {services.map((service, i) => (
               <motion.div
                 key={service.id}
@@ -276,45 +276,28 @@ export default function BeautySalon() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card 
-                  className={`group overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer transition-all ${selectedService === service.id ? 'ring-2 ring-pink-500' : ''}`}
+                <div 
+                  className={`group cursor-pointer ${selectedService === service.id ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
                   onClick={() => handleServiceSelect(service.id)}
-                  data-testid={`card-service-${service.id}`}
                 >
-                  <div className="aspect-video relative overflow-hidden">
+                  <div className="aspect-[16/10] overflow-hidden mb-6 bg-stone-100 relative">
                     <img 
                       src={(service as any).image} 
                       alt={service.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute top-4 right-4">
-                      {service.popular && (
-                        <Badge className="bg-pink-500 text-white border-0">ХИТ</Badge>
-                      )}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center">
-                        <service.icon className="w-4 h-4 text-pink-400" />
+                    {service.popular && (
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-amber-600 text-white rounded-none tracking-widest text-[10px] px-3 py-1 uppercase border-0">Signature</Badge>
                       </div>
-                      <h3 className="text-lg font-semibold text-white">{service.name}</h3>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
-                        {service.duration}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-pink-400">{formatPrice(service.price)} ₽</span>
-                      <Button size="sm" className="bg-pink-500/20 text-pink-400 hover:bg-pink-500/30" data-testid={`button-select-service-${service.id}`}>
-                        Выбрать
-                      </Button>
-                    </div>
+                    )}
                   </div>
-                </Card>
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-2xl font-serif font-light text-stone-900">{service.name}</h3>
+                    <span className="text-amber-600 font-medium">{formatPrice(service.price)} ₽</span>
+                  </div>
+                  <p className="text-stone-400 text-sm uppercase tracking-widest font-medium">{service.duration}</p>
+                </div>
               </motion.div>
             ))}
           </div>
