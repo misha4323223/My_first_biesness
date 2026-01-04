@@ -729,7 +729,7 @@ async function handleVkAutoPostYandex(headers) {
 
         // 2. Генерируем КАРТИНКУ (Универсальный технологичный промпт)
         console.log('[VK-AUTO-POST-YANDEX] Generating image...');
-        const universalImagePrompt = "High-tech futuristic web design concept, professional UI/UX interface elements glowing on dark background, abstract digital technology visualization, 8k resolution, cinematic lighting, sleek corporate aesthetic, blue and neon accents";
+        const universalImagePrompt = "High-tech futuristic web design concept with 'MP.WebStudio' text logo, professional UI/UX interface elements glowing on dark background, abstract digital technology visualization, 8k resolution, cinematic lighting, sleek corporate aesthetic, blue and neon accents";
         const imageBuffer = await generateYandexImage(universalImagePrompt);
         console.log('[VK-AUTO-POST-YANDEX] Image generated, size:', imageBuffer.length, 'bytes');
 
