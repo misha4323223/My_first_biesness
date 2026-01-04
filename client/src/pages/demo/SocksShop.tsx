@@ -560,31 +560,98 @@ export default function SocksShop() {
         </div>
       </section>
 
-      <section className="py-16 bg-rose-500 text-white">
+      <section className="py-16 bg-rose-500 text-white overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <Gift className="w-12 h-12 mx-auto mb-4 opacity-80" />
-          <h2 className="text-3xl font-black mb-4">
-            Собери свой набор
-          </h2>
-          <p className="text-rose-100 mb-6 max-w-md mx-auto">
-            Выбери любые носки и мы упакуем их в красивую подарочную коробку
-          </p>
-          <Button size="lg" className="bg-white text-rose-500 hover:bg-rose-50 font-bold" onClick={scrollToProducts} data-testid="button-create-set">
-            Создать набор
-          </Button>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-black mb-6">Вступай в SockLove Club</h2>
+            <p className="text-rose-100 mb-8 max-w-2xl mx-auto">
+              Подпишись на рассылку и получи скидку 15% на первый заказ и доступ к закрытым коллекциям
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input 
+                placeholder="Твой email" 
+                className="bg-white/10 border-white/20 text-white placeholder:text-rose-200"
+              />
+              <Button className="bg-white text-rose-500 hover:bg-rose-50 font-bold whitespace-nowrap">
+                Получить скидку
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <footer className="py-12 bg-neutral-900 text-white">
+      <section className="py-16 bg-white overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-black mb-4">Отзывы счастливых ног</h2>
+          <div className="flex justify-center gap-1 mb-2">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Check key={i} className="w-5 h-5 text-rose-500 fill-rose-500" />
+            ))}
+          </div>
+          <p className="text-neutral-500 mb-12">Более 10 000 довольных клиентов</p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {reviews.map((review, idx) => (
+              <motion.div
+                key={review.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <Card className="p-6 h-full border-neutral-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex gap-1 mb-4">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <Check key={i} className="w-4 h-4 text-rose-500 fill-rose-500" />
+                    ))}
+                  </div>
+                  <p className="text-neutral-700 italic mb-6">"{review.text}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-500 font-bold">
+                      {review.name[0]}
+                    </div>
+                    <p className="font-bold text-sm text-neutral-900">{review.name}</p>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer ref={footerRef} className="py-16 bg-neutral-900 text-white">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-2xl font-black">
-              <span className="text-rose-500">SOCK</span>
-              <span className="text-white">STYLE</span>
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            <div className="col-span-2">
+              <h2 className="text-2xl font-black mb-6">
+                <span className="text-rose-500">SOCK</span>
+                <span>STYLE</span>
+              </h2>
+              <p className="text-neutral-400 max-w-sm leading-relaxed mb-6">
+                Мы создаем не просто носки, а аксессуары, которые подчеркивают вашу индивидуальность. 
+                Каждая пара — это сочетание премиального качества и уникального дизайна.
+              </p>
             </div>
-            <p className="text-sm text-neutral-500">
-              Демо-сайт от WebStudio
-            </p>
+            <div>
+              <h4 className="font-bold mb-6 uppercase tracking-wider text-sm">Магазин</h4>
+              <ul className="space-y-4 text-neutral-400">
+                <li><button onClick={() => handleNavClick("Каталог")} className="hover:text-white transition-colors">Каталог</button></li>
+                <li><button onClick={() => handleNavClick("Наборы")} className="hover:text-white transition-colors">Наборы</button></li>
+                <li><button onClick={() => handleNavClick("SALE")} className="hover:text-rose-400 transition-colors">SALE</button></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold mb-6 uppercase tracking-wider text-sm">MP.WebStudio</h4>
+              <Link href="/" className="text-neutral-400 hover:text-rose-500 transition-colors">
+                Создание сайтов под ключ
+              </Link>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-white/10 text-center text-sm text-neutral-500">
+            <p>© {new Date().getFullYear()} SockStyle. Все права защищены.</p>
           </div>
         </div>
       </footer>
