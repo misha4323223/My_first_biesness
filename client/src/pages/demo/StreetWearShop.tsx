@@ -192,10 +192,15 @@ export default function StreetWearShop() {
     });
   };
 
+  const [favoritesOpen, setFavoritesOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
   const cartItems = Object.entries(cart).map(([id, qty]) => ({
     product: products.find(p => p.id === Number(id))!,
     quantity: qty
   })).filter(c => c.product);
+
+  const favoriteItems = favorites.map(id => products.find(p => p.id === id)!).filter(Boolean);
 
   const cartTotal = cartItems.reduce((sum, { product, quantity }) => sum + product.price * quantity, 0);
   const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
@@ -319,18 +324,23 @@ export default function StreetWearShop() {
               </div>
 
               <button
-                onClick={() => setActiveTab("favorites")}
-                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "favorites" ? "text-amber-500" : "text-neutral-400"}`}
+                onClick={() => setFavoritesOpen(true)}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${favoritesOpen ? "text-amber-500" : "text-neutral-400"}`}
               >
-                <Heart className={`w-5 h-5 ${activeTab === "favorites" ? "scale-110 fill-amber-500/20" : ""}`} />
-                <span className="text-[10px] font-bold uppercase tracking-tighter">Лайки</span>
+                <Heart className={`w-5 h-5 ${favorites.length > 0 ? "fill-amber-500/20 text-amber-500" : ""}`} />
+                <span className="text-[10px] font-bold uppercase tracking-tighter">Избранное</span>
+                {favorites.length > 0 && (
+                  <span className="absolute top-2 right-1/4 w-4 h-4 bg-amber-500 text-black text-[8px] font-black rounded-full flex items-center justify-center border border-neutral-950">
+                    {favorites.length}
+                  </span>
+                )}
               </button>
 
               <button
-                onClick={() => setActiveTab("profile")}
-                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${activeTab === "profile" ? "text-amber-500" : "text-neutral-400"}`}
+                onClick={() => setProfileOpen(true)}
+                className={`flex-1 flex flex-col items-center gap-1 py-2 transition-all ${profileOpen ? "text-amber-500" : "text-neutral-400"}`}
               >
-                <User className={`w-5 h-5 ${activeTab === "profile" ? "scale-110" : ""}`} />
+                <User className={`w-5 h-5 ${profileOpen ? "scale-110" : ""}`} />
                 <span className="text-[10px] font-bold uppercase tracking-tighter">Профиль</span>
               </button>
             </div>
@@ -500,22 +510,22 @@ export default function StreetWearShop() {
           ) : (
             <>
               {cartItems.length === 0 ? (
-                <p className="text-center text-neutral-400 py-8">Корзина пуста</p>
+                <p className="text-center text-neutral-400 py-8 font-black uppercase tracking-widest text-xs">Корзина пуста</p>
               ) : (
                 <>
                   <div className="space-y-3 mb-4">
                     {cartItems.map(({ product, quantity }) => (
-                      <div key={product.id} className="flex items-center gap-3 p-2 rounded-md bg-neutral-800">
-                        <img src={product.image} alt={product.name} className="w-12 h-12 rounded-md object-cover" />
+                      <div key={product.id} className="flex items-center gap-3 p-2 bg-neutral-800 border border-neutral-700">
+                        <img src={product.image} alt={product.name} className="w-12 h-12 object-cover" />
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-sm truncate text-white">{product.name}</p>
-                          <p className="text-sm text-amber-500">{product.price * quantity} р</p>
+                          <p className="font-black text-[10px] text-white uppercase truncate">{product.name}</p>
+                          <p className="text-xs text-amber-500 font-black">{product.price.toLocaleString()} р</p>
                         </div>
                         <div className="flex items-center gap-1">
                           <Button size="icon" variant="ghost" className="h-7 w-7 text-neutral-400" onClick={() => removeFromCart(product.id)}>
                             <Minus className="w-3 h-3" />
                           </Button>
-                          <span className="w-6 text-center text-sm text-white">{quantity}</span>
+                          <span className="w-6 text-center text-xs text-white font-black">{quantity}</span>
                           <Button size="icon" variant="ghost" className="h-7 w-7 text-neutral-400" onClick={() => addToCart(product.id)}>
                             <Plus className="w-3 h-3" />
                           </Button>
@@ -528,37 +538,37 @@ export default function StreetWearShop() {
                   </div>
                   
                   <div className="border-t border-neutral-700 pt-4 mb-4">
-                    <div className="flex justify-between text-lg font-semibold">
-                      <span className="text-white">Итого:</span>
-                      <span className="text-amber-500">{cartTotal.toLocaleString()} р</span>
+                    <div className="flex justify-between items-center font-black uppercase tracking-tighter">
+                      <span className="text-white text-sm">Итого:</span>
+                      <span className="text-amber-500 text-lg">{cartTotal.toLocaleString()} р</span>
                     </div>
                   </div>
 
-                  <form onSubmit={handleOrder} className="space-y-3">
-                    <div>
-                      <Label htmlFor="name" className="text-neutral-300">Ваше имя</Label>
+                  <form onSubmit={handleOrder} className="space-y-4 pt-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Ваше имя</Label>
                       <Input 
                         id="name" 
                         value={orderForm.name} 
                         onChange={(e) => setOrderForm(f => ({ ...f, name: e.target.value }))}
-                        placeholder="Иван"
-                        className="bg-neutral-800 border-neutral-700 text-white"
+                        placeholder="ИВАН"
+                        className="bg-neutral-800 border-neutral-700 text-white rounded-none h-12 uppercase font-bold"
                         required
                       />
                     </div>
-                    <div>
-                      <Label htmlFor="phone" className="text-neutral-300">Телефон</Label>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Телефон</Label>
                       <Input 
                         id="phone" 
                         type="tel"
                         value={orderForm.phone} 
                         onChange={(e) => setOrderForm(f => ({ ...f, phone: e.target.value }))}
-                        placeholder="+7 (999) 123-45-67"
-                        className="bg-neutral-800 border-neutral-700 text-white"
+                        placeholder="+7 (999) 000-00-00"
+                        className="bg-neutral-800 border-neutral-700 text-white rounded-none h-12 font-bold"
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold">
+                    <Button type="submit" className="w-full h-14 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-none shadow-lg shadow-amber-500/10 transition-all">
                       Оформить заказ
                     </Button>
                   </form>
@@ -566,6 +576,100 @@ export default function StreetWearShop() {
               )}
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={favoritesOpen} onOpenChange={setFavoritesOpen}>
+        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto bg-neutral-900 border-neutral-800">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-white uppercase tracking-tighter font-black">
+              <Heart className="w-5 h-5 text-amber-500 fill-current" />
+              Избранное
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            {favoriteItems.length === 0 ? (
+              <div className="text-center py-12">
+                <Heart className="w-12 h-12 text-neutral-800 mx-auto mb-4" />
+                <p className="text-neutral-500 font-bold uppercase text-xs tracking-widest">Список пуст</p>
+                <Button 
+                  variant="link" 
+                  className="text-amber-500 text-xs mt-2 font-black uppercase"
+                  onClick={() => { setFavoritesOpen(false); scrollToProducts(); }}
+                >
+                  Перейти к покупкам
+                </Button>
+              </div>
+            ) : (
+              favoriteItems.map((product) => (
+                <div key={product.id} className="flex items-center gap-4 group">
+                  <div className="w-20 h-24 bg-neutral-950 overflow-hidden">
+                    <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-1">{product.brand}</p>
+                    <h4 className="text-white font-black uppercase text-sm truncate mb-1">{product.name}</h4>
+                    <p className="text-white font-black text-sm">{product.price.toLocaleString()} р</p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Button 
+                      size="icon" 
+                      variant="ghost" 
+                      className="text-neutral-500 hover:text-red-500"
+                      onClick={() => toggleFavorite(product.id)}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                    <Button 
+                      size="icon" 
+                      className="bg-amber-500 text-black hover:bg-amber-600"
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setFavoritesOpen(false);
+                      }}
+                    >
+                      <ShoppingCart className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={profileOpen} onOpenChange={setProfileOpen}>
+        <DialogContent className="max-w-md bg-neutral-900 border-neutral-800">
+          <DialogHeader>
+            <DialogTitle className="text-white uppercase tracking-tighter font-black">Профиль клиента</DialogTitle>
+          </DialogHeader>
+          <div className="py-6 flex flex-col items-center">
+            <div className="w-20 h-20 rounded-full bg-neutral-800 border-2 border-amber-500 flex items-center justify-center mb-4">
+              <User className="w-10 h-10 text-amber-500" />
+            </div>
+            <h3 className="text-white font-black uppercase tracking-tight text-lg">Гость</h3>
+            <p className="text-neutral-500 text-xs font-bold uppercase tracking-widest mb-8">streetwear enthusiast</p>
+            
+            <div className="w-full space-y-2">
+              <div className="p-4 bg-neutral-800/50 border border-neutral-800 flex items-center justify-between">
+                <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Заказов</span>
+                <span className="text-white font-black">0</span>
+              </div>
+              <div className="p-4 bg-neutral-800/50 border border-neutral-800 flex items-center justify-between">
+                <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Бонусные баллы</span>
+                <span className="text-amber-500 font-black">500</span>
+              </div>
+              <div className="p-4 bg-neutral-800/50 border border-neutral-800 flex items-center justify-between">
+                <span className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Статус</span>
+                <Badge className="bg-neutral-700 text-white border-none text-[8px] font-black uppercase">Новичок</Badge>
+              </div>
+            </div>
+
+            <Button className="w-full mt-8 h-12 bg-neutral-800 text-white hover:bg-neutral-700 rounded-none font-black uppercase tracking-widest text-xs">
+              Войти в аккаунт
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
 
