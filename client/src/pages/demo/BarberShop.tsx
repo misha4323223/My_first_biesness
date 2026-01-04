@@ -12,6 +12,8 @@ import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { useAggregateRatingSchema } from "@/lib/useAggregateRatingSchema";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerFooter, DrawerClose } from "@/components/ui/drawer";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface CartItem {
@@ -183,7 +185,7 @@ export default function BarberShop() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  const { toast } = useToast();
+  const isMobile = useIsMobile();
   
   const addToCart = (product: any) => {
     setCart(prev => {
@@ -298,7 +300,64 @@ export default function BarberShop() {
     }
   };
 
-  const formatPrice = (price: number) => new Intl.NumberFormat("ru-RU").format(price);
+  const CartContent = () => (
+    <div className="space-y-4 py-4">
+      {cart.length === 0 ? (
+        <div className="text-center py-8 text-neutral-500">
+          Корзина пуста
+        </div>
+      ) : (
+        <>
+          <div className="space-y-4 max-h-[60vh] sm:max-h-[400px] overflow-auto pr-2">
+            {cart.map((item) => (
+              <div key={item.id} className="flex items-center gap-4 bg-neutral-800/50 p-3 rounded-xl border border-neutral-700">
+                <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover" />
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-bold truncate uppercase tracking-tight text-sm sm:text-base">{item.name}</h4>
+                  <p className="text-amber-400 text-sm font-black">{item.price} ₽</p>
+                </div>
+                <div className="flex items-center gap-2 bg-neutral-900 rounded-lg p-1 border border-neutral-700">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="w-8 h-8 text-neutral-400 hover:text-white"
+                    onClick={() => updateQuantity(item.id, -1)}
+                  >
+                    <Minus className="w-3 h-3" />
+                  </Button>
+                  <span className="w-4 text-center text-sm font-black">{item.quantity}</span>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="w-8 h-8 text-neutral-400 hover:text-white"
+                    onClick={() => updateQuantity(item.id, 1)}
+                  >
+                    <Plus className="w-3 h-3" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="pt-4 border-t border-neutral-800">
+            <div className="flex justify-between items-center mb-6">
+              <span className="text-neutral-400 font-medium">Итого:</span>
+              <span className="text-2xl font-black text-amber-400 uppercase tracking-tighter">{cartTotal} ₽</span>
+            </div>
+            <Button 
+              className="w-full bg-amber-500 hover:bg-amber-600 text-black font-black h-12 uppercase tracking-widest"
+              onClick={() => {
+                setIsCartOpen(false);
+                setIsCheckoutOpen(true);
+              }}
+            >
+              ОФОРМИТЬ ЗАКАЗ
+            </Button>
+          </div>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white">
@@ -336,18 +395,18 @@ export default function BarberShop() {
             <Button 
               variant="ghost" 
               size="icon" 
-              className="relative text-neutral-300 hover:text-amber-400 h-8 w-8"
+              className="relative text-neutral-300 hover:text-amber-400 h-9 w-9"
               onClick={() => setIsCartOpen(true)}
               data-testid="button-cart"
             >
-              <ShoppingCart className="w-4 h-4" />
+              <ShoppingCart className="w-5 h-5" />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-amber-500 text-black text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 text-black text-[10px] font-bold rounded-full flex items-center justify-center">
                   {cartCount}
                 </span>
               )}
             </Button>
-            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold h-8 px-3" data-testid="button-book-header" onClick={scrollToBooking}>
+            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold h-9 px-4" data-testid="button-book-header" onClick={scrollToBooking}>
               <span className="text-xs sm:text-sm">Запись</span>
             </Button>
           </div>
@@ -385,19 +444,19 @@ export default function BarberShop() {
             <h1 className="text-4xl xs:text-5xl sm:text-7xl font-bold mb-6 leading-[1.1] tracking-tight">
               Стиль — это
               <br />
-              <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent uppercase">
+              <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent uppercase inline-block">
                 искусство
               </span>
             </h1>
             <p className="text-base sm:text-xl text-neutral-300 mb-10 max-w-lg mx-auto sm:mx-0">
               Мужская парикмахерская с атмосферой и вниманием к деталям. Только лучшие мастера и премиальный уход.
             </p>
-            <div className="flex flex-col xs:flex-row items-center justify-center sm:justify-start gap-4 mb-12">
-              <Button size="lg" className="w-full xs:w-auto bg-amber-500 hover:bg-amber-600 text-black font-bold h-12 sm:h-14 px-8 text-base" data-testid="button-book-hero" onClick={scrollToBooking}>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center sm:justify-start gap-4 mb-12">
+              <Button size="lg" className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-black font-bold h-12 sm:h-14 px-8 text-base" data-testid="button-book-hero" onClick={scrollToBooking}>
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться
               </Button>
-              <Button size="lg" variant="outline" className="w-full xs:w-auto border-white/20 text-white hover:bg-white/10 h-12 sm:h-14 px-8 text-base backdrop-blur-sm" data-testid="button-prices" onClick={scrollToServices}>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10 h-12 sm:h-14 px-8 text-base backdrop-blur-sm" data-testid="button-prices" onClick={scrollToServices}>
                 Прайс-лист
               </Button>
             </div>
@@ -442,7 +501,7 @@ export default function BarberShop() {
 
       <section className="py-12 sm:py-20 bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-3 gap-4 sm:gap-6 no-scrollbar snap-x">
+          <div className="flex overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-3 gap-4 sm:gap-6 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
             {offers.map((offer, i) => (
               <motion.div
                 key={i}
@@ -450,7 +509,7 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="min-w-[280px] sm:min-w-0 snap-center"
+                className="min-w-[85vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0"
               >
                 <Card className="p-6 sm:p-8 h-full bg-gradient-to-br from-neutral-800 to-neutral-900 border-neutral-700 relative overflow-hidden group hover-elevate cursor-pointer">
                   <div className="absolute top-4 right-4">
@@ -524,56 +583,56 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section className="py-20 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
-                <Scissors className="w-6 h-6 text-amber-500" />
+      <section className="py-12 sm:py-20 bg-neutral-950 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div className="text-center group">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
+                <Scissors className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="font-bold mb-1">Топ Мастера</h3>
-              <p className="text-xs text-neutral-500">Опытные профессионалы</p>
+              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Топ Мастера</h3>
+              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Профессионалы</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-6 h-6 text-amber-500" />
+            <div className="text-center group">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
+                <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="font-bold mb-1">Запись 24/7</h3>
-              <p className="text-xs text-neutral-500">Удобный онлайн-сервис</p>
+              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Запись 24/7</h3>
+              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Онлайн-сервис</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
-                <Star className="w-6 h-6 text-amber-500" />
+            <div className="text-center group">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
+                <Star className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="font-bold mb-1">Премиум Уход</h3>
-              <p className="text-xs text-neutral-500">Лучшая мужская косметика</p>
+              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Премиум Уход</h3>
+              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Косметика</p>
             </div>
-            <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-6 h-6 text-amber-500" />
+            <div className="text-center group">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-black transition-all duration-300">
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
-              <h3 className="font-bold mb-1">Центр города</h3>
-              <p className="text-xs text-neutral-500">Удобная парковка</p>
+              <h3 className="font-bold text-xs sm:text-base mb-1 uppercase tracking-tight">Центр города</h3>
+              <p className="text-[9px] sm:text-xs text-neutral-500 font-medium uppercase tracking-wider">Парковка</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section ref={barbersRef} id="barbers" className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={barbersRef} id="barbers" className="py-12 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши мастера</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Наши мастера</h2>
+            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
               Профессионалы своего дела с многолетним опытом
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {barbers.map((barber, i) => (
               <motion.div
                 key={barber.id}
@@ -581,9 +640,10 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="group"
               >
                 <Card 
-                  className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer ${selectedBarber === barber.id ? 'ring-2 ring-amber-500' : ''}`}
+                  className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer h-full ${selectedBarber === barber.id ? 'ring-2 ring-amber-500 border-amber-500/50' : ''}`}
                   onClick={() => handleBarberSelect(barber.id)}
                   data-testid={`card-barber-${barber.id}`}
                 >
@@ -591,26 +651,26 @@ export default function BarberShop() {
                     <img 
                       src={barber.image} 
                       alt={barber.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-xl font-bold mb-1">{barber.name}</h3>
-                      <p className="text-amber-400 text-sm mb-2">{barber.role}</p>
-                      <div className="flex items-center gap-4 text-sm">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+                      <h3 className="text-lg sm:text-xl font-bold mb-0.5 sm:mb-1 uppercase tracking-tight">{barber.name}</h3>
+                      <p className="text-amber-400 text-xs sm:text-sm mb-2 font-medium uppercase tracking-wider">{barber.role}</p>
+                      <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm">
                         <span className="flex items-center gap-1 text-neutral-300">
-                          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                          <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 fill-amber-400" />
                           {barber.rating}
                         </span>
                         <span className="text-neutral-400">{barber.reviews} отзывов</span>
                       </div>
                     </div>
                   </div>
-                  <div className="p-4 border-t border-neutral-700">
+                  <div className="p-4 border-t border-neutral-700/50">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-neutral-400">Опыт: {barber.experience}</span>
-                      <Button size="sm" className="bg-amber-500/20 text-amber-400 hover:bg-amber-500/30" data-testid={`button-select-barber-${barber.id}`}>
-                        Выбрать
+                      <span className="text-xs sm:text-sm text-neutral-400">Опыт: {barber.experience}</span>
+                      <Button size="sm" className="bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 border border-amber-500/30 font-bold uppercase tracking-widest text-[10px]" data-testid={`button-select-barber-${barber.id}`}>
+                        ВЫБРАТЬ
                       </Button>
                     </div>
                   </div>
@@ -621,21 +681,21 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section ref={shopRef} id="shop" className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={shopRef} id="shop" className="py-12 sm:py-20 bg-neutral-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Магазин косметики</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Магазин косметики</h2>
+            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">
               Профессиональные средства для ухода, которые мы используем в работе
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
             {products.map((product, i) => (
               <motion.div
                 key={product.id}
@@ -643,8 +703,9 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="min-w-[75vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0"
               >
-                <Card className="overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate group">
+                <Card className="overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate group h-full flex flex-col">
                   <div className="aspect-square relative overflow-hidden bg-neutral-900">
                     <img 
                       src={product.image} 
@@ -652,22 +713,23 @@ export default function BarberShop() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-6">
+                  <div className="p-5 sm:p-6 flex flex-col flex-1">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <p className="text-amber-400 text-xs font-semibold uppercase tracking-wider mb-1">{product.brand}</p>
-                        <h3 className="text-xl font-bold">{product.name}</h3>
+                        <p className="text-amber-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-1">{product.brand}</p>
+                        <h3 className="text-lg sm:text-xl font-bold uppercase tracking-tight">{product.name}</h3>
                       </div>
                     </div>
-                    <p className="text-neutral-400 text-sm mb-6 line-clamp-2">{product.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-white">{product.price} ₽</span>
+                    <p className="text-neutral-400 text-xs sm:text-sm mb-6 line-clamp-2 flex-1">{product.description}</p>
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-xl sm:text-2xl font-black text-white">{product.price} ₽</span>
                       <Button 
-                        className="bg-amber-500 hover:bg-amber-600 text-black font-semibold"
+                        size="sm"
+                        className="bg-amber-500 hover:bg-amber-600 text-black font-black h-10 px-4 uppercase tracking-widest text-[10px]"
                         onClick={() => addToCart(product)}
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" />
-                        Купить
+                        В КОРЗИНУ
                       </Button>
                     </div>
                   </div>
@@ -678,19 +740,19 @@ export default function BarberShop() {
         </div>
       </section>
 
-      <section className="py-20 bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-12 sm:py-20 bg-neutral-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Отзывы клиентов</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">Что говорят о нас те, кто уже доверил нам свой стиль</p>
+            <h2 className="text-3xl sm:text-4xl font-black mb-4 uppercase tracking-tighter">Отзывы клиентов</h2>
+            <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto">Что говорят о нас те, кто уже доверил нам свой стиль</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="flex overflow-x-auto pb-6 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 no-scrollbar snap-x px-4 sm:px-0 -mx-4 sm:mx-0">
             {reviews.map((review, i) => (
               <motion.div
                 key={review.id}
@@ -698,21 +760,22 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
+                className="min-w-[80vw] sm:min-w-0 snap-center first:pl-4 last:pr-4 sm:first:pl-0 sm:last:pr-0"
               >
-                <Card className="p-6 bg-neutral-900 border-neutral-800 h-full flex flex-col">
+                <Card className="p-5 sm:p-6 bg-neutral-900 border-neutral-800 h-full flex flex-col group hover-elevate">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-1">
                       {[...Array(5)].map((_, idx) => (
-                        <Star key={idx} className={`w-4 h-4 ${idx < review.rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-700'}`} />
+                        <Star key={idx} className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${idx < review.rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-700'}`} />
                       ))}
                     </div>
-                    <span className="text-xs text-neutral-500 font-medium">{review.source}</span>
+                    <span className="text-[10px] sm:text-xs text-neutral-500 font-bold uppercase tracking-wider">{review.source}</span>
                   </div>
-                  <Quote className="w-8 h-8 text-amber-500/20 mb-4" />
-                  <p className="text-neutral-300 mb-6 flex-grow italic">"{review.text}"</p>
+                  <Quote className="w-8 h-8 text-amber-500/10 mb-4 group-hover:text-amber-500/20 transition-colors" />
+                  <p className="text-sm sm:text-base text-neutral-300 mb-6 flex-grow italic leading-relaxed">"{review.text}"</p>
                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                    <span className="font-bold text-white">{review.author}</span>
-                    <span className="text-xs text-neutral-500">{review.date}</span>
+                    <span className="font-bold text-sm sm:text-base text-white uppercase tracking-tight">{review.author}</span>
+                    <span className="text-[10px] sm:text-xs text-neutral-500">{review.date}</span>
                   </div>
                 </Card>
               </motion.div>
@@ -898,16 +961,16 @@ export default function BarberShop() {
               </div>
             </div>
 
-            <Card className="p-8 bg-neutral-900 border-neutral-800 sticky top-24">
-              <h3 className="text-2xl font-bold mb-6">Ваш визит</h3>
+            <Card className="p-6 sm:p-8 bg-neutral-900 border-neutral-800 sticky top-24 rounded-2xl hidden lg:block shadow-2xl shadow-black/50">
+              <h3 className="text-2xl font-black mb-6 uppercase tracking-tighter">Ваш визит</h3>
               <div className="space-y-6">
                 <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
                   <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
                     <Scissors className="w-5 h-5 text-amber-500" />
                   </div>
                   <div>
-                    <div className="text-xs text-neutral-500 uppercase font-bold tracking-wider mb-1">Услуга</div>
-                    <div className="text-white font-medium">{selectedService ? services.find(s => s.id === selectedService)?.name : "Не выбрана"}</div>
+                    <div className="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-1">Услуга</div>
+                    <div className="text-white font-bold uppercase tracking-tight">{selectedService ? services.find(s => s.id === selectedService)?.name : "Не выбрана"}</div>
                   </div>
                 </div>
 
@@ -916,8 +979,8 @@ export default function BarberShop() {
                     <User className="w-5 h-5 text-amber-500" />
                   </div>
                   <div>
-                    <div className="text-xs text-neutral-500 uppercase font-bold tracking-wider mb-1">Мастер</div>
-                    <div className="text-white font-medium">{selectedBarber ? barbers.find(b => b.id === selectedBarber)?.name : "Не выбран"}</div>
+                    <div className="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-1">Мастер</div>
+                    <div className="text-white font-bold uppercase tracking-tight">{selectedBarber ? barbers.find(b => b.id === selectedBarber)?.name : "Не выбран"}</div>
                   </div>
                 </div>
 
@@ -1053,98 +1116,56 @@ export default function BarberShop() {
         </div>
       </footer>
 
-      {/* Cart Dialog */}
-      <Dialog open={isCartOpen} onOpenChange={setIsCartOpen}>
-        <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-amber-400 flex items-center gap-2">
-              <ShoppingCart className="w-6 h-6" />
-              Корзина
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {cart.length === 0 ? (
-              <div className="text-center py-8 text-neutral-500">
-                Корзина пуста
-              </div>
-            ) : (
-              <>
-                <div className="space-y-4 max-h-[400px] overflow-auto pr-2">
-                  {cart.map((item) => (
-                    <div key={item.id} className="flex items-center gap-4 bg-neutral-800/50 p-3 rounded-lg border border-neutral-700">
-                      <img src={item.image} alt={item.name} className="w-16 h-16 rounded object-cover" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold truncate">{item.name}</h4>
-                        <p className="text-amber-400 text-sm font-bold">{item.price} ₽</p>
-                      </div>
-                      <div className="flex items-center gap-2 bg-neutral-900 rounded-md p-1 border border-neutral-700">
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="w-8 h-8 text-neutral-400 hover:text-white"
-                          onClick={() => updateQuantity(item.id, -1)}
-                        >
-                          <Minus className="w-3 h-3" />
-                        </Button>
-                        <span className="w-4 text-center text-sm font-bold">{item.quantity}</span>
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="w-8 h-8 text-neutral-400 hover:text-white"
-                          onClick={() => updateQuantity(item.id, 1)}
-                        >
-                          <Plus className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="pt-4 border-t border-neutral-800">
-                  <div className="flex justify-between items-center mb-6">
-                    <span className="text-neutral-400">Итого:</span>
-                    <span className="text-2xl font-bold text-amber-400">{cartTotal} ₽</span>
-                  </div>
-                  <Button 
-                    className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold h-12"
-                    onClick={() => {
-                      setIsCartOpen(false);
-                      setIsCheckoutOpen(true);
-                    }}
-                  >
-                    Оформить заказ
-                  </Button>
-                </div>
-              </>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* Cart Navigation */}
+      {isMobile ? (
+        <Drawer open={isCartOpen} onOpenChange={setIsCartOpen}>
+          <DrawerContent className="bg-neutral-900 border-neutral-800 text-white px-4 pb-8">
+            <DrawerHeader className="px-0">
+              <DrawerTitle className="text-2xl font-black text-amber-400 flex items-center gap-2 uppercase tracking-tighter">
+                <ShoppingCart className="w-6 h-6" />
+                Корзина
+              </DrawerTitle>
+            </DrawerHeader>
+            <CartContent />
+          </DrawerContent>
+        </Drawer>
+      ) : (
+        <Dialog open={isCartOpen} onOpenChange={setIsCartOpen}>
+          <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md rounded-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-black text-amber-400 flex items-center gap-2 uppercase tracking-tighter">
+                <ShoppingCart className="w-6 h-6" />
+                Корзина
+              </DialogTitle>
+            </DialogHeader>
+            <CartContent />
+          </DialogContent>
+        </Dialog>
+      )}
 
       {/* Checkout Success Dialog (Demo) */}
       <Dialog open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
-        <DialogContent className="bg-neutral-950 border-neutral-800 text-white text-center p-12">
-          <div className="w-20 h-20 bg-amber-500/20 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-amber-500/10">
-            <Check className="w-10 h-10" />
+        <DialogContent className="bg-neutral-950 border-neutral-800 text-white text-center p-8 sm:p-12 max-w-lg rounded-2xl">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-amber-500/20 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-6 ring-4 ring-amber-500/10">
+            <Check className="w-8 h-8 sm:w-10 sm:h-10" />
           </div>
           <DialogHeader>
-            <DialogTitle className="text-3xl font-bold mb-4">Заказ принят!</DialogTitle>
+            <DialogTitle className="text-2xl sm:text-3xl font-black mb-4 uppercase tracking-tighter">Заказ принят!</DialogTitle>
           </DialogHeader>
-          <div className="text-neutral-400 space-y-4 mb-8">
+          <div className="text-neutral-400 space-y-4 mb-8 text-sm sm:text-base leading-relaxed">
             <p>Это демонстрация процесса покупки. В реальном магазине клиент был бы перенаправлен на страницу оплаты через защищенный шлюз.</p>
-            <p className="text-sm border-l-2 border-amber-500 pl-4 italic text-left">
+            <p className="text-xs sm:text-sm border-l-2 border-amber-500 pl-4 italic text-left bg-white/5 py-3 rounded-r-lg">
               Интеграция MP.WebStudio включает автоматическую отправку уведомлений в Telegram владельцу и Email-подтверждение клиенту.
             </p>
           </div>
           <Button 
-            className="w-full bg-white text-black hover:bg-neutral-200"
+            className="w-full bg-white text-black hover:bg-neutral-200 font-bold h-12 uppercase tracking-widest"
             onClick={() => {
               setIsCheckoutOpen(false);
               setCart([]);
             }}
           >
-            Понятно
+            ПОНЯТНО
           </Button>
         </DialogContent>
       </Dialog>
