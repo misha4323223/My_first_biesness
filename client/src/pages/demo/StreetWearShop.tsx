@@ -1259,6 +1259,12 @@ export default function StreetWearShop() {
                 size="lg" 
                 className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-widest h-16 rounded-none shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
                 data-testid="button-telegram"
+                onClick={() => {
+                  toast({
+                    title: "ПОДПИСКА ОФОРМЛЕНА",
+                    description: "Теперь вы будете получать уведомления о новых дропах!",
+                  });
+                }}
               >
                 Подписаться
               </Button>
@@ -1272,15 +1278,28 @@ export default function StreetWearShop() {
         </div>
       </section>
 
-      <footer className="py-12 bg-black border-t border-neutral-800">
-        <div className="max-w-7xl mx-auto px-6">
+      <footer className="py-12 bg-black border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-2xl font-black">
-              <span className="text-white">STREET</span>
-              <span className="text-amber-500">WEAR</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-black tracking-tighter text-white leading-none">SHADOW</span>
+              <span className="text-xs font-bold text-amber-500 tracking-[0.2em] leading-none uppercase">Streetwear</span>
             </div>
-            <p className="text-sm text-neutral-500">
-              Демо-сайт от WebStudio
+            
+            <div className="flex flex-wrap justify-center gap-8">
+              {["Каталог", "Бренды", "SALE", "О нас"].map(item => (
+                <button 
+                  key={item} 
+                  className={`text-[10px] font-black uppercase tracking-widest transition-colors ${item === 'SALE' ? 'text-red-500' : 'text-neutral-500 hover:text-white'}`}
+                  onClick={() => handleNavClick(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <p className="text-neutral-600 text-[10px] font-bold uppercase tracking-widest">
+              © 2026 SHADOWSTREET. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
             </p>
           </div>
         </div>
