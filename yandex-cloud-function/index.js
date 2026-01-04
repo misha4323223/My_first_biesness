@@ -703,18 +703,28 @@ async function handleVkAutoPostYandex(headers) {
         const themes = [
             {
                 title: "Тренды веб-дизайна 2026",
-                prompt: "Напиши пост о трендах веб-дизайна в 2026 году. Упомяни минимализм, нейросети в интерфейсах и скорость работы. Сделай упор на то, что MP.WebStudio уже внедряет это.",
+                prompt: "Напиши пост о трендах веб-дизайна в 2026 году. Упомяни минимализм, нейросети в интерфейсах и скорость работы. Сделай упор на то, что MP.WebStudio уже внедряет это. Объясни, что конструкторы типа Тильда не справляются с такими задачами.",
                 imagePrompt: "Futuristic 2026 web design trends, sleek UI interface, minimal glowing elements, 'MP.WebStudio' digital logo, high-tech aesthetic, 8k"
             },
             {
                 title: "Скорость сайта = Прибыль",
-                prompt: "Напиши пост о том, как медленный сайт убивает продажи. Объясни, почему важна техническая оптимизация и как MP.WebStudio делает сайты 'летающими'.",
+                prompt: "Напиши пост о том, как медленный сайт убивает продажи. Объясни, почему важна техническая оптимизация и как Node.js превосходит тяжелые CMS типа WordPress и Bitrix. MP.WebStudio делает сайты, которые летают.",
                 imagePrompt: "Fast website speed concept, motion blur, fiber optic data flow, professional web development, 'MP.WebStudio' branding, blue neon lighting"
             },
             {
                 title: "Нейросети для бизнеса",
-                prompt: "Напиши пост о пользе нейросетей для бизнеса. Расскажи про умные чаты и автоматизацию контента, которую мы предлагаем в MP.WebStudio.",
+                prompt: "Напиши пост о пользе нейросетей для бизнеса. Расскажи про умные чаты и автоматизацию контента. Подчеркни, что на Node.js интеграция ИИ работает быстрее и надежнее, чем плагины для конструкторов.",
                 imagePrompt: "Artificial Intelligence for business automation, neural network visualization, smart interface, 'MP.WebStudio' tech logo, deep blue and purple tones"
+            },
+            {
+                title: "Свобода от конструкторов",
+                prompt: "Напиши пост о том, почему пора уходить с Тильды и Вордпресс на профессиональную разработку на Node.js. Сделай акцент на полной собственности кода, отсутствии ограничений по дизайну и безопасности. Ты не арендуешь сайт, ты им владеешь.",
+                imagePrompt: "Breaking through digital chains, professional code visualization, custom web architecture, 'MP.WebStudio' logo, metallic and neon style"
+            },
+            {
+                title: "Безопасность вашего бизнеса",
+                prompt: "Напиши пост о том, почему популярные CMS (Bitrix, WordPress) часто взламывают. Объясни преимущества безопасности кастомных решений на Node.js от MP.WebStudio. Защити свой бизнес от уязвимостей шаблонов.",
+                imagePrompt: "Cybersecurity shield, digital fortress, secure code patterns, 'MP.WebStudio' protective shield logo, green and dark blue tones"
             }
         ];
 
@@ -725,11 +735,15 @@ async function handleVkAutoPostYandex(headers) {
 ПРАВИЛА:
 - Язык: Живой, понятный русский без сложной терминологии.
 - Структура: Заголовок, 3-4 абзаца, призыв к действию, контакты.
-- СТИЛЬ: Профессионально, но дружелюбно. Не лей воду.
+- СТИЛЬ: Профессионально, но дружелюбно. Активно продвигай преимущество Node.js перед конструкторами (Tilda, WordPress, Bitrix).
 - ССЫЛКИ: Пиши ссылки ПРОСТО ТЕКСТОМ (никаких [текст](ссылка)).
-Наш сайт: mp-webstudio.ru
-Наш Telegram: t.me/MPWebStudio_ru
-- ХЭШТЕГИ: #MPWebStudio #ВебСтудия #СайтыДляБизнеса #AI`;
+
+КОНТАКТЫ (ОБЯЗАТЕЛЬНО В КОНЦЕ):
+Наш сайт: https://mp-webstudio.ru 
+Наш Telegram: https://t.me/New_WebStudio/85
+Наше сообщество ВК: https://vk.com/mp.webstudio
+
+- ХЭШТЕГИ: #MPWebStudio #ВебСтудия #NodeJS #ПрощайТильда #РазработкаСайтов #AI`;
 
         const textResponse = await callYandexGPT(selectedTheme.prompt, 'yandexgpt-lite', systemPrompt);
         const postText = textResponse.content;
