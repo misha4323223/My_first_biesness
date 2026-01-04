@@ -477,9 +477,9 @@ export default function BarberShop() {
         </div>
       </div>
 
-      <section className="py-12 sm:py-20 bg-neutral-950 border-y border-white/5">
+      <section className="py-8 sm:py-20 bg-neutral-950 border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-12">
             {features.map((f, i) => (
               <motion.div
                 key={i}
@@ -487,14 +487,14 @@ export default function BarberShop() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4"
+                className="flex items-center sm:items-start text-left gap-3 sm:gap-4"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
-                  <f.icon className="w-6 h-6 text-amber-500" />
+                <div className="flex-shrink-0 w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-2xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20">
+                  <f.icon className="w-4 h-4 sm:w-6 sm:h-6 text-amber-500" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg mb-1 uppercase tracking-tight">{f.title}</h3>
-                  <p className="text-sm text-neutral-400 leading-relaxed">{f.desc}</p>
+                  <h3 className="font-bold text-sm sm:text-lg mb-0.5 sm:mb-1 uppercase tracking-tight leading-none">{f.title}</h3>
+                  <p className="text-[10px] sm:text-sm text-neutral-400 leading-tight sm:leading-relaxed">{f.desc}</p>
                 </div>
               </motion.div>
             ))}
