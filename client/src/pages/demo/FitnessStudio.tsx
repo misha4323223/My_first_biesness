@@ -356,13 +356,13 @@ export default function FitnessStudio() {
           </motion.div>
 
           <Tabs defaultValue="Пн" className="w-full" onValueChange={setActiveDay}>
-            <div className="overflow-x-auto pb-4 mb-8 -mx-4 px-4 scrollbar-hide">
-              <TabsList className="inline-flex min-w-full sm:min-w-0 sm:flex justify-start sm:justify-center bg-neutral-800/50 border border-white/5 p-1 rounded-xl h-auto">
+            <div className="flex justify-center mb-8 px-2">
+              <TabsList className="flex w-full max-w-2xl bg-neutral-800/50 border border-white/5 p-1 rounded-xl h-auto">
                 {days.map(day => (
                   <TabsTrigger 
                     key={day} 
                     value={day}
-                    className="px-6 py-3 data-[state=active]:bg-violet-600 data-[state=active]:text-white rounded-lg transition-all text-base font-medium"
+                    className="flex-1 px-0 sm:px-6 py-2.5 data-[state=active]:bg-violet-600 data-[state=active]:text-white rounded-lg transition-all text-sm sm:text-base font-medium"
                   >
                     {day}
                   </TabsTrigger>
