@@ -529,6 +529,11 @@ module.exports.handler = async function (event, context) {
         console.log('[HANDLER] Body type:', body?.type);
         console.log('[HANDLER] Action:', action);
 
+        if (action === 'vk-auto-post' || path.includes('/vk-auto-post')) {
+            console.log('[HANDLER] Route matched: VK Auto Post');
+            return await handleVkAutoPostYandex(headers);
+        }
+
         if (body?.type === 'confirmation') {
             const VK_CONFIRMATION_CODE = process.env.VK_CONFIRMATION_CODE || '2310963c';
             console.log('[VK-CALLBACK] Handling confirmation request');
@@ -747,7 +752,8 @@ async function handleVkAutoPostYandex(headers) {
             body: bodyParams.toString()
         });
 
-        console.log('[VK-AUTO-POST-YANDEX] VK API Response:', vkResult.data.substring(0, 200));
+        const vkResultData = typeof vkResult.data === 'string' ? JSON.parse(vkResult.data) : vkResult.data;
+        console.log('[VK-AUTO-POST-YANDEX] VK API Response:', JSON.stringify(vkResultData).substring(0, 200));
 
         // 6. ПУБЛИКАЦИЯ В TELEGRAM ГРУППУ/КАНАЛ (двухсообщенный формат)
         try {
@@ -762,7 +768,7 @@ async function handleVkAutoPostYandex(headers) {
             body: JSON.stringify({ 
                 success: true, 
                 message: 'Post published to VK and Telegram (Dynamic Generation)',
-                vkResponse: JSON.parse(vkResult.data) 
+                vkResponse: vkResultData 
             })
         };
     } catch (error) {
