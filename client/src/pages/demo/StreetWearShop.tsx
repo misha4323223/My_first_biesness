@@ -964,7 +964,7 @@ export default function StreetWearShop() {
                           <Flame className={`w-5 h-5 transition-transform duration-500 ${favorites.includes(product.id) ? "scale-110 fill-current" : "group-hover:rotate-12"}`} />
                         </Button>
 
-                        <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hidden md:block">
                           <Button
                             className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl"
                             onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
