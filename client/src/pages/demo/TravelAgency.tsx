@@ -305,16 +305,16 @@ export default function TravelAgency() {
                 <Plane className="w-6 h-6 text-amber-400" />
                 TravelDream
               </span>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-amber-400/80 font-medium">Luxury Expeditions</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-amber-400/80 font-medium">Роскошные экспедиции</span>
             </div>
           </div>
           <div className="hidden lg:flex items-center gap-10 text-[13px] uppercase tracking-widest text-white/70 font-medium">
-            <button onClick={scrollToDestinations} className="hover:text-amber-400 transition-colors cursor-pointer">Destinations</button>
-            <button onClick={scrollToCategories} className="hover:text-amber-400 transition-colors cursor-pointer">Experiences</button>
-            <button onClick={scrollToContact} className="hover:text-amber-400 transition-colors cursor-pointer">Concierge</button>
+            <button onClick={scrollToDestinations} className="hover:text-amber-400 transition-colors cursor-pointer">Направления</button>
+            <button onClick={scrollToCategories} className="hover:text-amber-400 transition-colors cursor-pointer">Впечатления</button>
+            <button onClick={scrollToContact} className="hover:text-amber-400 transition-colors cursor-pointer">Консьерж</button>
           </div>
           <Button className="bg-amber-400 text-slate-950 hover:bg-amber-300 font-bold px-8 rounded-full transition-all hover:scale-105" data-testid="button-consultation">
-            BOOK A CALL
+            ЗАКАЗАТЬ ЗВОНОК
           </Button>
         </nav>
 
@@ -327,15 +327,15 @@ export default function TravelAgency() {
           >
             <div className="flex items-center gap-3 mb-8">
               <div className="h-[1px] w-12 bg-amber-400" />
-              <span className="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold">World-Class Destinations</span>
+              <span className="text-amber-400 uppercase tracking-[0.4em] text-xs font-bold">Направления мирового уровня</span>
             </div>
             <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-[0.9] text-white tracking-tighter">
-              DISCOVER <br />
-              <span className="italic font-serif text-amber-400">Extraordinary</span> <br />
-              JOURNEYS
+              ОТКРОЙТЕ <br />
+              <span className="italic font-serif text-amber-400">Уникальные</span> <br />
+              ПУТЕШЕСТВИЯ
             </h1>
             <p className="text-lg md:text-xl text-white/70 mb-12 max-w-xl leading-relaxed">
-              Curating bespoke travel experiences for those who seek the exceptional. Beyond tourism, we create legacies.
+              Курируем эксклюзивный отдых для тех, кто ищет исключительное. Мы создаем не просто туры, а легенды.
             </p>
 
             <Card className="p-2 bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl rounded-2xl overflow-hidden">
@@ -343,7 +343,7 @@ export default function TravelAgency() {
                 <div className="flex-1 relative group">
                   <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-400" />
                   <Input 
-                    placeholder="Where to next?" 
+                    placeholder="Куда отправимся?" 
                     className="pl-12 h-16 border-0 bg-transparent text-white placeholder:text-white/40 text-lg focus-visible:ring-0"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -358,7 +358,7 @@ export default function TravelAgency() {
                   />
                 </div>
                 <Button className="h-16 px-10 bg-amber-400 text-slate-950 hover:bg-amber-300 font-bold text-lg rounded-xl" onClick={scrollToDestinations}>
-                  EXPLORE
+                  ИСКАТЬ
                 </Button>
               </div>
             </Card>
