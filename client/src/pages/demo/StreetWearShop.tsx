@@ -1228,7 +1228,7 @@ export default function StreetWearShop() {
               
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest mb-6">
                 <div className="w-1.5 h-1.5 bg-black rounded-full animate-pulse" />
-                Live Feed
+                Прямой эфир
               </div>
               
               <h2 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter leading-none italic">
@@ -1243,7 +1243,7 @@ export default function StreetWearShop() {
             
             <div className="w-full md:w-[320px] p-8 md:p-12 flex flex-col justify-center bg-neutral-800/50 backdrop-blur-md">
               <div className="mb-8">
-                <div className="text-[10px] text-neutral-500 font-black uppercase tracking-[0.3em] mb-2">Platform</div>
+                <div className="text-[10px] text-neutral-500 font-black uppercase tracking-[0.3em] mb-2">Платформа</div>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-[#0088cc] flex items-center justify-center">
                     <Send className="w-5 h-5 text-white" />
@@ -1260,11 +1260,11 @@ export default function StreetWearShop() {
                 className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-widest h-16 rounded-none shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
                 data-testid="button-telegram"
               >
-                Join Now
+                Подписаться
               </Button>
               
               <div className="mt-6 flex items-center justify-between text-[10px] text-neutral-500 font-black uppercase tracking-widest">
-                <span>Community</span>
+                <span>Сообщество</span>
                 <span className="text-white">2.4K+</span>
               </div>
             </div>
