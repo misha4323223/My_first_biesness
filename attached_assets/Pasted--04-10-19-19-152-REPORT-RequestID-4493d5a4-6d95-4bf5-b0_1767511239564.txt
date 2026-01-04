@@ -1,0 +1,274 @@
+
+
+04 янв. 10:19:19.152
+REPORT RequestID: 4493d5a4-6d95-4bf5-b0e2-9436782e76ef Duration: 1093.337 ms Billed Duration: 1100 ms Memory Size: 512 MB Max Memory Used: 180 MB Queuing Duration: 0.043 ms CPU Usage: 22.461 %
+
+04 янв. 10:19:19.152
+END RequestID: 4493d5a4-6d95-4bf5-b0e2-9436782e76ef
+
+04 янв. 10:19:19.151
+[YANDEX-CHAT-3e3424ea] Error: data is not defined
+
+04 янв. 10:19:19.151
+[HTTPS-18f2e334] ========== REQUEST SUCCESS ==========
+
+04 янв. 10:19:19.151
+[HTTPS-18f2e334] Total response size: 350 bytes
+
+04 янв. 10:19:19.151
+[HTTPS-18f2e334] ✨ Response ended after 618ms
+
+04 янв. 10:19:19.150
+[HTTPS-18f2e334] 📥 Data chunk: 419 bytes (total: 419)
+
+04 янв. 10:19:19.150
+[HTTPS-18f2e334] 📦 First byte received after 618ms
+
+04 янв. 10:19:19.150
+[HTTPS-18f2e334] Response headers: content-type=application/json, content-length=undefined
+
+04 янв. 10:19:19.150
+[HTTPS-18f2e334] TLS: TLSv1.3, Cipher: TLS_AES_256_GCM_SHA384
+
+04 янв. 10:19:19.150
+[HTTPS-18f2e334] Status code: 200
+
+04 янв. 10:19:19.150
+[HTTPS-18f2e334] ✅ Response callback triggered after 617ms
+
+04 янв. 10:19:18.563
+[HTTPS-18f2e334] 🔒 TLS handshake complete after 30ms
+
+04 янв. 10:19:18.548
+[HTTPS-18f2e334] 🌐 TCP connected after 15ms
+
+04 янв. 10:19:18.536
+[HTTPS-18f2e334] 🔍 DNS lookup started
+
+04 янв. 10:19:18.535
+[HTTPS-18f2e334] 🔌 Socket created, fd: unknown
+
+04 янв. 10:19:18.535
+[HTTPS-18f2e334] Waiting for response...
+
+04 янв. 10:19:18.535
+[HTTPS-18f2e334] 🚀 Calling req.end()
+
+04 янв. 10:19:18.535
+[HTTPS-18f2e334] Body written successfully
+
+04 янв. 10:19:18.535
+[HTTPS-18f2e334] 📤 Writing body (6166 bytes): {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"...
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Creating HTTPS request with timeout: 15000ms
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Setting main timeout: 12000ms
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Request type: REGULAR, timeouts: 12000ms (main), 15000ms (socket)
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Headers: Content-Type, Authorization
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Request body size: 6166 bytes
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Path: /foundationModels/v1/completion
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Hostname: llm.api.cloud.yandex.net:443
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] Method: POST
+
+04 янв. 10:19:18.533
+[HTTPS-18f2e334] URL: https://llm.api.cloud.yandex.net/foundationModels/v1/completion
+
+04 янв. 10:19:18.532
+[HTTPS-18f2e334] ========== HTTPS REQUEST START ==========
+
+04 янв. 10:19:18.532
+[YANDEX-AUTH] Key length: 40
+
+04 янв. 10:19:18.532
+[YANDEX-AUTH] Header format: Api-Key AQVN29u...
+
+04 янв. 10:19:18.532
+[YANDEX-CHAT-3e3424ea] Request details: {"modelUri":"gpt://b1g572p5cuo41gucvn5t/yandexgpt-lite/latest","completionOptions":{"stream":false,"temperature":0.6,"maxTokens":"2000"},"messageCount":3,"folderId":"b1g572p5cuo41gucvn5t"}
+
+04 янв. 10:19:18.531
+[YANDEX-CHAT-3e3424ea] Sending to Yandex AI with 1 history messages
+
+04 янв. 10:19:18.531
+[YANDEX-CHAT-3e3424ea] Rate limit check OK - IP 62.141.68.106: 5/5 messages
+
+04 янв. 10:19:18.531
+[CHAT-LIMITS] ✅ Updated IP 62.141.68.106: 5/5 messages
+
+04 янв. 10:19:18.480
+[CHAT-LIMITS] 💾 Executing UPSERT: ip=62.141.68.106, count=5, timestamp=1767511158419
+
+04 янв. 10:19:18.480
+[CHAT-LIMITS] 📝 Incrementing count: 4 → 5
+
+04 янв. 10:19:18.480
+[CHAT-LIMITS] 📖 Final parsed: count=4, reset=1767511158419
+
+04 янв. 10:19:18.480
+[CHAT-LIMITS] ⚠️ DB timestamp was 0 or null, using current time: 1767511158419
+
+04 янв. 10:19:18.480
+[CHAT-LIMITS] 🔎 Full Row Object: {"items":[{"int32Value":4},{"int64Value":"0"}]}
+
+04 янв. 10:19:18.480
+[CHAT-LIMITS] 📊 SELECT returned 1 rows
+
+04 янв. 10:19:18.419
+[CHAT-LIMITS] 🔎 Executing SELECT for IP: 62.141.68.106
+
+04 янв. 10:19:18.340
+YDB driver connected to: /ru-central1/b1gnp4ml7k5j7cquabad/etn2gipa2pvm2qj5ga83
+
+04 янв. 10:19:18.061
+[CHAT-LIMITS] 🔍 Checking limit for IP 62.141.68.106, MAX=5
+
+04 янв. 10:19:18.061
+[YANDEX-CHAT-3e3424ea] Received message (6 chars)
+
+04 янв. 10:19:18.061
+[YANDEX-CHAT-3e3424ea] Client IP: 62.141.68.106
+
+04 янв. 10:19:18.061
+[YANDEX-CHAT] Handler called
+
+04 янв. 10:19:18.061
+}
+
+04 янв. 10:19:18.061
+bodyKeys: [ 'message', 'history' ]
+
+04 янв. 10:19:18.061
+path: '',
+
+04 янв. 10:19:18.061
+action: 'giga-chat',
+
+04 янв. 10:19:18.061
+method: 'POST',
+
+04 янв. 10:19:18.061
+[REQUEST] {
+
+04 янв. 10:19:18.060
+}
+
+04 янв. 10:19:18.060
+timestamp: '2026-01-04T07:19:18.060Z'
+
+04 янв. 10:19:18.060
+path: undefined,
+
+04 янв. 10:19:18.060
+method: 'POST',
+
+04 янв. 10:19:18.060
+[HANDLER START] {
+
+04 янв. 10:19:18.060
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+04 янв. 10:19:18.056
+START RequestID: 4493d5a4-6d95-4bf5-b0e2-9436782e76ef Version: d4e21n2t3uqjb11lgnsf
+
+04 янв. 10:19:15.975
+REPORT RequestID: 271ae1c9-44ef-4f26-9b9d-ae240b524b8c Duration: 4.209 ms Billed Duration: 100 ms Memory Size: 512 MB Max Memory Used: 157 MB Queuing Duration: 0.083 ms CPU Usage: 18.066 %
+
+04 янв. 10:19:15.975
+END RequestID: 271ae1c9-44ef-4f26-9b9d-ae240b524b8c
+
+04 янв. 10:19:15.974
+[YANDEX-CHAT-c17c5f89] First message - sending greeting
+
+04 янв. 10:19:15.974
+[YANDEX-CHAT-c17c5f89] User: миша
+
+04 янв. 10:19:15.974
+[YANDEX-CHAT-c17c5f89] Received message (37 chars)
+
+04 янв. 10:19:15.974
+[YANDEX-CHAT-c17c5f89] Client IP: 62.141.68.106
+
+04 янв. 10:19:15.973
+[YANDEX-CHAT] Handler called
+
+04 янв. 10:19:15.973
+}
+
+04 янв. 10:19:15.973
+bodyKeys: [ 'message', 'userName', 'isFirstMessage' ]
+
+04 янв. 10:19:15.973
+path: '',
+
+04 янв. 10:19:15.973
+action: 'giga-chat',
+
+04 янв. 10:19:15.973
+method: 'POST',
+
+04 янв. 10:19:15.973
+[REQUEST] {
+
+04 янв. 10:19:15.973
+}
+
+04 янв. 10:19:15.973
+timestamp: '2026-01-04T07:19:15.972Z'
+
+04 янв. 10:19:15.973
+path: undefined,
+
+04 янв. 10:19:15.973
+method: 'POST',
+
+04 янв. 10:19:15.973
+[HANDLER START] {
+
+04 янв. 10:19:15.973
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"POST"}
+
+04 янв. 10:19:15.962
+START RequestID: 271ae1c9-44ef-4f26-9b9d-ae240b524b8c Version: d4e21n2t3uqjb11lgnsf
+
+04 янв. 10:19:15.924
+REPORT RequestID: c3991d98-e795-45f5-a20f-65400ac06d04 Duration: 844.083 ms Billed Duration: 900 ms Memory Size: 512 MB Max Memory Used: 157 MB Queuing Duration: 0.067 ms Function Init Duration: 828.368 ms CPU Usage: 18.066 %
+
+04 янв. 10:19:15.924
+END RequestID: c3991d98-e795-45f5-a20f-65400ac06d04
+
+04 янв. 10:19:15.922
+[OPTIONS] Returning 200
+
+04 янв. 10:19:15.921
+}
+
+04 янв. 10:19:15.921
+timestamp: '2026-01-04T07:19:15.916Z'
+
+04 янв. 10:19:15.921
+path: undefined,
+
+04 янв. 10:19:15.921
+method: 'OPTIONS',
+
+04 янв. 10:19:15.921
+[HANDLER START] {
+
+04 янв. 10:19:15.917
+[HANDLER-ENTRY] {"hasMessages":false,"httpMethod":"OPTIONS"}
+
+04 янв. 10:19:13.850
+START RequestID: c3991d98-e795-45f5-a20f-65400ac06d04 Version: d4e21n2t3uqjb11lgnsf
