@@ -194,6 +194,9 @@ export default function StreetWearShop() {
 
   const [favoritesOpen, setFavoritesOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [tgModalOpen, setTgModalOpen] = useState(false);
+  const [tgForm, setTgForm] = useState({ name: "", username: "" });
+  const [tgSuccess, setTgSuccess] = useState(false);
 
   const cartItems = Object.entries(cart).map(([id, qty]) => ({
     product: products.find(p => p.id === Number(id))!,
@@ -575,6 +578,74 @@ export default function StreetWearShop() {
                 </>
               )}
             </>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={tgModalOpen} onOpenChange={setTgModalOpen}>
+        <DialogContent className="max-w-md bg-neutral-900 border-neutral-800">
+          <DialogHeader>
+            <DialogTitle className="text-white uppercase tracking-tighter font-black">Подписка на Telegram</DialogTitle>
+          </DialogHeader>
+          
+          {tgSuccess ? (
+            <div className="py-12 text-center">
+              <div className="w-16 h-16 rounded-full bg-amber-500/20 flex items-center justify-center mx-auto mb-4">
+                <Check className="w-8 h-8 text-amber-500" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white uppercase tracking-tight">Вы в деле!</h3>
+              <p className="text-neutral-400 text-sm font-bold uppercase">Теперь вы не пропустите ни один дроп.</p>
+              <Button 
+                className="mt-8 w-full h-12 bg-neutral-800 text-white rounded-none font-black uppercase tracking-widest text-xs"
+                onClick={() => setTgModalOpen(false)}
+              >
+                Закрыть
+              </Button>
+            </div>
+          ) : (
+            <div className="py-4 space-y-6">
+              <div className="flex items-center gap-4 p-4 bg-neutral-800/50 border border-neutral-800">
+                <div className="w-12 h-12 bg-[#0088cc] flex items-center justify-center shrink-0">
+                  <Send className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <p className="text-white font-black uppercase text-sm leading-tight">ShadowStreet Insider</p>
+                  <p className="text-amber-500 font-black text-[10px] uppercase tracking-widest">Эксклюзивный доступ</p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Ваше имя</Label>
+                  <Input 
+                    value={tgForm.name}
+                    onChange={(e) => setTgForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="ИВАН"
+                    className="bg-neutral-800 border-neutral-700 text-white rounded-none h-12 uppercase font-bold"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-[10px] font-black text-neutral-400 uppercase tracking-widest">Telegram @username</Label>
+                  <Input 
+                    value={tgForm.username}
+                    onChange={(e) => setTgForm(prev => ({ ...prev, username: e.target.value }))}
+                    placeholder="@NICKNAME"
+                    className="bg-neutral-800 border-neutral-700 text-white rounded-none h-12 uppercase font-bold"
+                  />
+                </div>
+              </div>
+
+              <Button 
+                className="w-full h-14 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-none shadow-lg shadow-amber-500/10 transition-all"
+                onClick={() => {
+                  if (tgForm.name && tgForm.username) {
+                    setTgSuccess(true);
+                  }
+                }}
+              >
+                Подтвердить подписку
+              </Button>
+            </div>
           )}
         </DialogContent>
       </Dialog>
@@ -1260,10 +1331,8 @@ export default function StreetWearShop() {
                 className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-widest h-16 rounded-none shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
                 data-testid="button-telegram"
                 onClick={() => {
-                  toast({
-                    title: "ПОДПИСКА ОФОРМЛЕНА",
-                    description: "Теперь вы будете получать уведомления о новых дропах!",
-                  });
+                  setTgSuccess(false);
+                  setTgModalOpen(true);
                 }}
               >
                 Подписаться
