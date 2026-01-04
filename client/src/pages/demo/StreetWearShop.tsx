@@ -700,7 +700,7 @@ export default function StreetWearShop() {
             <Badge className="mb-4 bg-amber-500 text-black border-0 font-bold">
               НОВАЯ КОЛЛЕКЦИЯ 2024
             </Badge>
-            <h2 className="text-5xl md:text-7xl font-black leading-none mb-6">
+            <h2 className="text-4xl md:text-7xl font-black leading-none mb-6">
               РОССИЙСКИЙ
               <br />
               <span className="text-amber-500">СТРИТВИР</span>
@@ -789,8 +789,8 @@ export default function StreetWearShop() {
           </div>
         </div>
 
-        <div className="relative">
-          <div className="flex overflow-x-auto no-scrollbar gap-3 px-6 pb-4">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {brands.map((brand) => (
               <button
                 key={brand}
@@ -798,13 +798,13 @@ export default function StreetWearShop() {
                   setActiveBrand(activeBrand === brand ? null : brand);
                   scrollToProducts();
                 }}
-                className={`flex-shrink-0 px-6 py-4 md:px-10 md:py-6 border transition-all duration-500 relative overflow-hidden group ${
+                className={`px-4 py-4 md:px-10 md:py-6 border transition-all duration-500 relative overflow-hidden group ${
                   activeBrand === brand 
                     ? "border-amber-500 text-white" 
                     : "bg-neutral-900 border-neutral-800 text-neutral-500 hover:border-neutral-600 hover:text-white"
                 }`}
               >
-                <span className="relative z-10 text-lg md:text-2xl font-black italic tracking-tighter uppercase">
+                <span className="relative z-10 text-base md:text-2xl font-black italic tracking-tighter uppercase">
                   {brand}
                 </span>
                 {activeBrand === brand && (
