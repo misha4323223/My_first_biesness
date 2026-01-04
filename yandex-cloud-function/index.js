@@ -743,7 +743,7 @@ async function handleVkAutoPostYandex(headers) {
 Наш Telegram: https://t.me/New_WebStudio/85
 Наше сообщество ВК: https://vk.com/mp.webstudio
 
-- ХЭШТЕГИ: #MPWebStudio #ВебСтудия #NodeJS #ПрощайТильда #РазработкаСайтов #AI`;
+- ХЭШТЕГИ: #MPWebStudio #ВебСтудия #NodeJS #РазработкаСайтов #AI`;
 
         const textResponse = await callYandexGPT(selectedTheme.prompt, 'yandexgpt-lite', systemPrompt);
         const postText = textResponse.content;
