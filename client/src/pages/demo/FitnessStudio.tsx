@@ -109,6 +109,7 @@ export default function FitnessStudio() {
       setTrialOpen(false);
       setTrialSuccess(false);
       setTrialForm({ name: "", phone: "" });
+      setBookedClasses([]); // Clear bookings after success
     }, 2000);
   };
 
@@ -147,28 +148,53 @@ export default function FitnessStudio() {
     <div className="min-h-screen bg-neutral-950 text-white">
       {bookedClasses.length > 0 && (
         <div className="fixed bottom-4 right-4 z-[60]">
-          <Badge className="bg-violet-500 text-white border-0 px-4 py-2 text-sm shadow-lg shadow-violet-500/20">
-            <Calendar className="w-4 h-4 mr-2 inline" />
-            Записей: {bookedClasses.length}
-          </Badge>
+          <button 
+            onClick={() => setTrialOpen(true)}
+            className="hover-elevate active-elevate-2 transition-all cursor-pointer"
+          >
+            <Badge className="bg-violet-500 text-white border-0 px-4 py-2 text-sm shadow-lg shadow-violet-500/20">
+              <Calendar className="w-4 h-4 mr-2 inline" />
+              Записей: {bookedClasses.length} — Завершить
+            </Badge>
+          </button>
         </div>
       )}
 
       <Dialog open={trialOpen} onOpenChange={setTrialOpen}>
         <DialogContent className="max-w-[90vw] md:max-w-md rounded-2xl">
           <DialogHeader>
-            <DialogTitle>Запись на пробное занятие</DialogTitle>
+            <DialogTitle>
+              {bookedClasses.length > 0 
+                ? `Завершение записи (${bookedClasses.length})` 
+                : "Запись на пробное занятие"}
+            </DialogTitle>
           </DialogHeader>
           {trialSuccess ? (
             <div className="py-8 text-center">
               <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mx-auto mb-4">
                 <Check className="w-8 h-8 text-green-500" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Заявка отправлена!</h3>
-              <p className="text-muted-foreground">Мы свяжемся с вами для подтверждения</p>
+              <h3 className="text-xl font-semibold mb-2">Вы успешно записаны!</h3>
+              <p className="text-muted-foreground">Мы свяжемся с вами для подтверждения времени</p>
             </div>
           ) : (
             <form onSubmit={handleTrialSubmit} className="space-y-4">
+              {bookedClasses.length > 0 && (
+                <div className="bg-violet-500/10 rounded-xl p-3 border border-violet-500/20 mb-2">
+                  <p className="text-xs text-violet-300 font-medium mb-2 uppercase tracking-wider">Выбранные занятия:</p>
+                  <div className="space-y-1">
+                    {bookedClasses.map(id => {
+                      const cls = classes.find(c => c.id === id);
+                      return (
+                        <div key={id} className="flex justify-between items-center text-sm">
+                          <span className="text-white font-medium">{cls?.name}</span>
+                          <span className="text-neutral-400">{cls?.time}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
               <div>
                 <Label htmlFor="trial-name">Ваше имя</Label>
                 <Input 
