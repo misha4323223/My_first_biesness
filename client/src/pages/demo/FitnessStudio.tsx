@@ -575,7 +575,13 @@ export default function FitnessStudio() {
 
                     <Button 
                       size="sm"
-                      className={`w-full h-9 sm:h-14 rounded-lg sm:rounded-xl text-xs sm:text-lg font-bold transition-all active-elevate-2 ${plan.popular ? 'bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-600/20' : 'bg-neutral-800 text-white hover:bg-neutral-700'}`}
+                      className={`w-full h-9 sm:h-14 rounded-lg sm:rounded-xl text-xs sm:text-lg font-bold transition-all active-elevate-2 ${
+                        isSelected 
+                          ? 'bg-green-600 hover:bg-green-700 shadow-lg shadow-green-600/20' 
+                          : plan.popular 
+                            ? 'bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-600/20' 
+                            : 'bg-neutral-800 text-white hover:bg-neutral-700'
+                      }`}
                       onClick={() => selectPlan(plan.name)}
                       data-testid={`button-plan-${index}`}
                     >
