@@ -242,7 +242,7 @@ export default function DentalClinic() {
       </Dialog>
 
       {/* Hero Section */}
-      <header className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
+      <header className="relative min-h-[85vh] md:min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-teal-50 via-white to-cyan-50 pointer-events-none" />
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-10 md:opacity-20 pointer-events-none" 
@@ -250,62 +250,69 @@ export default function DentalClinic() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none" />
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-2 md:gap-4 pointer-events-auto">
+        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-2 md:gap-4 pointer-events-auto">
           <div className="flex items-center gap-2 md:gap-3">
             <Link href="/#portfolio">
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="bg-teal-100/60 border border-teal-200 hover:bg-teal-100/80 w-8 h-8 md:w-10 md:h-10"
+                className="bg-white/80 backdrop-blur-sm border border-teal-100 hover:bg-teal-50 w-8 h-8 md:w-10 md:h-10 rounded-full"
                 data-testid="button-back-home"
               >
                 <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-teal-600" />
               </Button>
             </Link>
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center">
-              <Heart className="w-4 h-4 md:w-5 md:h-5 text-white" />
+            <div className="hidden xs:flex items-center gap-2">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center">
+                <Heart className="w-4 h-4 md:w-5 md:h-5 text-white" />
+              </div>
+              <span className="text-base md:text-xl font-bold text-teal-700">SmileCare</span>
             </div>
-            <span className="text-lg md:text-xl font-bold text-teal-700">SmileCare</span>
           </div>
-          <div className="hidden md:flex items-center gap-8 text-sm text-gray-600 font-medium">
+          <div className="hidden md:flex items-center gap-6 text-sm text-gray-600 font-medium">
             <button onClick={scrollToServices} className="hover:text-teal-600 transition-colors cursor-pointer">Услуги</button>
             <button onClick={scrollToDoctors} className="hover:text-teal-600 transition-colors cursor-pointer">Врачи</button>
             <button onClick={scrollToAbout} className="hover:text-teal-600 transition-colors cursor-pointer">О клинике</button>
-            <button onClick={scrollToBooking} className="hover:text-teal-600 transition-colors cursor-pointer font-bold text-teal-600 underline decoration-teal-200 underline-offset-4">Диагностика</button>
+            <button onClick={scrollToBooking} className="hover:text-teal-600 transition-colors cursor-pointer font-bold text-teal-600">Диагностика</button>
           </div>
-          <Button size="sm" className="md:size-default bg-teal-500 hover:bg-teal-600 text-white shadow-lg shadow-teal-500/20" onClick={() => setBookingOpen(true)} data-testid="button-book-header">
-            <Phone className="w-4 h-4 md:mr-2" />
-            <span className="hidden xs:inline">Запись</span>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button size="sm" variant="outline" className="md:hidden border-teal-200 text-teal-600" onClick={scrollToServices}>
+              Услуги
+            </Button>
+            <Button size="sm" className="bg-teal-500 hover:bg-teal-600 text-white shadow-lg shadow-teal-500/20 px-3 md:px-4" onClick={() => setBookingOpen(true)} data-testid="button-book-header">
+              <Phone className="w-3.5 h-3.5 mr-1.5 md:mr-2" />
+              <span className="text-xs md:text-sm font-bold">Запись</span>
+            </Button>
+          </div>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32 grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-24 pb-12 md:py-32 grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <Badge className="mb-4 md:mb-6 bg-teal-50 text-teal-600 border-teal-100 px-3 md:px-4 py-1 text-xs md:text-sm">
+            <Badge className="mb-4 md:mb-6 bg-teal-50 text-teal-600 border-teal-100 px-3 py-1 text-[10px] md:text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3 h-3 mr-2" />
               Премиальный сервис в Туле
             </Badge>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 leading-[1.1] text-gray-900 tracking-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 leading-[1.1] text-gray-900 tracking-tight">
               Ваша улыбка —<br /> 
               <span className="bg-gradient-to-r from-teal-500 to-cyan-600 bg-clip-text text-transparent italic">
                 произведение искусства
               </span>
             </h1>
-            <p className="text-base md:text-xl text-gray-600 mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-sm md:text-xl text-gray-600 mb-6 md:mb-8 max-w-md mx-auto lg:mx-0 leading-relaxed opacity-90">
               Инновационная клиника: от цифровой диагностики до эстетического восстановления. Почувствуйте разницу с первого визита.
             </p>
-            <div className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-              <Button size="lg" className="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white px-6 md:px-8 h-12 md:h-14 rounded-full shadow-xl shadow-teal-600/20" onClick={scrollToBooking} data-testid="button-book-hero">
-                <Activity className="w-5 h-5 mr-2" />
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 md:gap-4">
+              <Button size="lg" className="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white px-6 md:px-8 h-11 md:h-14 rounded-full shadow-lg shadow-teal-600/20 text-sm md:text-base font-bold" onClick={scrollToBooking} data-testid="button-book-hero">
+                <Activity className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                 Начать диагностику
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto border-teal-200 text-teal-700 hover:bg-teal-50 h-12 md:h-14 px-6 md:px-8 rounded-full" onClick={scrollToServices} data-testid="button-prices">
-                Прайс-лист
+              <Button size="lg" variant="ghost" className="w-full sm:w-auto text-teal-700 hover:bg-teal-50 h-11 md:h-14 px-6 md:px-8 rounded-full text-sm md:text-base font-medium" onClick={scrollToServices} data-testid="button-prices">
+                Смотреть услуги
               </Button>
             </div>
           </motion.div>
@@ -314,25 +321,25 @@ export default function DentalClinic() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative lg:block"
+            className="relative"
           >
-            <div className="absolute -inset-4 bg-teal-500/10 rounded-[2rem] md:rounded-[3rem] blur-2xl md:blur-3xl" />
+            <div className="absolute -inset-4 bg-teal-500/10 rounded-[2rem] blur-2xl md:blur-3xl" />
             <img 
               src={smileImg} 
               alt="Здоровая улыбка" 
-              className="rounded-[1.5rem] md:rounded-[2.5rem] shadow-2xl relative z-10 border-4 md:border-8 border-white w-full max-w-md mx-auto lg:max-w-none"
+              className="rounded-2xl md:rounded-[2.5rem] shadow-2xl relative z-10 border-4 border-white w-full max-w-[320px] md:max-w-none mx-auto"
             />
             <motion.div 
-              animate={{ y: [0, -10, 0] }}
+              animate={{ y: [0, -8, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-4 md:-bottom-8 left-1/2 -translate-x-1/2 lg:left-[-2rem] lg:translate-x-0 bg-white/95 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 shadow-2xl z-20 border border-teal-50 flex items-center gap-3 md:gap-4 whitespace-nowrap"
+              className="absolute -bottom-4 md:-bottom-8 left-1/2 -translate-x-1/2 lg:left-[-1rem] lg:translate-x-0 bg-white/95 backdrop-blur-md rounded-xl p-3 md:p-5 shadow-xl z-20 border border-teal-50 flex items-center gap-3 whitespace-nowrap"
             >
-              <div className="w-10 h-10 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow-inner">
-                <Star className="w-5 h-5 md:w-7 md:h-7 text-white fill-white" />
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-teal-400 to-cyan-500 flex items-center justify-center shadow-inner">
+                <Star className="w-5 h-5 md:w-6 md:h-6 text-white fill-white" />
               </div>
               <div>
-                <div className="font-black text-lg md:text-2xl text-teal-900 leading-none">4.9 / 5</div>
-                <div className="text-[10px] md:text-xs font-bold text-teal-600 uppercase tracking-widest mt-1">Рейтинг клиники</div>
+                <div className="font-bold text-lg md:text-xl text-teal-900 leading-none">4.9 / 5</div>
+                <div className="text-[10px] font-bold text-teal-600 uppercase tracking-widest mt-1">Рейтинг</div>
               </div>
             </motion.div>
           </motion.div>
@@ -340,28 +347,28 @@ export default function DentalClinic() {
       </header>
 
       {/* Interactive Diagnostic Section */}
-      <section ref={bookingRef} className="py-16 md:py-24 bg-teal-950 text-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(20,184,166,0.1),transparent)] pointer-events-none" />
+      <section ref={bookingRef} className="py-12 md:py-24 bg-teal-950 text-white overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_50%,rgba(20,184,166,0.15),transparent)] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div>
-              <Badge className="mb-4 md:mb-6 bg-teal-400/10 text-teal-400 border-teal-400/20">Интерактивная карта</Badge>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6 leading-tight">
-                Где именно вас<br className="hidden md:block" /> беспокоит зуб?
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="text-center lg:text-left">
+              <Badge className="mb-4 bg-teal-400/10 text-teal-400 border-teal-400/20 text-[10px] uppercase tracking-wider">Интерактивный помощник</Badge>
+              <h2 className="text-2xl md:text-5xl font-bold mb-4 leading-tight">
+                Что вас беспокоит?
               </h2>
-              <p className="text-teal-100/60 text-sm md:text-lg mb-8 md:mb-10 leading-relaxed">
-                Выберите область на интерактивной карте зубов. Это поможет нашему специалисту подготовиться к вашему приёму заранее.
+              <p className="text-teal-100/70 text-sm md:text-lg mb-6 md:mb-10 leading-relaxed max-w-md mx-auto lg:mx-0">
+                Выберите проблемную зону на схеме. Это поможет нам точнее спланировать ваш визит.
               </p>
               
-              <div className="space-y-6">
-                <div className="p-4 md:p-6 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                  <h4 className="font-bold mb-4 flex items-center gap-2 text-sm md:text-base">
-                    <Thermometer className="w-4 h-4 md:w-5 md:h-5 text-teal-400" />
-                    Тип боли
+              <div className="hidden md:block space-y-6">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                  <h4 className="font-bold mb-4 flex items-center gap-2">
+                    <Thermometer className="w-5 h-5 text-teal-400" />
+                    Характер ощущений
                   </h4>
-                  <div className="grid grid-cols-2 gap-2 md:gap-3">
-                    {["Острая", "Ноющая", "На холодное", "На горячее"].map((pain) => (
-                      <Button key={pain} variant="outline" className="h-9 md:h-11 border-white/10 text-white hover:bg-teal-500/20 hover:border-teal-400 text-xs md:text-sm">
+                  <div className="grid grid-cols-2 gap-3">
+                    {["Острая боль", "Ноющая", "Чувствительность", "На горячее"].map((pain) => (
+                      <Button key={pain} variant="outline" className="h-11 border-white/10 text-white hover:bg-teal-500/20 hover:border-teal-400 text-sm">
                         {pain}
                       </Button>
                     ))}
@@ -370,24 +377,24 @@ export default function DentalClinic() {
               </div>
             </div>
 
-            <Card className="bg-white/5 border-white/10 p-4 md:p-8 backdrop-blur-md">
-              <div className="text-center mb-6 md:mb-8">
-                <div className="text-[10px] uppercase tracking-[0.2em] text-teal-400 font-black mb-2">Выберите номер зуба</div>
-                <div className="h-px w-20 bg-teal-500/50 mx-auto" />
+            <Card className="bg-white/5 border-white/10 p-4 md:p-8 backdrop-blur-md rounded-2xl">
+              <div className="text-center mb-6">
+                <div className="text-[10px] uppercase tracking-[0.2em] text-teal-400 font-black mb-2">Нажмите на номер зуба</div>
+                <div className="h-0.5 w-12 bg-teal-500/50 mx-auto rounded-full" />
               </div>
               
-              <div className="space-y-8 md:space-y-12">
-                <div>
-                  <div className="text-[9px] md:text-[10px] text-center text-teal-500 uppercase font-bold mb-3 md:mb-4 tracking-widest">Верхняя челюсть</div>
-                  <div className="grid grid-cols-8 gap-1 md:gap-2">
+              <div className="space-y-6 md:space-y-10 overflow-x-auto pb-2 scrollbar-hide">
+                <div className="min-w-[280px]">
+                  <div className="text-[9px] text-center text-teal-500/70 uppercase font-bold mb-3 tracking-widest">Верхний ряд</div>
+                  <div className="grid grid-cols-8 gap-1 md:gap-1.5">
                     {teethData.slice(0, 16).map((t) => (
                       <button
                         key={t.id}
                         onClick={() => setSelectedTooth(t.id)}
-                        className={`h-8 md:h-10 rounded md:rounded-md border text-[9px] md:text-[10px] font-bold transition-all ${
+                        className={`aspect-square flex items-center justify-center rounded-lg border text-[10px] md:text-xs font-bold transition-all ${
                           selectedTooth === t.id 
-                            ? "bg-teal-500 border-teal-400 text-white scale-110 shadow-lg shadow-teal-500/40" 
-                            : "bg-white/5 border-white/10 text-teal-300/50 hover:border-teal-500/50"
+                            ? "bg-teal-500 border-teal-400 text-white scale-105 shadow-lg shadow-teal-500/40" 
+                            : "bg-white/5 border-white/10 text-teal-300/60 hover:border-teal-400/50"
                         }`}
                       >
                         {t.label}
@@ -395,17 +402,17 @@ export default function DentalClinic() {
                     ))}
                   </div>
                 </div>
-                <div>
-                  <div className="text-[9px] md:text-[10px] text-center text-teal-500 uppercase font-bold mb-3 md:mb-4 tracking-widest">Нижняя челюсть</div>
-                  <div className="grid grid-cols-8 gap-1 md:gap-2">
+                <div className="min-w-[280px]">
+                  <div className="text-[9px] text-center text-teal-500/70 uppercase font-bold mb-3 tracking-widest">Нижний ряд</div>
+                  <div className="grid grid-cols-8 gap-1 md:gap-1.5">
                     {teethData.slice(16).map((t) => (
                       <button
                         key={t.id}
                         onClick={() => setSelectedTooth(t.id)}
-                        className={`h-8 md:h-10 rounded md:rounded-md border text-[9px] md:text-[10px] font-bold transition-all ${
+                        className={`aspect-square flex items-center justify-center rounded-lg border text-[10px] md:text-xs font-bold transition-all ${
                           selectedTooth === t.id 
-                            ? "bg-teal-500 border-teal-400 text-white scale-110 shadow-lg shadow-teal-500/40" 
-                            : "bg-white/5 border-white/10 text-teal-300/50 hover:border-teal-500/50"
+                            ? "bg-teal-500 border-teal-400 text-white scale-105 shadow-lg shadow-teal-500/40" 
+                            : "bg-white/5 border-white/10 text-teal-300/60 hover:border-teal-400/50"
                         }`}
                       >
                         {t.label}
@@ -417,13 +424,13 @@ export default function DentalClinic() {
 
               {selectedTooth && (
                 <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-8 md:mt-10 p-4 bg-teal-500/20 rounded-xl border border-teal-500/30 text-center"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="mt-6 p-4 bg-teal-500/10 rounded-xl border border-teal-500/30 text-center"
                 >
-                  <p className="text-xs md:text-sm font-bold mb-3">Выбран зуб №{selectedTooth}</p>
-                  <Button className="bg-teal-500 hover:bg-teal-600 w-full h-10 md:h-12" onClick={() => setBookingOpen(true)}>
-                    Продолжить запись
+                  <p className="text-xs font-medium text-teal-100 mb-3 italic">Выбран проблемный участок: зуб №{selectedTooth}</p>
+                  <Button className="bg-teal-500 hover:bg-teal-600 w-full h-11 text-sm font-bold shadow-lg shadow-teal-500/20" onClick={() => setBookingOpen(true)}>
+                    Записаться на осмотр
                   </Button>
                 </motion.div>
               )}
