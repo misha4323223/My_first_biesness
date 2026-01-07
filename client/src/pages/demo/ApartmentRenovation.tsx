@@ -486,7 +486,7 @@ export default function ApartmentRenovation() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
             {advantages.map((adv, i) => (
               <motion.div
                 key={i}
@@ -495,12 +495,12 @@ export default function ApartmentRenovation() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="p-6 text-center bg-white border-gray-100 hover-elevate">
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-amber-100 flex items-center justify-center">
-                    <adv.icon className="w-7 h-7 text-amber-600" />
+                <Card className="p-4 md:p-6 text-center bg-white border-gray-100 hover-elevate h-full flex flex-col items-center justify-center">
+                  <div className="w-8 h-8 md:w-14 md:h-14 mx-auto mb-2 md:mb-4 rounded-full bg-amber-100 flex items-center justify-center">
+                    <adv.icon className="w-4 h-4 md:w-7 md:h-7 text-amber-600" />
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2">{adv.title}</h3>
-                  <p className="text-sm text-gray-500">{adv.description}</p>
+                  <h3 className="font-bold text-xs md:text-lg text-gray-900 mb-1 md:mb-2 leading-tight">{adv.title}</h3>
+                  <p className="text-[10px] md:text-sm text-gray-500 leading-tight md:leading-normal">{adv.description}</p>
                 </Card>
               </motion.div>
             ))}
