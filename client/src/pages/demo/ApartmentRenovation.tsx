@@ -588,7 +588,7 @@ export default function ApartmentRenovation() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-12 md:mb-20">
             {portfolio.map((item, i) => (
               <motion.div
                 key={item.id}
@@ -597,22 +597,24 @@ export default function ApartmentRenovation() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
               >
-                <Card className="overflow-hidden bg-white border-gray-100 hover-elevate group">
-                  <div className="aspect-video overflow-hidden">
+                <Card className="overflow-hidden bg-white border-gray-100 hover-elevate group rounded-xl md:rounded-2xl">
+                  <div className="aspect-[16/10] md:aspect-video overflow-hidden relative">
                     <img 
                       src={item.image} 
-                      alt={item.title}
+                      alt={item.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <div className="p-6">
-                    <Badge variant="outline" className="mb-3 border-amber-200 text-amber-700">
-                      {item.type}
-                    </Badge>
-                    <h3 className="font-bold text-xl text-gray-900 mb-1">{item.title}</h3>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                      <MapPin className="w-4 h-4" />
-                      {item.location}
+                  <div className="p-3 md:p-6">
+                    <div className="flex justify-between items-start mb-1 md:mb-2">
+                      <h3 className="text-sm md:text-xl font-bold text-gray-900 truncate">{item.title}</h3>
+                      <Badge variant="outline" className="text-[9px] md:text-xs border-amber-200 text-amber-700 whitespace-nowrap ml-2">{item.type}</Badge>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-gray-400">
+                      <MapPin className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
+                      <span className="text-[10px] md:text-sm">{item.location}</span>
                     </div>
                   </div>
                 </Card>
@@ -657,21 +659,21 @@ export default function ApartmentRenovation() {
       </section>
 
       {/* Process */}
-      <section ref={processRef} id="process" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={processRef} id="process" className="py-12 md:py-20 bg-gray-50 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Как мы работаем</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">Как мы работаем</h2>
+            <p className="text-xs md:text-lg text-gray-600 max-w-xl mx-auto">
               5 простых шагов до вашего идеального ремонта
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-6 relative">
             {steps.map((step, i) => (
               <motion.div
                 key={step.num}
@@ -679,13 +681,15 @@ export default function ApartmentRenovation() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="text-center"
+                className="relative z-10"
               >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-2xl font-bold">
-                  {step.num}
+                <div className="bg-white p-4 md:p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col items-center text-center group">
+                  <div className="w-10 h-10 md:w-16 md:h-16 mb-3 md:mb-4 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-sm md:text-2xl font-bold shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform">
+                    {step.num}
+                  </div>
+                  <h3 className="font-bold text-gray-900 text-sm md:text-lg mb-1 md:mb-2 leading-tight">{step.title}</h3>
+                  <p className="text-[10px] md:text-sm text-gray-500 leading-tight md:leading-normal">{step.description}</p>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-500">{step.description}</p>
               </motion.div>
             ))}
           </div>
@@ -694,12 +698,12 @@ export default function ApartmentRenovation() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-12"
+            className="mt-10 md:mt-16"
           >
             <img 
               src={workImg} 
               alt="Процесс работы" 
-              className="w-full h-64 md:h-80 object-cover rounded-xl"
+              className="w-full h-48 md:h-80 object-cover rounded-2xl shadow-lg"
             />
           </motion.div>
         </div>
