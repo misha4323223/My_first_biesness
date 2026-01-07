@@ -216,22 +216,22 @@ export default function AutoService() {
         <div className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none" style={{ backgroundImage: `url(${autoServiceHeroImg})` }} />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent pointer-events-none" />
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4 pointer-events-auto">
-          <div className="flex items-center gap-3">
+          <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-2 pointer-events-auto">
+          <div className="flex items-center gap-2 md:gap-3">
             <Link href="/#portfolio">
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="bg-white/10 border border-white/20 hover:bg-white/20"
+                className="h-9 w-9 bg-white/10 border border-white/20 hover:bg-white/20"
                 data-testid="button-back-home"
               >
-                <ArrowLeft className="w-5 h-5 text-white" />
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 text-white" />
               </Button>
             </Link>
-            <div className="w-10 h-10 rounded-md bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
-              <Wrench className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-md bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center">
+              <Wrench className="w-4 h-4 md:w-5 md:h-5 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-wider">ТЕХНОПРО</span>
+            <span className="text-lg md:text-xl font-bold tracking-wider">ТЕХНОПРО</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-neutral-300">
             <button onClick={scrollToServices} className="hover:text-blue-400 transition-colors cursor-pointer">Услуги</button>
@@ -239,40 +239,40 @@ export default function AutoService() {
             <button onClick={scrollToBooking} className="hover:text-blue-400 transition-colors cursor-pointer">Запись</button>
             <button onClick={scrollToContact} className="hover:text-blue-400 transition-colors cursor-pointer">Контакты</button>
           </div>
-          <Button className="bg-blue-500 hover:bg-blue-600 text-black font-semibold" onClick={scrollToBooking} data-testid="button-book-header">
+          <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold h-9 px-3 md:px-4" onClick={scrollToBooking} data-testid="button-book-header">
             Записаться
           </Button>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-20 md:py-32">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Badge className="mb-6 bg-blue-500/20 text-blue-400 border-blue-500/30">
+            <Badge className="mb-4 md:mb-6 bg-blue-500/20 text-blue-400 border-blue-500/30">
               Профессиональный автосервис
             </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-4 md:mb-6 leading-tight tracking-tight">
               Ваш автомобиль — в
-              <br />
+              <br className="hidden md:block" />{" "}
               <span className="bg-gradient-to-r from-blue-400 to-cyan-500 bg-clip-text text-transparent">
                 надёжных руках
               </span>
             </h1>
-            <p className="text-xl text-neutral-400 mb-8 max-w-lg">
+            <p className="text-base md:text-xl text-neutral-400 mb-6 md:mb-8 max-w-lg">
               Полное техническое обслуживание и ремонт автомобилей любых марок. Современное оборудование и опытные механики.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold" onClick={scrollToBooking} data-testid="button-book-hero">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold w-full sm:w-auto" onClick={scrollToBooking} data-testid="button-book-hero">
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться онлайн
               </Button>
-              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10" onClick={scrollToServices} data-testid="button-prices">
+              <Button size="lg" variant="outline" className="border-neutral-700 text-white hover:bg-white/10 w-full sm:w-auto" onClick={scrollToServices} data-testid="button-prices">
                 Посмотреть цены
               </Button>
             </div>
-            <div className="flex items-center gap-8 mt-12 text-sm">
+            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 mt-10 md:mt-12 text-sm">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-blue-400" />
                 <span className="text-neutral-400">08:00 - 18:00</span>
@@ -290,21 +290,21 @@ export default function AutoService() {
         </div>
       </header>
 
-      <section ref={servicesRef} id="services" className="py-20 bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={servicesRef} id="services" className="py-12 md:py-20 bg-neutral-900">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши услуги</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">Наши услуги</h2>
+            <p className="text-sm md:text-base text-neutral-400 max-w-xl mx-auto">
               Полный спектр услуг по диагностике, ремонту и техническому обслуживанию
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {services.map((service, i) => (
               <motion.div
                 key={service.id}
@@ -318,7 +318,7 @@ export default function AutoService() {
                   onClick={() => handleServiceSelect(service.id)}
                   data-testid={`card-service-${service.id}`}
                 >
-                  <div className="h-40 relative overflow-hidden bg-neutral-700">
+                  <div className="h-32 md:h-40 relative overflow-hidden bg-neutral-700">
                     <img 
                       src={service.image} 
                       alt={service.name}
@@ -327,22 +327,22 @@ export default function AutoService() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
                     {service.popular && (
-                      <div className="absolute top-3 right-3">
-                        <Badge className="bg-blue-500 text-black border-0">Популярно</Badge>
+                      <div className="absolute top-2 right-2 md:top-3 md:right-3">
+                        <Badge className="bg-blue-500 text-black border-0 text-[10px] md:text-xs">Популярно</Badge>
                       </div>
                     )}
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold mb-2 text-white">{service.name}</h3>
-                    <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4">
+                  <div className="p-4 md:p-6">
+                    <h3 className="text-base md:text-lg font-semibold mb-1 md:mb-2 text-white line-clamp-1">{service.name}</h3>
+                    <div className="flex items-center gap-3 md:gap-4 text-[12px] md:text-sm text-neutral-400 mb-3 md:mb-4">
                       <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+                        <Clock className="w-3 h-3 md:w-4 md:h-4" />
                         {service.duration}
                       </span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-blue-400">{formatPrice(service.price)} ₽</span>
-                      <Button size="sm" className="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30" data-testid={`button-select-service-${service.id}`}>
+                      <span className="text-xl md:text-2xl font-bold text-blue-400">{formatPrice(service.price)} ₽</span>
+                      <Button size="sm" className="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 text-xs" data-testid={`button-select-service-${service.id}`}>
                         Выбрать
                       </Button>
                     </div>
@@ -354,21 +354,21 @@ export default function AutoService() {
         </div>
       </section>
 
-      <section ref={mechanicsRef} id="mechanics" className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={mechanicsRef} id="mechanics" className="py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Наши мастера</h2>
-            <p className="text-neutral-400 max-w-xl mx-auto">
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4">Наши мастера</h2>
+            <p className="text-sm md:text-base text-neutral-400 max-w-xl mx-auto">
               Опытные специалисты, прошедшие обучение и сертификацию
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {mechanics.map((mechanic, i) => (
               <motion.div
                 key={mechanic.id}
@@ -382,31 +382,31 @@ export default function AutoService() {
                   onClick={() => handleMechanicSelect(mechanic.id)}
                   data-testid={`card-mechanic-${mechanic.id}`}
                 >
-                  <div className="aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-blue-600 to-neutral-900 flex items-center justify-center">
-                    <User className="w-24 h-24 text-blue-200/40" />
-                    <div className="absolute top-4 left-4 flex items-center gap-2 px-2 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
-                      <div className={`w-2 h-2 rounded-full animate-pulse ${mechanic.status === 'online' ? 'bg-green-500' : 'bg-amber-500'}`} />
-                      <span className="text-[10px] uppercase tracking-wider font-bold">
+                  <div className="aspect-[16/10] sm:aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-blue-600 to-neutral-900 flex items-center justify-center">
+                    <User className="w-16 h-16 md:w-24 md:h-24 text-blue-200/40" />
+                    <div className="absolute top-3 left-3 md:top-4 md:left-4 flex items-center gap-1 md:gap-2 px-2 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+                      <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full animate-pulse ${mechanic.status === 'online' ? 'bg-green-500' : 'bg-amber-500'}`} />
+                      <span className="text-[9px] md:text-[10px] uppercase tracking-wider font-bold">
                         {mechanic.status === 'online' ? 'В боксе' : 'Занят'}
                       </span>
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-xl font-bold mb-1">{mechanic.name}</h3>
-                      <p className="text-blue-400 text-sm mb-2">{mechanic.role}</p>
-                      <div className="flex items-center gap-4 text-sm">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+                      <h3 className="text-lg md:text-xl font-bold mb-0.5 md:mb-1">{mechanic.name}</h3>
+                      <p className="text-blue-400 text-xs md:text-sm mb-1.5 md:mb-2">{mechanic.role}</p>
+                      <div className="flex items-center gap-3 md:gap-4 text-xs md:text-sm">
                         <span className="flex items-center gap-1 text-neutral-300">
-                          <Star className="w-4 h-4 text-blue-400 fill-blue-400" />
+                          <Star className="w-3 h-3 md:w-4 md:h-4 text-blue-400 fill-blue-400" />
                           {mechanic.rating}
                         </span>
                         <span className="text-neutral-400">{mechanic.reviews} отзывов</span>
                       </div>
                     </div>
                   </div>
-                  <div className="p-4 border-t border-neutral-700">
+                  <div className="p-3 md:p-4 border-t border-neutral-700">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-neutral-400">Опыт: {mechanic.experience}</span>
-                      <Button size="sm" className="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30" data-testid={`button-select-mechanic-${mechanic.id}`}>
+                      <span className="text-xs md:text-sm text-neutral-400">Опыт: {mechanic.experience}</span>
+                      <Button size="sm" className="bg-blue-500/20 text-blue-400 hover:bg-blue-500/30 h-8 text-xs" data-testid={`button-select-mechanic-${mechanic.id}`}>
                         Выбрать
                       </Button>
                     </div>
@@ -638,25 +638,25 @@ export default function AutoService() {
         </div>
       </section>
 
-      <section id="smart-diagnosis" className="py-20 bg-neutral-900">
-        <div className="max-w-4xl mx-auto px-6">
+      <section id="smart-diagnosis" className="py-12 md:py-20 bg-neutral-900">
+        <div className="max-w-4xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-12"
           >
-            <Badge className="mb-4 bg-blue-500/10 text-blue-400 border-blue-500/20 px-4 py-1">AI Ассистент</Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Умная самодиагностика</h2>
-            <p className="text-neutral-400">Выберите симптом, и мы подскажем, что может быть не так</p>
+            <Badge className="mb-3 md:mb-4 bg-blue-500/10 text-blue-400 border-blue-500/20 px-4 py-1">AI Ассистент</Badge>
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-white">Умная самодиагностика</h2>
+            <p className="text-sm md:text-base text-neutral-400">Выберите симптом, и мы подскажем решение</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="bg-neutral-800/50 border-neutral-700 p-6">
-              <h3 className="text-lg font-bold mb-6 flex items-center gap-2">
-                <Activity className="w-5 h-5 text-blue-400" /> Что беспокоит?
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <Card className="bg-neutral-800/50 border-neutral-700 p-4 md:p-6">
+              <h3 className="text-base md:text-lg font-bold mb-4 md:mb-6 flex items-center gap-2 text-white">
+                <Activity className="w-4 h-4 md:w-5 md:h-5 text-blue-400" /> Что беспокоит?
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {[
                   { id: "noise", label: "Странный шум при движении", icon: "🔊" },
                   { id: "brakes", label: "Скрежет при торможении", icon: "🛑" },
@@ -666,91 +666,91 @@ export default function AutoService() {
                   <Button
                     key={symptom.id}
                     variant="outline"
-                    className="w-full justify-start gap-3 h-14 border-neutral-700 hover:border-blue-500/50 hover:bg-blue-500/5"
+                    className="w-full justify-start gap-3 h-12 md:h-14 border-neutral-700 hover:border-blue-500/50 hover:bg-blue-500/5 px-3 md:px-4"
                     onClick={() => {
                       toast({
                         title: "Предварительный диагноз",
-                        description: `Для симптома "${symptom.label}" рекомендуем записаться на диагностику ходовой или двигателя.`,
+                        description: `Для симптома "${symptom.label}" рекомендуем записаться на диагностику.`,
                       });
                     }}
                   >
-                    <span className="text-xl">{symptom.icon}</span>
-                    <span className="text-sm">{symptom.label}</span>
+                    <span className="text-lg md:text-xl">{symptom.icon}</span>
+                    <span className="text-[11px] md:text-sm text-white">{symptom.label}</span>
                   </Button>
                 ))}
               </div>
             </Card>
 
-            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-blue-600/20 to-neutral-900 p-8 flex flex-col justify-center">
-              <div className="absolute top-0 right-0 p-4">
-                <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center animate-pulse">
-                  <Activity className="w-6 h-6 text-blue-400" />
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-blue-600/20 to-neutral-900 p-6 md:p-8 flex flex-col justify-center">
+              <div className="absolute top-2 right-2 md:top-4 md:right-4 p-2 md:p-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-500/20 flex items-center justify-center animate-pulse">
+                  <Activity className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 italic">"Не затягивайте с ремонтом"</h3>
-              <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
-                Своевременное обращение в сервис экономит до <span className="text-blue-400 font-bold">40%</span> на стоимости запчастей, предотвращая поломку смежных узлов.
+              <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 italic text-white">"Не затягивайте"</h3>
+              <p className="text-xs md:text-sm text-neutral-400 mb-6 leading-relaxed">
+                Своевременное обращение экономит до <span className="text-blue-400 font-bold">40%</span> на стоимости запчастей.
               </p>
-              <Button className="w-fit bg-white text-black font-bold" onClick={scrollToBooking}>
-                Получить консультацию
+              <Button size="sm" className="w-full sm:w-fit bg-white text-black font-bold h-10 md:h-11" onClick={scrollToBooking}>
+                Консультация
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="portfolio-showcase" className="py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="portfolio-showcase" className="py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Кейсы: До и После</h2>
-            <p className="text-neutral-400">Результаты нашей работы говорят сами за себя</p>
+            <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-white">Кейсы: До и После</h2>
+            <p className="text-sm md:text-base text-neutral-400">Наши результаты говорят сами за себя</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             {[
               {
-                title: "Восстановление двигателя",
-                description: "BMW X5: Капитальный ремонт после перегрева. Замена поршневой группы, шлифовка ГБЦ.",
+                title: "Ремонт двигателя",
+                description: "BMW X5: Капитальный ремонт после перегрева.",
                 before: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80",
                 after: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80",
-                tags: ["Двигатель", "Капремонт"]
+                tags: ["Двигатель"]
               },
               {
-                title: "Детейлинг и покраска",
-                description: "Audi A6: Удаление глубоких царапин, полная полировка кузова и нанесение керамики.",
+                title: "Детейлинг кузова",
+                description: "Audi A6: Полировка и керамика.",
                 before: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80",
                 after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80",
-                tags: ["Кузов", "Детейлинг"]
+                tags: ["Кузов"]
               }
             ].map((caseItem, i) => (
               <Card key={i} className="bg-neutral-800/50 border-neutral-700 overflow-hidden group">
-                <div className="flex h-64 border-b border-neutral-700">
+                <div className="flex h-48 md:h-64 border-b border-neutral-700">
                   <div className="w-1/2 relative overflow-hidden border-r border-neutral-700">
                     <img src={caseItem.before} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="До" />
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-red-500/80 backdrop-blur-md border-0">ДО</Badge>
+                    <div className="absolute top-2 left-2 md:top-4 md:left-4">
+                      <Badge className="bg-red-500/80 backdrop-blur-md border-0 text-[9px] md:text-xs">ДО</Badge>
                     </div>
                   </div>
                   <div className="w-1/2 relative overflow-hidden">
                     <img src={caseItem.after} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="После" />
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-green-500/80 backdrop-blur-md border-0">ПОСЛЕ</Badge>
+                    <div className="absolute top-2 right-2 md:top-4 md:right-4">
+                      <Badge className="bg-green-500/80 backdrop-blur-md border-0 text-[9px] md:text-xs">ПОСЛЕ</Badge>
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="flex gap-2 mb-3">
+                <div className="p-4 md:p-6">
+                  <div className="flex gap-2 mb-2 md:mb-3">
                     {caseItem.tags.map(tag => (
-                      <Badge key={tag} variant="outline" className="border-blue-500/30 text-blue-400">{tag}</Badge>
+                      <Badge key={tag} variant="outline" className="border-blue-500/30 text-blue-400 text-[10px]">{tag}</Badge>
                     ))}
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{caseItem.title}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed">{caseItem.description}</p>
+                  <h3 className="text-lg md:text-xl font-bold mb-1 md:mb-2 text-white">{caseItem.title}</h3>
+                  <p className="text-xs md:text-sm text-neutral-400 leading-relaxed">{caseItem.description}</p>
                 </div>
               </Card>
             ))}
