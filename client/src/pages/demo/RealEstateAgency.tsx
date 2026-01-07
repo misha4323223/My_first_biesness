@@ -464,63 +464,113 @@ export default function RealEstateAgency() {
         </div>
       </section>
 
-      <section className="py-20 bg-emerald-500">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-black text-black mb-6">Сложно выбрать?</h2>
-          <p className="text-emerald-950 text-xl mb-8 font-medium">
-            Ответьте на 3 вопроса и получите персональную подборку объектов за 1 минуту
-          </p>
-          <Dialog open={quizOpen} onOpenChange={setQuizOpen}>
-            <DialogTrigger asChild>
-              <Button size="lg" className="bg-black text-white hover:bg-neutral-800 font-bold px-12 h-16 text-lg rounded-full shadow-2xl">
-                Помочь с выбором
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-neutral-900 border-neutral-800 text-white max-w-md">
-              <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">Подбор недвижимости</DialogTitle>
-              </DialogHeader>
-              <div className="py-6">
-                {quizStep < quizQuestions.length ? (
-                  <motion.div key={quizStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                    <p className="text-emerald-500 font-bold text-sm mb-2 uppercase tracking-widest">Вопрос {quizStep + 1} из 3</p>
-                    <h3 className="text-xl font-bold mb-6">{quizQuestions[quizStep].q}</h3>
-                    <div className="grid gap-3">
-                      {quizQuestions[quizStep].options.map(opt => (
+      <section className="py-12 bg-neutral-900 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-500/20 rounded-2xl p-6 md:p-10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px] -mr-32 -mt-32" />
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 md:gap-12 text-center md:text-left">
+              <div className="flex-1">
+                <Badge className="mb-4 bg-emerald-500/20 text-emerald-400 border-emerald-500/30">Квиз-подбор</Badge>
+                <h2 className="text-2xl md:text-4xl font-bold mb-3">Сложно выбрать?</h2>
+                <p className="text-neutral-400 text-sm md:text-lg">
+                  Ответьте на 3 вопроса и получите персональную подборку объектов за 1 минуту
+                </p>
+              </div>
+              <Dialog open={quizOpen} onOpenChange={setQuizOpen}>
+                <DialogTrigger asChild>
+                  <Button 
+                    size="lg" 
+                    className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-8 h-12 md:h-14 rounded-xl shadow-lg shadow-emerald-500/20 whitespace-nowrap w-full md:w-auto"
+                    onClick={() => {
+                      setQuizStep(0);
+                      setQuizAnswers({});
+                    }}
+                    data-testid="button-start-quiz"
+                  >
+                    Подобрать объекты
+                    <ChevronRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-neutral-950 border-neutral-800 text-white max-w-md mx-auto w-[95%] rounded-2xl p-6 shadow-2xl">
+                  <DialogHeader className="mb-6">
+                    <DialogTitle className="text-xl font-bold text-center">
+                      {quizStep < quizQuestions.length ? `Шаг ${quizStep + 1} из ${quizQuestions.length}` : 'Готово!'}
+                    </DialogTitle>
+                  </DialogHeader>
+                  
+                  <div className="space-y-6">
+                    {quizStep < quizQuestions.length ? (
+                      <motion.div key={quizStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+                        <h3 className="text-lg font-medium mb-4 text-center">{quizQuestions[quizStep].q}</h3>
+                        <div className="grid gap-2">
+                          {quizQuestions[quizStep].options.map((opt) => (
+                            <Button
+                              key={opt}
+                              variant="outline"
+                              className={`h-14 justify-between px-6 text-base rounded-xl border-neutral-800 hover:border-emerald-500 hover:bg-emerald-500/5 transition-all text-left ${
+                                quizAnswers[quizQuestions[quizStep].id] === opt ? 'border-emerald-500 bg-emerald-500/10' : ''
+                              }`}
+                              onClick={() => {
+                                setQuizAnswers({ ...quizAnswers, [quizQuestions[quizStep].id]: opt });
+                                setQuizStep(quizStep + 1);
+                              }}
+                            >
+                              {opt}
+                              <ChevronRight className="w-4 h-4 text-neutral-600" />
+                            </Button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center pb-4">
+                        <div className="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Check className="w-8 h-8" />
+                        </div>
+                        <h3 className="text-2xl font-bold mb-2">Отлично!</h3>
+                        <p className="text-neutral-400 mb-8">Мы подобрали лучшие варианты на основе ваших предпочтений.</p>
                         <Button 
-                          key={opt} 
-                          variant="outline" 
-                          className="justify-between h-auto py-4 px-6 border-neutral-700 hover:border-emerald-500 hover:bg-emerald-500/10 text-left"
+                          className="w-full bg-emerald-500 text-black font-bold h-12 rounded-xl" 
                           onClick={() => {
-                            setQuizAnswers({...quizAnswers, [quizQuestions[quizStep].id]: opt});
-                            setQuizStep(quizStep + 1);
+                            setQuizOpen(false);
+                            setQuizStep(0);
+                            toast({ 
+                              title: "Подборка готова!", 
+                              description: "Мы отправили её вам в Telegram" 
+                            });
                           }}
                         >
-                          {opt}
-                          <ChevronRight className="w-4 h-4 text-neutral-600" />
+                          Посмотреть объекты
                         </Button>
-                      ))}
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
-                    <div className="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Check className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2">Готово!</h3>
-                    <p className="text-neutral-400 mb-6">Мы подготовили для вас 5 идеальных вариантов на основе ваших предпочтений.</p>
-                    <Button className="w-full bg-emerald-500 text-black font-bold h-12" onClick={() => {
-                      setQuizOpen(false);
-                      setQuizStep(0);
-                      toast({ title: "Подборка готова!", description: "Мы отправили её вам в Telegram" });
-                    }}>
-                      Посмотреть подборку
-                    </Button>
-                  </motion.div>
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
+                      </motion.div>
+                    )}
+                    
+                    {quizStep < quizQuestions.length && (
+                      <div className="flex justify-between items-center gap-4 pt-4 border-t border-white/5">
+                        <Button 
+                          variant="ghost" 
+                          onClick={() => quizStep > 0 && setQuizStep(quizStep - 1)}
+                          className={`text-neutral-400 hover:text-white ${quizStep === 0 ? 'invisible' : ''}`}
+                        >
+                          Назад
+                        </Button>
+                        <div className="flex gap-1.5">
+                          {quizQuestions.map((_, i) => (
+                            <div 
+                              key={i} 
+                              className={`h-1 rounded-full transition-all ${
+                                i === quizStep ? 'w-6 bg-emerald-500' : 'w-1.5 bg-neutral-800'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <div className="w-16" /> {/* Spacer */}
+                      </div>
+                    )}
+                  </div>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </div>
         </div>
       </section>
 
