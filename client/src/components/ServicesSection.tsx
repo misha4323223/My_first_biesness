@@ -253,7 +253,7 @@ export function ServicesSection() {
                   {service.title}
                 </h3>
                 
-                <p className="relative text-[11px] md:text-xs text-muted-foreground/70 leading-relaxed line-clamp-2 group-hover:text-muted-foreground transition-colors">
+                <p className="relative text-[11px] md:text-xs text-muted-foreground/70 leading-relaxed group-hover:text-muted-foreground transition-colors">
                   {service.description}
                 </p>
 
