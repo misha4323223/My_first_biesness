@@ -660,7 +660,7 @@ export default function ApartmentRenovation() {
 
       {/* Process */}
       <section ref={processRef} id="process" className="py-12 md:py-20 bg-gray-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="max-w-5xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -669,43 +669,68 @@ export default function ApartmentRenovation() {
           >
             <h2 className="text-2xl md:text-4xl font-bold mb-3 md:mb-4 text-gray-900">Как мы работаем</h2>
             <p className="text-xs md:text-lg text-gray-600 max-w-xl mx-auto">
-              5 простых шагов до вашего идеального ремонта
+              Весь процесс от замера до сдачи в одном интерфейсе
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-6 relative">
-            {steps.map((step, i) => (
+          <Card className="p-1 bg-white border-gray-100 rounded-[2rem] shadow-xl overflow-hidden">
+            <div className="bg-gradient-to-br from-white to-amber-50/30 p-6 md:p-10 lg:p-12 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+              
+              <div className="relative z-10 grid gap-8 md:gap-12 lg:grid-cols-5">
+                {steps.map((step, i) => (
+                  <motion.div
+                    key={step.num}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="relative flex flex-col items-center text-center lg:text-left lg:items-start group"
+                  >
+                    {/* Connection Line */}
+                    {i < steps.length - 1 && (
+                      <div className="hidden lg:block absolute top-6 left-[calc(1.5rem+50%)] w-full h-0.5 bg-gradient-to-r from-amber-500/30 to-transparent" />
+                    )}
+                    
+                    <div className="flex flex-col items-center lg:items-start gap-4">
+                      <div className="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-amber-500/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 relative z-10">
+                        {step.num}
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="font-bold text-gray-900 text-base md:text-lg leading-tight group-hover:text-amber-600 transition-colors">{step.title}</h3>
+                        <p className="text-[11px] md:text-sm text-gray-500 leading-snug">{step.description}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
               <motion.div
-                key={step.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="relative z-10"
+                className="mt-12 md:mt-16 pt-8 md:pt-12 border-t border-gray-100"
               >
-                <div className="bg-white p-4 md:p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col items-center text-center group">
-                  <div className="w-10 h-10 md:w-16 md:h-16 mb-3 md:mb-4 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-white text-sm md:text-2xl font-bold shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform">
-                    {step.num}
+                <div className="relative aspect-[21/9] md:aspect-[3/1] rounded-2xl overflow-hidden shadow-2xl group">
+                  <img 
+                    src={workImg} 
+                    alt="Процесс работы" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex items-center gap-3">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
+                      <Paintbrush className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-white font-bold text-sm md:text-xl">Контроль на каждом этапе</p>
+                      <p className="text-white/70 text-[10px] md:text-sm">Персональный прораб и отчеты в мессенджер</p>
+                    </div>
                   </div>
-                  <h3 className="font-bold text-gray-900 text-sm md:text-lg mb-1 md:mb-2 leading-tight">{step.title}</h3>
-                  <p className="text-[10px] md:text-sm text-gray-500 leading-tight md:leading-normal">{step.description}</p>
                 </div>
               </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-10 md:mt-16"
-          >
-            <img 
-              src={workImg} 
-              alt="Процесс работы" 
-              className="w-full h-48 md:h-80 object-cover rounded-2xl shadow-lg"
-            />
-          </motion.div>
+            </div>
+          </Card>
         </div>
       </section>
 
