@@ -448,25 +448,27 @@ export default function OnlineAcademy() {
         </div>
       </section>
 
-      {/* Mentors Section */}
-      <section ref={instructorsRef as any} className="py-16 px-4 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold mb-12 text-center">Топовые наставники</h2>
-        <div className="flex overflow-x-auto no-scrollbar -mx-4 px-4 pb-8 md:grid md:grid-cols-3 md:gap-8 md:px-0">
-          {instructors.map(inst => (
-            <Card key={inst.id} className="min-w-[280px] p-6 text-center bg-white dark:bg-white/5 border-blue-500/5 hover-elevate">
-              <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-blue-500/10 ring-8 ring-blue-500/5">
-                <img src={inst.image} className="w-full h-full object-cover" alt={inst.name} />
-              </div>
-              <h3 className="font-bold text-lg mb-1">{inst.name}</h3>
-              <p className="text-sm text-blue-500 font-medium mb-4">{inst.role}</p>
-              <div className="flex items-center justify-center gap-2">
-                <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                <span className="text-xs font-bold">{inst.rating} (500+ отзывов)</span>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
+      {/* Mentors Section - Only show on Home tab */}
+      {activeTab === 'home' && (
+        <section ref={instructorsRef as any} className="py-16 px-4 max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center">Топовые наставники</h2>
+          <div className="flex overflow-x-auto no-scrollbar -mx-4 px-4 pb-8 md:grid md:grid-cols-3 md:gap-8 md:px-0">
+            {instructors.map(inst => (
+              <Card key={inst.id} className="min-w-[280px] p-6 text-center bg-white dark:bg-white/5 border-blue-500/5 hover-elevate">
+                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-blue-500/10 ring-8 ring-blue-500/5">
+                  <img src={inst.image} className="w-full h-full object-cover" alt={inst.name} />
+                </div>
+                <h3 className="font-bold text-lg mb-1">{inst.name}</h3>
+                <p className="text-sm text-blue-500 font-medium mb-4">{inst.role}</p>
+                <div className="flex items-center justify-center gap-2">
+                  <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                  <span className="text-xs font-bold">{inst.rating} (500+ отзывов)</span>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Pricing */}
       <section className="py-16 md:py-32 px-4 bg-neutral-900 text-white overflow-hidden relative">
@@ -523,13 +525,22 @@ export default function OnlineAcademy() {
                 <textarea
                   value={codeValue}
                   onChange={(e) => setCodeValue(e.target.value)}
+                  onInput={(e) => {
+                    // Force resize for mobile devices if needed, though here we use min-h
+                    const target = e.target as HTMLTextAreaElement;
+                    target.style.height = 'auto';
+                    target.style.height = target.scrollHeight + 'px';
+                  }}
                   className="w-full h-full bg-transparent text-blue-300 font-mono text-sm outline-none resize-none spellcheck-false"
                   placeholder="// Пиши свой код здесь..."
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  autoComplete="off"
                 />
               </div>
-              <div className="p-4 bg-black/40 min-h-[100px] md:min-h-0">
-                <div className="text-[10px] text-white/20 font-mono mb-2 uppercase">Результат:</div>
-                <div className="font-mono text-sm text-green-400 break-all">
+              <div className="p-4 bg-black/40 min-h-[100px] md:min-h-0 overflow-y-auto max-h-[300px]">
+                <div className="text-[10px] text-white/20 font-mono mb-2 uppercase sticky top-0 bg-black/40 py-1">Результат:</div>
+                <div className="font-mono text-sm text-green-400 break-all whitespace-pre-wrap">
                   {codeResult || "> Готов к выполнению..."}
                 </div>
               </div>
