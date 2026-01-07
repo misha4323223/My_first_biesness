@@ -160,17 +160,6 @@ const portfolioItems = [
     featured: true,
   },
   {
-    id: 1,
-    title: "Сладкие наслаждения",
-    subtitle: "Интернет-магазин сладостей",
-    description: "Интернет-магазин сладостей с админкой, Telegram-приложением, оплатой Robokassa и хранением в Яндекс Cloud.",
-    tags: ["React", "Node.js", "PostgreSQL", "Robokassa", "Telegram"],
-    image: sweetDelightsImg,
-    externalUrl: "https://sweetdelights.store/",
-    badgeType: "live" as const,
-    category: "E-commerce",
-  },
-  {
     id: 2,
     title: "Вкусдом",
     subtitle: "Доставка еды",
@@ -352,11 +341,9 @@ const starPositions = [
 
 // Связи между проектами по категориям
 const connections: [number, number][] = [
-  [0, 1], [0, 3], // MP.WebStudio связи с ближайшими
-  [0, 2], // MP.WebStudio - Вкусдом (доставка еды)
+  [0, 2], [0, 3], // MP.WebStudio связи с ближайшими
   [0, 15], // MP.WebStudio - ОнлайнОкадемия (образование)
-  [1, 2], [1, 4], [1, 5], [1, 6], // E-commerce связи (Вкусдом, Natura, Streetwear, Sockstyle)
-  [2, 4], // Вкусдом - Natura (соседи слева)
+  [2, 4], [2, 5], [2, 6], // E-commerce/Food связи (Вкусдом -> Natura, Streetwear, Sockstyle)
   [4, 5], [4, 6], [5, 6],
   [3, 5], [3, 8], // Dark Theme связи (Фитнес клуб, Streetwear, Barbershop)
   [7, 8], // Booking связи (Дримтур, Barbershop)
