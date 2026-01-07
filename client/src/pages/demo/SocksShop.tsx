@@ -731,11 +731,11 @@ export default function SocksShop() {
                           <p className="text-base sm:text-2xl font-black text-neutral-900">{product.price} ₽</p>
                           {product.oldPrice && <p className="text-[10px] sm:text-sm text-neutral-400 line-through leading-none">{product.oldPrice} ₽</p>}
                         </div>
-                        <div className="flex gap-1.5 items-center">
+                        <div className="flex gap-1 items-center">
                           <Button 
                             variant="secondary" 
                             size="sm" 
-                            className="h-8 sm:h-9 px-3 sm:px-4 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider"
+                            className="h-7 sm:h-8 px-2 sm:px-3 rounded-lg text-[9px] sm:text-[10px] font-black uppercase tracking-tight"
                             onClick={() => setSelectedProduct(product)}
                             data-testid={`button-view-details-${product.id}`}
                           >
@@ -743,11 +743,11 @@ export default function SocksShop() {
                           </Button>
                           <Button 
                             size="icon" 
-                            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-neutral-900 hover:bg-black text-white"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-neutral-900 hover:bg-black text-white"
                             onClick={() => addToCart(product.id)}
                             data-testid={`button-add-to-cart-${product.id}`}
                           >
-                            <Plus className="w-4 h-4" />
+                            <Plus className="w-3.5 h-3.5" />
                           </Button>
                         </div>
                       </div>
