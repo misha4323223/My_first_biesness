@@ -169,15 +169,15 @@ export function ChatWidget() {
       >
         {/* Приветственный тултип */}
         <div 
-          className={`absolute bottom-full right-0 mb-4 px-4 py-2 bg-black border border-cyan-400 text-cyan-400 font-mono text-[10px] rounded-sm whitespace-nowrap transition-all duration-300 transform ${
+          className={`absolute bottom-full right-0 mb-4 px-4 py-2 bg-black border border-cyan-500 text-cyan-500 font-mono text-[10px] rounded-sm whitespace-nowrap transition-all duration-300 transform ${
             showTooltip ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0 pointer-events-none"
           }`}
         >
-          <div className="absolute bottom-[-6px] right-6 w-2 h-2 bg-black border-r border-b border-cyan-400 rotate-45"></div>
+          <div className="absolute bottom-[-6px] right-6 w-2 h-2 bg-black border-r border-b border-cyan-500 rotate-45"></div>
           &gt; ЕСТЬ ВОПРОСЫ? Я ПОМОГУ_
         </div>
 
-        <div className="h-14 w-14 rounded-sm bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 p-[2px] group hover:shadow-lg hover:shadow-purple-400/50 transition-all duration-300 opacity-60 hover:opacity-100">
+        <div className="h-14 w-14 rounded-sm bg-gradient-to-r from-cyan-500 to-purple-500 p-[2px] group hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 opacity-60 hover:opacity-100">
           <button
             onClick={() => {
               setIsOpen(true);
@@ -187,8 +187,8 @@ export function ChatWidget() {
             className="h-full w-full rounded-sm bg-background flex flex-col items-center justify-center font-mono transition-all duration-200 ai-assistant-btn"
             title="AI Assistant"
           >
-            <Brain className="w-5 h-5 text-cyan-400 group-hover:text-purple-400 transition-colors duration-200" />
-            <span className="text-[10px] leading-none mt-1 text-cyan-400 group-hover:text-purple-400 transition-colors duration-200">AI</span>
+            <Brain className="w-5 h-5 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200" />
+            <span className="text-[10px] leading-none mt-1 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200">AI</span>
           </button>
         </div>
       </div>
