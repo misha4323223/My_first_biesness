@@ -211,6 +211,24 @@ export default function OnlineAcademy() {
     }
   };
 
+  const askAi = async () => {
+    if (!aiQuery.trim()) return;
+    setIsAiLoading(true);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: `Вопрос по обучению: ${aiQuery}` }),
+      });
+      const data = await response.json();
+      setAiResponse(data.response);
+    } catch (error) {
+      toast({ title: "Ошибка", description: "Не удалось получить ответ", variant: "destructive" });
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
   const scrollTo = (ref: React.RefObject<HTMLElement>, tabName: string) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
     setActiveTab(tabName);
@@ -332,15 +350,15 @@ export default function OnlineAcademy() {
       {/* Courses Section */}
       <section ref={coursesRef as any} className="py-16 md:py-24 px-4 bg-neutral-50/50 dark:bg-neutral-900/20">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-end justify-between mb-12">
-            <div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="text-center md:text-left">
               <h2 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">Популярные курсы</h2>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap justify-center md:justify-start gap-2">
                 {["all", "Web", "Design", "Data"].map(cat => (
                   <button 
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${selectedCategory === cat ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20' : 'bg-white dark:bg-white/5 border border-blue-500/10'}`}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${selectedCategory === cat ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/20' : 'bg-white dark:bg-white/5 border border-blue-500/10 hover-elevate'}`}
                   >
                     {cat === 'all' ? 'Все' : cat}
                   </button>
@@ -350,9 +368,9 @@ export default function OnlineAcademy() {
             <Button variant="ghost" className="hidden md:flex gap-2">Все направления <ArrowLeft className="w-4 h-4 rotate-180" /></Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex overflow-x-auto no-scrollbar -mx-4 px-4 pb-8 md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 md:px-0">
             {filteredCourses.map((c) => (
-              <Card key={c.id} className="group overflow-hidden bg-white dark:bg-white/5 border-blue-500/5 hover-elevate flex flex-col h-full">
+              <Card key={c.id} className="min-w-[280px] md:min-w-0 group overflow-hidden bg-white dark:bg-white/5 border-blue-500/5 hover-elevate flex flex-col h-full rounded-3xl">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={c.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt={c.title} />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
