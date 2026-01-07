@@ -277,7 +277,7 @@ export function CalculatorSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [projectType, setProjectType] = useState<ProjectType>("bizcard");
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
-  const [expandedType, setExpandedType] = useState<ProjectType | null>("bizcard");
+  const [expandedType, setExpandedType] = useState<ProjectType | null>(null);
   const [openOrderModal, setOpenOrderModal] = useState(false);
   const { toast } = useToast();
 
