@@ -498,21 +498,21 @@ export default function ApartmentRenovation() {
       </section>
 
       {/* Services */}
-      <section ref={servicesRef} id="services" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={servicesRef} id="services" className="py-10 sm:py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">Услуги и цены</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">
-              Полный спектр ремонтных работ любой сложности
+            <h2 className="text-2xl sm:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">Услуги и цены</h2>
+            <p className="text-xs sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+              Выполняем все виды ремонтных работ — от косметического обновления до полной перепланировки
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
             {services.map((service, i) => (
               <motion.div
                 key={service.id}
@@ -522,29 +522,38 @@ export default function ApartmentRenovation() {
                 transition={{ delay: i * 0.1 }}
               >
                 <Card 
-                  className="p-6 bg-white border-gray-100 hover-elevate h-full"
+                  className={`group relative p-4 sm:p-8 bg-white border-gray-100 hover-elevate h-full flex flex-col ${service.popular ? 'ring-2 ring-amber-500' : ''}`}
                   data-testid={`card-service-${service.id}`}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center">
-                      <service.icon className="w-6 h-6 text-amber-600" />
+                  {service.popular && (
+                    <Badge className="absolute -top-2.5 right-4 bg-amber-500 text-white px-2 py-0.5 text-[8px] sm:text-xs">
+                      ПОПУЛЯРНО
+                    </Badge>
+                  )}
+                  <div className="flex items-center gap-3 sm:block sm:mb-6">
+                    <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors flex-shrink-0">
+                      <service.icon className="w-5 h-5 sm:w-8 sm:h-8" />
                     </div>
-                    {service.popular && (
-                      <Badge className="bg-green-100 text-green-700 border-green-200">
-                        Популярно
-                      </Badge>
-                    )}
+                    <h3 className="text-sm sm:text-xl font-bold text-gray-900 sm:mt-4">{service.name}</h3>
                   </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-2">{service.name}</h3>
-                  <p className="text-sm text-gray-500 mb-4">{service.description}</p>
-                  <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                    <div className="text-sm text-gray-500">
-                      <Clock className="w-4 h-4 inline mr-1" />
-                      {service.duration}
+                  <p className="hidden sm:block text-base text-gray-500 mb-6 flex-grow">{service.description}</p>
+                  
+                  <div className="pt-3 sm:pt-6 border-t border-gray-100 mt-3 sm:mt-auto">
+                    <div className="flex items-center justify-between mb-3 sm:mb-6">
+                      <div>
+                        <div className="text-[8px] sm:text-xs text-gray-400 uppercase">Стоимость</div>
+                        <div className="text-sm sm:text-2xl font-black text-gray-900">
+                          от {formatPrice(service.priceFrom)} <span className="text-[8px] sm:text-lg font-medium text-gray-400">₽/{service.unit}</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-[8px] sm:text-xs text-gray-400 uppercase">Срок</div>
+                        <div className="text-[10px] sm:text-base font-bold text-gray-900">{service.duration}</div>
+                      </div>
                     </div>
-                    <div className="font-bold text-amber-600">
-                      от {formatPrice(service.priceFrom)} ₽/{service.unit}
-                    </div>
+                    <Button className="w-full bg-gray-900 hover:bg-amber-600 text-white transition-colors h-8 sm:h-11 text-[10px] sm:text-base" onClick={scrollToContact}>
+                      Заказать расчет
+                    </Button>
                   </div>
                 </Card>
               </motion.div>
