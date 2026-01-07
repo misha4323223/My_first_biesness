@@ -311,18 +311,15 @@ export default function RealEstateAgency() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-12 md:mb-16"
           >
             {dealSteps.map((s, i) => (
-              <div key={i} className="relative group p-4 bg-white/5 rounded-2xl border border-white/5 md:bg-transparent md:border-0">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
-                  <s.icon className="w-5 h-5 md:w-6 md:h-6 text-emerald-500" />
+              <div key={i} className="relative group p-3 md:p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all duration-300">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <s.icon className="w-4 h-4 md:w-5 md:h-5 text-emerald-500" />
                 </div>
-                <h3 className="font-bold text-lg mb-2">{s.title}</h3>
-                <p className="text-sm text-neutral-500">{s.desc}</p>
-                {i < dealSteps.length - 1 && (
-                  <div className="hidden lg:block absolute top-6 left-full w-full h-[1px] bg-gradient-to-r from-emerald-500/30 to-transparent -ml-4" />
-                )}
+                <h3 className="font-bold text-sm md:text-base mb-1 text-white">{s.title}</h3>
+                <p className="text-[10px] md:text-xs text-neutral-500 leading-tight">{s.desc}</p>
               </div>
             ))}
           </motion.div>
@@ -541,7 +538,7 @@ export default function RealEstateAgency() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {agents.map((agent, i) => (
               <motion.div
                 key={agent.id}
@@ -551,36 +548,38 @@ export default function RealEstateAgency() {
                 transition={{ delay: i * 0.1 }}
               >
                 <Card 
-                  className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer ${selectedAgent === agent.id ? 'ring-2 ring-emerald-500' : ''}`}
+                  className={`p-4 bg-neutral-800/40 border-neutral-700/50 hover-elevate cursor-pointer transition-all ${selectedAgent === agent.id ? 'ring-2 ring-emerald-500' : ''}`}
                   onClick={() => handleAgentSelect(agent.id)}
                   data-testid={`card-agent-${agent.id}`}
                 >
-                  <div className="aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-emerald-600 to-neutral-900 flex items-center justify-center">
-                    <User className="w-24 h-24 text-emerald-200/40" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h3 className="text-xl font-bold mb-1">{agent.name}</h3>
-                      <p className="text-emerald-400 text-sm mb-2">{agent.role}</p>
-                      <div className="flex items-center gap-4 text-sm">
-                        <span className="flex items-center gap-1 text-neutral-300">
-                          <Star className="w-4 h-4 text-emerald-400 fill-emerald-400" />
-                          {agent.rating}
-                        </span>
-                        <span className="text-neutral-400">{agent.reviews} отзывов</span>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500/10 to-teal-500/10 flex items-center justify-center border border-emerald-500/20">
+                      <User className="w-6 h-6 text-emerald-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-bold text-base text-white truncate">{agent.name}</h3>
+                      <p className="text-emerald-400 text-xs font-medium">{agent.role}</p>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    <div className="text-center p-1.5 bg-neutral-900/30 rounded-lg">
+                      <div className="text-[10px] text-neutral-500 mb-0.5">Опыт</div>
+                      <div className="font-bold text-xs text-white">{agent.experience}</div>
+                    </div>
+                    <div className="text-center p-1.5 bg-neutral-900/30 rounded-lg">
+                      <div className="text-[10px] text-neutral-500 mb-0.5">Сделки</div>
+                      <div className="font-bold text-xs text-white">{agent.deals}</div>
+                    </div>
+                    <div className="text-center p-1.5 bg-neutral-900/30 rounded-lg">
+                      <div className="text-[10px] text-neutral-500 mb-0.5">Рейтинг</div>
+                      <div className="font-bold text-xs text-white flex items-center justify-center gap-0.5">
+                        {agent.rating} <Star className="w-2.5 h-2.5 text-yellow-500 fill-yellow-500" />
                       </div>
                     </div>
                   </div>
-                  <div className="p-4 border-t border-neutral-700">
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm">
-                        <p className="text-neutral-400">Опыт: {agent.experience}</p>
-                        <p className="text-emerald-400 font-semibold">{agent.deals} сделок</p>
-                      </div>
-                      <Button size="sm" className="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30" data-testid={`button-select-agent-${agent.id}`}>
-                        Выбрать
-                      </Button>
-                    </div>
-                  </div>
+                  <Button size="sm" variant="outline" className="w-full border-neutral-700 hover:bg-emerald-500 hover:text-black hover:border-emerald-500 transition-all font-bold text-xs h-9" data-testid={`button-select-agent-${agent.id}`}>
+                    Выбрать
+                  </Button>
                 </Card>
               </motion.div>
             ))}
