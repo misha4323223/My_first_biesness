@@ -184,7 +184,7 @@ export default function BeautySalon() {
         </Button>
       </Link>
 
-      <header className="relative h-[85vh] flex items-center overflow-hidden">
+      <header className="relative h-[70vh] md:h-[85vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src={salonHeroImg} 
@@ -194,17 +194,17 @@ export default function BeautySalon() {
           <div className="absolute inset-0 bg-gradient-to-b from-stone-900/20 via-transparent to-stone-50" />
         </div>
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-8 flex items-center justify-between pointer-events-auto">
-          <div className="flex items-center gap-3 pl-12">
-            <span className="text-3xl font-serif tracking-[0.2em] text-stone-900">LUMINA</span>
+        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-8 flex items-center justify-between">
+          <div className="flex items-center gap-3 pl-10 md:pl-12">
+            <span className="text-xl md:text-3xl font-serif tracking-[0.2em] text-stone-900">LUMINA</span>
           </div>
           <div className="hidden md:flex items-center gap-10 text-sm uppercase tracking-widest font-medium text-stone-800">
             <button onClick={scrollToServices} className="hover:text-amber-600 transition-colors">Услуги</button>
             <button onClick={scrollToStylists} className="hover:text-amber-600 transition-colors">Команда</button>
             <button onClick={scrollToBooking} className="hover:text-amber-600 transition-colors">Запись</button>
           </div>
-          <Button className="bg-stone-900 text-white hover:bg-stone-800 rounded-none px-8 py-6 tracking-widest uppercase text-xs" onClick={scrollToBooking}>
-            Записаться
+          <Button className="bg-stone-900 text-white hover:bg-stone-800 rounded-none px-4 md:px-8 py-4 md:py-6 tracking-widest uppercase text-[10px] md:text-xs" onClick={scrollToBooking}>
+            Запись
           </Button>
         </nav>
 
@@ -214,14 +214,14 @@ export default function BeautySalon() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <span className="text-stone-600 uppercase tracking-[0.4em] text-sm mb-6 block">Where Beauty Meets Artistry</span>
-            <h1 className="text-6xl md:text-8xl font-serif text-stone-900 mb-8 leading-tight font-light">
+            <span className="text-stone-600 uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-sm mb-4 md:mb-6 block">Where Beauty Meets Artistry</span>
+            <h1 className="text-4xl md:text-8xl font-serif text-stone-900 mb-6 md:mb-8 leading-tight font-light">
               Эстетика <br />
               <span className="italic">совершенства</span>
             </h1>
             <Button 
               size="lg" 
-              className="bg-amber-600/90 backdrop-blur-sm text-white hover:bg-amber-700 rounded-none px-12 h-14 tracking-widest uppercase text-xs transition-all hover:scale-105" 
+              className="bg-amber-600/90 backdrop-blur-sm text-white hover:bg-amber-700 rounded-none px-8 md:px-12 h-12 md:h-14 tracking-widest uppercase text-[10px] md:text-xs transition-all hover:scale-105" 
               onClick={scrollToBooking}
             >
               Забронировать визит
@@ -230,7 +230,7 @@ export default function BeautySalon() {
         </div>
       </header>
 
-      <section className="py-32 bg-stone-50">
+      <section className="py-16 md:py-32 bg-stone-50">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -238,27 +238,27 @@ export default function BeautySalon() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="w-20 h-[1px] bg-amber-600 mx-auto mb-12" />
-            <h2 className="text-4xl font-serif mb-10 font-light tracking-wide text-stone-900">Философия LUMINA</h2>
-            <p className="text-xl text-stone-600 font-light leading-relaxed tracking-wide italic">
+            <div className="w-16 md:w-20 h-[1px] bg-amber-600 mx-auto mb-8 md:mb-12" />
+            <h2 className="text-2xl md:text-4xl font-serif mb-6 md:mb-10 font-light tracking-wide text-stone-900">Философия LUMINA</h2>
+            <p className="text-lg md:text-xl text-stone-600 font-light leading-relaxed tracking-wide italic">
               "Мы не просто создаем образы. Мы раскрываем внутренний свет каждого гостя через архитектурную точность стрижек и магию цвета."
             </p>
-            <div className="w-20 h-[1px] bg-amber-600 mx-auto mt-12" />
+            <div className="w-16 md:w-20 h-[1px] bg-amber-600 mx-auto mt-8 md:mt-12" />
           </motion.div>
         </div>
       </section>
 
-      <section ref={servicesRef} className="py-32 bg-white">
+      <section ref={servicesRef} className="py-16 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6 md:gap-8">
             <div className="max-w-xl">
-              <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold mb-4 block">Наши услуги</span>
-              <h2 className="text-5xl font-serif font-light text-stone-900">Signature Services</h2>
+              <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold mb-3 md:mb-4 block">Наши услуги</span>
+              <h2 className="text-3xl md:text-5xl font-serif font-light text-stone-900">Signature Services</h2>
             </div>
-            <p className="text-stone-500 font-light max-w-sm">Исключительный уход, объединяющий традиции и инновации для вашего преображения.</p>
+            <p className="text-stone-500 font-light max-w-sm text-sm md:text-base">Исключительный уход, объединяющий традиции и инновации для вашего преображения.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {services.map((service, i) => (
               <motion.div
                 key={service.id}
@@ -271,7 +271,7 @@ export default function BeautySalon() {
                   className={`group cursor-pointer ${selectedService === service.id ? 'opacity-100' : 'opacity-90 hover:opacity-100'}`}
                   onClick={() => handleServiceSelect(service.id)}
                 >
-                  <div className="aspect-[16/10] overflow-hidden mb-6 bg-stone-100 relative">
+                  <div className="aspect-[16/10] overflow-hidden mb-4 md:mb-6 bg-stone-100 relative rounded-xl md:rounded-none">
                     <img 
                       src={(service as any).image} 
                       alt={service.name}
@@ -283,11 +283,11 @@ export default function BeautySalon() {
                       </div>
                     )}
                   </div>
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-2xl font-serif font-light text-stone-900">{service.name}</h3>
-                    <span className="text-amber-600 font-medium">{formatPrice(service.price)} ₽</span>
+                  <div className="flex justify-between items-start mb-1 md:mb-2">
+                    <h3 className="text-xl md:text-2xl font-serif font-light text-stone-900">{service.name}</h3>
+                    <span className="text-amber-600 font-medium text-sm md:text-base">{formatPrice(service.price)} ₽</span>
                   </div>
-                  <p className="text-stone-400 text-sm uppercase tracking-widest font-medium">{service.duration}</p>
+                  <p className="text-stone-400 text-[10px] md:text-sm uppercase tracking-widest font-medium">{service.duration}</p>
                 </div>
               </motion.div>
             ))}
@@ -295,17 +295,17 @@ export default function BeautySalon() {
         </div>
       </section>
 
-      <section ref={stylistsRef} className="py-32 bg-stone-50 overflow-hidden">
+      <section ref={stylistsRef} className="py-16 md:py-32 bg-stone-50 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6 md:gap-8">
             <div className="max-w-xl">
-              <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold mb-4 block">Команда</span>
-              <h2 className="text-5xl font-serif font-light text-stone-900">Artisan Stylists</h2>
+              <span className="text-amber-600 uppercase tracking-widest text-xs font-semibold mb-3 md:mb-4 block">Команда</span>
+              <h2 className="text-3xl md:text-5xl font-serif font-light text-stone-900">Artisan Stylists</h2>
             </div>
-            <p className="text-stone-500 font-light max-w-sm">Наши мастера — архитекторы стиля, создающие искусство в каждой детали вашего образа.</p>
+            <p className="text-stone-500 font-light max-w-sm text-sm md:text-base">Наши мастера — архитекторы стиля, создающие искусство в каждой детали вашего образа.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {stylists.map((stylist, i) => (
               <motion.div
                 key={stylist.id}
@@ -318,27 +318,27 @@ export default function BeautySalon() {
                   className={`group cursor-pointer transition-all duration-700 ${selectedStylist === stylist.id ? 'scale-105' : ''}`}
                   onClick={() => handleStylistSelect(stylist.id)}
                 >
-                  <div className="relative aspect-[3/4] overflow-hidden mb-8 shadow-2xl">
+                  <div className="relative aspect-[3/4] overflow-hidden mb-6 md:mb-8 shadow-xl md:shadow-2xl rounded-2xl md:rounded-none">
                     <img 
                       src={stylist.image} 
                       alt={stylist.name}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-700" />
-                    <div className="absolute bottom-0 left-0 right-0 p-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      <Button className="w-full bg-white text-stone-900 hover:bg-amber-600 hover:text-white rounded-none border-0 tracking-[0.2em] uppercase text-[10px] h-12">
-                        Записаться к мастеру
+                    <div className="absolute bottom-0 left-0 right-0 p-4 md:p-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      <Button className="w-full bg-white text-stone-900 hover:bg-amber-600 hover:text-white rounded-none border-0 tracking-[0.2em] uppercase text-[10px] h-10 md:h-12">
+                        Выбрать мастера
                       </Button>
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <div className="w-8 h-[1px] bg-amber-600" />
-                      <span className="text-amber-600 uppercase tracking-widest text-[10px] font-bold">{stylist.role}</span>
-                      <div className="w-8 h-[1px] bg-amber-600" />
+                    <div className="flex items-center justify-center gap-2 mb-1 md:mb-2">
+                      <div className="w-6 md:w-8 h-[1px] bg-amber-600" />
+                      <span className="text-amber-600 uppercase tracking-widest text-[9px] md:text-[10px] font-bold">{stylist.role}</span>
+                      <div className="w-6 md:w-8 h-[1px] bg-amber-600" />
                     </div>
-                    <h3 className="text-3xl font-serif text-stone-900 mb-2">{stylist.name}</h3>
-                    <div className="flex items-center justify-center gap-4 text-xs tracking-widest text-stone-400 uppercase">
+                    <h3 className="text-2xl md:text-3xl font-serif text-stone-900 mb-1 md:mb-2">{stylist.name}</h3>
+                    <div className="flex items-center justify-center gap-3 md:gap-4 text-[10px] md:text-xs tracking-widest text-stone-400 uppercase">
                       <span>Опыт {stylist.experience}</span>
                       <span className="w-1 h-1 bg-stone-300 rounded-full" />
                       <div className="flex items-center gap-1">
