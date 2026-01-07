@@ -227,29 +227,38 @@ export function ServicesSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-4">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + index * 0.08 }}
+              transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
             >
               <Card
-                className="group relative overflow-visible h-full p-4 border-border bg-background/50 backdrop-blur-sm floating-service-card"
+                className="group relative overflow-hidden h-full p-4 border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-500 rounded-2xl flex flex-col items-center text-center no-default-hover-elevate"
                 data-testid={`card-service-${index}`}
               >
-                <div className={`w-10 h-10 rounded-md bg-gradient-to-br ${service.color} flex items-center justify-center mb-3`}>
-                  <service.icon className="w-5 h-5 text-white" />
+                {/* Subtle gradient background on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
+                
+                {/* Minimalist Icon Container */}
+                <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center mb-4 shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
+                  <service.icon className="w-6 h-6 text-white" />
+                  {/* Icon Glow */}
+                  <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
                 </div>
-                <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+
+                <h3 className="relative text-sm md:text-base font-bold text-foreground/90 mb-2 group-hover:text-white transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-muted-foreground text-sm leading-snug break-words hyphens-auto">{service.description}</p>
+                
+                <p className="relative text-[11px] md:text-xs text-muted-foreground/70 leading-relaxed line-clamp-2 group-hover:text-muted-foreground transition-colors">
+                  {service.description}
+                </p>
 
-                <div className={`absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}>
-                  <div className={`absolute inset-0 rounded-md bg-gradient-to-br ${service.color} opacity-[0.05]`} />
-                </div>
+                {/* Bottom Accent Line */}
+                <div className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r ${service.color} w-0 group-hover:w-full transition-all duration-500`} />
               </Card>
             </motion.div>
           ))}
