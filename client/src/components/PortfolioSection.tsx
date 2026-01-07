@@ -148,18 +148,6 @@ import onlineAcademyHeroImg from "@assets/generated_images/online_course_platfor
 
 const portfolioItems = [
   {
-    id: 0,
-    title: "MP.WebStudio",
-    subtitle: "Сайт веб-студии",
-    description: "Портфолио-сайт веб-студии с ИИ-разработкой. Калькулятор стоимости, онлайн-оплата, Telegram-бот, админ-панель.",
-    tags: ["React", "TypeScript", "Yandex Cloud", "Telegram", "AI"],
-    image: mpWebstudioImg,
-    externalUrl: "https://www.mp-webstudio.ru/",
-    badgeType: "live" as const,
-    category: "Dark Theme",
-    featured: true,
-  },
-  {
     id: 2,
     title: "Вкусдом",
     subtitle: "Доставка еды",
@@ -341,8 +329,7 @@ const starPositions = [
 
 // Связи между проектами по категориям
 const connections: [number, number][] = [
-  [0, 2], [0, 3], // MP.WebStudio связи с ближайшими
-  [0, 15], // MP.WebStudio - ОнлайнОкадемия (образование)
+  [2, 3], 
   [2, 4], [2, 5], [2, 6], // E-commerce/Food связи (Вкусдом -> Natura, Streetwear, Sockstyle)
   [4, 5], [4, 6], [5, 6],
   [3, 5], [3, 8], // Dark Theme связи (Фитнес клуб, Streetwear, Barbershop)
