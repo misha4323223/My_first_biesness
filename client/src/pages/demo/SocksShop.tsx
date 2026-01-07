@@ -281,35 +281,45 @@ export default function SocksShop() {
     <div className="min-h-screen bg-[#fafafa] text-[#1a1a1a]">
       {/* Product Detail Dialog */}
       <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 sm:p-6 overflow-x-hidden">
+          <div className="absolute left-4 top-4 z-10 sm:hidden">
+            <Button 
+              variant="secondary" 
+              size="icon" 
+              className="rounded-full bg-white/80 backdrop-blur-md shadow-md h-8 w-8"
+              onClick={() => setSelectedProduct(null)}
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </Button>
+          </div>
           {selectedProduct && (
-            <div className="grid md:grid-cols-2 gap-8 pt-6">
-              <div className="rounded-xl overflow-hidden bg-muted">
+            <div className="grid md:grid-cols-2 gap-0 sm:gap-8">
+              <div className="sm:rounded-xl overflow-hidden bg-muted">
                 <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full aspect-square object-cover" />
               </div>
-              <div className="flex flex-col">
+              <div className="flex flex-col p-6 sm:p-0">
                 <Badge variant="secondary" className="w-fit mb-2">{selectedProduct.category}</Badge>
-                <DialogTitle className="text-2xl font-black mb-2">{selectedProduct.name}</DialogTitle>
+                <DialogTitle className="text-xl sm:text-2xl font-black mb-2">{selectedProduct.name}</DialogTitle>
                 <div className="flex items-center gap-1 mb-4 text-amber-500">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={`w-4 h-4 ${i < selectedProduct.rating ? "fill-amber-500" : ""}`} />
+                    <Star key={i} className={`w-3.5 h-3.5 sm:w-4 h-4 ${i < selectedProduct.rating ? "fill-amber-500" : ""}`} />
                   ))}
-                  <span className="text-xs text-muted-foreground ml-2">(12 отзывов)</span>
+                  <span className="text-[10px] sm:text-xs text-muted-foreground ml-2">(12 отзывов)</span>
                 </div>
-                <DialogDescription className="text-base text-neutral-600 mb-6">
+                <DialogDescription className="text-sm sm:text-base text-neutral-600 mb-6">
                   {selectedProduct.description}
                   <br /><br />
-                  <span className="text-sm font-bold text-neutral-900">Особенности:</span><br />
+                  <span className="text-xs sm:text-sm font-bold text-neutral-900 uppercase tracking-wider">Особенности:</span><br />
                   {selectedProduct.details}
                 </DialogDescription>
-                <div className="mt-auto">
+                <div className="mt-auto pt-4 sm:pt-0">
                   <div className="flex items-center gap-4 mb-6">
-                    <span className="text-3xl font-black text-rose-500">{selectedProduct.price} ₽</span>
+                    <span className="text-2xl sm:text-3xl font-black text-rose-500">{selectedProduct.price} ₽</span>
                     {selectedProduct.oldPrice && (
-                      <span className="text-lg text-neutral-400 line-through">{selectedProduct.oldPrice} ₽</span>
+                      <span className="text-base sm:text-lg text-neutral-400 line-through">{selectedProduct.oldPrice} ₽</span>
                     )}
                   </div>
-                  <Button className="w-full h-12 bg-rose-500 hover:bg-rose-600 text-white font-bold" onClick={() => addToCart(selectedProduct.id)}>
+                  <Button className="w-full h-12 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl" onClick={() => addToCart(selectedProduct.id)}>
                     Добавить в корзину
                   </Button>
                 </div>
@@ -486,168 +496,175 @@ export default function SocksShop() {
 
       <main>
         {/* Hero Section */}
-        <section className="relative pt-8 pb-20 overflow-hidden">
+        <section className="relative pt-4 sm:pt-8 pb-12 sm:pb-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="relative z-10"
+                className="relative z-10 text-center lg:text-left"
               >
-                <Badge className="mb-4 bg-rose-100 text-rose-600 hover:bg-rose-100 border-none font-bold py-1 px-4 rounded-full">
+                <Badge className="mb-4 bg-rose-100 text-rose-600 hover:bg-rose-100 border-none font-bold py-1 px-4 rounded-full text-xs sm:text-sm">
                   Новая коллекция '26
                 </Badge>
-                <h1 className="text-5xl sm:text-7xl font-[1000] leading-[0.9] tracking-tighter mb-6">
-                  СТИЛЬ <br /> 
+                <h1 className="text-4xl sm:text-7xl font-[1000] leading-[0.9] tracking-tighter mb-4 sm:mb-6">
+                  СТИЛЬ <br className="hidden sm:block" /> 
                   В КАЖДОМ <br />
-                  <span className="text-rose-500 underline decoration-rose-200 underline-offset-8">ШАГЕ</span>
+                  <span className="text-rose-500 underline decoration-rose-200 underline-offset-4 sm:underline-offset-8">ШАГЕ</span>
                 </h1>
-                <p className="text-lg text-neutral-500 mb-8 max-w-md font-medium leading-relaxed">
+                <p className="text-base sm:text-lg text-neutral-500 mb-6 sm:mb-8 max-w-md mx-auto lg:mx-0 font-medium leading-relaxed">
                   Бутик мужских носков, где качество хлопка встречается с безупречным дизайном. 
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button size="lg" className="h-14 px-8 bg-neutral-900 hover:bg-black text-white font-black rounded-2xl shadow-xl shadow-black/20 group" onClick={scrollToProducts}>
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-3 sm:gap-4">
+                  <Button size="lg" className="h-12 sm:h-14 px-8 bg-neutral-900 hover:bg-black text-white font-black rounded-xl sm:rounded-2xl shadow-xl shadow-black/20 group" onClick={scrollToProducts}>
                     Смотреть каталог
-                    <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                  <Button variant="outline" size="lg" className="h-14 px-8 border-2 font-black rounded-2xl" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
+                  <Button variant="outline" size="lg" className="h-12 sm:h-14 px-8 border-2 font-black rounded-xl sm:rounded-2xl" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
                     О нас
                   </Button>
                 </div>
               </motion.div>
 
-              <div className="relative">
+              <div className="relative mt-8 lg:mt-0">
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl z-10"
+                  className="relative aspect-square rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl z-10"
                 >
                   <img src={heroImg} alt="Hero" className="w-full h-full object-cover scale-110" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/20 to-transparent" />
                 </motion.div>
-                <div className="absolute -top-10 -right-10 w-64 h-64 bg-rose-200/50 rounded-full blur-3xl -z-0" />
-                <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-100/50 rounded-full blur-3xl -z-0" />
+                <div className="absolute -top-10 -right-10 w-48 sm:w-64 h-48 sm:h-64 bg-rose-200/50 rounded-full blur-3xl -z-0" />
+                <div className="absolute -bottom-10 -left-10 w-48 sm:w-64 h-48 sm:h-64 bg-blue-100/50 rounded-full blur-3xl -z-0" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Filters & Grid */}
-        <section ref={productsRef} className="py-20 bg-white">
+        {/* Categories Section */}
+        <section className="py-4 sm:py-8 sticky top-[57px] sm:top-[73px] z-40 bg-[#fafafa]/80 backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="flex flex-col lg:flex-row gap-12">
-              {/* Sidebar Filters */}
-              <aside className="lg:w-64 space-y-8 flex-shrink-0">
-                <div>
-                  <h4 className="font-black text-sm uppercase tracking-widest mb-6">Категории</h4>
-                  <div className="space-y-2">
-                    {categories.map(cat => (
-                      <button
-                        key={cat.name}
-                        onClick={() => setActiveCategory(cat.name)}
-                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all font-bold text-sm ${
-                          activeCategory === cat.name
-                            ? "bg-neutral-900 text-white shadow-lg"
-                            : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
-                        }`}
-                      >
-                        {cat.name}
-                        <span className={`text-[10px] px-2 py-0.5 rounded-full ${activeCategory === cat.name ? "bg-white/20" : "bg-neutral-100"}`}>
-                          {cat.count}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+              {categories.map((cat) => (
+                <button
+                  key={cat.name}
+                  onClick={() => setActiveCategory(cat.name)}
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all border ${
+                    activeCategory === cat.name
+                      ? "bg-neutral-900 text-white border-neutral-900 shadow-lg shadow-black/10"
+                      : "bg-white text-neutral-500 border-neutral-200 hover:border-neutral-900 hover:text-neutral-900"
+                  }`}
+                >
+                  {cat.icon && <cat.icon className="w-3.5 h-3.5 sm:w-4 h-4" />}
+                  {cat.name}
+                  <span className={`ml-1 text-[10px] opacity-60 ${activeCategory === cat.name ? "text-white" : "text-neutral-400"}`}>
+                    {cat.count}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <div className="pt-8 border-t border-neutral-100">
-                  <h4 className="font-black text-sm uppercase tracking-widest mb-6">Сортировка</h4>
-                  <select 
-                    value={sortBy} 
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full bg-neutral-50 border-none rounded-xl px-4 py-3 text-sm font-bold focus:ring-2 ring-rose-500 outline-none"
-                  >
-                    <option value="popular">По популярности</option>
-                    <option value="price-low">Сначала дешевле</option>
-                    <option value="price-high">Сначала дороже</option>
-                  </select>
-                </div>
-              </aside>
-
-              {/* Main Grid */}
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-10">
-                  <h2 className="text-3xl font-black tracking-tight">
-                    {activeCategory} <span className="text-muted-foreground text-lg ml-2">{filteredProducts.length}</span>
-                  </h2>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="icon" className="rounded-xl"><Filter className="w-4 h-4" /></Button>
-                    <Button variant="ghost" size="icon" className="rounded-xl lg:hidden"><Search className="w-4 h-4" /></Button>
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                  <AnimatePresence mode="popLayout">
-                    {filteredProducts.map((product, idx) => (
-                      <motion.div
-                        key={product.id}
-                        layout
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        transition={{ delay: idx * 0.05 }}
-                      >
-                        <Card className="group relative bg-white border-none shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 rounded-[2rem] overflow-hidden">
-                          <div className="relative aspect-square overflow-hidden bg-neutral-100">
-                            <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                            <div className="absolute top-4 inset-x-4 flex justify-between items-start">
-                              {product.tag && (
-                                <Badge className="bg-white/90 backdrop-blur-md text-neutral-900 border-none font-bold px-3 py-1 rounded-full text-[10px] shadow-sm">
-                                  {product.tag}
-                                </Badge>
-                              )}
-                              <Button variant="ghost" size="icon" className="rounded-full bg-white/90 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all hover:bg-rose-500 hover:text-white">
-                                <Heart className="w-4 h-4" />
-                              </Button>
-                            </div>
-                            
-                            <div className="absolute bottom-4 inset-x-4 flex gap-2 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                              <Button className="flex-1 bg-white/95 backdrop-blur-md text-neutral-900 hover:bg-neutral-900 hover:text-white font-bold rounded-xl h-12 shadow-xl" onClick={() => setSelectedProduct(product)}>
-                                <Info className="w-4 h-4 mr-2" /> Описание
-                              </Button>
-                              <Button className="w-12 h-12 bg-rose-500 hover:bg-rose-600 text-white rounded-xl shadow-xl p-0" onClick={() => addToCart(product.id)}>
-                                <Plus className="w-5 h-5 mx-auto" />
-                              </Button>
-                            </div>
-                          </div>
-                          
-                          <div className="p-6">
-                            <div className="flex justify-between items-start mb-2">
-                              <h3 className="font-black text-lg leading-tight truncate">{product.name}</h3>
-                              <div className="flex items-center text-amber-500 text-xs font-bold">
-                                <Star className="w-3 h-3 fill-current mr-1" /> {product.rating}
-                              </div>
-                            </div>
-                            <p className="text-xs text-muted-foreground line-clamp-2 mb-4 font-medium">{product.description}</p>
-                            <div className="flex items-center justify-between pt-4 border-t border-neutral-50">
-                              <div className="flex flex-col">
-                                {product.oldPrice && <span className="text-[10px] text-neutral-400 line-through mb-1">{product.oldPrice} ₽</span>}
-                                <span className="text-xl font-black text-rose-500 leading-none">{product.price} ₽</span>
-                              </div>
-                              <div className="flex -space-x-1">
-                                {[1, 2, 3].map(i => (
-                                  <div key={i} className="w-5 h-5 rounded-full border-2 border-white bg-neutral-200" style={{ backgroundColor: i === 1 ? '#000' : i === 2 ? '#333' : '#666' }} />
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </Card>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                </div>
+        {/* Products Grid */}
+        <section ref={productsRef as any} className="py-8 sm:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-12">
+              <div>
+                <h2 className="text-3xl sm:text-5xl font-[1000] tracking-tighter mb-2 text-center lg:text-left">КАТАЛОГ</h2>
+                <p className="text-sm sm:text-base text-neutral-500 font-medium text-center lg:text-left">Найдено {filteredProducts.length} моделей в категории «{activeCategory}»</p>
               </div>
+              <div className="flex items-center gap-2 bg-white p-1 rounded-xl border self-center sm:self-end">
+                <Button 
+                  variant={sortBy === "popular" ? "secondary" : "ghost"} 
+                  size="sm" 
+                  className="rounded-lg text-xs sm:text-sm h-8"
+                  onClick={() => setSortBy("popular")}
+                >
+                  Популярные
+                </Button>
+                <Button 
+                  variant={sortBy === "price-low" ? "secondary" : "ghost"} 
+                  size="sm" 
+                  className="rounded-lg text-xs sm:text-sm h-8"
+                  onClick={() => setSortBy("price-low")}
+                >
+                  Дешевле
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-8">
+              {filteredProducts.map((product) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  key={product.id}
+                  className="group"
+                >
+                  <Card className="relative overflow-hidden border-none shadow-none bg-white rounded-2xl sm:rounded-[2rem] transition-all hover:shadow-2xl hover:shadow-black/5 hover:-translate-y-1">
+                    <div className="relative aspect-square overflow-hidden bg-neutral-100">
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      {product.tag && (
+                        <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+                          <Badge className="bg-white/90 backdrop-blur-md text-neutral-900 border-none font-black text-[9px] sm:text-[10px] py-0.5 sm:py-1 px-2 sm:px-3 rounded-full">
+                            {product.tag}
+                          </Badge>
+                        </div>
+                      )}
+                      <div className="absolute top-2 sm:top-4 right-2 sm:right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button size="icon" variant="secondary" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md">
+                          <Heart className="w-4 h-4" />
+                        </Button>
+                        <Button size="icon" variant="secondary" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md">
+                          <Share2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 sm:p-6">
+                      <div className="flex items-center gap-1 mb-1 sm:mb-2">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${i < product.rating ? "fill-amber-400 text-amber-400" : "text-neutral-200"}`} />
+                        ))}
+                      </div>
+                      <h3 className="font-bold text-sm sm:text-lg mb-1 leading-tight group-hover:text-rose-500 transition-colors">{product.name}</h3>
+                      <p className="text-[10px] sm:text-sm text-neutral-400 mb-3 sm:mb-4 line-clamp-1">{product.description}</p>
+                      
+                      <div className="flex items-center justify-between gap-2">
+                        <div>
+                          <p className="text-base sm:text-2xl font-black text-neutral-900">{product.price} ₽</p>
+                          {product.oldPrice && <p className="text-[10px] sm:text-sm text-neutral-400 line-through leading-none">{product.oldPrice} ₽</p>}
+                        </div>
+                        <div className="flex gap-1">
+                          <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-neutral-50 hover:bg-neutral-100"
+                            onClick={() => setSelectedProduct(product)}
+                          >
+                            <Info className="w-4 h-4" />
+                          </Button>
+                          <Button 
+                            size="icon" 
+                            className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-neutral-900 hover:bg-black text-white"
+                            onClick={() => addToCart(product.id)}
+                          >
+                            <Plus className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
