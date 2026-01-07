@@ -349,9 +349,9 @@ export default function CosmeticsShop() {
       </Dialog>
 
       <header className="sticky top-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-stone-200 dark:border-neutral-800">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between gap-4">
-            <h1 className="text-2xl font-light tracking-widest text-stone-800 dark:text-white pl-12">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4">
+          <div className="flex items-center justify-between gap-2 md:gap-4">
+            <h1 className="text-xl md:text-2xl font-light tracking-widest text-stone-800 dark:text-white pl-10 md:pl-12">
               NATURA
             </h1>
             
@@ -367,19 +367,19 @@ export default function CosmeticsShop() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="relative" data-testid="button-favorites">
+            <div className="flex items-center gap-1 md:gap-2">
+              <Button variant="ghost" size="icon" className="relative h-9 w-9 md:h-10 md:w-10" data-testid="button-favorites">
                 <Heart className="w-5 h-5" />
                 {favorites.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-xs flex items-center justify-center">
+                  <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center">
                     {favorites.length}
                   </span>
                 )}
               </Button>
-              <Button variant="ghost" size="icon" className="relative" onClick={() => setCartOpen(true)} data-testid="button-cart">
+              <Button variant="ghost" size="icon" className="relative h-9 w-9 md:h-10 md:w-10" onClick={() => setCartOpen(true)} data-testid="button-cart">
                 <ShoppingBag className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-xs flex items-center justify-center">
+                  <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] flex items-center justify-center">
                     {cartCount}
                   </span>
                 )}
@@ -389,14 +389,14 @@ export default function CosmeticsShop() {
         </div>
       </header>
 
-      <section className="relative h-[90vh] flex items-center overflow-hidden">
+      <section className="relative h-[70vh] md:h-[90vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src={ritualHeroImg} 
             alt="Premium Skincare" 
             className="w-full h-full object-cover brightness-[0.85] dark:brightness-[0.7]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 md:from-black/40 via-transparent to-transparent" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
@@ -406,15 +406,15 @@ export default function CosmeticsShop() {
             transition={{ duration: 1 }}
             className="max-w-xl"
           >
-            <span className="text-white/80 uppercase tracking-[0.3em] text-sm mb-4 block font-light">Pure. Intentional. Transformative.</span>
-            <h2 className="text-5xl md:text-7xl font-serif text-white mb-8 leading-tight font-light">
+            <span className="text-white/80 uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs md:text-sm mb-3 md:mb-4 block font-light">Pure. Intentional. Transformative.</span>
+            <h2 className="text-4xl md:text-7xl font-serif text-white mb-6 md:mb-8 leading-tight font-light">
               Искусство <br />
               <span className="italic">ухода</span>
             </h2>
             <div className="flex gap-4">
               <Button 
                 size="lg" 
-                className="bg-white text-stone-900 hover:bg-stone-100 rounded-full px-8 h-12 text-base font-light tracking-wide transition-all hover:scale-105" 
+                className="bg-white text-stone-900 hover:bg-stone-100 rounded-full px-6 md:px-8 h-11 md:h-12 text-sm md:text-base font-light tracking-wide transition-all hover:scale-105" 
                 onClick={scrollToProducts}
               >
                 Откройте коллекцию
@@ -424,7 +424,7 @@ export default function CosmeticsShop() {
         </div>
       </section>
 
-      <section className="py-24 bg-white dark:bg-neutral-950">
+      <section className="py-16 md:py-24 bg-white dark:bg-neutral-950">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -432,23 +432,23 @@ export default function CosmeticsShop() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-3xl font-serif mb-8 font-light tracking-wide text-stone-800 dark:text-stone-200">Философия NATURA</h2>
-            <div className="w-12 h-[1px] bg-rose-200 mx-auto mb-8" />
-            <p className="text-lg text-stone-600 dark:text-stone-400 font-light leading-relaxed tracking-wide">
+            <h2 className="text-2xl md:text-3xl font-serif mb-6 md:mb-8 font-light tracking-wide text-stone-800 dark:text-stone-200">Философия NATURA</h2>
+            <div className="w-12 h-[1px] bg-rose-200 mx-auto mb-6 md:mb-8" />
+            <p className="text-base md:text-lg text-stone-600 dark:text-stone-400 font-light leading-relaxed tracking-wide">
               Мы верим, что истинная красота рождается в гармонии с природой. Наши формулы — это сочетание чистейших ботанических экстрактов и передовых научных достижений для здоровья и сияния вашей кожи.
             </p>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-24 bg-stone-50 dark:bg-neutral-900/50">
+      <section className="py-16 md:py-24 bg-stone-50 dark:bg-neutral-900/50">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-serif font-light tracking-widest text-stone-800 dark:text-stone-200 uppercase">Ритуал NATURA</h2>
-            <p className="text-stone-500 mt-4 font-light">3 простых шага к безупречной коже</p>
+          <div className="text-center mb-12 md:mb-16">
+            <h2 className="text-2xl md:text-3xl font-serif font-light tracking-widest text-stone-800 dark:text-stone-200 uppercase">Ритуал NATURA</h2>
+            <p className="text-stone-500 mt-2 md:mt-4 font-light text-sm md:text-base">3 простых шага к безупречной коже</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-12 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 relative">
             <div className="hidden md:block absolute top-1/2 left-0 right-0 h-[1px] bg-stone-200 -translate-y-1/2 z-0" />
             
             {[
@@ -464,23 +464,23 @@ export default function CosmeticsShop() {
                 transition={{ delay: idx * 0.2 }}
                 className="relative z-10 text-center"
               >
-                <div className="w-16 h-16 rounded-full bg-white dark:bg-neutral-800 border border-stone-100 dark:border-neutral-700 flex items-center justify-center mx-auto mb-8 shadow-sm">
-                  <span className="text-xl font-serif text-stone-400">{item.step}</span>
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white dark:bg-neutral-800 border border-stone-100 dark:border-neutral-700 flex items-center justify-center mx-auto mb-6 md:mb-8 shadow-sm">
+                  <span className="text-lg md:text-xl font-serif text-stone-400">{item.step}</span>
                 </div>
-                <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-6 shadow-md hover:shadow-xl transition-shadow duration-500">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-4 md:mb-6 shadow-md hover:shadow-xl transition-shadow duration-500 max-w-[280px] mx-auto">
                   <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
                 </div>
-                <h3 className="text-xl font-serif font-light mb-3 text-stone-800 dark:text-stone-200">{item.title}</h3>
-                <p className="text-sm text-stone-500 font-light leading-relaxed px-4">{item.desc}</p>
+                <h3 className="text-lg md:text-xl font-serif font-light mb-2 md:mb-3 text-stone-800 dark:text-stone-200">{item.title}</h3>
+                <p className="text-xs md:text-sm text-stone-500 font-light leading-relaxed px-4">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-12 border-b border-stone-200 dark:border-neutral-800">
+      <section className="py-8 md:py-12 border-b border-stone-200 dark:border-neutral-800">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -503,194 +503,232 @@ export default function CosmeticsShop() {
         </div>
       </section>
 
-      <section ref={productsRef} className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-            <h2 className="text-2xl md:text-3xl font-light text-stone-800 dark:text-white">
-              Популярные товары
-            </h2>
-            <div className="flex flex-wrap gap-2">
-              {categories.map(cat => (
-                <Button
-                  key={cat}
-                  variant={activeCategory === cat ? "default" : "ghost"}
-                  size="sm"
-                  className={`rounded-full ${activeCategory === cat ? 'bg-rose-500 hover:bg-rose-600' : ''}`}
-                  onClick={() => setActiveCategory(cat)}
-                  data-testid={`button-category-${cat.toLowerCase()}`}
-                >
-                  {cat}
-                </Button>
-              ))}
-            </div>
+      <section ref={productsRef} className="py-16 md:py-24 max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 gap-6">
+          <div>
+            <span className="text-rose-400 uppercase tracking-widest text-xs font-medium mb-2 block">Premium Care</span>
+            <h2 className="text-3xl md:text-4xl font-serif font-light text-stone-800 dark:text-stone-100">Каталог средств</h2>
           </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
+          
+          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
+            {categories.map(cat => (
+              <Button
+                key={cat}
+                variant={activeCategory === cat ? "default" : "outline"}
+                onClick={() => setActiveCategory(cat)}
+                className={`rounded-full px-5 h-9 md:h-10 text-xs md:text-sm font-light whitespace-nowrap transition-all ${
+                  activeCategory === cat 
+                    ? "bg-stone-800 text-white dark:bg-stone-100 dark:text-stone-900" 
+                    : "border-stone-200 text-stone-600 hover:bg-stone-50 dark:border-neutral-800 dark:text-stone-400"
+                }`}
               >
-                <Card className="group overflow-hidden border-0 bg-white dark:bg-neutral-900 shadow-sm hover:shadow-lg transition-shadow" data-testid={`card-product-${product.id}`}>
-                  <div className="relative aspect-square overflow-hidden bg-stone-100 dark:bg-neutral-800">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
-                    />
-                    {product.tag && (
-                      <Badge className={`absolute top-3 left-3 border-0 ${
-                        product.tag === "Хит" ? "bg-amber-500" :
-                        product.tag === "Новинка" ? "bg-emerald-500" :
-                        product.tag === "Скидка" ? "bg-rose-500" :
-                        "bg-green-600"
-                      } text-white`}>
-                        {product.tag}
-                      </Badge>
-                    )}
-                    <div className="absolute inset-0 pointer-events-none">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className={`absolute top-3 -right-2 bg-white/80 dark:bg-black/50 backdrop-blur-sm rounded-full transition-all duration-300 hover:scale-110 active:scale-95 z-30 pointer-events-auto ${favorites.includes(product.id) ? 'text-rose-500' : 'text-stone-400'}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          toggleFavorite(product.id);
-                          if (!favorites.includes(product.id)) {
-                            toast({ title: "Добавлено в избранное", description: `${product.name} теперь в вашем списке желаний` });
-                          }
-                        }}
-                        data-testid={`button-favorite-${product.id}`}
-                      >
-                        <Heart className={`w-4 h-4 transition-all duration-300 ${favorites.includes(product.id) ? 'fill-current scale-110' : ''}`} />
-                      </Button>
-                    </div>
-                    <div className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                      <div className="flex gap-2">
-                        <Button
-                          className="flex-1 bg-white/90 hover:bg-white text-stone-900 border border-stone-200 rounded-full"
-                          onClick={() => setSelectedProduct(product)}
-                          data-testid={`button-view-details-${product.id}`}
-                        >
-                          Детали
-                        </Button>
-                        <Button
-                          size="icon"
-                          className="bg-rose-500 hover:bg-rose-600 rounded-full"
-                          onClick={() => addToCart(product.id)}
-                          data-testid={`button-add-cart-${product.id}`}
-                        >
-                          <Plus className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-xs text-stone-400 dark:text-neutral-500 uppercase tracking-wider mb-1">
-                      {product.brand}
-                    </p>
-                    <h3 className="font-medium text-stone-800 dark:text-white mb-2">{product.name}</h3>
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                        <span className="text-sm text-stone-600 dark:text-neutral-400">{product.rating}</span>
-                      </div>
-                      <span className="text-xs text-stone-400 dark:text-neutral-500">
-                        ({product.reviews} отзывов)
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg font-medium text-stone-800 dark:text-white">{product.price} р</span>
-                      {product.oldPrice && (
-                        <span className="text-sm text-stone-400 line-through">{product.oldPrice} р</span>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
+                {cat}
+              </Button>
             ))}
           </div>
         </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+          {filteredProducts.map((product, index) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card 
+                className="group border-0 bg-transparent shadow-none cursor-pointer overflow-visible"
+                onClick={() => setSelectedProduct(product)}
+              >
+                <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-3 md:mb-4 bg-stone-100 dark:bg-neutral-900">
+                  <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {product.tag && (
+                    <Badge className="absolute top-3 left-3 bg-white/90 dark:bg-black/90 text-stone-900 dark:text-white border-0 font-light text-[10px] md:text-xs uppercase tracking-wider px-2 md:px-3 py-1">
+                      {product.tag}
+                    </Badge>
+                  )}
+                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  
+                  <div className="absolute bottom-3 right-3 flex flex-col gap-2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 md:flex hidden">
+                    <Button 
+                      size="icon" 
+                      variant="secondary" 
+                      className="rounded-full bg-white/90 shadow-lg hover:bg-rose-50 text-stone-900 hover:text-rose-500"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(product.id);
+                      }}
+                    >
+                      <Heart className={`w-4 h-4 ${favorites.includes(product.id) ? 'fill-rose-500 text-rose-500' : ''}`} />
+                    </Button>
+                    <Button 
+                      size="icon" 
+                      variant="secondary" 
+                      className="rounded-full bg-white/90 shadow-lg hover:bg-stone-900 hover:text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(product.id);
+                      }}
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="space-y-1 md:space-y-2 px-1">
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="text-[10px] md:text-xs text-rose-400 uppercase tracking-widest font-medium">{product.brand}</span>
+                    <div className="flex items-center gap-0.5 text-amber-400">
+                      <Star className="w-3 h-3 fill-current" />
+                      <span className="text-[10px] md:text-xs font-medium text-stone-600 dark:text-stone-400">{product.rating}</span>
+                    </div>
+                  </div>
+                  <h3 className="text-sm md:text-lg font-light text-stone-800 dark:text-stone-200 line-clamp-1">{product.name}</h3>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm md:text-xl font-medium text-stone-900 dark:text-stone-100">{product.price} р</span>
+                    {product.oldPrice && (
+                      <span className="text-xs md:text-sm text-stone-400 line-through font-light">{product.oldPrice} р</span>
+                    )}
+                  </div>
+                  
+                  <Button 
+                    className="w-full mt-3 md:hidden h-9 rounded-xl bg-stone-900 dark:bg-stone-100 dark:text-stone-900 text-white text-xs font-light"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToCart(product.id);
+                    }}
+                  >
+                    В корзину
+                  </Button>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
-      <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <DialogContent className="max-w-2xl">
+      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
+        <DialogContent className="max-w-2xl p-0 overflow-hidden border-0 bg-stone-50 dark:bg-neutral-950 sm:rounded-3xl">
           {selectedProduct && (
-            <div className="grid md:grid-cols-2 gap-8 py-4">
-              <div className="aspect-square rounded-xl overflow-hidden bg-stone-100">
-                <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-full object-cover" />
+            <div className="flex flex-col md:flex-row h-full max-h-[90vh] overflow-y-auto no-scrollbar">
+              <div className="w-full md:w-1/2 aspect-square md:aspect-auto">
+                <img 
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name} 
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="flex flex-col">
-                <p className="text-xs text-rose-500 uppercase tracking-widest font-semibold mb-2">{selectedProduct.brand}</p>
-                <DialogTitle className="text-2xl font-light mb-4">{selectedProduct.name}</DialogTitle>
-                <div className="flex items-center gap-2 mb-6">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className={`w-4 h-4 ${i < Math.floor(selectedProduct.rating) ? 'fill-amber-400 text-amber-400' : 'text-stone-300'}`} />
-                    ))}
+              <div className="w-full md:w-1/2 p-6 md:p-8 flex flex-col">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <span className="text-xs text-rose-400 uppercase tracking-widest font-medium block mb-1">
+                      {selectedProduct.brand}
+                    </span>
+                    <h2 className="text-2xl font-serif font-light text-stone-800 dark:text-stone-100">
+                      {selectedProduct.name}
+                    </h2>
                   </div>
-                  <span className="text-sm text-stone-500">({selectedProduct.reviews} отзывов)</span>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full"
+                    onClick={() => toggleFavorite(selectedProduct.id)}
+                  >
+                    <Heart className={`w-5 h-5 ${favorites.includes(selectedProduct.id) ? 'fill-rose-500 text-rose-500' : ''}`} />
+                  </Button>
                 </div>
-                <div className="text-2xl font-medium mb-6">{selectedProduct.price} р</div>
-                <p className="text-stone-600 dark:text-neutral-400 text-sm mb-6 leading-relaxed">
-                  {selectedProduct.description}
-                </p>
-                <div className="space-y-4 mb-8">
-                  <div className="text-sm">
-                    <span className="font-semibold block mb-1">Активные ингредиенты:</span>
+
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    <Star className="w-4 h-4 fill-current" />
+                    <span className="text-sm font-medium text-stone-700 dark:text-stone-300">
+                      {selectedProduct.rating}
+                    </span>
+                  </div>
+                  <span className="text-sm text-stone-400 font-light">
+                    ({selectedProduct.reviews} отзывов)
+                  </span>
+                  <div className="flex-1" />
+                  <div className="text-2xl font-medium text-stone-900 dark:text-stone-100">
+                    {selectedProduct.price} р
+                  </div>
+                </div>
+
+                <div className="space-y-6 flex-1">
+                  <div>
+                    <h3 className="text-xs uppercase tracking-widest text-stone-400 font-medium mb-2">Описание</h3>
+                    <p className="text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed">
+                      {selectedProduct.description}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xs uppercase tracking-widest text-stone-400 font-medium mb-2">Активные компоненты</h3>
                     <div className="flex flex-wrap gap-2">
-                      {selectedProduct.ingredients?.map(ing => (
-                        <Badge key={ing} variant="outline" className="font-normal text-stone-500 border-stone-200">{ing}</Badge>
+                      {selectedProduct.ingredients.map(ing => (
+                        <Badge key={ing} variant="outline" className="rounded-full font-light text-[10px] md:text-xs">
+                          {ing}
+                        </Badge>
                       ))}
                     </div>
                   </div>
+
+                  <div>
+                    <h3 className="text-xs uppercase tracking-widest text-stone-400 font-medium mb-2">Применение</h3>
+                    <p className="text-sm text-stone-600 dark:text-stone-400 font-light leading-relaxed italic">
+                      {selectedProduct.howToUse}
+                    </p>
+                  </div>
                 </div>
-                <Button 
-                  className="w-full bg-rose-500 hover:bg-rose-600 rounded-full mt-auto"
-                  onClick={() => {
-                    addToCart(selectedProduct.id);
-                    setSelectedProduct(null);
-                    toast({ title: "Добавлено", description: `${selectedProduct.name} теперь в корзине` });
-                  }}
-                >
-                  <ShoppingBag className="w-4 h-4 mr-2" />
-                  Добавить в корзину
-                </Button>
+
+                <div className="mt-8 pt-6 border-t border-stone-200 dark:border-neutral-800 flex gap-3">
+                  <Button 
+                    className="flex-1 h-12 rounded-full bg-stone-900 dark:bg-stone-100 dark:text-stone-900 text-white font-light tracking-wide"
+                    onClick={() => {
+                      addToCart(selectedProduct.id);
+                      setSelectedProduct(null);
+                      toast({ title: "Добавлено", description: "Товар добавлен в корзину" });
+                    }}
+                  >
+                    В корзину
+                  </Button>
+                </div>
               </div>
             </div>
           )}
         </DialogContent>
       </Dialog>
 
-      <section className="py-24 bg-white dark:bg-neutral-950 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="py-16 md:py-24 bg-white dark:bg-neutral-950 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-rose-500 uppercase tracking-widest text-xs font-semibold mb-4 block">Ингредиенты</span>
-              <h2 className="text-4xl font-serif font-light mb-8 text-stone-800 dark:text-stone-200">Сила чистой природы</h2>
-              <p className="text-stone-600 dark:text-stone-400 font-light leading-relaxed mb-8">
+              <span className="text-rose-500 uppercase tracking-widest text-xs font-semibold mb-3 md:mb-4 block">Ингредиенты</span>
+              <h2 className="text-3xl md:text-4xl font-serif font-light mb-6 md:mb-8 text-stone-800 dark:text-stone-200">Сила чистой природы</h2>
+              <p className="text-sm md:text-base text-stone-600 dark:text-stone-400 font-light leading-relaxed mb-6 md:mb-8">
                 Мы отбираем только самые эффективные природные компоненты. Каждая капля наших средств наполнена энергией растений, чтобы ваша кожа светилась изнутри.
               </p>
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {[
                   { name: "Экстракт центеллы", desc: "Успокаивает и восстанавливает защитный барьер" },
                   { name: "Масло семян зеленого чая", desc: "Мощный антиоксидант для детокс-эффекта" },
                   { name: "Корейский женьшень", desc: "Тонизирует и замедляет процессы старения" }
                 ].map((ing, i) => (
-                  <div key={i} className="flex gap-4 items-start">
-                    <div className="w-2 h-2 rounded-full bg-rose-200 mt-2 flex-shrink-0" />
+                  <div key={i} className="flex gap-3 md:gap-4 items-start">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-rose-200 mt-2 flex-shrink-0" />
                     <div>
-                      <h4 className="font-medium text-stone-800 dark:text-stone-200">{ing.name}</h4>
-                      <p className="text-sm text-stone-500 font-light">{ing.desc}</p>
+                      <h4 className="text-sm md:text-base font-medium text-stone-800 dark:text-stone-200">{ing.name}</h4>
+                      <p className="text-xs md:text-sm text-stone-500 font-light">{ing.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -701,25 +739,25 @@ export default function CosmeticsShop() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              className="relative"
+              className="relative mt-8 md:mt-0"
             >
-              <div className="aspect-square rounded-full bg-rose-50 absolute -top-12 -right-12 w-64 h-64 -z-10" />
+              <div className="aspect-square rounded-full bg-rose-50 dark:bg-rose-950/10 absolute -top-8 -right-8 md:-top-12 md:-right-12 w-48 h-48 md:w-64 md:h-64 -z-10" />
               <img 
                 src={serumImg} 
                 alt="Natural Ingredients" 
-                className="w-full h-auto rounded-3xl shadow-2xl relative z-10"
+                className="w-full h-auto rounded-3xl shadow-xl md:shadow-2xl relative z-10 max-w-[400px] mx-auto md:max-w-none"
               />
             </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-rose-50 dark:bg-rose-950/20">
+      <section className="py-16 md:py-24 bg-rose-50 dark:bg-rose-950/20">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-light text-stone-800 dark:text-white mb-4">
+          <h2 className="text-2xl md:text-3xl font-light text-stone-800 dark:text-white mb-3 md:mb-4">
             Подпишитесь на рассылку
           </h2>
-          <p className="text-stone-600 dark:text-neutral-400 mb-6">
+          <p className="text-sm md:text-base text-stone-600 dark:text-neutral-400 mb-6 md:mb-8">
             Получите скидку 15% на первый заказ
           </p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -728,10 +766,10 @@ export default function CosmeticsShop() {
               placeholder="Ваш email"
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
-              className="flex-1 rounded-full"
+              className="flex-1 rounded-full h-11 md:h-12 bg-white dark:bg-neutral-900 border-stone-200 dark:border-neutral-800"
               data-testid="input-newsletter"
             />
-            <Button className="bg-rose-500 hover:bg-rose-600 rounded-full px-8" onClick={handleNewsletter} data-testid="button-newsletter">
+            <Button className="bg-rose-500 hover:bg-rose-600 rounded-full px-8 h-11 md:h-12 text-sm font-light tracking-wide" onClick={handleNewsletter} data-testid="button-newsletter">
               Подписаться
             </Button>
           </div>
@@ -740,12 +778,12 @@ export default function CosmeticsShop() {
 
       <footer className="py-12 bg-white dark:bg-neutral-950 border-t border-stone-200 dark:border-neutral-800">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
             <span className="text-xl font-light tracking-widest text-stone-800 dark:text-white">
               NATURA
             </span>
-            <p className="text-sm text-stone-500 dark:text-neutral-400">
-              Демо-сайт от WebStudio
+            <p className="text-xs md:text-sm text-stone-500 dark:text-neutral-400 text-center md:text-left">
+              &copy; 2026 NATURA Professional. Демо-сайт от MP.WebStudio
             </p>
           </div>
         </div>
