@@ -18,7 +18,36 @@ export function ChatWidget() {
   const [isLoading, setIsLoading] = useState(false);
   const [userName, setUserName] = useState("");
   const [isNameStep, setIsNameStep] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Scroll tracking and tooltip logic
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    
+    // Initial tooltip timer
+    const tooltipTimer = setTimeout(() => {
+      if (isVisible) setShowTooltip(true);
+    }, 5000);
+
+    // Hide tooltip after some time
+    const hideTooltipTimer = setTimeout(() => {
+      setShowTooltip(false);
+    }, 10000);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(tooltipTimer);
+      clearTimeout(hideTooltipTimer);
+    };
+  }, [isVisible]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
@@ -133,10 +162,27 @@ export function ChatWidget() {
   return (
     <>
       {/* Плавающая кнопка - NEO TERMINAL STYLE WITH NEON ANIMATION */}
-      <div className="fixed bottom-6 right-6 z-50 pointer-events-auto">
-        <div className="h-14 w-14 rounded-sm bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 p-[2px] group hover:shadow-lg hover:shadow-purple-400/50 transition-shadow duration-200">
+      <div 
+        className={`fixed bottom-6 right-6 z-50 transition-all duration-500 transform ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"
+        }`}
+      >
+        {/* Приветственный тултип */}
+        <div 
+          className={`absolute bottom-full right-0 mb-4 px-4 py-2 bg-black border border-cyan-400 text-cyan-400 font-mono text-[10px] rounded-sm whitespace-nowrap transition-all duration-300 transform ${
+            showTooltip ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="absolute bottom-[-6px] right-6 w-2 h-2 bg-black border-r border-b border-cyan-400 rotate-45"></div>
+          &gt; ЕСТЬ ВОПРОСЫ? Я ПОМОГУ_
+        </div>
+
+        <div className="h-14 w-14 rounded-sm bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 p-[2px] group hover:shadow-lg hover:shadow-purple-400/50 transition-all duration-300 opacity-60 hover:opacity-100">
           <button
-            onClick={() => setIsOpen(true)}
+            onClick={() => {
+              setIsOpen(true);
+              setShowTooltip(false);
+            }}
             data-testid="button-ai-chat"
             className="h-full w-full rounded-sm bg-background flex flex-col items-center justify-center font-mono transition-all duration-200 ai-assistant-btn"
             title="AI Assistant"
