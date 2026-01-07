@@ -422,18 +422,18 @@ export function CalculatorSection() {
       <div className="absolute bottom-1/4 left-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-float-slow" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="mb-6"
+            className="mb-4"
           >
             <span className="neon-badge">
-              <span className="neon-badge-text">Расчёт стоимости / Контакты</span>
+              <span className="neon-badge-text text-xs sm:text-sm">Расчёт стоимости / Контакты</span>
             </span>
           </motion.div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 overflow-hidden">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 overflow-hidden">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <div className="block sm:inline">
               <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
@@ -443,21 +443,13 @@ export function CalculatorSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto"
           >
             Выберите тип сайта и добавьте нужные функции — цена рассчитается автоматически
           </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-muted-foreground text-base max-w-2xl mx-auto pt-2"
-          >
-            Оставьте заявку и мы свяжемся с вами для бесплатной консультации
-          </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}

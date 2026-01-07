@@ -181,12 +181,12 @@ export function HeroSection() {
           </span>
         </motion.div>
 
-        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 relative overflow-hidden">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.15] mb-6 relative overflow-hidden">
           <GlowPulse />
-          <span className="text-foreground block">
+          <span className="text-foreground block px-2">
             <AnimatedText text={line1} startIndex={0} />
           </span>
-          <span className="block mt-2">
+          <span className="block mt-1 px-2">
             <AnimatedText text={line2} startIndex={line1.length} isGradient />
           </span>
         </h1>
@@ -195,7 +195,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
-          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 px-4"
         >
           Каждый сайт создаётся с нуля — под ваш бизнес, под вашу аудиторию, под ваши цели.
         </motion.p>
@@ -204,11 +204,11 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.7 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 px-6"
         >
-          <a href="/order">
+          <a href="/order" className="w-full sm:w-auto">
             <Button
-              className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0 shadow-lg shadow-cyan-500/25"
+              className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0 shadow-lg shadow-cyan-500/25 min-h-[3rem]"
               data-testid="button-hero-cta"
             >
               Заказать сайт
@@ -217,7 +217,7 @@ export function HeroSection() {
           <Button
             variant="outline"
             onClick={scrollToPortfolio}
-            className="backdrop-blur-sm"
+            className="w-full sm:w-auto backdrop-blur-sm min-h-[3rem]"
             data-testid="button-hero-portfolio"
           >
             Смотреть работы

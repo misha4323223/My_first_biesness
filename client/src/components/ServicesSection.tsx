@@ -202,18 +202,18 @@ export function ServicesSection() {
       <div className="absolute bottom-1/4 left-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-float-slow" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 px-4">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="mb-6"
+            className="mb-4"
           >
             <span className="neon-badge">
               <span className="neon-badge-text">Услуги</span>
             </span>
           </motion.div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
           </h2>
@@ -221,13 +221,13 @@ export function ServicesSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto"
           >
             Полный спектр услуг для создания и развития вашего присутствия в интернете
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4">
           {services.map((service, index) => (
             <motion.div
               key={service.title}

@@ -29,14 +29,14 @@ export function Footer() {
 
   return (
     <footer className="relative py-12 border-t border-border bg-card/30">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
           <div className="flex items-center gap-3">
-            <img src={logoImg} alt="MP.WebStudio" className="w-14 h-14 rounded-md object-cover" />
-            <span className="text-2xl font-bold text-foreground">MP.WebStudio</span>
+            <img src={logoImg} alt="MP.WebStudio" className="w-10 h-10 md:w-14 md:h-14 rounded-md object-cover transition-all" />
+            <span className="text-xl md:text-2xl font-bold text-foreground">MP.WebStudio</span>
           </div>
 
-          <nav className="flex flex-wrap items-center justify-center gap-1">
+          <nav className="flex flex-wrap items-center justify-center gap-2 max-w-xl">
             {footerLinks.map((link) => (
               <Button
                 key={link.href}

@@ -62,11 +62,11 @@ export function Navigation() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border"
-          : "bg-transparent"
+          ? "bg-background/80 backdrop-blur-xl border-b border-border py-2"
+          : "bg-transparent py-4"
       }`}
     >
-      <nav className="px-6 py-4 flex items-center justify-between gap-4">
+      <nav className="container mx-auto px-4 flex items-center justify-between gap-4">
         <a
           href="/"
           onClick={(e) => {
@@ -78,8 +78,8 @@ export function Navigation() {
           className="flex items-center gap-2 flex-shrink-0"
           data-testid="link-logo"
         >
-          <img src={logoImg} alt="MP.WebStudio" className="w-10 h-10 rounded-md object-cover" />
-          <span className="inline text-xl font-bold text-foreground">MP.WebStudio</span>
+          <img src={logoImg} alt="MP.WebStudio" className="w-8 h-8 md:w-10 md:h-10 rounded-md object-cover transition-all" />
+          <span className="text-lg md:text-xl font-bold text-foreground">MP.WebStudio</span>
         </a>
 
         <div className="hidden md:flex items-center gap-1 flex-wrap">
