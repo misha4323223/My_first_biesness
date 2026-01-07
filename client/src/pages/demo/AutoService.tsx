@@ -433,65 +433,91 @@ export default function AutoService() {
           </motion.div>
 
           <Card className="p-8 bg-neutral-800/50 border-neutral-700">
-            <div className="mb-8 p-4 bg-blue-500/5 rounded-xl border border-blue-500/20">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Activity className="w-5 h-5 text-blue-400" />
-                  <h3 className="font-bold">Живая очередь (в реальном времени)</h3>
+            <div className="mb-6 md:mb-8 p-4 md:p-6 bg-blue-500/[0.03] rounded-2xl border border-blue-500/10 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-5 gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                    <Activity className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm md:text-base text-white leading-tight">Живая очередь</h3>
+                    <p className="text-[10px] md:text-xs text-neutral-500 uppercase tracking-widest font-medium">Real-time status</p>
+                  </div>
                 </div>
-                <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Свободно 2 бокса</Badge>
+                <Badge className="bg-green-500/10 text-green-400 border-green-500/20 w-fit text-[10px] md:text-xs px-3 py-1 rounded-full">Свободно 2 бокса</Badge>
               </div>
-              <div className="grid grid-cols-5 gap-2">
+              
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                 {[
                   { label: "Бокс 1", status: "busy", progress: 75, color: "bg-amber-500" },
                   { label: "Бокс 2", status: "busy", progress: 40, color: "bg-blue-500" },
-                  { label: "Бокс 3", status: "free", progress: 0, color: "bg-neutral-700" },
+                  { label: "Бокс 3", status: "free", progress: 0, color: "bg-neutral-800" },
                   { label: "Бокс 4", status: "busy", progress: 90, color: "bg-green-500" },
-                  { label: "Бокс 5", status: "free", progress: 0, color: "bg-neutral-700" },
+                  { label: "Бокс 5", status: "free", progress: 0, color: "bg-neutral-800" },
                 ].map((box, i) => (
-                  <div key={i} className="flex flex-col gap-1">
-                    <div className="h-12 rounded-lg bg-neutral-800 border border-white/5 flex items-center justify-center relative overflow-hidden">
+                  <div key={i} className="group relative">
+                    <div className="h-14 rounded-xl bg-neutral-900/50 border border-white/5 flex flex-col items-center justify-center relative overflow-hidden transition-all group-hover:border-blue-500/30">
+                      <span className="text-[10px] font-bold text-neutral-400 relative z-10">{box.label}</span>
+                      <span className="text-[8px] text-neutral-600 uppercase tracking-tighter relative z-10">
+                        {box.status === "free" ? "Свободен" : "В работе"}
+                      </span>
                       {box.status === "busy" && (
                         <motion.div 
-                          className={`absolute bottom-0 left-0 h-1 ${box.color}`}
+                          className={`absolute bottom-0 left-0 h-1 ${box.color} shadow-[0_0_10px_rgba(59,130,246,0.5)]`}
                           initial={{ width: 0 }}
                           animate={{ width: `${box.progress}%` }}
-                          transition={{ duration: 1 }}
+                          transition={{ duration: 1.5, ease: "easeOut" }}
                         />
                       )}
-                      <span className="text-[10px] font-bold text-neutral-500">{box.label}</span>
                     </div>
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-neutral-500 mt-3 flex items-center gap-1">
-                <Clock className="w-3 h-3" /> Ожидаемое время заезда при записи сейчас: <span className="text-blue-400 font-bold">15 минут</span>
-              </p>
+              
+              <div className="flex items-center gap-2 mt-5 p-2 px-3 rounded-lg bg-white/[0.02] border border-white/[0.05] w-fit">
+                <Clock className="w-3.5 h-3.5 text-blue-400" />
+                <p className="text-[10px] md:text-xs text-neutral-400">
+                  Ближайший заезд: <span className="text-blue-400 font-bold ml-1">через 15 мин</span>
+                </p>
+              </div>
             </div>
 
             <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-4">1. Ваш автомобиль</h3>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-1.5 h-6 bg-blue-500 rounded-full" />
+                <h3 className="text-base md:text-lg font-bold text-white uppercase tracking-tight">1. Тип автомобиля</h3>
+              </div>
+              <div className="grid grid-cols-3 gap-3 md:gap-4">
                 {vehicleTypes.map((type) => (
                   <button
                     key={type.id}
                     onClick={() => setSelectedVehicle(type.id)}
-                    className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                    className={`group relative p-4 rounded-2xl border transition-all duration-300 flex flex-col items-center gap-2 overflow-hidden ${
                       selectedVehicle === type.id 
-                        ? "border-blue-500 bg-blue-500/10" 
-                        : "border-neutral-700 bg-neutral-800/50 hover:border-neutral-600"
+                        ? 'border-blue-500 bg-blue-500/10 ring-1 ring-blue-500/50' 
+                        : 'border-neutral-700 bg-neutral-900/40 hover:border-neutral-600'
                     }`}
                   >
-                    <type.icon className={`w-8 h-8 ${selectedVehicle === type.id ? "text-blue-400" : "text-neutral-500"}`} />
-                    <span className="text-xs font-medium">{type.name}</span>
+                    <type.icon className={`w-6 h-6 md:w-8 md:h-8 transition-transform group-hover:scale-110 ${selectedVehicle === type.id ? 'text-blue-400' : 'text-neutral-500'}`} />
+                    <span className="text-[10px] md:text-xs font-bold text-white uppercase tracking-tighter break-words text-center leading-tight">
+                      {type.name}
+                    </span>
+                    {selectedVehicle === type.id && (
+                      <motion.div layoutId="vehicle-active" className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-bl-lg flex items-center justify-center">
+                        <Check className="w-2.5 h-2.5 text-black" />
+                      </motion.div>
+                    )}
                   </button>
                 ))}
               </div>
             </div>
 
             <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-4">2. Дополнительные услуги</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-1.5 h-6 bg-blue-500 rounded-full" />
+                <h3 className="text-base md:text-lg font-bold text-white uppercase tracking-tight">2. Дополнительный сервис</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {additionalServices.map((addon) => (
                   <button
                     key={addon.id}
@@ -502,132 +528,91 @@ export default function AutoService() {
                           : [...prev, addon.id]
                       );
                     }}
-                    className={`p-3 rounded-lg border flex items-center gap-3 transition-all ${
+                    className={`group relative p-4 rounded-2xl border transition-all duration-300 flex items-center gap-4 overflow-hidden ${
                       selectedAddons.includes(addon.id)
-                        ? "border-blue-500 bg-blue-500/10 text-blue-400"
-                        : "border-neutral-700 bg-neutral-800/30 text-neutral-400 hover:border-neutral-600"
+                        ? 'border-blue-500 bg-blue-500/10 ring-1 ring-blue-500/50'
+                        : 'border-neutral-700 bg-neutral-900/40 hover:border-neutral-600'
                     }`}
                   >
-                    <addon.icon className="w-4 h-4" />
-                    <span className="text-xs flex-1 text-left">{addon.name}</span>
-                    <span className="text-xs font-bold">+{addon.price} ₽</span>
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${selectedAddons.includes(addon.id) ? 'bg-blue-500/20' : 'bg-neutral-800'}`}>
+                      <addon.icon className={`w-5 h-5 ${selectedAddons.includes(addon.id) ? 'text-blue-400' : 'text-neutral-500'}`} />
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <div className="text-[11px] md:text-xs font-bold text-white uppercase tracking-tight truncate">
+                        {addon.name}
+                      </div>
+                      <div className="text-[10px] font-medium text-blue-400">+{addon.price} ₽</div>
+                    </div>
+                    {selectedAddons.includes(addon.id) && (
+                      <div className="absolute top-2 right-2">
+                        <Check className="w-3 h-3 text-blue-400" />
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="flex items-center gap-4 mb-8">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-500 text-black' : 'bg-neutral-700'}`}>
-                {step > 1 ? <Check className="w-5 h-5" /> : '1'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-blue-500 rounded transition-all ${step > 1 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-blue-500 text-black' : 'bg-neutral-700'}`}>
-                {step > 2 ? <Check className="w-5 h-5" /> : '2'}
-              </div>
-              <div className="flex-1 h-1 bg-neutral-700 rounded">
-                <div className={`h-full bg-blue-500 rounded transition-all ${step > 2 ? 'w-full' : 'w-0'}`} />
-              </div>
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-blue-500 text-black' : 'bg-neutral-700'}`}>
-                3
-              </div>
-            </div>
-
-            {step === 3 && (
-              <div className="space-y-6">
-                {isLoading ? (
-                  <div className="space-y-4">
-                    <Skeleton className="h-10 w-full bg-neutral-700" />
-                    <div className="grid grid-cols-4 gap-2">
-                      {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-10 bg-neutral-700" />)}
-                    </div>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-1.5 h-6 bg-blue-500 rounded-full" />
+                    <h3 className="text-base md:text-lg font-bold text-white uppercase tracking-tight">3. Дата визита</h3>
                   </div>
-                ) : (
-                  <>
-                    <div>
-                      <label className="block text-sm text-neutral-400 mb-2">Выберите дату</label>
-                      <Input 
-                        type="date" 
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        className="bg-neutral-700 border-neutral-600 text-white"
-                        data-testid="input-date"
-                      />
-                    </div>
-                    {selectedDate && (
-                      <div>
-                        <div className="flex items-center justify-between mb-2">
-                          <label className="block text-sm text-neutral-400">Выберите время</label>
-                          {selectedService === 6 && (
-                            <Badge variant="outline" className="text-[10px] border-amber-500/50 text-amber-400">
-                              Длительная работа: только утро
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="grid grid-cols-4 md:grid-cols-6 gap-2">
-                          {availableTimeSlots.map((time) => (
-                            <Button
-                              key={time}
-                              variant={selectedTime === time ? "default" : "outline"}
-                              className={selectedTime === time ? 'bg-blue-500 text-black' : 'border-neutral-600 text-white hover:bg-neutral-700'}
-                              onClick={() => handleTimeSelect(time)}
-                              data-testid={`button-time-${time}`}
-                            >
-                              {time}
-                            </Button>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            )}
-
-            {selectedService && selectedMechanic && selectedTime && selectedDate && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-8 p-4 bg-neutral-700/50 rounded-lg"
-              >
-                <h4 className="font-semibold mb-3">Ваша запись:</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Wrench className="w-4 h-4 text-blue-400" />
-                    <span>{services.find(s => s.id === selectedService)?.name}</span>
+                  <Input 
+                    type="date" 
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="bg-neutral-900 border-neutral-700 text-white h-12 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-1.5 h-6 bg-blue-500 rounded-full" />
+                    <h3 className="text-base md:text-lg font-bold text-white uppercase tracking-tight">4. Время заезда</h3>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-blue-400" />
-                    <span>{mechanics.find(m => m.id === selectedMechanic)?.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-blue-400" />
-                    <span>{selectedDate}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-blue-400" />
-                    <span>{selectedTime}</span>
+                  <div className="grid grid-cols-4 gap-2">
+                    {availableTimeSlots.map((time) => (
+                      <button
+                        key={time}
+                        onClick={() => handleTimeSelect(time)}
+                        className={`py-2.5 rounded-xl border text-[11px] font-bold transition-all duration-300 ${
+                          selectedTime === time
+                            ? 'bg-blue-500 border-blue-500 text-black shadow-[0_0_15px_rgba(59,130,246,0.4)] scale-105'
+                            : 'bg-neutral-900 border-neutral-700 text-neutral-400 hover:border-blue-500/50 hover:text-blue-400'
+                        }`}
+                      >
+                        {time}
+                      </button>
+                    ))}
                   </div>
                 </div>
-                <div className="mt-4 flex items-center justify-between">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-neutral-400 uppercase tracking-wider">Итоговая стоимость</span>
-                    <span className="text-3xl font-bold text-blue-400">
-                      {formatPrice(totalPrice)} ₽
-                    </span>
+              </div>
+
+              <div className="pt-8 border-t border-white/5">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex flex-col items-center sm:items-start">
+                    <div className="text-[10px] md:text-xs text-neutral-500 uppercase tracking-widest font-bold mb-1">Финальный расчет</div>
+                    <div className="text-3xl md:text-4xl font-black text-blue-400 drop-shadow-[0_0_10px_rgba(96,165,250,0.3)]">
+                      {formatPrice(totalPrice)} <span className="text-lg md:text-xl font-normal text-neutral-500 italic">₽</span>
+                    </div>
                   </div>
                   <Button 
-                    size="lg"
-                    className="bg-blue-500 hover:bg-blue-600 text-black font-bold h-12 px-8"
+                    size="lg" 
+                    disabled={!selectedService || !selectedMechanic || !selectedTime || !selectedDate}
                     onClick={handleBook}
+                    className="group relative bg-blue-500 hover:bg-blue-600 text-black font-bold h-14 md:h-16 px-10 md:px-12 rounded-2xl transition-all hover:scale-105 active:scale-95 disabled:opacity-30 disabled:grayscale overflow-hidden"
                     data-testid="button-confirm-booking"
                   >
-                    Подтвердить запись
+                    <span className="relative z-10 flex items-center gap-2">
+                      Подтвердить <ArrowLeft className="w-4 h-4 rotate-180" />
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
                   </Button>
                 </div>
-              </motion.div>
-            )}
+              </div>
+            </div>
 
             {step < 3 && (
               <p className="text-center text-neutral-400 mt-8">
