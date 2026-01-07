@@ -765,7 +765,7 @@ function ProjectCard({
           
           <div className="mb-6 p-3 rounded-lg bg-primary/5 border border-primary/10">
             <p className="text-[11px] leading-relaxed text-muted-foreground">
-              <span className="text-primary font-semibold block mb-1 uppercase tracking-wider">Demo Preview</span>
+              <span className="text-primary font-semibold block mb-1 uppercase tracking-wider">Обзор демо-версии</span>
               Данный сайт представлен в качестве примера реализации. Мы специализируемся на разработке масштабируемых систем. Нужен более сложный функционал (оплата, аналитика, боты)? Мы внедрим это в кратчайшие сроки.
             </p>
           </div>
