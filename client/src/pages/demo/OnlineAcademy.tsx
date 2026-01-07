@@ -552,17 +552,17 @@ export default function OnlineAcademy() {
 
       {/* Modals remain similarly optimized */}
       <Dialog open={previewCourse !== null} onOpenChange={() => setPreviewCourse(null)}>
-        <DialogContent className="max-w-xl p-0 overflow-hidden border-0 bg-white dark:bg-[#0a0a0a] rounded-[2rem]">
+        <DialogContent className="max-w-xl p-0 overflow-y-auto max-h-[90vh] border-0 bg-white dark:bg-[#0a0a0a] rounded-[2rem] no-scrollbar">
           {previewCourse && (
-            <div className="flex flex-col">
-              <div className="relative h-48 md:h-64">
+            <div className="flex flex-col min-h-full">
+              <div className="relative h-48 md:h-64 shrink-0">
                 <img src={courses.find(c => c.id === previewCourse)?.image} className="w-full h-full object-cover" alt="Course" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
                 <div className="absolute bottom-6 left-6 text-white">
                   <h3 className="text-2xl font-bold">{courses.find(c => c.id === previewCourse)?.title}</h3>
                 </div>
               </div>
-              <div className="p-8">
+              <div className="p-6 md:p-8">
                 <h4 className="font-bold mb-4 uppercase text-[10px] tracking-[0.2em] text-blue-500">Программа</h4>
                 <div className="space-y-4">
                   {courses.find(c => c.id === previewCourse)?.syllabus.map((m, i) => (
@@ -585,10 +585,10 @@ export default function OnlineAcademy() {
       </Dialog>
 
       <Dialog open={showDashboard} onOpenChange={setShowDashboard}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden border-0 bg-neutral-50 dark:bg-[#0a0a0a] rounded-[2rem]">
+        <DialogContent className="max-w-4xl p-0 overflow-y-auto max-h-[90vh] border-0 bg-neutral-50 dark:bg-[#0a0a0a] rounded-[2rem] no-scrollbar">
           <div className="p-6 md:p-12">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold">Личный кабинет</h2>
+            <div className="flex items-center justify-between mb-8 sticky top-0 bg-neutral-50/80 dark:bg-[#0a0a0a]/80 backdrop-blur-md z-10 py-2">
+              <h2 className="text-2xl md:text-3xl font-bold">Личный кабинет</h2>
               <Button size="icon" variant="ghost" onClick={() => setShowDashboard(false)}><X className="w-6 h-6"/></Button>
             </div>
             <div className="grid md:grid-cols-2 gap-6">
