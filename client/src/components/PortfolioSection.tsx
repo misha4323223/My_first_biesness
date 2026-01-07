@@ -731,7 +731,7 @@ function ProjectCard({
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl bg-background/80 backdrop-blur-xl border border-primary/20 rounded-lg overflow-hidden shadow-2xl"
+        className="relative w-full max-w-lg bg-background/80 backdrop-blur-xl border border-primary/20 rounded-lg overflow-hidden shadow-2xl"
       >
         <div className="relative aspect-video overflow-hidden">
           <img 
@@ -743,37 +743,37 @@ function ProjectCard({
           
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            className="absolute top-3 right-3 z-10 p-1.5 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
 
-          <div className="absolute bottom-6 left-6 right-6">
-            <h2 className="text-2xl md:text-4xl font-bold text-white mb-1 leading-tight">
+          <div className="absolute bottom-4 left-5 right-5">
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-0.5 leading-tight">
               {item.title}
             </h2>
-            <p className="text-primary font-mono text-sm tracking-wider uppercase">
+            <p className="text-primary font-mono text-[10px] tracking-wider uppercase">
               {item.subtitle}
             </p>
           </div>
         </div>
         
-        <div className="p-6 md:p-8">
-          <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
+        <div className="p-5 md:p-6">
+          <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
             {item.description}
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3">
             <Button
-              className="flex-1 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white border-0 py-6 text-lg font-semibold shadow-lg shadow-cyan-500/20"
+              className="flex-1 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white border-0 h-10 text-sm font-semibold shadow-lg shadow-cyan-500/20"
               onClick={onNavigate}
             >
               {item.externalUrl ? "Перейти на сайт" : "Запустить демо"} 
-              <ExternalLink className="ml-2 w-5 h-5" />
+              <ExternalLink className="ml-2 w-4 h-4" />
             </Button>
             <Button
               variant="outline"
-              className="flex-1 border-primary/20 hover:bg-primary/5 py-6 text-lg"
+              className="flex-1 border-primary/20 hover:bg-primary/5 h-10 text-sm"
               onClick={onClose}
             >
               Закрыть
