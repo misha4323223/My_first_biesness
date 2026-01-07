@@ -229,6 +229,25 @@ export default function OnlineAcademy() {
     }
   };
 
+  const [codeValue, setCodeValue] = useState("function greet() {\n  return 'Hello World';\n}");
+  const [codeResult, setCodeResult] = useState("");
+
+  const runCode = () => {
+    try {
+      // Simple evaluation for demo purposes
+      if (codeValue.includes('return')) {
+        const result = new Function(codeValue.includes('function') ? `return (${codeValue})()` : codeValue)();
+        setCodeResult(String(result));
+      } else {
+        const result = eval(codeValue);
+        setCodeResult(String(result));
+      }
+      toast({ title: "Код выполнен", description: "Результат отображен ниже" });
+    } catch (e) {
+      setCodeResult(`Ошибка: ${e instanceof Error ? e.message : String(e)}`);
+    }
+  };
+
   const scrollTo = (ref: React.RefObject<HTMLElement>, tabName: string) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
     setActiveTab(tabName);
@@ -475,6 +494,47 @@ export default function OnlineAcademy() {
               </Button>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* Interactive Code Editor Section */}
+      <section className="py-16 md:py-24 px-4 bg-white dark:bg-[#0a0a0a]">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4 text-blue-500 border-blue-500/20">Интерактив</Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">Попробуй написать код сам</h2>
+            <p className="text-muted-foreground">Начни программировать прямо в браузере. Это проще, чем кажется!</p>
+          </div>
+          
+          <Card className="overflow-hidden border-blue-500/10 shadow-2xl rounded-3xl">
+            <div className="bg-[#1e1e1e] p-4 flex items-center justify-between border-b border-white/5">
+              <div className="flex gap-1.5">
+                <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <div className="w-3 h-3 rounded-full bg-green-500/80" />
+              </div>
+              <div className="text-[10px] text-white/40 font-mono uppercase tracking-widest">index.js</div>
+              <Button size="sm" onClick={runCode} className="h-7 px-4 rounded-full bg-blue-500 hover:bg-blue-600 text-[10px] font-bold">
+                <Play className="w-3 h-3 mr-1.5 fill-white" /> ЗАПУСТИТЬ
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 bg-[#1e1e1e]">
+              <div className="border-r border-white/5 p-4 min-h-[200px]">
+                <textarea
+                  value={codeValue}
+                  onChange={(e) => setCodeValue(e.target.value)}
+                  className="w-full h-full bg-transparent text-blue-300 font-mono text-sm outline-none resize-none spellcheck-false"
+                  placeholder="// Пиши свой код здесь..."
+                />
+              </div>
+              <div className="p-4 bg-black/40 min-h-[100px] md:min-h-0">
+                <div className="text-[10px] text-white/20 font-mono mb-2 uppercase">Результат:</div>
+                <div className="font-mono text-sm text-green-400 break-all">
+                  {codeResult || "> Готов к выполнению..."}
+                </div>
+              </div>
+            </div>
+          </Card>
         </div>
       </section>
 
