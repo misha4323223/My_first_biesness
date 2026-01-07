@@ -285,10 +285,10 @@ export default function OnlineAcademy() {
 
   useDocumentMeta({
     title: "ОнлайнОкадемия — Онлайн-курсы по программированию и дизайну",
-    description: "Научитесь веб-разработке, дизайну UI/UX, Python и маркетингу. Курсы от опытных преподавателей. Сертификаты после завершения.",
-    keywords: "онлайн-курсы, программирование, веб-разработка, дизайн, Python, React, обучение",
-    ogTitle: "ОнлайнОкадемия — Онлайн образование | Дизайн от MP.WebStudio",
-    ogDescription: "Лучшие онлайн-курсы по программированию и дизайну для начинающих и профессионалов",
+    description: "Научитесь веб-разработке, дизайну UI/UX, Python и маркетингу. Курсы от экспертов. Сертификаты.",
+    keywords: "онлайн-курсы, программирование, веб-разработка, дизайн, Python, React",
+    ogTitle: "ОнлайнОкадемия — Онлайн образование",
+    ogDescription: "Лучшие онлайн-курсы по программированию и дизайну",
     ogImage: "https://mp-webstudio.ru/og-image.png",
     ogUrl: "https://mp-webstudio.ru/demo/online-academy",
     canonical: "https://mp-webstudio.ru/demo/online-academy"
@@ -318,7 +318,6 @@ export default function OnlineAcademy() {
   const handleEnrollSubmit = () => {
     const isAlreadyEnrolled = enrollingCourse && enrolledCourses.includes(enrollingCourse);
     
-    // Отписка - без валидации
     if (isAlreadyEnrolled) {
       setEnrolledCourses(prev => prev.filter(id => id !== enrollingCourse));
       toast({
@@ -329,11 +328,10 @@ export default function OnlineAcademy() {
       return;
     }
     
-    // Новая запись - требуется валидация
     if (!enrollForm.name || !enrollForm.email || !enrollForm.phone) {
       toast({
         title: "Ошибка",
-        description: "Пожалуйста, заполните все поля",
+        description: "Заполните все поля",
         variant: "destructive"
       });
       return;
@@ -344,7 +342,7 @@ export default function OnlineAcademy() {
       const course = courses.find(c => c.id === enrollingCourse);
       toast({
         title: "Успешно!",
-        description: `Вы записались на курс "${course?.title}"! На указанный email отправлено подтверждение.`,
+        description: `Вы записались на курс "${course?.title}"!`,
       });
       setEnrollingCourse(null);
     }
@@ -361,101 +359,100 @@ export default function OnlineAcademy() {
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/5 to-transparent pointer-events-none" />
         <img 
           src={heroImg} 
-          alt="Онлайн обучение" 
-          className="absolute top-0 right-0 w-1/2 h-full object-cover opacity-20 pointer-events-none"
+          alt="Обучение" 
+          className="absolute top-0 right-0 w-1/2 h-full object-cover opacity-10 md:opacity-20 pointer-events-none"
         />
         
-        <nav className="relative z-50 max-w-7xl mx-auto px-6 py-2 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <nav className="relative z-50 max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link href="/#portfolio">
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="bg-blue-100/60 dark:bg-white/10 border border-blue-200 dark:border-white/20 hover:bg-blue-100/80 dark:hover:bg-white/20"
+                className="h-9 w-9 bg-blue-100/60 dark:bg-white/10 border border-blue-200 dark:border-white/20"
                 data-testid="button-back-home"
               >
                 <ArrowLeft className="w-5 h-5" />
               </Button>
             </Link>
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-white" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+              <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
-            <span className="text-xl font-bold">ОнлайнОкадемия</span>
+            <span className="text-lg sm:text-xl font-bold truncate">ОнлайнОкадемия</span>
           </div>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-20 md:pb-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-10 pb-16 md:pt-20 md:pb-32">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl text-center md:text-left"
           >
-            <Badge className="mb-4 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200 border-0 flex items-center gap-2 w-fit">
+            <Badge className="mb-4 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200 border-0 inline-flex items-center gap-2 mx-auto md:mx-0">
               <Clock className="w-3 h-3" />
-              Скидка 50% закончится через {timeLeft.hours}:{timeLeft.minutes.toString().padStart(2, '0')}:{timeLeft.seconds.toString().padStart(2, '0')}
+              Скидка 50% через {timeLeft.hours}:{timeLeft.minutes.toString().padStart(2, '0')}:{timeLeft.seconds.toString().padStart(2, '0')}
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Онлайн-курсы от экспертов индустрии
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+              Онлайн-курсы от экспертов
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              Учитесь в своём темпе. Получайте сертификаты. Развивайте навыки для карьеры вашей мечты.
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-lg mx-auto md:mx-0">
+              Учитесь в своём темпе. Получайте сертификаты. Развивайте навыки для карьеры мечты.
             </p>
-                <div className="flex flex-wrap gap-4">
-                  <Button size="lg" variant="default" onClick={scrollToCourses} data-testid="button-browse-courses">
-                    Смотреть курсы
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    onClick={() => setShowDashboard(true)} 
-                    className="bg-white/10 backdrop-blur-md border-blue-500/50 text-blue-600 dark:text-blue-400"
-                    data-testid="button-my-dashboard"
-                  >
-                    Моё обучение (Личный кабинет)
-                  </Button>
-                </div>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+              <Button size="lg" variant="default" onClick={scrollToCourses} className="w-full sm:w-auto" data-testid="button-browse-courses">
+                Смотреть курсы
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                onClick={() => setShowDashboard(true)} 
+                className="w-full sm:w-auto bg-white/10 backdrop-blur-md border-blue-500/50 text-blue-600 dark:text-blue-400"
+                data-testid="button-my-dashboard"
+              >
+                Личный кабинет
+              </Button>
+            </div>
 
-                <div className="mt-8 p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm">
-                  <div className="flex items-center gap-4">
-                    <div className="flex -space-x-2">
-                      {[1, 2, 3].map(i => (
-                        <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-neutral-900 bg-neutral-200 overflow-hidden relative">
-                          <img 
-                            src={avatarsImg} 
-                            alt={`user ${i}`} 
-                            className="absolute inset-0 w-full h-full object-cover"
-                            style={{ 
-                              objectPosition: `${(i-1) * 33}% 0%`,
-                              transform: "scale(3)" // Focusing on individual faces from the group shot
-                            }}
-                          />
-                        </div>
-                      ))}
+            <div className="mt-8 p-3 sm:p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 backdrop-blur-sm">
+              <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+                <div className="flex -space-x-2">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-neutral-900 bg-neutral-200 overflow-hidden relative">
+                      <img 
+                        src={avatarsImg} 
+                        alt="user" 
+                        className="absolute inset-0 w-full h-full object-cover"
+                        style={{ 
+                          objectPosition: `${(i-1) * 33}% 0%`,
+                          transform: "scale(3)"
+                        }}
+                      />
                     </div>
-                    <p className="text-sm font-medium">
-                      <span className="text-blue-500">● Живой эфир:</span> 1,240 студентов изучают React прямо сейчас
-                    </p>
-                  </div>
+                  ))}
                 </div>
-              </motion.div>
+                <p className="text-xs sm:text-sm font-medium text-center sm:text-left">
+                  <span className="text-blue-500 font-bold">● В эфире:</span> 1,240 студентов учатся сейчас
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* Features banner */}
-        <div className="relative z-20 max-w-7xl mx-auto px-6 pb-12">
-          <div className="grid md:grid-cols-3 gap-4">
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
             {features.map((feature) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex items-start gap-3 p-4 rounded-lg bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-white/20"
+                className="flex items-start gap-3 p-3 sm:p-4 rounded-lg bg-white/50 dark:bg-white/5 backdrop-blur-sm border border-white/20"
               >
                 <feature.icon className="w-5 h-5 text-blue-500 flex-shrink-0 mt-1" />
                 <div>
-                  <p className="font-semibold">{feature.title}</p>
-                  <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                  <p className="font-semibold text-sm sm:text-base">{feature.title}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{feature.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -464,458 +461,416 @@ export default function OnlineAcademy() {
       </header>
 
       {/* Benefits Section */}
-      <section className="py-16 max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-8">
+      <section className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12">
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               className="text-center"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-8 h-8 text-blue-500" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
-              <p className="text-muted-foreground">{benefit.desc}</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2">{benefit.title}</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">{benefit.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Micro Learning */}
-      <section className="py-16 bg-white dark:bg-neutral-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold mb-2">Микро-обучение</h2>
-              <p className="text-muted-foreground">Короткие уроки для быстрого погружения</p>
+      <section className="py-12 sm:py-16 bg-blue-50/30 dark:bg-neutral-900/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+            <div className="text-center sm:text-left">
+              <Badge variant="outline" className="mb-2 text-blue-500 border-blue-500/30 uppercase tracking-wider text-[10px]">Micro-Learning</Badge>
+              <h2 className="text-2xl sm:text-3xl font-bold">Короткие уроки</h2>
+              <p className="text-sm sm:text-base text-muted-foreground">Освойте навык за чашкой кофе</p>
             </div>
-            <Button variant="ghost" className="text-blue-500">Все уроки</Button>
+            <Button variant="ghost" className="hidden sm:flex items-center gap-2">
+              Все видео <ArrowLeft className="w-4 h-4 rotate-180" />
+            </Button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
             {microLessons.map((lesson, i) => (
-              <Card key={i} className="p-4 hover-elevate cursor-pointer border-blue-500/10">
-                <div className="aspect-video rounded-lg bg-neutral-100 dark:bg-neutral-800 mb-4 flex items-center justify-center relative group overflow-hidden">
-                  <img 
-                    src={thumbnailsImg} 
-                    alt={lesson.title} 
-                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
-                    style={{ 
-                      objectPosition: `${i * 50}% center` // Assuming 3 sections in the generated thumbnail
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black/20" />
-                  <Play className="w-8 h-8 text-white relative z-10 group-hover:scale-110 transition-transform drop-shadow-lg" />
-                  <div className="absolute bottom-2 right-2 bg-black/60 px-2 py-1 rounded text-[10px] text-white font-medium backdrop-blur-sm z-10">
-                    {lesson.duration}
+              <Card key={i} className="group overflow-hidden hover-elevate cursor-pointer border-blue-500/10">
+                <div className="relative aspect-video">
+                  <img src={thumbnailsImg} alt={lesson.title} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                      <Play className="w-5 h-5 text-white fill-white" />
+                    </div>
                   </div>
+                  <Badge className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-md border-0">{lesson.duration}</Badge>
                 </div>
-                <h4 className="font-bold mb-1">{lesson.title}</h4>
-                <p className="text-xs text-muted-foreground">{lesson.views} просмотров</p>
+                <div className="p-4">
+                  <h3 className="font-semibold mb-1 group-hover:text-blue-500 transition-colors text-sm sm:text-base">{lesson.title}</h3>
+                  <p className="text-xs text-muted-foreground">{lesson.views} просмотров</p>
+                </div>
               </Card>
             ))}
           </div>
+          <Button variant="outline" className="w-full mt-6 sm:hidden">Все видео</Button>
         </div>
       </section>
 
-      {/* Courses */}
-      <section ref={coursesRef} className="py-16 bg-muted/50 dark:bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="mb-12"
-          >
-            <h2 className="text-4xl font-bold mb-4">Популярные курсы</h2>
-            <p className="text-lg text-muted-foreground mb-6">Выберите курс и начните обучение прямо сейчас</p>
-            
-            <div className="flex flex-wrap gap-2 mb-8">
-              {categories.map(cat => (
-                <Button
-                  key={cat}
-                  variant={selectedCategory === cat ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(cat)}
-                  data-testid={`filter-${cat}`}
-                >
-                  {cat === "all" ? "Все курсы" : cat}
-                </Button>
-              ))}
-            </div>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {filteredCourses.map((course) => (
-              <motion.div
-                key={course.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                data-testid={`course-card-${course.id}`}
+      {/* Main Courses */}
+      <section ref={coursesRef as any} className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Наши направления</h2>
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map(cat => (
+              <Button
+                key={cat}
+                variant={selectedCategory === cat ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedCategory(cat)}
+                className="rounded-full px-4"
               >
-                <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow">
-                  <div className="relative overflow-hidden h-40">
-                    <img 
-                      src={course.image} 
-                      alt={course.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform"
-                    />
-                    {course.popular && (
-                      <Badge className="absolute top-2 left-2 bg-orange-500 hover:bg-orange-600">
-                        Осталось 4 места
-                      </Badge>
-                    )}
-                    <div className="absolute inset-0 bg-black/20" />
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      className="absolute inset-0 flex items-center justify-center"
-                      onClick={() => setPreviewCourse(course.id)}
-                      data-testid={`button-play-${course.id}`}
-                    >
-                      <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center">
-                        <Play className="w-6 h-6 text-blue-500 ml-1" />
-                      </div>
-                    </motion.button>
-                  </div>
-                  
-                  <div className="p-4">
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {course.tags.map(tag => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    
-                    <h3 className="text-lg font-semibold mb-2 line-clamp-2">{course.title}</h3>
-                    
-                    <p className="text-sm text-muted-foreground mb-3">
-                      <span className="block">
-                        <strong>{course.instructor}</strong>
-                      </span>
-                      <span className="text-xs">{course.level}</span>
-                    </p>
-                    
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mb-4">
-                      <span className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                        {course.rating} ({course.reviews})
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Users className="w-3 h-3" />
-                        {course.students}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {course.duration}
-                      </span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-blue-600">
-                        {course.price}₽
-                      </span>
-                      <Button 
-                        size="sm"
-                        variant={enrolledCourses.includes(course.id) ? "secondary" : "default"}
-                        onClick={() => handleEnrollClick(course.id)}
-                        data-testid={`button-enroll-${course.id}`}
-                      >
-                        {enrolledCourses.includes(course.id) ? "Отписаться" : "Записаться"}
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
+                {cat === "all" ? "Все" : cat}
+              </Button>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Partners */}
-      <section className="py-12 border-y bg-muted/30 dark:bg-neutral-900/30">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="text-center text-sm font-medium text-muted-foreground mb-8 uppercase tracking-wider">
-            Наши выпускники работают в крупнейших компаниях
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all">
-            <SiGoogle className="w-10 h-10" />
-            <SiApple className="w-10 h-10" />
-            <SiAmazon className="w-10 h-10" />
-            <SiYcombinator className="w-10 h-10" />
-            <div className="text-2xl font-bold">Яндекс</div>
-            <div className="text-2xl font-bold">СБЕР</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Instructors */}
-      <section className="py-16 max-w-7xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          className="mb-12"
-        >
-          <h2 className="text-4xl font-bold mb-4">Наши преподаватели</h2>
-          <p className="text-lg text-muted-foreground">Учитесь у лучших специалистов индустрии</p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {instructors.map((instructor) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+          {filteredCourses.map((course) => (
             <motion.div
-              key={instructor.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-center"
-              data-testid={`instructor-card-${instructor.id}`}
+              key={course.id}
+              layout
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="flex"
             >
-              <img 
-                src={instructor.image} 
-                alt={instructor.name}
-                className="w-40 h-40 rounded-full mx-auto mb-4 object-cover border-4 border-blue-100 dark:border-blue-900/30"
-              />
-              <h3 className="text-xl font-semibold mb-1">{instructor.name}</h3>
-              <p className="text-blue-600 dark:text-blue-400 text-sm font-medium mb-3">
-                {instructor.role}
-              </p>
-              <div className="space-y-1 text-sm text-muted-foreground mb-4">
-                <p>{instructor.experience}</p>
-                <p>{instructor.students}</p>
-              </div>
-              <div className="flex items-center justify-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star 
-                    key={i}
-                    className={`w-4 h-4 ${i < Math.floor(instructor.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-muted-foreground'}`}
-                  />
-                ))}
-                <span className="text-sm ml-2 text-muted-foreground">{instructor.rating}</span>
-              </div>
+              <Card className="overflow-hidden hover-elevate border-blue-500/10 flex flex-col w-full group">
+                <div className="relative h-48 sm:h-56 overflow-hidden">
+                  <img src={course.image} alt={course.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute top-4 right-4 flex flex-col gap-2">
+                    {course.popular && (
+                      <Badge className="bg-orange-500 hover:bg-orange-600 border-0">Популярный</Badge>
+                    )}
+                    <Badge className="bg-white/90 dark:bg-neutral-900/90 text-foreground backdrop-blur-sm border-0">
+                      {course.level}
+                    </Badge>
+                  </div>
+                </div>
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-center gap-1 mb-2">
+                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <span className="text-sm font-bold">{course.rating}</span>
+                    <span className="text-xs text-muted-foreground">({course.reviews} отзывов)</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-blue-500 transition-colors">{course.title}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                    {course.description}
+                  </p>
+                  
+                  <div className="mt-auto pt-4 border-t border-neutral-100 dark:border-neutral-800">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Users className="w-4 h-4" />
+                        <span>{course.students} учеников</span>
+                      </div>
+                      <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                        {course.price.toLocaleString()}₽
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setPreviewCourse(course.id)}>
+                        Программа
+                      </Button>
+                      <Button variant="default" size="sm" onClick={() => handleEnrollClick(course.id)}>
+                        {enrolledCourses.includes(course.id) ? "Записан" : "Записаться"}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Card>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Pricing Plans */}
-      <section className="py-20 bg-muted/50 dark:bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Тарифные планы</h2>
-            <p className="text-lg text-muted-foreground">Выберите подходящий формат обучения для ваших целей</p>
+      {/* AI Assistant - Compact for mobile */}
+      <section className="py-12 sm:py-16 bg-neutral-950 text-white overflow-hidden relative">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 blur-[120px] rounded-full pointer-events-none" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+          <Badge className="mb-4 bg-blue-500/20 text-blue-400 border-blue-500/30">AI Mentor 2.0</Badge>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Твой персональный ИИ-наставник</h2>
+          <p className="text-neutral-400 mb-8 max-w-lg mx-auto text-sm sm:text-base">
+            Задай любой вопрос по курсам или технологиям. Наш ИИ поможет разобраться в сложных темах 24/7.
+          </p>
+          
+          <div className="bg-neutral-900/50 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-white/10 shadow-2xl">
+            <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <Input 
+                value={aiQuery}
+                onChange={(e) => setAiQuery(e.target.value)}
+                placeholder="Например: Чем отличается Redux от Context API?"
+                className="bg-white/5 border-white/10 text-white placeholder:text-neutral-500 text-sm h-11"
+                onKeyDown={(e) => e.key === 'Enter' && askAi()}
+              />
+              <Button onClick={askAi} disabled={isAiLoading} className="bg-blue-600 hover:bg-blue-700 h-11 px-6">
+                {isAiLoading ? "Думаю..." : "Спросить"}
+              </Button>
+            </div>
+            {aiResponse && (
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-left p-4 rounded-xl bg-blue-500/10 border border-blue-500/20"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                    <Code className="w-3 h-3 text-white" />
+                  </div>
+                  <span className="text-xs font-bold text-blue-400 uppercase tracking-tighter">Mentor response</span>
+                </div>
+                <p className="text-sm leading-relaxed text-neutral-200">{aiResponse}</p>
+              </motion.div>
+            )}
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan) => (
-              <Card key={plan.name} className={`relative p-8 flex flex-col hover-elevate transition-all ${plan.popular ? 'border-blue-500 shadow-xl scale-105 z-10' : ''}`}>
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500">Популярный</Badge>
-                )}
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold mb-1">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground">{plan.desc}</p>
+        </div>
+      </section>
+
+      {/* Instructors */}
+      <section className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-12">Твои наставники</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {instructors.map((inst) => (
+            <Card key={inst.id} className="p-6 text-center hover-elevate border-blue-500/5">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-blue-50">
+                <img src={inst.image} alt={inst.name} className="w-full h-full object-cover" />
+              </div>
+              <h3 className="text-lg font-bold mb-1">{inst.name}</h3>
+              <p className="text-sm text-blue-500 font-medium mb-3">{inst.role}</p>
+              <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-3 border-t">
+                <div className="flex items-center gap-1">
+                  <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                  {inst.rating}
                 </div>
-                <div className="mb-6">
-                  <span className="text-3xl font-bold">{plan.price}</span>
+                <div>{inst.students}</div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-12 sm:py-16 bg-neutral-50 dark:bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-12">Отзывы студентов</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {testimonials.map((t) => (
+              <Card key={t.id} className="p-6 relative overflow-hidden border-blue-500/10">
+                <Quote className="absolute -top-2 -right-2 w-24 h-24 text-blue-500/5" />
+                <div className="flex items-center gap-4 mb-4">
+                  <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover" />
+                  <div>
+                    <p className="font-bold text-sm sm:text-base">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                  <div className="ml-auto flex">
+                    {[...Array(t.rating)].map((_, i) => (
+                      <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
                 </div>
-                <ul className="space-y-4 mb-8 flex-1">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-green-500" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button 
-                  variant={plan.variant as any} 
-                  className="w-full"
-                  onClick={() => {
-                    toast({
-                      title: `Выбран тариф "${plan.name}"`,
-                      description: "В демо-режиме выбор тарифа открывает форму записи.",
-                    });
-                    handleEnrollClick(1);
-                  }}
-                >
-                  {plan.button}
-                </Button>
+                <p className="text-sm sm:text-base italic leading-relaxed text-muted-foreground">"{t.text}"</p>
               </Card>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Отзывы студентов</h2>
-          <p className="text-lg text-muted-foreground">Истории успеха наших выпускников</p>
+      {/* Pricing - Compact cards */}
+      <section className="py-12 sm:py-16 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-4">Тарифные планы</h2>
+          <p className="text-muted-foreground text-sm sm:text-base">Выберите подходящий формат обучения</p>
         </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          {testimonials.map((testi) => (
-            <Card key={testi.id} className="p-8 hover-elevate transition-all">
-              <Quote className="w-10 h-10 text-blue-500/20 mb-4" />
-              <p className="text-lg italic mb-6">"{testi.text}"</p>
-              <div className="flex items-center gap-4">
-                <img src={testi.image} alt={testi.name} className="w-12 h-12 rounded-full object-cover" />
-                <div>
-                  <h4 className="font-bold">{testi.name}</h4>
-                  <p className="text-sm text-muted-foreground">{testi.role}</p>
-                </div>
-                <div className="ml-auto flex gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          {pricingPlans.map((plan) => (
+            <Card 
+              key={plan.name} 
+              className={`p-6 sm:p-8 flex flex-col h-full border-blue-500/10 ${plan.popular ? 'ring-2 ring-blue-500 relative' : ''}`}
+            >
+              {plan.popular && (
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500">Популярный</Badge>
+              )}
+              <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+              <div className="text-2xl sm:text-3xl font-bold mb-2">{plan.price}</div>
+              <p className="text-sm text-muted-foreground mb-6">{plan.desc}</p>
+              <div className="space-y-3 mb-8 flex-1">
+                {plan.features.map(f => (
+                  <div key={f} className="flex items-center gap-2 text-sm">
+                    <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                    <span>{f}</span>
+                  </div>
+                ))}
               </div>
+              <Button variant={plan.variant as any} className="w-full">
+                {plan.button}
+              </Button>
             </Card>
           ))}
         </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-muted/50 dark:bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Часто задаваемые вопросы</h2>
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`item-${i}`}>
-                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-          
-          <div className="space-y-6">
-            <Card className="p-6 bg-blue-600 text-white border-0 shadow-2xl relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-white/20 transition-all" />
-              <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                <Code className="w-6 h-6" />
-                Интеллектуальный помощник
-              </h3>
-              <p className="text-blue-100 mb-6">
-                Задайте любой вопрос о наших курсах. GigaChat проанализирует базу знаний и ответит в реальном времени.
-              </p>
-              <div className="space-y-4">
-                <div className="relative">
-                  <Input 
-                    placeholder="Например: Поможете ли вы с трудоустройством?" 
-                    className="bg-white/10 border-white/20 text-white placeholder:text-blue-200 pr-12"
-                    value={aiQuery}
-                    onChange={(e) => setAiQuery(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && askAi()}
-                  />
-                  <Button 
-                    size="icon" 
-                    variant="ghost" 
-                    className="absolute right-1 top-1 text-white hover:bg-white/20"
-                    onClick={askAi}
-                    disabled={isAiLoading}
-                  >
-                    <TrendingUp className={`w-4 h-4 ${isAiLoading ? 'animate-pulse' : ''}`} />
-                  </Button>
-                </div>
-                
-                {aiResponse && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-white/10 rounded-lg border border-white/20 text-sm italic"
-                  >
-                    <strong>AI:</strong> {aiResponse}
-                  </motion.div>
-                )}
-              </div>
-            </Card>
-
-            <Card className="p-6 bg-purple-600 text-white border-0 shadow-xl overflow-hidden">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Star className="w-5 h-5" />
-                Геймификация
-              </h3>
-              <div className="grid grid-cols-3 gap-2">
-                {achievements.map((ach) => (
-                  <div key={ach.title} className="bg-white/10 p-2 rounded-lg text-center group hover:bg-white/20 transition-colors cursor-help">
-                    <ach.icon className={`w-6 h-6 mx-auto mb-1 ${ach.color}`} />
-                    <p className="text-[10px] font-bold uppercase tracking-tighter">{ach.title}</p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
+      <section className="py-12 sm:py-16 bg-neutral-50 dark:bg-neutral-900/50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 sm:mb-12">Частые вопросы</h2>
+          <Accordion type="single" collapsible className="w-full">
+            {faqs.map((faq, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border-blue-500/10">
+                <AccordionTrigger className="text-sm sm:text-base hover:text-blue-500 text-left">{faq.question}</AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground">{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
-      {/* Course Preview Dialog */}
+      {/* Final CTA */}
+      <section className="py-16 sm:py-24 text-center max-w-4xl mx-auto px-4 sm:px-6 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <h2 className="text-3xl sm:text-4xl font-bold mb-6">Готовы начать обучение?</h2>
+        <p className="text-lg text-muted-foreground mb-8">Присоединяйтесь к 10,000+ студентов и начните менять свою жизнь сегодня.</p>
+        <Button size="lg" className="px-10 h-14 text-lg bg-blue-600 hover:bg-blue-700 w-full sm:w-auto" onClick={scrollToCourses}>
+          Выбрать курс сейчас
+        </Button>
+      </section>
+
+      <footer className="bg-neutral-900 text-neutral-400 py-12 px-4 sm:px-6 border-t border-white/5">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="col-span-1 sm:col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-4 text-white">
+              <BookOpen className="w-6 h-6 text-blue-500" />
+              <span className="text-xl font-bold">ОнлайнОкадемия</span>
+            </div>
+            <p className="text-sm leading-relaxed mb-6">Современная платформа для обучения технологиям и дизайну. Только практика от лучших экспертов.</p>
+            <div className="flex gap-4">
+              <Button size="icon" variant="ghost" className="h-9 w-9 text-neutral-400 hover:text-white hover:bg-white/5 border border-white/10">
+                <SiGoogle className="w-4 h-4" />
+              </Button>
+              <Button size="icon" variant="ghost" className="h-9 w-9 text-neutral-400 hover:text-white hover:bg-white/5 border border-white/10">
+                <SiYcombinator className="w-4 h-4" />
+              </Button>
+              <Button size="icon" variant="ghost" className="h-9 w-9 text-neutral-400 hover:text-white hover:bg-white/5 border border-white/10">
+                <SiApple className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+          <div>
+            <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Курсы</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="hover:text-white cursor-pointer transition-colors">Веб-разработка</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Дизайн UI/UX</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Python & Data</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Маркетинг</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Платформа</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="hover:text-white cursor-pointer transition-colors">О нас</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Наставники</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Для бизнеса</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Партнерская программа</li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="text-white font-bold mb-4 uppercase text-xs tracking-widest">Контакты</h4>
+            <p className="text-sm mb-4">Есть вопросы? Мы на связи 24/7</p>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 text-xs py-2">Написать в чат</Button>
+          </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+          <p>© 2026 ОнлайнОкадемия. Дизайн от MP.WebStudio</p>
+          <div className="flex gap-6">
+            <span className="hover:text-white cursor-pointer">Политика конфиденциальности</span>
+            <span className="hover:text-white cursor-pointer">Оферта</span>
+          </div>
+        </div>
+      </footer>
+
+      {/* Program Modal - Optimized for mobile */}
       <Dialog open={previewCourse !== null} onOpenChange={(open) => !open && setPreviewCourse(null)}>
-        <DialogContent className="max-w-3xl p-0 overflow-hidden" data-testid="dialog-preview-course">
-          {previewCourse !== null && (
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto p-0 border-0 rounded-2xl bg-white dark:bg-neutral-950 sm:max-h-[85vh]">
+          {previewCourse && (
             <div className="flex flex-col">
-              <div className="relative aspect-video bg-black flex items-center justify-center">
-                <div className="text-white text-center p-8">
-                  <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4 border border-white/30 backdrop-blur-sm">
-                    <Play className="w-10 h-10 text-white fill-white ml-1" />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">Превью курса: {courses.find(c => c.id === previewCourse)?.title}</h3>
-                  <p className="text-white/70">Начните обучение с бесплатного ознакомительного урока</p>
-                </div>
-                <DialogClose className="absolute top-4 right-4 bg-black/50 text-white p-2 rounded-full hover:bg-black/70">
+              <div className="relative h-40 sm:h-52 shrink-0">
+                <img 
+                  src={courses.find(c => c.id === previewCourse)?.image} 
+                  className="w-full h-full object-cover" 
+                  alt="Курс" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <Button 
+                  size="icon" 
+                  variant="ghost" 
+                  onClick={() => setPreviewCourse(null)}
+                  className="absolute top-4 right-4 text-white hover:bg-white/20 backdrop-blur-md rounded-full"
+                >
                   <X className="w-5 h-5" />
-                </DialogClose>
+                </Button>
+                <div className="absolute bottom-4 left-6 text-white">
+                  <Badge className="bg-blue-500 mb-2">{courses.find(c => c.id === previewCourse)?.tags[0]}</Badge>
+                  <h3 className="text-xl sm:text-2xl font-bold">{courses.find(c => c.id === previewCourse)?.title}</h3>
+                </div>
               </div>
-              <div className="p-6 max-h-[60vh] overflow-y-auto">
-                <DialogHeader className="mb-6">
-                  <DialogTitle className="text-2xl">Программа обучения</DialogTitle>
-                </DialogHeader>
-                <Accordion type="single" collapsible className="w-full">
-                  {courses.find(c => c.id === previewCourse)?.syllabus?.map((module, i) => (
-                    <AccordionItem key={i} value={`module-${i}`}>
-                      <AccordionTrigger className="hover:no-underline py-4">
-                        <div className="flex items-center gap-4">
-                          <Badge variant="outline" className="w-8 h-8 rounded-full p-0 flex items-center justify-center border-blue-200">
-                            {i + 1}
-                          </Badge>
-                          <span className="font-semibold">{module.title}</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <ul className="space-y-3 pl-12">
-                          {module.topics.map((topic, j) => (
-                            <li key={j} className="flex flex-col gap-2 p-3 rounded-lg border border-blue-500/5 bg-blue-50/30 dark:bg-blue-900/10">
-                              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                                <Play className="w-3 h-3 text-blue-500" />
+              
+              <div className="p-4 sm:p-8">
+                <div className="flex flex-wrap gap-4 sm:gap-8 mb-6 text-xs sm:text-sm text-muted-foreground border-b pb-4">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-blue-500" />
+                    <span>{courses.find(c => c.id === previewCourse)?.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <BookOpen className="w-4 h-4 text-blue-500" />
+                    <span>{courses.find(c => c.id === previewCourse)?.syllabus.length} модулей</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-blue-500" />
+                    <span>{courses.find(c => c.id === previewCourse)?.students} студентов</span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-bold mb-3 text-sm sm:text-base">Программа обучения</h4>
+                    <div className="space-y-3">
+                      {courses.find(c => c.id === previewCourse)?.syllabus.map((module, idx) => (
+                        <div key={idx} className="p-3 sm:p-4 rounded-xl bg-neutral-50 dark:bg-white/5 border border-blue-500/5 group">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-xs font-bold text-blue-500 uppercase tracking-widest">Модуль {idx + 1}</span>
+                          </div>
+                          <h5 className="font-bold mb-2 group-hover:text-blue-500 transition-colors text-sm sm:text-base">{module.title}</h5>
+                          <ul className="space-y-1">
+                            {module.topics.map((topic, i) => (
+                              <li key={i} className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
+                                <Play className="w-3 h-3 text-blue-500/50" />
                                 {topic}
-                                <span className="ml-auto text-xs opacity-50">15:00</span>
-                              </div>
-                              {/* Sandbox integration */}
-                              <div className="mt-2 p-3 rounded bg-neutral-900 text-xs font-mono text-blue-300 border border-white/5">
-                                <div className="flex items-center justify-between mb-2 pb-2 border-b border-white/5 opacity-60">
-                                  <span>interactive_sandbox.js</span>
-                                  <Badge variant="outline" className="h-4 text-[9px] border-blue-500/30 text-blue-400">EDITABLE</Badge>
-                                </div>
-                                <div className="space-y-1">
-                                  <p><span className="text-purple-400">function</span> <span className="text-yellow-300">solveProblem</span>() {'{'}</p>
-                                  <p className="pl-4 text-neutral-500">// Напишите решение здесь</p>
-                                  <p className="pl-4"><span className="text-purple-400">return</span> <span className="text-green-300">"Success!"</span>;</p>
-                                  <p>{'}'}</p>
-                                </div>
-                                <Button size="sm" className="mt-3 h-7 bg-blue-600 hover:bg-blue-700 text-[10px] w-full">Запустить код</Button>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-                <div className="mt-8 flex justify-end gap-4 border-t pt-6">
-                  <Button variant="outline" onClick={() => setPreviewCourse(null)}>Закрыть</Button>
-                  <Button onClick={() => {
-                    const id = previewCourse;
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-6 border-t flex flex-col sm:flex-row gap-4">
+                  <Button className="w-full sm:flex-1 h-12" onClick={() => {
                     setPreviewCourse(null);
-                    handleEnrollClick(id);
-                  }}>Записаться на курс</Button>
+                    handleEnrollClick(previewCourse);
+                  }}>
+                    Записаться на курс
+                  </Button>
                 </div>
               </div>
             </div>
@@ -923,221 +878,181 @@ export default function OnlineAcademy() {
         </DialogContent>
       </Dialog>
 
-      {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <h2 className="text-4xl font-bold mb-4">Начните обучение прямо сейчас</h2>
-            <p className="text-lg text-white/90 mb-8">
-              Присоединитесь к тысячам студентов, которые уже развивают свои навыки
-            </p>
-            <Button 
-              size="lg" 
-              variant="secondary"
-              onClick={scrollToCourses}
-              data-testid="button-start-learning"
-            >
-              Выбрать курс
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t py-12 max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-blue-600" />
-              <span className="font-bold">ОнлайнОкадемия</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Платформа для обучения в интернете
-            </p>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Курсы</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground">Программирование</a></li>
-              <li><a href="#" className="hover:text-foreground">Дизайн</a></li>
-              <li><a href="#" className="hover:text-foreground">Маркетинг</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Компания</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground">О нас</a></li>
-              <li><a href="#" className="hover:text-foreground">Контакты</a></li>
-              <li><a href="#" className="hover:text-foreground">Блог</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Поддержка</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-foreground">FAQ</a></li>
-              <li><a href="#" className="hover:text-foreground">Помощь</a></li>
-              <li><a href="#" className="hover:text-foreground">Условия</a></li>
-            </ul>
-          </div>
-        </div>
-        <div className="border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 ОнлайнОкадемия. Все права защищены.</p>
-        </div>
-      </footer>
-
-      {/* Enroll Form Modal */}
+      {/* Enroll Modal - Optimized for mobile */}
       <Dialog open={enrollingCourse !== null} onOpenChange={(open) => !open && setEnrollingCourse(null)}>
-        <DialogContent data-testid="dialog-enroll-form">
-          <DialogHeader>
-            <DialogTitle>
-              {enrollingCourse !== null && enrolledCourses.includes(enrollingCourse) ? "Отписаться от курса?" : "Записаться на курс"}
-            </DialogTitle>
-          </DialogHeader>
-          {enrollingCourse !== null && (() => {
-            const course = courses.find(c => c.id === enrollingCourse);
-            const isEnrolled = enrolledCourses.includes(enrollingCourse);
-            return course ? (
-              <div className="space-y-4">
-                {!isEnrolled && (
-                  <>
-                    <p className="text-muted-foreground">
-                      Заполните форму, чтобы начать обучение на курсе <strong>{course.title}</strong>
-                    </p>
-                    <div className="space-y-3">
-                      <div>
-                        <Label htmlFor="name">Ваше имя</Label>
-                        <Input
-                          id="name"
-                          placeholder="Иван Петров"
-                          value={enrollForm.name}
-                          onChange={(e) => setEnrollForm({...enrollForm, name: e.target.value})}
-                          data-testid="input-name"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="ivan@example.com"
-                          value={enrollForm.email}
-                          onChange={(e) => setEnrollForm({...enrollForm, email: e.target.value})}
-                          data-testid="input-email"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="phone">Телефон</Label>
-                        <Input
-                          id="phone"
-                          placeholder="+7 (999) 999-99-99"
-                          value={enrollForm.phone}
-                          onChange={(e) => setEnrollForm({...enrollForm, phone: e.target.value})}
-                          data-testid="input-phone"
-                        />
-                      </div>
-                    </div>
-                  </>
-                )}
-                {isEnrolled && (
-                  <p className="text-muted-foreground">
-                    Вы уже записаны на этот курс. Нажмите "Отписаться", если хотите удалить регистрацию.
-                  </p>
-                )}
-                <div className="flex gap-2 justify-end">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setEnrollingCourse(null)}
-                  >
-                    Отмена
+        <DialogContent className="max-w-md p-0 border-0 overflow-hidden bg-white dark:bg-neutral-950 rounded-2xl">
+          <div className="p-6 sm:p-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold">
+                {enrolledCourses.includes(enrollingCourse || 0) ? "Управление подпиской" : "Запись на курс"}
+              </h2>
+              <Button size="icon" variant="ghost" onClick={() => setEnrollingCourse(null)}>
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
+            
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl mb-6 border border-blue-100 dark:border-blue-900/30">
+              <h4 className="font-bold text-blue-600 dark:text-blue-400 mb-1 text-sm sm:text-base">
+                {courses.find(c => c.id === enrollingCourse)?.title}
+              </h4>
+              <p className="text-xs text-blue-500">Стоимость: {courses.find(c => c.id === enrollingCourse)?.price}₽</p>
+            </div>
+
+            {enrolledCourses.includes(enrollingCourse || 0) ? (
+              <div className="space-y-6">
+                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-xl flex items-center gap-3">
+                  <CheckCircle2 className="w-6 h-6 text-green-500" />
+                  <p className="text-sm font-medium text-green-600">Вы уже записаны на этот курс!</p>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Button onClick={() => { setEnrollingCourse(null); setShowDashboard(true); }} className="h-12 bg-blue-600 hover:bg-blue-700">
+                    Перейти к обучению
                   </Button>
-                  <Button 
-                    variant={isEnrolled ? "destructive" : "default"}
-                    onClick={handleEnrollSubmit}
-                    data-testid="button-submit-enroll"
-                  >
-                    {isEnrolled ? "Отписаться" : "Записаться"}
+                  <Button variant="ghost" onClick={handleEnrollSubmit} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20">
+                    Отказаться от курса
                   </Button>
                 </div>
               </div>
-            ) : null;
-          })()}
+            ) : (
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label className="text-sm">Ваше имя</Label>
+                  <Input 
+                    value={enrollForm.name}
+                    onChange={e => setEnrollForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Александр Иванов"
+                    className="h-11 border-neutral-200 dark:border-neutral-800"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm">Email</Label>
+                  <Input 
+                    type="email"
+                    value={enrollForm.email}
+                    onChange={e => setEnrollForm(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="alex@example.com"
+                    className="h-11 border-neutral-200 dark:border-neutral-800"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-sm">Телефон</Label>
+                  <Input 
+                    type="tel"
+                    value={enrollForm.phone}
+                    onChange={e => setEnrollForm(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder="+7 (900) 000-00-00"
+                    className="h-11 border-neutral-200 dark:border-neutral-800"
+                  />
+                </div>
+                <div className="pt-4">
+                  <Button onClick={handleEnrollSubmit} className="w-full h-12 bg-blue-600 hover:bg-blue-700">
+                    Оформить запись
+                  </Button>
+                  <p className="text-[10px] text-center text-muted-foreground mt-4 leading-relaxed">
+                    Нажимая кнопку, вы соглашаетесь с условиями оферты и политикой обработки персональных данных.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
 
-      {/* Student Dashboard Dialog */}
+      {/* Dashboard Drawer/Dialog - Optimized for mobile */}
       <Dialog open={showDashboard} onOpenChange={setShowDashboard}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold">Личный кабинет студента</DialogTitle>
-          </DialogHeader>
-          <div className="grid md:grid-cols-3 gap-6 pt-4">
-            <div className="md:col-span-2 space-y-6">
-              <h3 className="text-xl font-semibold flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-blue-500" />
-                Мой прогресс
-              </h3>
-              <div className="grid gap-4">
-                {studentProgress.map((item) => (
-                  <Card key={item.title} className="p-4 hover-elevate transition-all">
-                    <div className="flex items-center gap-4 mb-3">
-                      <div className="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
-                        <item.icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium">{item.title}</h4>
-                        <p className="text-xs text-muted-foreground">{item.status}</p>
-                      </div>
-                      <span className="font-bold">{item.progress}%</span>
-                    </div>
-                    <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                      <motion.div 
-                        initial={{ width: 0 }}
-                        animate={{ width: `${item.progress}%` }}
-                        className="h-full bg-blue-500"
-                      />
-                    </div>
-                  </Card>
-                ))}
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 border-0 bg-neutral-50 dark:bg-neutral-950 sm:max-h-[85vh]">
+          <div className="flex flex-col h-full">
+            <div className="p-4 sm:p-6 bg-white dark:bg-neutral-900 border-b flex items-center justify-between sticky top-0 z-10 backdrop-blur-md bg-white/90 dark:bg-neutral-900/90">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold">АИ</div>
+                <div>
+                  <h3 className="font-bold text-sm sm:text-base">Личный кабинет</h3>
+                  <p className="text-xs text-muted-foreground">Александр Иванов</p>
+                </div>
               </div>
+              <Button size="icon" variant="ghost" onClick={() => setShowDashboard(false)}>
+                <X className="w-5 h-5" />
+              </Button>
             </div>
 
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-purple-500" />
-                  Расписание
-                </h3>
-                <div className="space-y-3">
-                  {upcomingEvents.map((event) => (
-                    <div key={event.title} className="p-3 bg-muted/50 rounded-lg border border-border">
-                      <Badge variant="secondary" className="mb-2">{event.type}</Badge>
-                      <h4 className="text-sm font-bold leading-tight mb-1">{event.title}</h4>
+            <div className="p-4 sm:p-6 space-y-6">
+              {/* Progress Summary */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card className="p-4 sm:p-6 border-blue-500/10">
+                  <h4 className="font-bold mb-4 flex items-center gap-2 text-sm sm:text-base">
+                    <TrendingUp className="w-4 h-4 text-blue-500" /> Текущие курсы
+                  </h4>
+                  <div className="space-y-5">
+                    {studentProgress.map((course, idx) => (
+                      <div key={idx} className="space-y-2">
+                        <div className="flex justify-between text-xs sm:text-sm">
+                          <span className="font-medium truncate pr-2">{course.title}</span>
+                          <span className="text-blue-500 font-bold">{course.progress}%</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-neutral-100 dark:bg-white/5 rounded-full overflow-hidden">
+                          <motion.div 
+                            initial={{ width: 0 }}
+                            animate={{ width: `${course.progress}%` }}
+                            className="h-full bg-blue-500 rounded-full"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+
+                <Card className="p-4 sm:p-6 border-blue-500/10">
+                  <h4 className="font-bold mb-4 flex items-center gap-2 text-sm sm:text-base">
+                    <Star className="w-4 h-4 text-yellow-500" /> Достижения
+                  </h4>
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                    {achievements.map((ach, idx) => (
+                      <div key={idx} className="text-center group">
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-neutral-100 dark:bg-white/5 flex items-center justify-center mx-auto mb-2 ${ach.color} transition-transform group-hover:scale-110`}>
+                          <ach.icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                        </div>
+                        <p className="text-[10px] font-bold line-clamp-1">{ach.title}</p>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+
+              {/* Roadmap & Events */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="md:col-span-2 space-y-4">
+                  <h4 className="font-bold text-sm sm:text-base">Твой план карьеры: Frontend Developer</h4>
+                  <div className="relative flex flex-col gap-3">
+                    {careerRoadmap.map((step, idx) => (
+                      <div key={idx} className="flex items-center gap-4 relative">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center z-10 shrink-0 ${step.completed ? 'bg-green-500 text-white' : 'bg-neutral-200 dark:bg-neutral-800 text-neutral-400'}`}>
+                          {step.completed ? <CheckCircle2 className="w-4 h-4" /> : idx + 1}
+                        </div>
+                        <div className={`flex-1 p-3 rounded-lg border text-xs sm:text-sm font-medium ${step.completed ? 'bg-green-50 dark:bg-green-900/10 border-green-500/20' : 'bg-white dark:bg-neutral-900 border-neutral-100 dark:border-white/5'}`}>
+                          {step.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="font-bold text-sm sm:text-base">События</h4>
+                  {upcomingEvents.map((event, idx) => (
+                    <Card key={idx} className="p-4 border-blue-500/5 hover:border-blue-500/20 transition-colors">
+                      <Badge variant="outline" className="mb-2 text-[10px] uppercase border-blue-500/30 text-blue-500">{event.type}</Badge>
+                      <h5 className="font-bold text-xs sm:text-sm mb-1">{event.title}</h5>
                       <p className="text-xs text-muted-foreground">{event.date}</p>
-                    </div>
+                    </Card>
                   ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  Награды
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {achievements.map((ach) => (
-                    <div key={ach.title} title={ach.desc} className="p-2 bg-muted rounded-full hover:bg-muted-foreground/10 transition-colors">
-                      <ach.icon className={`w-5 h-5 ${ach.color}`} />
-                    </div>
-                  ))}
+                  <Button variant="outline" className="w-full text-xs h-10">Календарь</Button>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="mt-8 pt-6 border-t flex justify-end">
-            <Button onClick={() => setShowDashboard(false)}>Вернуться на главную</Button>
+
+            <div className="p-4 sm:p-6 mt-auto border-t bg-white dark:bg-neutral-900 flex justify-end gap-3 sticky bottom-0 z-10 backdrop-blur-md bg-white/90 dark:bg-neutral-900/90">
+              <Button onClick={() => setShowDashboard(false)} className="w-full sm:w-auto">Закрыть</Button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
