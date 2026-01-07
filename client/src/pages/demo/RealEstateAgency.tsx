@@ -194,12 +194,12 @@ export default function RealEstateAgency() {
         <div className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none" style={{ backgroundImage: `url(${realEstateHeroImg})` }} />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent pointer-events-none" />
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-6 py-6 flex items-center justify-between gap-4 pointer-events-auto">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-              <Home className="w-5 h-5 text-white" />
+        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-6 flex items-center justify-between gap-4 pointer-events-auto">
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="w-8 h-8 md:w-10 md:h-10 rounded-md bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+              <Home className="w-4 h-4 md:w-5 md:h-5 text-white" />
             </div>
-            <span className="text-xl font-bold tracking-wider">ЛЮКСПРО</span>
+            <span className="text-lg md:text-xl font-bold tracking-wider">ЛЮКСПРО</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-neutral-300">
             <button onClick={scrollToProperties} className="hover:text-emerald-400 transition-colors cursor-pointer">Объекты</button>
@@ -207,33 +207,33 @@ export default function RealEstateAgency() {
             <button onClick={scrollToBooking} className="hover:text-emerald-400 transition-colors cursor-pointer">Просмотр</button>
             <button onClick={scrollToContact} className="hover:text-emerald-400 transition-colors cursor-pointer">Контакты</button>
           </div>
-          <Button className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold" data-testid="button-book-header">
+          <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold h-9 md:h-10 px-3 md:px-4" data-testid="button-book-header">
             Записаться
           </Button>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-24 md:py-32">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Badge className="mb-6 bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
+            <Badge className="mb-4 md:mb-6 bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
               Премиум агенство недвижимости
             </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <h1 className="text-4xl md:text-7xl font-bold mb-4 md:mb-6 leading-tight tracking-tight">
               Найди свой идеальный
               <br />
               <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
                 дом
               </span>
             </h1>
-            <p className="text-xl text-neutral-400 mb-8 max-w-lg">
+            <p className="text-lg md:text-xl text-neutral-400 mb-8 max-w-lg">
               Более 300 проектов успешно завершено. Апартаменты, дома, коммерческая недвижимость. Прозрачность и честность во всём.
             </p>
 
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-2 rounded-xl flex flex-col md:flex-row gap-2 max-w-3xl mb-8">
-              <div className="flex-1 px-4 py-2 border-r border-white/10 last:border-0">
+              <div className="flex-1 px-4 py-2 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
                 <label className="block text-[10px] text-neutral-500 uppercase font-bold mb-1">Тип объекта</label>
                 <select 
                   className="bg-transparent text-sm w-full outline-none cursor-pointer"
@@ -246,7 +246,7 @@ export default function RealEstateAgency() {
                   <option value="Апартаменты" className="bg-neutral-900">Апартаменты</option>
                 </select>
               </div>
-              <div className="flex-1 px-4 py-2 border-r border-white/10 last:border-0">
+              <div className="flex-1 px-4 py-2 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
                 <label className="block text-[10px] text-neutral-500 uppercase font-bold mb-1">Бюджет</label>
                 <select 
                   className="bg-transparent text-sm w-full outline-none cursor-pointer"
@@ -260,34 +260,34 @@ export default function RealEstateAgency() {
                 </select>
               </div>
               <Button 
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-8 h-12 md:h-auto"
+                className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-8 h-12"
                 onClick={scrollToProperties}
               >
                 Найти
               </Button>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Button 
                 size="lg" 
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold" 
+                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold w-full sm:w-auto" 
                 onClick={scrollToBooking}
                 data-testid="button-book-hero"
               >
                 <Calendar className="w-5 h-5 mr-2" />
-                Запланировать просмотр
+                Забронировать просмотр
               </Button>
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-neutral-700 text-white hover:bg-white/10" 
+                className="border-neutral-700 text-white hover:bg-white/10 w-full sm:w-auto" 
                 onClick={scrollToProperties}
                 data-testid="button-properties"
               >
                 Посмотреть объекты
               </Button>
             </div>
-            <div className="flex items-center gap-8 mt-12 text-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 mt-12 text-sm">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-emerald-400" />
                 <span className="text-neutral-400">09:00 - 19:00</span>
@@ -305,18 +305,18 @@ export default function RealEstateAgency() {
         </div>
       </header>
 
-      <section ref={propertiesRef} id="properties" className="py-20 bg-neutral-900">
-        <div className="max-w-7xl mx-auto px-6">
+      <section ref={propertiesRef} id="properties" className="py-12 md:py-20 bg-neutral-900">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="grid lg:grid-cols-4 gap-8 mb-20"
+            className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-20"
           >
             {dealSteps.map((s, i) => (
-              <div key={i} className="relative group">
-                <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
-                  <s.icon className="w-6 h-6 text-emerald-500" />
+              <div key={i} className="relative group p-4 bg-white/5 rounded-2xl border border-white/5 md:bg-transparent md:border-0">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mb-4 group-hover:bg-emerald-500/20 transition-colors">
+                  <s.icon className="w-5 h-5 md:w-6 md:h-6 text-emerald-500" />
                 </div>
                 <h3 className="font-bold text-lg mb-2">{s.title}</h3>
                 <p className="text-sm text-neutral-500">{s.desc}</p>
@@ -331,7 +331,7 @@ export default function RealEstateAgency() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Избранные объекты</h2>
             <p className="text-neutral-400 max-w-xl mx-auto">
@@ -339,7 +339,7 @@ export default function RealEstateAgency() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {properties.map((property, i) => (
               <motion.div
                 key={property.id}
@@ -349,11 +349,11 @@ export default function RealEstateAgency() {
                 transition={{ delay: i * 0.1 }}
               >
                 <Card 
-                  className={`overflow-hidden bg-neutral-800/50 border-neutral-700 hover-elevate cursor-pointer transition-all ${selectedProperty === property.id ? 'ring-2 ring-emerald-500' : ''}`}
+                  className={`overflow-hidden bg-neutral-800/40 border-neutral-700/50 hover-elevate cursor-pointer transition-all ${selectedProperty === property.id ? 'ring-2 ring-emerald-500' : ''}`}
                   onClick={() => handlePropertySelect(property.id)}
                   data-testid={`card-property-${property.id}`}
                 >
-                  <div className="h-40 relative overflow-hidden bg-neutral-700">
+                  <div className="h-32 md:h-36 relative overflow-hidden bg-neutral-700">
                     <img 
                       src={property.image} 
                       alt={property.name}
@@ -361,36 +361,30 @@ export default function RealEstateAgency() {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-transparent to-transparent" />
-                    <div className="absolute top-3 left-3 flex gap-2">
-                      <Badge className="bg-black/60 backdrop-blur-md text-white border-white/10 flex items-center gap-1">
-                        <PlayCircle className="w-3 h-3" /> 3D ТУР
+                    <div className="absolute top-2 left-2 flex gap-1.5">
+                      <Badge className="bg-black/60 backdrop-blur-md text-[10px] h-5 py-0 px-2 text-white border-white/10 flex items-center gap-1">
+                        <PlayCircle className="w-3 h-3" /> 3D
                       </Badge>
                       {property.popular && (
-                        <Badge className="bg-emerald-500 text-black border-0">Хит</Badge>
+                        <Badge className="bg-emerald-500 text-black border-0 text-[10px] h-5 py-0 px-2">Хит</Badge>
                       )}
                     </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-semibold mb-2 text-white">{property.name}</h3>
-                    <p className="text-sm text-neutral-400 mb-4">{property.type}</p>
-                    <div className="flex items-center gap-4 text-sm text-neutral-400 mb-4">
-                      {property.beds > 0 && (
-                        <span className="flex items-center gap-1">
-                          <Bed className="w-4 h-4" />
-                          {property.beds} спальн.
-                        </span>
-                      )}
+                  <div className="p-3 md:p-4">
+                    <div className="flex justify-between items-start gap-2 mb-1">
+                      <h3 className="text-sm md:text-base font-semibold text-white truncate">{property.name}</h3>
+                      <span className="text-sm font-bold text-emerald-400 whitespace-nowrap">{formatPrice(property.price / 1000000)} млн ₽</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-[11px] text-neutral-400">
+                      <span>{property.type}</span>
+                      <span className="w-1 h-1 rounded-full bg-neutral-700" />
                       <span className="flex items-center gap-1">
-                        <Bath className="w-4 h-4" />
-                        {property.baths}
+                        <Bed className="w-3 h-3" /> {property.beds}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Bath className="w-3 h-3" /> {property.baths}
                       </span>
                       <span>{property.area} м²</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-emerald-400">{formatPrice(property.price)} ₽</span>
-                      <Button size="sm" className="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30" data-testid={`button-select-property-${property.id}`}>
-                        Выбрать
-                      </Button>
                     </div>
                   </div>
                 </Card>
@@ -400,25 +394,25 @@ export default function RealEstateAgency() {
         </div>
       </section>
 
-      <section className="py-20 bg-neutral-950 overflow-hidden relative">
+      <section className="py-12 md:py-20 bg-neutral-950 overflow-hidden relative">
         <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full -left-1/4" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Ваш будущий дом на карте</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ваш будущий дом на карте</h2>
               <p className="text-neutral-400 mb-8">
                 Мы отобрали лучшие локации в Москве и Подмосковье. Посмотрите расположение наших объектов и инфраструктуру районов.
               </p>
-              <div className="space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-1 gap-4">
                 {["Центральные апартаменты", "Загородные резиденции", "Бизнес-кварталы"].map(item => (
                   <div key={item} className="flex items-center gap-3">
                     <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span className="text-neutral-300 font-medium">{item}</span>
+                    <span className="text-neutral-300 font-medium text-sm md:text-base">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="relative aspect-square lg:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+            <div className="relative aspect-[4/3] sm:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
               <div className="absolute inset-0 bg-neutral-800">
                 <img 
                   src={stockMapImg} 
