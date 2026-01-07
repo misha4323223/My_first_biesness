@@ -758,19 +758,19 @@ export default function AutoService() {
         </div>
       </section>
 
-      <section id="location" className="py-20 bg-neutral-900/50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="location" className="py-12 md:py-20 bg-neutral-900/50">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Как нас найти</h2>
-              <div className="space-y-6">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6 text-white text-center md:text-left">Как нас найти</h2>
+              <div className="space-y-4 md:space-y-6">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Адрес</h4>
-                    <p className="text-neutral-400">г. Москва, ул. Автозаводская, д. 28, стр. 1</p>
+                    <h4 className="font-semibold text-white text-sm md:text-base">Адрес</h4>
+                    <p className="text-xs md:text-sm text-neutral-400">г. Москва, ул. Автозаводская, 28</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
@@ -778,20 +778,20 @@ export default function AutoService() {
                     <Shield className="w-5 h-5 text-blue-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Гарантия</h4>
-                    <p className="text-neutral-400">1 год на все виды работ и запчасти</p>
+                    <h4 className="font-semibold text-white text-sm md:text-base">Гарантия</h4>
+                    <p className="text-xs md:text-sm text-neutral-400">1 год на все виды работ</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="h-[400px] rounded-2xl overflow-hidden border border-white/10 relative group">
+            <div className="h-[250px] md:h-[400px] rounded-2xl overflow-hidden border border-white/10 relative group">
               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80')] bg-cover bg-center grayscale opacity-50 group-hover:grayscale-0 transition-all duration-700" />
               <div className="absolute inset-0 bg-blue-900/20 mix-blend-multiply" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-neutral-900/90 backdrop-blur-md p-4 rounded-xl border border-white/20 shadow-2xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full animate-ping" />
-                    <span className="font-bold">ТЕХНОПРО СЕРВИС</span>
+                <div className="bg-neutral-900/90 backdrop-blur-md p-3 md:p-4 rounded-xl border border-white/20 shadow-2xl">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <div className="w-2 h-2 md:w-3 md:h-3 bg-blue-500 rounded-full animate-ping" />
+                    <span className="text-xs md:text-base font-bold text-white">ТЕХНОПРО СЕРВИС</span>
                   </div>
                 </div>
               </div>
@@ -800,28 +800,28 @@ export default function AutoService() {
         </div>
       </section>
 
-      <section className="py-20 border-t border-white/5">
-        <div className="max-w-7xl mx-auto px-6 text-center text-neutral-400">
+      <section className="py-12 md:py-20 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center text-neutral-400">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-12"
+            className="mb-8 md:mb-12"
           >
-            <h2 className="text-3xl font-bold mb-4 text-white">Остались вопросы?</h2>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">Остались вопросы?</h2>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mt-6 md:mt-8">
               <div className="flex items-center gap-3">
-                <Phone className="w-6 h-6 text-blue-400" />
+                <Phone className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                 <div className="text-left">
-                  <p className="text-sm">Телефон</p>
-                  <a href="tel:+79991234567" className="text-lg font-semibold text-white hover:text-blue-400">+7 (999) 123-45-67</a>
+                  <p className="text-[10px] md:text-xs text-neutral-500">Телефон</p>
+                  <a href="tel:+79991234567" className="text-base md:text-lg font-semibold text-white hover:text-blue-400 transition-colors">+7 (999) 123-45-67</a>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <Clock className="w-6 h-6 text-blue-400" />
+                <Clock className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />
                 <div className="text-left">
-                  <p className="text-sm">Режим работы</p>
-                  <p className="text-lg font-semibold text-white">Пн-Сб: 08:00 - 18:00</p>
+                  <p className="text-[10px] md:text-xs text-neutral-500">Режим работы</p>
+                  <p className="text-base md:text-lg font-semibold text-white">Пн-Сб: 08:00 - 18:00</p>
                 </div>
               </div>
             </div>
@@ -829,10 +829,11 @@ export default function AutoService() {
 
           <Button 
             variant="ghost" 
-            className="text-neutral-500 hover:text-blue-400 transition-colors"
+            size="sm"
+            className="text-[11px] md:text-sm text-neutral-500 hover:text-blue-400 transition-colors mb-8"
             onClick={() => setShowDashboard(!showDashboard)}
           >
-            {showDashboard ? "Скрыть панель управления" : "Посмотреть панель управления (для владельца)"}
+            {showDashboard ? "Скрыть панель" : "Панель управления (для владельца)"}
           </Button>
 
           <AnimatePresence>
@@ -841,50 +842,42 @@ export default function AutoService() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-12 overflow-hidden"
+                className="overflow-hidden"
               >
-                <div className="grid md:grid-cols-4 gap-6 text-left">
-                  <Card className="bg-neutral-900 border-white/10">
-                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                      <CardTitle className="text-sm font-medium text-neutral-400">Доход за сегодня</CardTitle>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 text-left mb-12">
+                  <Card className="bg-neutral-900 border-white/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] md:text-xs text-neutral-400">Доход за сегодня</span>
                       <TrendingUp className="w-4 h-4 text-green-500" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">142,500 ₽</div>
-                      <p className="text-xs text-green-500">+12% к вчера</p>
-                    </CardContent>
+                    </div>
+                    <div className="text-lg md:text-2xl font-bold text-white">142,500 ₽</div>
+                    <p className="text-[10px] text-green-500 mt-1">+12% к вчера</p>
                   </Card>
-                  <Card className="bg-neutral-900 border-white/10">
-                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                      <CardTitle className="text-sm font-medium text-neutral-400">Загрузка боксов</CardTitle>
+                  <Card className="bg-neutral-900 border-white/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] md:text-xs text-neutral-400">Загрузка боксов</span>
                       <Activity className="w-4 h-4 text-blue-500" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">85%</div>
-                      <div className="w-full h-1 bg-neutral-800 mt-2 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 w-[85%]" />
-                      </div>
-                    </CardContent>
+                    </div>
+                    <div className="text-lg md:text-2xl font-bold text-white">85%</div>
+                    <div className="w-full h-1 bg-neutral-800 mt-2 rounded-full overflow-hidden">
+                      <div className="h-full bg-blue-500 w-[85%]" />
+                    </div>
                   </Card>
-                  <Card className="bg-neutral-900 border-white/10">
-                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                      <CardTitle className="text-sm font-medium text-neutral-400">Новых клиентов</CardTitle>
+                  <Card className="bg-neutral-900 border-white/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] md:text-xs text-neutral-400">Новых клиентов</span>
                       <Users className="w-4 h-4 text-purple-500" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">+14</div>
-                      <p className="text-xs text-neutral-500">За последние 24 часа</p>
-                    </CardContent>
+                    </div>
+                    <div className="text-lg md:text-2xl font-bold text-white">+14</div>
+                    <p className="text-[10px] text-neutral-500 mt-1">За последние 24 часа</p>
                   </Card>
-                  <Card className="bg-neutral-900 border-white/10">
-                    <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                      <CardTitle className="text-sm font-medium text-neutral-400">Telegram активен</CardTitle>
+                  <Card className="bg-neutral-900 border-white/10 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] md:text-xs text-neutral-400">Telegram активен</span>
                       <Zap className="w-4 h-4 text-amber-500" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">Online</div>
-                      <p className="text-xs text-amber-500">Бот синхронизирован</p>
-                    </CardContent>
+                    </div>
+                    <div className="text-lg md:text-2xl font-bold text-white">Online</div>
+                    <p className="text-[10px] text-amber-500 mt-1">Бот синхронизирован</p>
                   </Card>
                 </div>
               </motion.div>
@@ -893,9 +886,10 @@ export default function AutoService() {
         </div>
       </section>
 
-      <footer className="py-12 border-t border-neutral-800">
-        <div className="max-w-7xl mx-auto px-6 text-center text-neutral-400 text-sm">
-          <p>© 2026 ТехноПро Сервис. Все права защищены. | Демо-концепт <span className="text-white">MP.WebStudio</span></p>
+      <footer className="py-8 md:py-12 border-t border-neutral-800">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center text-neutral-500 text-[11px] md:text-sm">
+          <p>© 2026 ТехноПро Сервис. Все права защищены.</p>
+          <p className="mt-1">Демо-концепт <span className="text-white">MP.WebStudio</span></p>
         </div>
       </footer>
     </div>
