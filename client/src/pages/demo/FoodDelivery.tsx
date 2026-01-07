@@ -185,14 +185,14 @@ export default function FoodDelivery() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-50 to-amber-50 dark:from-neutral-950 dark:to-neutral-900">
-      <Link href="/#portfolio" className="fixed top-2 left-6 z-[100]">
+      <Link href="/#portfolio" className="fixed top-3 left-4 md:top-2 md:left-6 z-[100]">
         <Button 
           variant="ghost" 
           size="icon"
-          className="bg-black/50 backdrop-blur-xl border border-white/10 text-white rounded-2xl w-14 h-14 hover:bg-orange-500 hover:border-orange-500 transition-all shadow-2xl"
+          className="bg-black/40 backdrop-blur-xl border border-white/10 text-white rounded-xl md:rounded-2xl w-10 h-10 md:w-14 md:h-14 hover:bg-orange-500 hover:border-orange-500 transition-all shadow-2xl"
           data-testid="button-back-home"
         >
-          <ArrowLeft className="w-6 h-6" />
+          <ArrowLeft className="w-5 h-5 md:w-6 md:h-6" />
         </Button>
       </Link>
 
