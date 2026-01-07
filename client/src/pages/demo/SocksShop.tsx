@@ -180,7 +180,22 @@ export default function SocksShop() {
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [sortBy, setSortBy] = useState("popular");
+  const [wishlist, setWishlist] = useState<number[]>([]);
+  const [wishlistOpen, setWishlistOpen] = useState(false);
   const { toast } = useToast();
+
+  const toggleWishlist = (id: number) => {
+    setWishlist(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+    const isAdded = !wishlist.includes(id);
+    toast({
+      title: isAdded ? "Добавлено в избранное" : "Удалено из избранного",
+      duration: 1500,
+    });
+  };
+
+  const wishlistProducts = products.filter(p => wishlist.includes(p.id));
   
   const productsRef = useRef<HTMLElement>(null);
   const featuresRef = useRef<HTMLElement>(null);
@@ -329,6 +344,57 @@ export default function SocksShop() {
         </DialogContent>
       </Dialog>
 
+      <Dialog open={wishlistOpen} onOpenChange={setWishlistOpen}>
+        <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Heart className="w-5 h-5 text-rose-500 fill-rose-500" />
+              Избранное ({wishlist.length})
+            </DialogTitle>
+          </DialogHeader>
+          
+          {wishlistProducts.length === 0 ? (
+            <div className="py-12 text-center">
+              <Heart className="w-12 h-12 text-neutral-200 mx-auto mb-4" />
+              <p className="text-muted-foreground">В избранном пока пусто</p>
+              <Button variant="outline" className="mt-6" onClick={() => setWishlistOpen(false)}>К покупкам</Button>
+            </div>
+          ) : (
+            <div className="space-y-4 py-4">
+              {wishlistProducts.map((product) => (
+                <div key={product.id} className="flex items-center gap-4 p-3 rounded-xl bg-neutral-50 border border-neutral-100">
+                  <img src={product.image} alt={product.name} className="w-16 h-16 rounded-lg object-cover" />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-sm leading-tight mb-1 truncate">{product.name}</p>
+                    <p className="text-sm font-black text-rose-500">{product.price} ₽</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      size="icon" 
+                      variant="ghost"
+                      className="h-8 w-8 rounded-full text-rose-500 hover:text-rose-600 hover:bg-rose-50"
+                      onClick={() => toggleWishlist(product.id)}
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                    <Button 
+                      size="icon"
+                      className="h-8 w-8 rounded-full bg-neutral-900 text-white"
+                      onClick={() => {
+                        addToCart(product.id);
+                        setWishlistOpen(false);
+                      }}
+                    >
+                      <ShoppingCart className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
       <Dialog open={cartOpen} onOpenChange={setCartOpen}>
         <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -448,6 +514,19 @@ export default function SocksShop() {
             </nav>
 
             <div className="flex items-center gap-1 sm:gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="rounded-full relative h-8 w-8 sm:h-10 sm:w-10"
+                onClick={() => setWishlistOpen(true)}
+              >
+                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${wishlist.length > 0 ? "fill-rose-500 text-rose-500" : ""}`} />
+                {wishlist.length > 0 && (
+                  <span className="absolute top-0 right-0 flex items-center justify-center min-w-[14px] h-[14px] rounded-full bg-rose-500 text-[8px] text-white font-black">
+                    {wishlist.length}
+                  </span>
+                )}
+              </Button>
               <Button 
                 onClick={() => setCartOpen(true)}
                 className="relative bg-neutral-900 hover:bg-black text-white rounded-full px-3 sm:px-4 gap-2 h-8 sm:h-10 shadow-lg shadow-black/10"
@@ -619,11 +698,20 @@ export default function SocksShop() {
                           </Badge>
                         </div>
                       )}
-                      <div className="absolute top-2 sm:top-4 right-2 sm:right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Button size="icon" variant="secondary" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md">
-                          <Heart className="w-4 h-4" />
+                      <div className="absolute top-2 sm:top-4 right-2 sm:right-4 flex flex-col gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Button 
+                          size="icon" 
+                          variant="secondary" 
+                          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md shadow-sm ${wishlist.includes(product.id) ? "text-rose-500" : ""}`}
+                          onClick={() => toggleWishlist(product.id)}
+                        >
+                          <Heart className={`w-4 h-4 ${wishlist.includes(product.id) ? "fill-current" : ""}`} />
                         </Button>
-                        <Button size="icon" variant="secondary" className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md">
+                        <Button 
+                          size="icon" 
+                          variant="secondary" 
+                          className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 backdrop-blur-md shadow-sm hidden sm:flex"
+                        >
                           <Share2 className="w-4 h-4" />
                         </Button>
                       </div>
