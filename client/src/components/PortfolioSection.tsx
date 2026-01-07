@@ -146,7 +146,21 @@ import realEstateHeroImg from "@assets/generated_images/modern_luxury_real_estat
 import beautySalonHeroImg from "@assets/generated_images/modern_luxury_beauty_salon_interior.webp";
 import onlineAcademyHeroImg from "@assets/generated_images/online_course_platform_hero_image.png";
 
-const portfolioItems = [
+interface PortfolioItem {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+  image: string;
+  demoUrl?: string;
+  externalUrl?: string;
+  badgeType: "concept" | "live";
+  category: string;
+  featured?: boolean;
+}
+
+const portfolioItems: PortfolioItem[] = [
   {
     id: 2,
     title: "Вкусдом",
@@ -155,7 +169,7 @@ const portfolioItems = [
     tags: ["React", "Framer Motion", "Tailwind"],
     image: foodHeroImg,
     demoUrl: "/demo/food-delivery",
-    badgeType: "concept" as const,
+    badgeType: "concept",
     category: "Food",
   },
   {
@@ -681,7 +695,7 @@ function StarNode({
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 </div>
               )}
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -694,7 +708,7 @@ function ProjectCard({
   onClose,
   onNavigate,
 }: { 
-  item: typeof portfolioItems[0];
+  item: PortfolioItem;
   onClose: () => void;
   onNavigate: () => void;
 }) {
@@ -704,80 +718,78 @@ function ProjectCard({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.15 }}
+      transition={{ duration: 0.2 }}
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
       
       <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        transition={{ duration: 0.15, ease: "easeOut" }}
+        layoutId={`star-${item.id}`}
+        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 20 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-md"
+        className="relative w-full max-w-2xl bg-background/80 backdrop-blur-xl border border-primary/20 rounded-lg overflow-hidden shadow-2xl"
       >
-        <Card className="overflow-hidden bg-card/95 backdrop-blur-md border-purple-500/30">
+        <div className="relative aspect-video overflow-hidden">
+          <img 
+            src={item.image} 
+            alt={item.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+          
           <button
             onClick={onClose}
             className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
-            data-testid="button-close-card"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
-          
-          <div className="h-56 relative overflow-hidden">
-            <img 
-              src={item.image} 
-              alt={item.title}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              className="w-full h-full object-cover object-top"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
-            <div className="absolute top-4 left-4">
-              <Badge 
-                className={`text-xs ${
-                  item.badgeType === "live" 
-                    ? "bg-green-500/90 text-white border-0" 
-                    : "bg-purple-500/90 text-white border-0"
-                }`}
-              >
-                {item.badgeType === "live" ? "Live" : "Концепт"}
-              </Badge>
-            </div>
-            {item.externalUrl && (
-              <div className="absolute top-4 right-14">
-                <ExternalLink className="w-4 h-4 text-white drop-shadow-lg" />
-              </div>
-            )}
-          </div>
-          
-          <div className="p-6">
-            <p className="text-sm text-muted-foreground">{item.subtitle}</p>
-            <h3 className="font-bold text-xl mb-2">{item.title}</h3>
-            <p className="text-muted-foreground mb-4">{item.description}</p>
-            
-            <div className="flex flex-wrap gap-2 mb-6">
+
+          <div className="absolute bottom-6 left-6 right-6">
+            <div className="flex flex-wrap gap-2 mb-3">
               {item.tags.map(tag => (
-                <Badge key={tag} variant="secondary" className="text-xs">
+                <Badge 
+                  key={tag} 
+                  variant="secondary" 
+                  className="bg-primary/10 text-primary border-primary/20 text-[10px]"
+                >
                   {tag}
                 </Badge>
               ))}
             </div>
-            
-            <motion.button
-              className="w-full py-3 px-4 rounded-md bg-purple-600 text-white font-medium hover:bg-purple-700 transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={onNavigate}
-              data-testid="button-view-project"
-            >
-              {item.externalUrl ? "Открыть сайт" : "Смотреть демо"}
-            </motion.button>
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-1 leading-tight">
+              {item.title}
+            </h2>
+            <p className="text-primary font-mono text-sm tracking-wider uppercase">
+              {item.subtitle}
+            </p>
           </div>
-        </Card>
+        </div>
+        
+        <div className="p-6 md:p-8">
+          <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
+            {item.description}
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              className="flex-1 bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 text-white border-0 py-6 text-lg font-semibold shadow-lg shadow-cyan-500/20"
+              onClick={onNavigate}
+            >
+              {item.externalUrl ? "Перейти на сайт" : "Запустить демо"} 
+              <ExternalLink className="ml-2 w-5 h-5" />
+            </Button>
+            <Button
+              variant="outline"
+              className="flex-1 border-primary/20 hover:bg-primary/5 py-6 text-lg"
+              onClick={onClose}
+            >
+              Закрыть
+            </Button>
+          </div>
+        </div>
       </motion.div>
     </motion.div>
   );
