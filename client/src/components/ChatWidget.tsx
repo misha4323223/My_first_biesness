@@ -169,11 +169,11 @@ export function ChatWidget() {
       >
         {/* Приветственный тултип */}
         <div 
-          className={`absolute bottom-full right-0 mb-4 px-4 py-2 bg-black border border-cyan-500 text-cyan-500 font-mono text-[10px] rounded-sm whitespace-nowrap transition-all duration-300 transform ${
-            showTooltip ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0 pointer-events-none"
+          className={`absolute bottom-0 right-full mr-4 px-4 py-2 bg-black border border-cyan-500 text-cyan-500 font-mono text-[10px] rounded-sm whitespace-nowrap transition-all duration-300 transform ${
+            showTooltip ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0 pointer-events-none"
           }`}
         >
-          <div className="absolute bottom-[-6px] right-6 w-2 h-2 bg-black border-r border-b border-cyan-500 rotate-45"></div>
+          <div className="absolute top-1/2 right-[-6px] -translate-y-1/2 w-2 h-2 bg-black border-t border-r border-cyan-500 rotate-45"></div>
           &gt; ЕСТЬ ВОПРОСЫ? Я ПОМОГУ_
         </div>
 
