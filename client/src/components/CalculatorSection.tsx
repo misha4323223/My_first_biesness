@@ -15,8 +15,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { Calculator, ArrowRight, Check, ChevronDown, Plus, X, Mail, Phone, MapPin } from "lucide-react";
-import { SiTelegram, SiWhatsapp } from "react-icons/si";
+import { Calculator, ArrowRight, Check, ChevronDown, Plus, X, Mail, Phone } from "lucide-react";
+import { SiTelegram, SiVk } from "react-icons/si";
 import { ParticleBackground } from "./ParticleBackground";
 
 interface FlyingLetterProps {
@@ -674,39 +674,29 @@ export function CalculatorSection() {
                     </a>
                   </div>
                 </div>
-
-                <div className="flex items-center gap-3" data-testid="contact-info-location">
-                  <div className="w-10 h-10 rounded-md bg-card border border-border flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-xs text-muted-foreground">Город</div>
-                    <div className="text-sm text-foreground font-medium">Тула, Россия</div>
-                  </div>
-                </div>
               </div>
 
               <div className="p-4 rounded-md bg-background/50 border border-border">
-                <h5 className="font-bold mb-3 text-sm">Мессенджеры</h5>
+                <h5 className="font-bold mb-3 text-sm">Наши сообщества</h5>
                 <div className="flex gap-2">
                   <a href="https://t.me/MPWebStudio_ru" target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
-                      size="icon"
-                      className="w-10 h-10"
+                      className="gap-2 px-3 h-10"
                       data-testid="button-contact-telegram"
                     >
                       <SiTelegram className="w-4 h-4" />
+                      <span className="text-xs">Telegram</span>
                     </Button>
                   </a>
-                  <a href="https://wa.me/79531814136" target="_blank" rel="noopener noreferrer">
+                  <a href="https://vk.com/mpwebstudio" target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
-                      size="icon"
-                      className="w-10 h-10"
-                      data-testid="button-contact-whatsapp"
+                      className="gap-2 px-3 h-10"
+                      data-testid="button-contact-vk"
                     >
-                      <SiWhatsapp className="w-4 h-4" />
+                      <SiVk className="w-4 h-4" />
+                      <span className="text-xs">ВКонтакте</span>
                     </Button>
                   </a>
                 </div>

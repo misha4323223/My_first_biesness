@@ -92,7 +92,6 @@ export function Footer() {
                 <p className="text-muted-foreground">Пимашин Михаил Игоревич</p>
                 <p className="text-muted-foreground">ИНН: 711612442203</p>
                 <p className="text-muted-foreground">Самозанятый (НПД)</p>
-                <p className="text-muted-foreground">301766, Тульская обл., г. Донской, ул. Новая, 49</p>
               </div>
             </div>
           </div>
