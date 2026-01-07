@@ -407,68 +407,79 @@ export default function ApartmentRenovation() {
       </div>
 
       {/* Advantages */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 mb-16 relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 shadow-xl border border-gray-100 mb-12 md:mb-16 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full -mr-32 -mt-32 blur-3xl" />
-            <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-2xl font-bold mb-4">Узнайте стоимость ремонта за 1 минуту</h3>
-                <p className="text-gray-600 mb-6">Ответьте на 3 вопроса и получите предварительную смету со скидкой 10%</p>
-                <div className="flex items-center gap-2 text-sm text-amber-600 font-bold mb-8">
+            <div className="relative z-10 grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="text-center lg:text-left">
+                <Badge className="mb-4 bg-amber-100 text-amber-700 border-amber-200">Квиз-смета</Badge>
+                <h3 className="text-2xl md:text-3xl font-bold mb-3 md:mb-4">Узнайте стоимость ремонта за 1 минуту</h3>
+                <p className="text-gray-600 text-sm md:text-lg mb-4 md:mb-6">Ответьте на 3 вопроса и получите предварительную смету со скидкой 10%</p>
+                <div className="flex items-center justify-center lg:justify-start gap-2 text-xs md:text-sm text-amber-600 font-bold mb-6 lg:mb-0">
                   <Star className="w-4 h-4 fill-current" />
                   <span>Акция: Скидка 10% при заказе через сайт</span>
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-2xl p-6 border border-gray-100 min-h-[300px] flex flex-col justify-center">
+              <div className="bg-gray-50 rounded-xl md:rounded-2xl p-4 md:p-8 border border-gray-100 min-h-[320px] md:min-h-[350px] flex flex-col justify-center shadow-inner">
                 {quizStep < 2 ? (
                   <motion.div key={quizStep} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                    <p className="text-xs text-amber-600 font-bold uppercase tracking-wider mb-2">Шаг {quizStep + 1} из 3</p>
-                    <h4 className="text-xl font-bold mb-6">{quizSteps[quizStep].title}</h4>
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="flex justify-between items-end mb-6">
+                      <h4 className="text-lg md:text-xl font-bold text-gray-900">{quizSteps[quizStep].title}</h4>
+                      <p className="text-[10px] text-amber-600 font-bold uppercase tracking-wider">Шаг {quizStep + 1} из 3</p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-2 md:gap-3">
                       {quizSteps[quizStep].options.map(opt => (
                         <Button 
                           key={opt} 
                           variant="outline" 
-                          className="justify-start h-auto py-4 px-6 border-gray-200 hover:border-amber-500 hover:bg-amber-50/50"
+                          className="justify-between h-auto py-3 md:py-4 px-4 md:px-6 border-gray-200 hover:border-amber-500 hover:bg-amber-50/50 text-sm md:text-base rounded-xl transition-all group"
                           onClick={() => handleQuizNext(opt)}
                         >
                           {opt}
+                          <Plus className="w-4 h-4 text-gray-300 group-hover:text-amber-500 transition-colors" />
                         </Button>
                       ))}
                     </div>
                   </motion.div>
                 ) : quizStep === 2 ? (
                   <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                    <p className="text-xs text-amber-600 font-bold uppercase tracking-wider mb-2">Шаг 3 из 3</p>
-                    <h4 className="text-xl font-bold mb-6">Укажите площадь (м²)</h4>
+                    <div className="flex justify-between items-end mb-6">
+                      <h4 className="text-lg md:text-xl font-bold text-gray-900">Укажите площадь (м²)</h4>
+                      <p className="text-[10px] text-amber-600 font-bold uppercase tracking-wider">Шаг 3 из 3</p>
+                    </div>
                     <div className="space-y-6">
-                      <Input 
-                        type="number" 
-                        value={quizData.area} 
-                        onChange={(e) => setQuizData({...quizData, area: e.target.value})}
-                        className="text-2xl font-bold h-16 text-center bg-white border-gray-200 text-gray-900"
-                      />
-                      <Button className="w-full h-14 bg-amber-500 text-lg font-bold" onClick={() => setQuizStep(3)}>
+                      <div className="relative">
+                        <Input 
+                          type="number" 
+                          value={quizData.area} 
+                          onChange={(e) => setQuizData({...quizData, area: e.target.value})}
+                          className="text-2xl md:text-3xl font-bold h-16 md:h-20 text-center bg-white border-gray-200 text-gray-900 rounded-xl focus:ring-amber-500/20 focus:border-amber-500"
+                        />
+                        <div className="absolute inset-y-0 right-6 flex items-center pointer-events-none">
+                          <span className="text-gray-400 font-bold">м²</span>
+                        </div>
+                      </div>
+                      <Button className="w-full h-12 md:h-14 bg-amber-500 hover:bg-amber-600 text-white text-base md:text-lg font-bold rounded-xl shadow-lg shadow-amber-500/20" onClick={() => setQuizStep(3)}>
                         Рассчитать результат
                       </Button>
                     </div>
                   </motion.div>
                 ) : (
                   <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
-                    <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Check className="w-8 h-8" />
+                    <div className="w-14 h-14 md:w-16 md:h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Check className="w-7 h-7 md:w-8 md:h-8" />
                     </div>
-                    <h4 className="text-2xl font-bold mb-2">Расчет готов!</h4>
-                    <p className="text-gray-500 mb-6">Предварительная стоимость вашего ремонта:</p>
-                    <div className="text-4xl font-black text-amber-600 mb-6">
+                    <h4 className="text-xl md:text-2xl font-bold mb-2">Расчет готов!</h4>
+                    <p className="text-gray-500 text-sm md:text-base mb-6">Предварительная стоимость ремонта:</p>
+                    <div className="text-3xl md:text-4xl font-black text-amber-600 mb-6 bg-amber-50 py-4 rounded-xl">
                       ~ {formatPrice(calculateQuizPrice())} ₽
                     </div>
-                    <Button className="w-full h-12 bg-amber-500" onClick={scrollToContact}>
+                    <Button className="w-full h-12 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl" onClick={scrollToContact}>
                       Получить детальную смету
                     </Button>
-                    <button className="text-sm text-gray-400 mt-4 hover:text-gray-600" onClick={() => setQuizStep(0)}>Сбросить расчет</button>
+                    <button className="text-xs text-gray-400 mt-4 hover:text-gray-600 underline underline-offset-4" onClick={() => setQuizStep(0)}>Начать заново</button>
                   </motion.div>
                 )}
               </div>
