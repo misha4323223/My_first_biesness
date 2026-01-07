@@ -546,7 +546,7 @@ function StarNode({
   
   return (
     <motion.div
-      className="absolute cursor-pointer"
+      className="absolute flex items-center justify-center p-8 -m-8 group"
       style={{
         left: `${position.x}%`,
         top: `${position.y}%`,
