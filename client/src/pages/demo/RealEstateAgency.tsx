@@ -651,22 +651,22 @@ export default function RealEstateAgency() {
             </p>
           </motion.div>
 
-          <Card className="p-1 bg-neutral-800/30 border-neutral-700/50 rounded-[2rem] overflow-hidden shadow-2xl">
-            <div className="bg-neutral-900/50 backdrop-blur-xl rounded-[1.8rem] p-6 md:p-12 relative overflow-hidden">
+          <Card className="p-0.5 md:p-1 bg-neutral-800/30 border-neutral-700/50 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl">
+            <div className="bg-neutral-900/50 backdrop-blur-xl rounded-[0.9rem] md:rounded-[1.8rem] p-4 md:p-12 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full -mr-32 -mt-32 blur-3xl" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/5 rounded-full -ml-32 -mb-32 blur-3xl" />
               
-              <div className="grid lg:grid-cols-2 gap-8 md:gap-16 relative z-10">
-                <div className="space-y-8">
-                  <div className="space-y-4">
-                    <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+              <div className="grid lg:grid-cols-2 gap-4 md:gap-16 relative z-10">
+                <div className="space-y-4 md:space-y-8">
+                  <div className="space-y-2 md:space-y-4">
+                    <label className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-neutral-500 uppercase tracking-widest">
                       <Home className="w-3 h-3" /> Объект недвижимости
                     </label>
                     <div className="group relative">
-                      <div className={`p-4 md:p-5 rounded-2xl bg-neutral-950/50 border transition-all duration-300 ${selectedProperty ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-neutral-800'}`}>
+                      <div className={`p-3 md:p-5 rounded-xl md:rounded-2xl bg-neutral-950/50 border transition-all duration-300 ${selectedProperty ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-neutral-800'}`}>
                         {selectedProperty ? (
-                          <div className="flex items-center gap-4">
-                            <div className="w-16 h-16 rounded-xl overflow-hidden shadow-lg border border-white/5">
+                          <div className="flex items-center gap-3 md:gap-4">
+                            <div className="w-12 h-12 md:w-16 md:h-16 rounded-lg md:rounded-xl overflow-hidden shadow-lg border border-white/5">
                               <img 
                                 src={properties.find(p => p.id === selectedProperty)?.image} 
                                 className="w-full h-full object-cover" 
@@ -674,99 +674,97 @@ export default function RealEstateAgency() {
                               />
                             </div>
                             <div>
-                              <p className="font-bold text-lg text-white">{properties.find(p => p.id === selectedProperty)?.name}</p>
-                              <p className="text-sm font-medium text-emerald-400">{formatPrice(properties.find(p => p.id === selectedProperty)?.price || 0)} ₽</p>
+                              <p className="font-bold text-sm md:text-lg text-white">{properties.find(p => p.id === selectedProperty)?.name}</p>
+                              <p className="text-xs md:text-sm font-medium text-emerald-400">{formatPrice(properties.find(p => p.id === selectedProperty)?.price || 0)} ₽</p>
                             </div>
                           </div>
                         ) : (
-                          <div className="flex items-center gap-3 text-neutral-500 py-2">
-                            <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-                              <Search className="w-5 h-5 opacity-20" />
+                          <div className="flex items-center gap-3 text-neutral-500 py-1 md:py-2">
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                              <Search className="w-4 h-4 md:w-5 md:h-5 opacity-20" />
                             </div>
-                            <p className="text-sm font-medium">Выберите объект в каталоге выше</p>
+                            <p className="text-xs md:text-sm font-medium">Выберите объект выше</p>
                           </div>
                         )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                  <div className="space-y-2 md:space-y-4">
+                    <label className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-neutral-500 uppercase tracking-widest">
                       <User className="w-3 h-3" /> Ваш персональный агент
                     </label>
-                    <div className={`p-4 md:p-5 rounded-2xl bg-neutral-950/50 border transition-all duration-300 ${selectedAgent ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-neutral-800'}`}>
+                    <div className={`p-3 md:p-5 rounded-xl md:rounded-2xl bg-neutral-950/50 border transition-all duration-300 ${selectedAgent ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-neutral-800'}`}>
                       {selectedAgent ? (
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/20">
-                            <User className="w-6 h-6 text-emerald-400" />
+                        <div className="flex items-center gap-3 md:gap-4">
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/20">
+                            <User className="w-5 h-5 md:w-6 md:h-6 text-emerald-400" />
                           </div>
                           <div>
-                            <p className="font-bold text-white">{agents.find(a => a.id === selectedAgent)?.name}</p>
-                            <p className="text-xs font-medium text-neutral-500 uppercase tracking-tighter">{agents.find(a => a.id === selectedAgent)?.role}</p>
+                            <p className="font-bold text-sm md:text-white">{agents.find(a => a.id === selectedAgent)?.name}</p>
+                            <p className="text-[10px] md:text-xs font-medium text-neutral-500 uppercase tracking-tighter">{agents.find(a => a.id === selectedAgent)?.role}</p>
                           </div>
                         </div>
                       ) : (
                         <div className="flex items-center gap-3 text-neutral-500 py-1">
-                          <div className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-                            <Shield className="w-4 h-4 opacity-20" />
+                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                            <Shield className="w-3 h-3 md:w-4 md:h-4 opacity-20" />
                           </div>
-                          <p className="text-sm font-medium">Агент будет назначен автоматически</p>
+                          <p className="text-xs md:text-sm font-medium">Агент назначен автоматически</p>
                         </div>
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between space-y-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                <div className="flex flex-col justify-between space-y-4 md:space-y-8">
+                  <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-6">
+                    <div className="space-y-2 md:space-y-4">
+                      <label className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-neutral-500 uppercase tracking-widest">
                         <Calendar className="w-3 h-3" /> Дата
                       </label>
-                      <div className="relative group">
-                        <Input 
-                          type="date" 
-                          value={selectedDate}
-                          onChange={(e) => setSelectedDate(e.target.value)}
-                          className="bg-neutral-950/50 border-neutral-800 text-white h-14 rounded-2xl px-5 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
-                          data-testid="input-date"
-                        />
-                      </div>
+                      <Input 
+                        type="date" 
+                        value={selectedDate}
+                        onChange={(e) => setSelectedDate(e.target.value)}
+                        className="bg-neutral-950/50 border-neutral-800 text-white h-11 md:h-14 rounded-xl md:rounded-2xl px-3 md:px-5 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all text-xs md:text-sm"
+                        data-testid="input-date"
+                      />
                     </div>
-                    <div className="space-y-4">
-                      <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                    <div className="space-y-2 md:space-y-4">
+                      <label className="flex items-center gap-2 text-[10px] md:text-xs font-bold text-neutral-500 uppercase tracking-widest">
                         <PlayCircle className="w-3 h-3" /> Время
                       </label>
                       <div className="relative">
                         <select 
-                          className="w-full bg-neutral-950/50 border border-neutral-800 rounded-2xl h-14 px-5 text-sm outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 appearance-none transition-all cursor-pointer text-white"
+                          className="w-full bg-neutral-950/50 border border-neutral-800 rounded-xl md:rounded-2xl h-11 md:h-14 px-3 md:px-5 text-xs md:text-sm outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 appearance-none transition-all cursor-pointer text-white"
                           value={selectedTime || ""}
                           onChange={(e) => handleTimeSelect(e.target.value)}
                         >
-                          <option value="" className="bg-neutral-950">Выберите время</option>
+                          <option value="" className="bg-neutral-950">Время</option>
                           {timeSlots.map(t => <option key={t} value={t} className="bg-neutral-950">{t}</option>)}
                         </select>
-                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-600">
-                          <ChevronRight className="w-4 h-4 rotate-90" />
+                        <div className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-600">
+                          <ChevronRight className="w-3 h-3 md:w-4 md:h-4 rotate-90" />
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-4 md:pt-0">
+                  <div className="pt-2 md:pt-0">
                     <Button 
-                      className="w-full h-16 bg-emerald-500 hover:bg-emerald-600 text-black font-black text-lg rounded-2xl shadow-2xl shadow-emerald-500/20 disabled:opacity-30 disabled:grayscale transition-all duration-500 transform active:scale-[0.98]"
+                      className="w-full h-12 md:h-16 bg-emerald-500 hover:bg-emerald-600 text-black font-black text-sm md:text-lg rounded-xl md:rounded-2xl shadow-xl md:shadow-2xl shadow-emerald-500/20 disabled:opacity-30 disabled:grayscale transition-all duration-500 transform active:scale-[0.98]"
                       disabled={!selectedProperty || !selectedDate || !selectedTime}
                       onClick={handleBook}
                       data-testid="button-confirm-booking"
                     >
-                      <Check className="w-5 h-5 mr-2" />
-                      Забронировать просмотр
+                      <Check className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                      Забронировать
                     </Button>
-                    <div className="flex items-center justify-center gap-2 mt-6">
-                      <Shield className="w-3 h-3 text-neutral-600" />
-                      <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">
-                        Ваши данные надежно защищены
+                    <div className="flex items-center justify-center gap-1.5 md:gap-2 mt-3 md:mt-6">
+                      <Shield className="w-2.5 h-2.5 md:w-3 md:h-3 text-neutral-600" />
+                      <p className="text-[8px] md:text-[10px] text-neutral-500 uppercase tracking-widest font-bold">
+                        Данные защищены
                       </p>
                     </div>
                   </div>
