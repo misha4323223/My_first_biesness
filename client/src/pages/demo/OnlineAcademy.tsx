@@ -569,6 +569,16 @@ export default function OnlineAcademy() {
               <div className="relative h-48 md:h-64 shrink-0">
                 <img src={courses.find(c => c.id === previewCourse)?.image} className="w-full h-full object-cover" alt="Course" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                <div className="absolute top-6 left-6 z-20">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full bg-black/20 backdrop-blur-md text-white hover:bg-black/40"
+                    onClick={() => setPreviewCourse(null)}
+                  >
+                    <ArrowLeft className="w-6 h-6" />
+                  </Button>
+                </div>
                 <div className="absolute bottom-6 left-6 text-white">
                   <h3 className="text-2xl font-bold">{courses.find(c => c.id === previewCourse)?.title}</h3>
                 </div>
