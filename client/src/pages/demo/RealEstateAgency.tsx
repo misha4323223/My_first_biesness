@@ -638,102 +638,138 @@ export default function RealEstateAgency() {
       </section>
 
       <section ref={bookingRef} id="booking" className="py-20 bg-neutral-900">
-        <div className="max-w-4xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 md:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Запланировать просмотр</h2>
-            <p className="text-neutral-400">
-              Выберите объект, агента и удобное время
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">Запланировать просмотр</h2>
+            <p className="text-neutral-400 text-sm md:text-lg">
+              Выберите объект, агента и удобное время для личной встречи
             </p>
           </motion.div>
 
-          <Card className="p-8 bg-neutral-800/50 border-neutral-700 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 blur-2xl" />
-            
-            <div className="grid md:grid-cols-2 gap-12 relative z-10">
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm text-neutral-400 mb-2">Объект недвижимости</label>
-                  <div className="p-4 rounded-lg bg-neutral-900 border border-neutral-700">
-                    {selectedProperty ? (
-                      <div className="flex items-center gap-3">
-                        <img 
-                          src={properties.find(p => p.id === selectedProperty)?.image} 
-                          className="w-12 h-12 rounded object-cover" 
-                          alt="" 
+          <Card className="p-1 bg-neutral-800/30 border-neutral-700/50 rounded-[2rem] overflow-hidden shadow-2xl">
+            <div className="bg-neutral-900/50 backdrop-blur-xl rounded-[1.8rem] p-6 md:p-12 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full -mr-32 -mt-32 blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/5 rounded-full -ml-32 -mb-32 blur-3xl" />
+              
+              <div className="grid lg:grid-cols-2 gap-8 md:gap-16 relative z-10">
+                <div className="space-y-8">
+                  <div className="space-y-4">
+                    <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                      <Home className="w-3 h-3" /> Объект недвижимости
+                    </label>
+                    <div className="group relative">
+                      <div className={`p-4 md:p-5 rounded-2xl bg-neutral-950/50 border transition-all duration-300 ${selectedProperty ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-neutral-800'}`}>
+                        {selectedProperty ? (
+                          <div className="flex items-center gap-4">
+                            <div className="w-16 h-16 rounded-xl overflow-hidden shadow-lg border border-white/5">
+                              <img 
+                                src={properties.find(p => p.id === selectedProperty)?.image} 
+                                className="w-full h-full object-cover" 
+                                alt="" 
+                              />
+                            </div>
+                            <div>
+                              <p className="font-bold text-lg text-white">{properties.find(p => p.id === selectedProperty)?.name}</p>
+                              <p className="text-sm font-medium text-emerald-400">{formatPrice(properties.find(p => p.id === selectedProperty)?.price || 0)} ₽</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-3 text-neutral-500 py-2">
+                            <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                              <Search className="w-5 h-5 opacity-20" />
+                            </div>
+                            <p className="text-sm font-medium">Выберите объект в каталоге выше</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                      <User className="w-3 h-3" /> Ваш персональный агент
+                    </label>
+                    <div className={`p-4 md:p-5 rounded-2xl bg-neutral-950/50 border transition-all duration-300 ${selectedAgent ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-neutral-800'}`}>
+                      {selectedAgent ? (
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center border border-emerald-500/20">
+                            <User className="w-6 h-6 text-emerald-400" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-white">{agents.find(a => a.id === selectedAgent)?.name}</p>
+                            <p className="text-xs font-medium text-neutral-500 uppercase tracking-tighter">{agents.find(a => a.id === selectedAgent)?.role}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-3 text-neutral-500 py-1">
+                          <div className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                            <Shield className="w-4 h-4 opacity-20" />
+                          </div>
+                          <p className="text-sm font-medium">Агент будет назначен автоматически</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col justify-between space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="space-y-4">
+                      <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                        <Calendar className="w-3 h-3" /> Дата
+                      </label>
+                      <div className="relative group">
+                        <Input 
+                          type="date" 
+                          value={selectedDate}
+                          onChange={(e) => setSelectedDate(e.target.value)}
+                          className="bg-neutral-950/50 border-neutral-800 text-white h-14 rounded-2xl px-5 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all"
+                          data-testid="input-date"
                         />
-                        <div>
-                          <p className="font-bold">{properties.find(p => p.id === selectedProperty)?.name}</p>
-                          <p className="text-xs text-emerald-500">{formatPrice(properties.find(p => p.id === selectedProperty)?.price || 0)} ₽</p>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <label className="flex items-center gap-2 text-xs font-bold text-neutral-500 uppercase tracking-widest">
+                        <PlayCircle className="w-3 h-3" /> Время
+                      </label>
+                      <div className="relative">
+                        <select 
+                          className="w-full bg-neutral-950/50 border border-neutral-800 rounded-2xl h-14 px-5 text-sm outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 appearance-none transition-all cursor-pointer text-white"
+                          value={selectedTime || ""}
+                          onChange={(e) => handleTimeSelect(e.target.value)}
+                        >
+                          <option value="" className="bg-neutral-950">Выберите время</option>
+                          {timeSlots.map(t => <option key={t} value={t} className="bg-neutral-950">{t}</option>)}
+                        </select>
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-600">
+                          <ChevronRight className="w-4 h-4 rotate-90" />
                         </div>
                       </div>
-                    ) : (
-                      <p className="text-neutral-500 text-sm">Выберите объект в каталоге выше</p>
-                    )}
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm text-neutral-400 mb-2">Ваш персональный агент</label>
-                  <div className="p-4 rounded-lg bg-neutral-900 border border-neutral-700">
-                    {selectedAgent ? (
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                          <User className="w-5 h-5 text-emerald-500" />
-                        </div>
-                        <div>
-                          <p className="font-bold">{agents.find(a => a.id === selectedAgent)?.name}</p>
-                          <p className="text-xs text-neutral-500">{agents.find(a => a.id === selectedAgent)?.role}</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="text-neutral-500 text-sm">Агент будет назначен автоматически</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm text-neutral-400 mb-2">Дата</label>
-                    <Input 
-                      type="date" 
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                      className="bg-neutral-900 border-neutral-700 text-white h-12"
-                      data-testid="input-date"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-neutral-400 mb-2">Время</label>
-                    <select 
-                      className="w-full bg-neutral-900 border border-neutral-700 rounded-md h-12 px-3 text-sm outline-none focus:ring-1 focus:ring-emerald-500"
-                      value={selectedTime || ""}
-                      onChange={(e) => handleTimeSelect(e.target.value)}
+                  <div className="pt-4 md:pt-0">
+                    <Button 
+                      className="w-full h-16 bg-emerald-500 hover:bg-emerald-600 text-black font-black text-lg rounded-2xl shadow-2xl shadow-emerald-500/20 disabled:opacity-30 disabled:grayscale transition-all duration-500 transform active:scale-[0.98]"
+                      disabled={!selectedProperty || !selectedDate || !selectedTime}
+                      onClick={handleBook}
+                      data-testid="button-confirm-booking"
                     >
-                      <option value="">Выберите время</option>
-                      {timeSlots.map(t => <option key={t} value={t}>{t}</option>)}
-                    </select>
+                      <Check className="w-5 h-5 mr-2" />
+                      Забронировать просмотр
+                    </Button>
+                    <div className="flex items-center justify-center gap-2 mt-6">
+                      <Shield className="w-3 h-3 text-neutral-600" />
+                      <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">
+                        Ваши данные надежно защищены
+                      </p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="pt-4">
-                  <Button 
-                    className="w-full h-14 bg-emerald-500 hover:bg-emerald-600 text-black font-black text-lg shadow-xl shadow-emerald-500/10 disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={!selectedProperty || !selectedDate || !selectedTime}
-                    onClick={handleBook}
-                    data-testid="button-confirm-booking"
-                  >
-                    Забронировать просмотр
-                  </Button>
-                  <p className="text-[10px] text-center text-neutral-500 mt-4">
-                    Нажимая кнопку, вы соглашаетесь с условиями обработки персональных данных
-                  </p>
                 </div>
               </div>
             </div>
