@@ -731,25 +731,25 @@ export default function SocksShop() {
                           <p className="text-base sm:text-2xl font-black text-neutral-900">{product.price} ₽</p>
                           {product.oldPrice && <p className="text-[10px] sm:text-sm text-neutral-400 line-through leading-none">{product.oldPrice} ₽</p>}
                         </div>
-                        <div className="flex gap-1">
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
-                          className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-neutral-50 hover:bg-neutral-100"
-                          onClick={() => setSelectedProduct(product)}
-                          data-testid={`button-view-details-${product.id}`}
-                        >
-                          <Info className="w-4 h-4" />
-                        </Button>
-                        <Button 
-                          size="icon" 
-                          className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-neutral-900 hover:bg-black text-white"
-                          onClick={() => addToCart(product.id)}
-                          data-testid={`button-add-to-cart-${product.id}`}
-                        >
-                          <Plus className="w-4 h-4" />
-                        </Button>
-                      </div>
+                        <div className="flex gap-1.5 items-center">
+                          <Button 
+                            variant="secondary" 
+                            size="sm" 
+                            className="h-8 sm:h-9 px-3 sm:px-4 rounded-xl text-[10px] sm:text-xs font-black uppercase tracking-wider"
+                            onClick={() => setSelectedProduct(product)}
+                            data-testid={`button-view-details-${product.id}`}
+                          >
+                            Подробнее
+                          </Button>
+                          <Button 
+                            size="icon" 
+                            className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-neutral-900 hover:bg-black text-white"
+                            onClick={() => addToCart(product.id)}
+                            data-testid={`button-add-to-cart-${product.id}`}
+                          >
+                            <Plus className="w-4 h-4" />
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </Card>
