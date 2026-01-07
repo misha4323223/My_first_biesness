@@ -749,17 +749,6 @@ function ProjectCard({
           </button>
 
           <div className="absolute bottom-6 left-6 right-6">
-            <div className="flex flex-wrap gap-2 mb-3">
-              {item.tags.map(tag => (
-                <Badge 
-                  key={tag} 
-                  variant="secondary" 
-                  className="bg-primary/10 text-primary border-primary/20 text-[10px]"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
             <h2 className="text-2xl md:text-4xl font-bold text-white mb-1 leading-tight">
               {item.title}
             </h2>
