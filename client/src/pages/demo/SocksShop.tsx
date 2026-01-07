@@ -726,16 +726,16 @@ export default function SocksShop() {
                       <h3 className="font-bold text-sm sm:text-lg mb-1 leading-tight group-hover:text-rose-500 transition-colors">{product.name}</h3>
                       <p className="text-[10px] sm:text-sm text-neutral-400 mb-3 sm:mb-4 line-clamp-1">{product.description}</p>
                       
-                      <div className="flex items-center justify-between gap-2">
-                        <div>
-                          <p className="text-base sm:text-2xl font-black text-neutral-900">{product.price} ₽</p>
+                      <div className="flex flex-col gap-2 mt-auto">
+                        <div className="flex items-baseline gap-1">
+                          <p className="text-lg sm:text-2xl font-black text-neutral-900 leading-none">{product.price} ₽</p>
                           {product.oldPrice && <p className="text-[10px] sm:text-sm text-neutral-400 line-through leading-none">{product.oldPrice} ₽</p>}
                         </div>
-                        <div className="flex gap-1 items-center">
+                        <div className="flex gap-1 items-center w-full">
                           <Button 
                             variant="secondary" 
                             size="sm" 
-                            className="h-7 sm:h-8 px-2 sm:px-3 rounded-lg text-[9px] sm:text-[10px] font-black uppercase tracking-tight"
+                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1"
                             onClick={() => setSelectedProduct(product)}
                             data-testid={`button-view-details-${product.id}`}
                           >
@@ -743,7 +743,7 @@ export default function SocksShop() {
                           </Button>
                           <Button 
                             size="icon" 
-                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-neutral-900 hover:bg-black text-white"
+                            className="w-7 h-7 rounded-lg bg-neutral-900 hover:bg-black text-white flex-shrink-0"
                             onClick={() => addToCart(product.id)}
                             data-testid={`button-add-to-cart-${product.id}`}
                           >
