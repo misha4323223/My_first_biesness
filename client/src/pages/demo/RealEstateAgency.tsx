@@ -189,7 +189,7 @@ export default function RealEstateAgency() {
         </Button>
       </Link>
 
-      <header className="relative min-h-screen flex items-center overflow-hidden">
+      <header className="relative min-h-[85vh] md:min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 via-neutral-950 to-neutral-950 pointer-events-none" />
         <div className="absolute inset-0 bg-cover bg-center opacity-30 pointer-events-none" style={{ backgroundImage: `url(${realEstateHeroImg})` }} />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent pointer-events-none" />
@@ -199,7 +199,7 @@ export default function RealEstateAgency() {
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-md bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
               <Home className="w-4 h-4 md:w-5 md:h-5 text-white" />
             </div>
-            <span className="text-lg md:text-xl font-bold tracking-wider">ЛЮКСПРО</span>
+            <span className="text-base md:text-xl font-bold tracking-wider">ЛЮКСПРО</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-neutral-300">
             <button onClick={scrollToProperties} className="hover:text-emerald-400 transition-colors cursor-pointer">Объекты</button>
@@ -207,60 +207,58 @@ export default function RealEstateAgency() {
             <button onClick={scrollToBooking} className="hover:text-emerald-400 transition-colors cursor-pointer">Просмотр</button>
             <button onClick={scrollToContact} className="hover:text-emerald-400 transition-colors cursor-pointer">Контакты</button>
           </div>
-          <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold h-9 md:h-10 px-3 md:px-4" data-testid="button-book-header">
+          <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold h-8 md:h-10 px-3 md:px-4 text-xs md:text-sm" data-testid="button-book-header">
             Записаться
           </Button>
         </nav>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 py-24 md:py-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pt-20 pb-12 md:py-32">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Badge className="mb-4 md:mb-6 bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
-              Премиум агенство недвижимости
+            <Badge className="mb-3 md:mb-6 bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-[10px] md:text-xs">
+              Премиум недвижимость
             </Badge>
-            <h1 className="text-4xl md:text-7xl font-bold mb-4 md:mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl md:text-7xl font-bold mb-3 md:mb-6 leading-tight tracking-tight">
               Найди свой идеальный
               <br />
               <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
                 дом
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-neutral-400 mb-8 max-w-lg">
-              Более 300 проектов успешно завершено. Апартаменты, дома, коммерческая недвижимость. Прозрачность и честность во всём.
+            <p className="text-sm md:text-xl text-neutral-400 mb-6 md:mb-8 max-w-lg leading-relaxed">
+              Более 300 проектов успешно завершено. Апартаменты, дома, коммерция. Прозрачность и честность.
             </p>
 
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-2 rounded-xl flex flex-col md:flex-row gap-2 max-w-3xl mb-8">
-              <div className="flex-1 px-4 py-2 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
-                <label className="block text-[10px] text-neutral-500 uppercase font-bold mb-1">Тип объекта</label>
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-1.5 md:p-2 rounded-xl flex flex-col md:flex-row gap-1.5 md:gap-2 max-w-3xl mb-6 md:mb-8">
+              <div className="flex-1 px-3 py-1.5 md:px-4 md:py-2 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
+                <label className="block text-[8px] md:text-[10px] text-neutral-500 uppercase font-bold mb-0.5">Тип</label>
                 <select 
-                  className="bg-transparent text-sm w-full outline-none cursor-pointer"
+                  className="bg-transparent text-xs md:text-sm w-full outline-none cursor-pointer text-white"
                   value={filterType}
                   onChange={(e) => setFilterType(e.target.value)}
                 >
                   <option value="Все" className="bg-neutral-900">Все типы</option>
                   <option value="Квартира" className="bg-neutral-900">Квартиры</option>
                   <option value="Дом" className="bg-neutral-900">Дома</option>
-                  <option value="Апартаменты" className="bg-neutral-900">Апартаменты</option>
                 </select>
               </div>
-              <div className="flex-1 px-4 py-2 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
-                <label className="block text-[10px] text-neutral-500 uppercase font-bold mb-1">Бюджет</label>
+              <div className="flex-1 px-3 py-1.5 md:px-4 md:py-2 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
+                <label className="block text-[8px] md:text-[10px] text-neutral-500 uppercase font-bold mb-0.5">Бюджет</label>
                 <select 
-                  className="bg-transparent text-sm w-full outline-none cursor-pointer"
+                  className="bg-transparent text-xs md:text-sm w-full outline-none cursor-pointer text-white"
                   value={filterPrice}
                   onChange={(e) => setFilterPrice(e.target.value)}
                 >
                   <option value="Все" className="bg-neutral-900">Любой</option>
                   <option value="до 10" className="bg-neutral-900">до 10 млн ₽</option>
                   <option value="10-50" className="bg-neutral-900">10-50 млн ₽</option>
-                  <option value="от 50" className="bg-neutral-900">от 50 млн ₽</option>
                 </select>
               </div>
               <Button 
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-8 h-12"
+                className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-6 h-10 md:h-12 text-sm"
                 onClick={scrollToProperties}
               >
                 Найти
@@ -270,35 +268,22 @@ export default function RealEstateAgency() {
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Button 
                 size="lg" 
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold w-full sm:w-auto" 
+                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold w-full sm:w-auto h-11 md:h-12 text-sm" 
                 onClick={scrollToBooking}
                 data-testid="button-book-hero"
               >
-                <Calendar className="w-5 h-5 mr-2" />
-                Забронировать просмотр
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-neutral-700 text-white hover:bg-white/10 w-full sm:w-auto" 
-                onClick={scrollToProperties}
-                data-testid="button-properties"
-              >
-                Посмотреть объекты
+                <Calendar className="w-4 h-4 mr-2" />
+                Забронировать
               </Button>
             </div>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 mt-12 text-sm">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-emerald-400" />
+            <div className="flex flex-row items-center flex-wrap gap-4 md:gap-8 mt-8 md:mt-12 text-[10px] md:text-sm">
+              <div className="flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-neutral-400">09:00 - 19:00</span>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-emerald-400" />
-                <span className="text-neutral-400">Москва, центр</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-emerald-400" />
-                <a href="tel:+79991234567" className="text-neutral-400 hover:text-emerald-400 transition-colors">+7 (999) 123-45-67</a>
+              <div className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                <span className="text-neutral-400">Москва</span>
               </div>
             </div>
           </motion.div>
@@ -395,69 +380,49 @@ export default function RealEstateAgency() {
         <div className="absolute inset-0 bg-emerald-500/5 blur-3xl rounded-full -left-1/4" />
         <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Ваш будущий дом на карте</h2>
-              <p className="text-neutral-400 mb-8">
-                Мы отобрали лучшие локации в Москве и Подмосковье. Посмотрите расположение наших объектов и инфраструктуру районов.
+            <div className="text-center lg:text-left">
+              <h2 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 leading-tight">Ваш будущий дом на карте</h2>
+              <p className="text-sm md:text-base text-neutral-400 mb-6 md:mb-8">
+                Мы отобрали лучшие локации в Москве. Посмотрите расположение наших объектов и инфраструктуру.
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-1 gap-4">
-                {["Центральные апартаменты", "Загородные резиденции", "Бизнес-кварталы"].map(item => (
-                  <div key={item} className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span className="text-neutral-300 font-medium text-sm md:text-base">{item}</span>
+              <div className="grid grid-cols-2 sm:grid-cols-1 gap-3 md:gap-4 mb-8">
+                {["Центр", "Резиденции", "Бизнес"].map(item => (
+                  <div key={item} className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span className="text-neutral-300 font-medium text-xs md:text-base">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="relative aspect-[4/3] sm:aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+            <div className="relative aspect-video rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
               <div className="absolute inset-0 bg-neutral-800">
                 <img 
                   src={stockMapImg} 
-                  alt="Moscow Map View" 
-                  className="w-full h-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-110"
+                  alt="Map View" 
+                  className="w-full h-full object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-transparent to-transparent" />
                 
-                {/* Interactive Pulsing Pins */}
-                <div className="absolute top-[25%] left-[20%] group/pin">
+                <div className="absolute top-[30%] left-[25%] group/pin">
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
-                    <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Home className="w-4 h-4 text-black" />
-                    </div>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
-                      Пентхаус Сити
+                    <div className="relative w-6 h-6 md:w-8 md:h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer transition-all">
+                      <Home className="w-3 h-3 md:w-4 md:h-4 text-black" />
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute top-[45%] left-[65%] group/pin">
+                <div className="absolute top-[50%] left-[70%] group/pin">
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-300" />
-                    <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Home className="w-4 h-4 text-black" />
-                    </div>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
-                      Резиденция Арбат
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute top-[65%] left-[45%] group/pin">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-700" />
-                    <div className="relative w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Home className="w-4 h-4 text-black" />
-                    </div>
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
-                      Офис Класса А
+                    <div className="relative w-6 h-6 md:w-8 md:h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer transition-all">
+                      <Home className="w-3 h-3 md:w-4 md:h-4 text-black" />
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none" />
-              <div className="absolute top-4 left-4 z-10">
-                <Badge className="bg-emerald-500 text-black font-bold shadow-lg border-none">ИНТЕРАКТИВНАЯ КАРТА</Badge>
+              <div className="absolute top-3 left-3 z-10">
+                <Badge className="bg-emerald-500 text-black font-bold border-none text-[8px] md:text-[10px] h-5 px-2">КАРТА ОБЪЕКТОВ</Badge>
               </div>
             </div>
           </div>
