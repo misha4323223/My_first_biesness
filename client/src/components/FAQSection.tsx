@@ -217,27 +217,27 @@ export function FAQSection() {
           </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.1 + 0.05 * index }}
+              transition={{ duration: 0.4, delay: 0.05 * index }}
               data-testid={`faq-item-${index}`}
             >
-              <Card className="p-0 overflow-hidden border border-border/50 hover:border-primary/30 transition-colors">
+              <Card className="p-0 overflow-hidden border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-300 rounded-xl no-default-hover-elevate">
                 <Button
                   variant="ghost"
-                  className="w-full justify-between items-start p-6 h-auto hover:bg-card/50"
+                  className="w-full justify-between items-center px-5 py-4 h-auto hover:bg-transparent text-left"
                   onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                   data-testid={`button-faq-${index}`}
                 >
-                  <span className="text-left font-semibold text-base text-foreground">
+                  <span className="font-medium text-sm md:text-base text-foreground/90 leading-tight pr-4">
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`w-5 h-5 text-primary flex-shrink-0 ml-4 transition-transform duration-300 ${
+                    className={`w-4 h-4 text-primary/70 flex-shrink-0 transition-transform duration-300 ${
                       expandedIndex === index ? "rotate-180" : ""
                     }`}
                   />
@@ -248,10 +248,9 @@ export function FAQSection() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="border-t border-border/50"
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-6 py-4 text-muted-foreground text-sm leading-relaxed">
+                    <div className="px-5 pb-4 text-muted-foreground/80 text-xs md:text-sm leading-relaxed border-t border-white/[0.05] pt-3">
                       {faq.answer}
                     </div>
                   </motion.div>

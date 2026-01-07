@@ -11,8 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
-import { SiTelegram, SiWhatsapp } from "react-icons/si";
+import { Mail, Phone, Send, CheckCircle } from "lucide-react";
+import { SiTelegram, SiVk } from "react-icons/si";
 import { ParticleBackground } from "./ParticleBackground";
 
 interface FlyingLetterProps {
@@ -125,7 +125,6 @@ type ContactFormData = z.infer<typeof contactSchema>;
 const contactInfo = [
   { icon: Mail, label: "Email", value: "mpwebstudio1@gmail.com" },
   { icon: Phone, label: "Телефон", value: "+7 (953) 181-41-36" },
-  { icon: MapPin, label: "Город", value: "Тула, Россия" },
 ];
 
 const projectTypes = [
@@ -456,26 +455,26 @@ export function ContactSection() {
             </div>
 
             <div className="mt-auto p-6 rounded-md bg-card/50 border border-border">
-              <h4 className="font-bold mb-4">Мессенджеры</h4>
+              <h4 className="font-bold mb-4">Наши сообщества</h4>
               <div className="flex gap-3">
                 <a href="https://t.me/MPWebStudio_ru" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="outline"
-                    size="icon"
-                    className="w-12 h-12"
+                    className="gap-2 px-4 h-12"
                     data-testid="button-telegram"
                   >
                     <SiTelegram className="w-5 h-5" />
+                    <span>Telegram</span>
                   </Button>
                 </a>
-                <a href="https://wa.me/79531814136" target="_blank" rel="noopener noreferrer">
+                <a href="https://vk.com/mpwebstudio" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="outline"
-                    size="icon"
-                    className="w-12 h-12"
-                    data-testid="button-whatsapp"
+                    className="gap-2 px-4 h-12"
+                    data-testid="button-vk"
                   >
-                    <SiWhatsapp className="w-5 h-5" />
+                    <SiVk className="w-5 h-5" />
+                    <span>ВКонтакте</span>
                   </Button>
                 </a>
               </div>
