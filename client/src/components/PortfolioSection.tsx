@@ -2,6 +2,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useMemo } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ExternalLink, X } from "lucide-react";
 import { useLocation } from "wouter";
 import { ParticleBackground } from "./ParticleBackground";
@@ -695,7 +696,7 @@ function StarNode({
                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                 </div>
               )}
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
