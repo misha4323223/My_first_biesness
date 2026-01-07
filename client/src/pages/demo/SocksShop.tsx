@@ -406,19 +406,19 @@ export default function SocksShop() {
       </Dialog>
 
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-neutral-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between gap-8">
-            <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link href="/#portfolio">
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-neutral-100">
-                  <ArrowLeft className="w-5 h-5" />
+                <Button variant="ghost" size="icon" className="rounded-full hover:bg-neutral-100 h-8 w-8 sm:h-10 sm:w-10">
+                  <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </Link>
               <div className="flex flex-col">
-                <span className="text-xl font-[1000] leading-none tracking-tighter">
+                <span className="text-lg sm:text-xl font-[1000] leading-none tracking-tighter">
                   SOCK<span className="text-rose-500">LOVE</span>
                 </span>
-                <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Concept Store</span>
+                <span className="text-[8px] sm:text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Concept Store</span>
               </div>
             </div>
             
@@ -437,28 +437,51 @@ export default function SocksShop() {
               ))}
             </nav>
 
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" className="rounded-full lg:hidden">
-                <Search className="w-5 h-5" />
-              </Button>
+            <div className="flex items-center gap-1 sm:gap-2">
               <Button 
                 onClick={() => setCartOpen(true)}
-                className="relative bg-neutral-900 hover:bg-black text-white rounded-full px-4 gap-2 h-10 shadow-lg shadow-black/10"
+                className="relative bg-neutral-900 hover:bg-black text-white rounded-full px-3 sm:px-4 gap-2 h-8 sm:h-10 shadow-lg shadow-black/10"
               >
-                <ShoppingCart className="w-4 h-4" />
+                <ShoppingCart className="w-3.5 h-3.5 sm:w-4 h-4" />
                 <span className="hidden sm:inline font-bold text-sm">Корзина</span>
                 {cartCount > 0 && (
-                  <span className="flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-rose-500 text-[10px] font-black">
+                  <span className="flex items-center justify-center min-w-[16px] h-[16px] sm:min-w-[18px] sm:h-[18px] rounded-full bg-rose-500 text-[9px] sm:text-[10px] font-black">
                     {cartCount}
                   </span>
                 )}
               </Button>
-              <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                {mobileMenuOpen ? <X /> : <Menu />}
+              <Button variant="ghost" size="icon" className="lg:hidden h-8 w-8" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+                {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               </Button>
             </div>
           </div>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden bg-white border-b border-neutral-100 overflow-hidden"
+            >
+              <div className="px-4 py-6 space-y-4">
+                {["Каталог", "Наборы", "SALE", "Доставка"].map(item => (
+                  <button
+                    key={item}
+                    onClick={() => handleNavClick(item)}
+                    className={`block w-full text-left text-lg font-bold ${
+                      item === "SALE" ? "text-rose-500" : "text-neutral-900"
+                    }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main>
