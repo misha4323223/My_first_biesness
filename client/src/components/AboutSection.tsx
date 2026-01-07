@@ -134,7 +134,7 @@ export function AboutSection() {
   const line3 = " для вашего бизнеса";
 
   return (
-    <section id="about" className="py-24 md:py-32 relative overflow-hidden">
+    <section id="about" className="py-20 md:py-32 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(168,85,247,0.08),transparent_50%)]" />
@@ -142,20 +142,20 @@ export function AboutSection() {
       
       <ParticleBackground />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         <div ref={ref} className="max-w-3xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5 }}
-            className="mb-6"
+            className="mb-4"
           >
             <span className="neon-badge">
-              <span className="neon-badge-text">О студии</span>
+              <span className="neon-badge-text text-xs sm:text-sm">О студии</span>
             </span>
           </motion.div>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
             <AnimatedText text={line3} startIndex={line1.length + line2.length} isInView={isInView} />
@@ -165,12 +165,13 @@ export function AboutSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.8 }}
+            className="space-y-4 md:space-y-6"
           >
-            <p className="text-muted-foreground text-lg mb-6">
+            <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
               MP.WebStudio — это сочетание современных технологий и внимания к деталям. 
               Мы используем актуальные инструменты разработки, чтобы создавать сайты быстрее и качественнее.
             </p>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
               Каждый проект начинается с понимания вашей задачи. Мы не предлагаем шаблонные решения — 
               мы разрабатываем продукт под ваш бизнес, вашу аудиторию и ваши цели.
             </p>
