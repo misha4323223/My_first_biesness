@@ -759,9 +759,16 @@ function ProjectCard({
         </div>
         
         <div className="p-5 md:p-6">
-          <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
+          <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
             {item.description}
           </p>
+          
+          <div className="mb-6 p-3 rounded-lg bg-primary/5 border border-primary/10">
+            <p className="text-[11px] leading-relaxed text-muted-foreground">
+              <span className="text-primary font-semibold block mb-1 uppercase tracking-wider">Demo Preview</span>
+              Данный сайт представлен в качестве примера реализации. Мы специализируемся на разработке масштабируемых систем. Нужен более сложный функционал (оплата, аналитика, боты)? Мы внедрим это в кратчайшие сроки.
+            </p>
+          </div>
           
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
