@@ -19,7 +19,7 @@ import micellarImg from "@assets/stock_images/micellar_water_clean_dda3e93a.webp
 import maskImg from "@assets/stock_images/face_mask_cosmetic_s_4961cbaf.webp";
 import tonerImg from "@assets/stock_images/toner_bottle_skincar_632250d7.webp";
 import nightCreamImg from "@assets/stock_images/night_cream_luxury_s_7bf4c694.webp";
-import ritualHeroImg from "@assets/stock_images/luxury_skincare_rout_51feeee5.jpg";
+import ritualHeroImg from "@assets/stock_images/luxury_skincare_rout_51feeee5.webp";
 
 const products = [
   {

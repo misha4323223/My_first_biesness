@@ -32,9 +32,9 @@ import galleryImg1 from "@assets/generated_images/modern_undercut_fade_haircut.w
 import galleryImg2 from "@assets/generated_images/professional_beard_styling_result.webp";
 import galleryImg3 from "@assets/generated_images/classic_gentleman_side_part.webp";
 import galleryImg4 from "@assets/generated_images/trendy_textured_crop_fade.webp";
-import pomadeImg from "@assets/generated_images/premium_hair_pomade_product_photography.png";
-import beardOilImg from "@assets/generated_images/luxury_beard_oil_product_photography.png";
-import shampooImg from "@assets/generated_images/premium_beard_shampoo_product_photography.png";
+import pomadeImg from "@assets/generated_images/premium_hair_pomade_product_photography.webp";
+import beardOilImg from "@assets/generated_images/luxury_beard_oil_product_photography.webp";
+import shampooImg from "@assets/generated_images/premium_beard_shampoo_product_photography.webp";
 import certImg from "@assets/generated_images/elegant_black_and_gold_barbershop_gift_certificate.webp";
 
 const reviews = [
