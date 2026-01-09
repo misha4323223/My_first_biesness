@@ -210,6 +210,32 @@
     100% { opacity: 1; filter: blur(0px); }
   }
 
+  .scanline-header {
+    position: relative;
+    display: flex;
+  }
+
+  .scanline-header::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    animation: scan-line-horizontal 3s linear infinite;
+    pointer-events: none;
+    z-index: 20;
+  }
+
+  @keyframes scan-line-horizontal {
+    0% { width: 0; opacity: 0; }
+    50% { width: 100%; opacity: 1; }
+    100% { width: 0; opacity: 0; }
+  }
+
   .neural-interface {
     font-family: var(--font-mono);
     color: #f0f9ff;
