@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
-Clean-param: q /
+Disallow: /admin
+Disallow: /payment-success
+Disallow: /payment-fail
+Disallow: /pay-remaining
 
 Host: https://mp-webstudio.ru
 Sitemap: https://mp-webstudio.ru/sitemap.xml
