@@ -147,7 +147,7 @@ import photographerHeroImg from "@assets/generated_images/photographer_workspace
 import autoServiceHeroImg from "@assets/generated_images/modern_auto_service_garage_workshop_interior.webp";
 import realEstateHeroImg from "@assets/generated_images/modern_luxury_real_estate_agency_office.webp";
 import beautySalonHeroImg from "@assets/generated_images/modern_luxury_beauty_salon_interior.webp";
-import onlineAcademyHeroImg from "@assets/generated_images/online_course_platform_hero_image.png";
+import onlineAcademyHeroImg from "@assets/generated_images/online_course_platform_hero_image.webp";
 
 interface PortfolioItem {
   id: number;
