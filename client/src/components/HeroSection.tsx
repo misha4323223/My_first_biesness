@@ -240,7 +240,7 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <div className="relative flex flex-col items-center gap-6">
+        <div className="relative group perspective-1000 flex flex-col items-center">
           <h1 className="flex flex-col items-center gap-4 text-center">
             <div className="relative">
               <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
@@ -254,6 +254,9 @@ export function HeroSection() {
               </span>
             </div>
           </h1>
+          
+          {/* Decorative Synthwave lines */}
+          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
         </div>
 
         <motion.p
