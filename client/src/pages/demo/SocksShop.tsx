@@ -37,7 +37,10 @@ import businessImg from "@assets/generated_images/professional_business_socks_se
 import noveltyImg from "@assets/generated_images/novelty_socks_with_creative_prints..png";
 import athleticImg from "@assets/generated_images/athletic_performance_compression_socks..png";
 import colorfulImg from "@assets/generated_images/colorful_patterned_socks_collection..png";
-import heroImg from "@assets/generated_images/premium_socks_hero_banner_aesthetic..png";
+import heroImg from "@assets/generated_images/modern_lifestyle_socks_hero_image..png";
+import bossSocksImg from "@assets/generated_images/premium_business_socks_set_for_boss..png";
+import winterSocksImg from "@assets/generated_images/winter_merino_wool_socks..png";
+import motivationSocksImg from "@assets/generated_images/motivation_text_socks..png";
 
 const products = [
   {
@@ -80,7 +83,7 @@ const products = [
     description: "Для тех, кто принимает решения в любой ситуации. Золотая корона на черном фоне.",
     price: 750,
     oldPrice: 990,
-    image: noveltyImg,
+    image: bossSocksImg,
     tag: "SALE",
     category: "С надписями",
     rating: 4.9,
@@ -102,7 +105,7 @@ const products = [
     name: "Winter Thermo",
     description: "Шерсть мериноса для самых низких температур. Сохраняют тепло и отводят лишнюю влагу.",
     price: 1290,
-    image: athleticImg,
+    image: winterSocksImg,
     tag: "Winter",
     category: "Спорт",
     rating: 4.7,
@@ -124,7 +127,7 @@ const products = [
     name: "«Super Power»",
     description: "Твоя секретная энергия в каждом шаге. Мотивирующие надписи на стопе.",
     price: 590,
-    image: noveltyImg,
+    image: motivationSocksImg,
     category: "С надписями",
     rating: 4.6,
     details: "Текстурированная подошва для лучшего сцепления."
