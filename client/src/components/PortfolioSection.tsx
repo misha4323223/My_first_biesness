@@ -168,7 +168,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 2,
     title: "Вкусдом",
     subtitle: "Доставка еды",
-    description: "Концепт лендинга для доставки азиатской еды. Яркий дизайн, анимированное меню, корзина заказа.",
+    description: "Заказать сайт с нуля для доставки еды. Азиатская кухня, удобный интерфейс заказа.",
     tags: ["React", "Framer Motion", "Tailwind"],
     image: foodHeroImg,
     demoUrl: "/demo/food-delivery",

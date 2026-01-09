@@ -177,8 +177,8 @@ export function ServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const line1 = "Что мы ";
-  const line2 = "предлагаем";
+  const line1 = "Купить сайт ";
+  const line2 = "под ключ";
 
   return (
     <section id="services" className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
