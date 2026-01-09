@@ -401,10 +401,9 @@ export function CalculatorSection() {
   const line2 = "начать проект?";
 
   return (
-    <section id="calculator" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(168,85,247,0.08),transparent_50%)]" />
+    <section id="calculator" className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08),transparent_70%)]" />
       </div>
 
       <ParticleBackground />

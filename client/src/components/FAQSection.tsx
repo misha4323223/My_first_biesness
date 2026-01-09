@@ -176,10 +176,9 @@ export function FAQSection() {
   const line2 = "задаваемые вопросы";
 
   return (
-    <section id="faq" className="py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
+    <section id="faq" className="py-16 md:py-24 relative overflow-hidden bg-[#0a0a0a]">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08),transparent_70%)]" />
       </div>
       
       <ParticleBackground />
