@@ -240,39 +240,20 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8 relative overflow-hidden tracking-tighter font-bold">
+        <h1 className="flex flex-col items-center mb-8 relative overflow-hidden">
           <GlowPulse />
-          <span className="text-white block px-2 relative group cursor-default">
-            <AnimatedText text={line1} startIndex={0} />
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-              animate={{
-                left: ["-100%", "200%"]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-                repeatDelay: 1
-              }}
-            />
-          </span>
-          <span className="block mt-2 px-2 relative group cursor-default">
-            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">
-              <AnimatedText text={line2} startIndex={line1.length} isGradient />
-            </span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
-              animate={{
-                left: ["-100%", "200%"]
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear",
-                repeatDelay: 1.5
-              }}
-            />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-4 px-4 py-1.5 rounded-md border border-cyan-400/30 bg-cyan-400/5 font-mono text-sm md:text-base text-cyan-400 tracking-wider"
+          >
+            <span className="opacity-70">&lt;</span>
+            {line1}
+            <span className="opacity-70"> /&gt;</span>
+          </motion.div>
+          <span className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.15em] uppercase text-white drop-shadow-2xl">
+            <AnimatedText text={line2} startIndex={line1.length} />
           </span>
         </h1>
 
