@@ -194,16 +194,16 @@ export default function BeautySalon() {
           <div className="absolute inset-0 bg-gradient-to-b from-stone-900/20 via-transparent to-stone-50" />
         </div>
         
-        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-8 flex items-center justify-between">
+        <nav className="absolute top-0 left-0 right-0 z-50 max-w-7xl mx-auto px-4 md:px-6 py-2 md:py-4 flex items-center justify-between bg-white/40 backdrop-blur-md border-b border-stone-200/20">
           <div className="flex items-center gap-3 pl-10 md:pl-12">
-            <span className="text-xl md:text-3xl font-serif tracking-[0.2em] text-stone-900">LUMINA</span>
+            <span className="text-xl md:text-3xl font-serif tracking-[0.2em] text-stone-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">LUMINA</span>
           </div>
           <div className="hidden md:flex items-center gap-10 text-sm uppercase tracking-widest font-medium text-stone-800">
-            <button onClick={scrollToServices} className="hover:text-amber-600 transition-colors">Услуги</button>
-            <button onClick={scrollToStylists} className="hover:text-amber-600 transition-colors">Команда</button>
-            <button onClick={scrollToBooking} className="hover:text-amber-600 transition-colors">Запись</button>
+            <button onClick={scrollToServices} className="hover:text-amber-600 transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">Услуги</button>
+            <button onClick={scrollToStylists} className="hover:text-amber-600 transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">Команда</button>
+            <button onClick={scrollToBooking} className="hover:text-amber-600 transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">Запись</button>
           </div>
-          <Button className="bg-stone-900 text-white hover:bg-stone-800 rounded-none px-4 md:px-8 py-4 md:py-6 tracking-widest uppercase text-[10px] md:text-xs" onClick={scrollToBooking}>
+          <Button className="bg-stone-900 text-white hover:bg-stone-800 rounded-none px-4 md:px-8 py-3 md:py-5 tracking-widest uppercase text-[10px] md:text-xs shadow-lg" onClick={scrollToBooking}>
             Запись
           </Button>
         </nav>
