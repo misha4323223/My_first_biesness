@@ -183,7 +183,7 @@ export function HeroSection() {
   const line2 = "Это витрина для вас.";
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-20 md:pt-32">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -235,7 +235,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center -mt-20 md:-mt-40">
         <div className="mb-10">
           <GlassBadge />
         </div>
