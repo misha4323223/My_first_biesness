@@ -240,40 +240,22 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <div className="relative inline-block py-16 px-16">
-          {/* Background Grid Pattern */}
-          <div className="absolute inset-0 opacity-20 pointer-events-none"
-               style={{
-                 backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
-                                  linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                 backgroundSize: '20px 20px'
-               }}
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-none mb-10 relative font-sans font-thin tracking-tight text-center uppercase">
+          <GlowPulse />
+          <span className="text-stone-500 block px-2 opacity-40 mb-2">
+            <AnimatedText text={line1} startIndex={0} />
+          </span>
+          <span className="relative inline-block px-2 text-white">
+            <AnimatedText text={line2} startIndex={line1.length} />
+            <div className="absolute -right-4 bottom-2 w-3 h-3 bg-red-600 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.8)] animate-pulse" />
+          </span>
+          {/* Scanning Line Effect */}
+          <motion.div 
+            className="absolute left-0 top-0 w-full h-px bg-white/20 z-20 pointer-events-none"
+            animate={{ top: ["0%", "100%"] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
           />
-          
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight relative font-mono text-center tracking-tighter uppercase">
-            <GlowPulse />
-            <span className="block px-2 text-white/40 mb-2 font-light">
-              <AnimatedText text={line1} startIndex={0} />
-            </span>
-            <div className="relative">
-              <span className="block px-6 py-4 border border-white/10 bg-black/40 backdrop-blur-sm text-white font-black shadow-[0_0_30px_rgba(255,255,255,0.05)]">
-                <AnimatedText text={line2} startIndex={line1.length} />
-              </span>
-              {/* Decorative Corner Bits */}
-              <div className="absolute -top-1 -left-1 w-2 h-2 bg-white" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 bg-white" />
-              <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white" />
-              <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white" />
-            </div>
-          </h1>
-
-          {/* Data Stream Indicators */}
-          <div className="absolute top-0 right-0 h-full w-4 flex flex-col justify-around opacity-20 py-8">
-             {[...Array(8)].map((_, i) => (
-               <div key={i} className="w-1 h-1 bg-white animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
-             ))}
-          </div>
-        </div>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
