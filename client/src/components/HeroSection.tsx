@@ -240,17 +240,17 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <div className="relative group perspective-1000">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-none relative font-serif italic text-center lowercase">
+        <div className="relative group perspective-1000 flex flex-col items-center">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-none relative font-serif italic text-center lowercase flex flex-col items-center gap-4">
             <GlowPulse />
-            <div className="relative inline-block mb-4">
+            <div className="relative inline-block">
               <span className="relative z-10 block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-white to-cyan-500 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)] transform skew-x-[-12deg] tracking-tight">
                 <AnimatedText text={line1.toLowerCase()} startIndex={0} />
               </span>
               <div className="absolute -inset-1 bg-cyan-400/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity" />
             </div>
             
-            <div className="relative block mt-2">
+            <div className="relative inline-block">
               <span className="relative z-10 block px-6 py-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-400 to-indigo-500 font-black tracking-tighter italic transform skew-x-[-15deg] drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] border-y-2 border-white/10">
                 <AnimatedText text={line2.toLowerCase()} startIndex={line1.length} isGradient />
               </span>
