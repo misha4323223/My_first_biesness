@@ -21,7 +21,7 @@ import propertyImg3 from "@/assets/generated_images/minimalist_compact_studio_ap
 import propertyImg4 from "@/assets/generated_images/luxury_penthouse_with_panoramic_views.webp";
 import propertyImg5 from "@/assets/generated_images/modern_townhouse_near_forest_park.webp";
 import propertyImg6 from "@/assets/generated_images/class_a_premium_office_space_interior.webp";
-import stockMapImg from "@assets/stock_images/aerial_view_of_mosco_c086c0ae.webp";
+import stockMapImg from "@/assets/generated_images/luxury_central_moscow_apartment_interior.webp";
 
 const properties = [
   { id: 1, name: "Апартаменты в центре", beds: 3, baths: 2, area: 120, price: 12500000, type: "Квартира", image: propertyImg1 },

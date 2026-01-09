@@ -18,13 +18,13 @@ import { Label } from "@/components/ui/label";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { SiGoogle, SiYcombinator, SiAmazon, SiApple } from "react-icons/si";
 
-import heroImg from "@assets/generated_images/online_course_platform_hero_image.webp";
-import instructorImg from "@assets/generated_images/online_course_instructor_portrait.webp";
-import studentImg from "@assets/generated_images/student_taking_online_course.webp";
-import dashboardImg from "@assets/generated_images/online_course_dashboard_interface.webp";
-import programmingImg from "@assets/generated_images/programming_course_code_editor.webp";
-import avatarsImg from "@assets/generated_images/student_avatars_for_live_stream.webp";
-import thumbnailsImg from "@assets/generated_images/micro-learning_video_thumbnails_for_programming.webp";
+import heroImg from "@assets/generated_images/web_studio_portfolio_showcase.webp";
+import instructorImg from "@assets/generated_images/professional_businessman_portrait_photo.webp";
+import studentImg from "@assets/generated_images/professional_woman_portrait_photography.webp";
+import dashboardImg from "@assets/generated_images/modern_luxury_real_estate_agency_office.webp";
+import programmingImg from "@assets/generated_images/web_studio_portfolio_showcase.webp";
+import avatarsImg from "@assets/generated_images/professional_businessman_portrait_photo.webp";
+import thumbnailsImg from "@assets/generated_images/web_studio_portfolio_showcase.webp";
 
 const courses = [
   {
