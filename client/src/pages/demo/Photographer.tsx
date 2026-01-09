@@ -108,7 +108,7 @@ export default function Photographer() {
             <a href="#about" className="hover:text-white transition-colors">Обо мне</a>
             <a href="#contact" className="hover:text-white transition-colors">Контакты</a>
           </nav>
-          <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black" onClick={() => setIsOrderModalOpen(true)}>
+          <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-neutral-100" onClick={() => setIsOrderModalOpen(true)}>
             Связаться
           </Button>
         </div>
@@ -142,7 +142,7 @@ export default function Photographer() {
             Создаю визуальные истории, которые остаются в памяти навсегда
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
-            <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black gap-2" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-neutral-100 gap-2" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
               <Camera className="w-5 h-5" />
               Смотреть работы
             </Button>
@@ -183,7 +183,7 @@ export default function Photographer() {
                 variant={activeCategory === cat ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setActiveCategory(cat)}
-                className={activeCategory === cat ? "bg-amber-500 text-black" : "text-neutral-400"}
+                className={activeCategory === cat ? "bg-amber-500 text-neutral-100" : "text-neutral-400"}
                 data-testid={`button-category-${cat}`}
               >
                 {cat}
@@ -348,7 +348,7 @@ export default function Photographer() {
               <Button size="icon" variant="outline" className="border-white/20 rounded-full">
                 <Instagram className="w-5 h-5" />
               </Button>
-              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black" onClick={() => setIsOrderModalOpen(true)}>
+              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-neutral-100" onClick={() => setIsOrderModalOpen(true)}>
                 Обсудить проект
               </Button>
             </div>
@@ -439,7 +439,7 @@ export default function Photographer() {
               <label className="text-sm text-neutral-400">Сообщение (необязательно)</label>
               <Textarea placeholder="Расскажите о вашей идее" className="bg-neutral-800 border-white/10 text-white focus:border-amber-500/50 min-h-[100px]" />
             </div>
-            <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-black font-medium h-12">
+            <Button type="submit" className="w-full bg-amber-500 hover:bg-amber-600 text-neutral-100 font-medium h-12">
               Отправить заявку
             </Button>
           </form>
@@ -473,7 +473,7 @@ export default function Photographer() {
             </ul>
           </div>
           <Button 
-            className="w-full bg-white text-black hover:bg-neutral-200"
+            className="w-full bg-white text-neutral-600 hover:bg-neutral-200"
             onClick={() => setIsSuccessModalOpen(false)}
           >
             Понятно
