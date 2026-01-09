@@ -346,19 +346,19 @@ const starPositions = [
 
 const mobileStarPositions = [
   { x: 15, y: 5 },    // 0
-  { x: 57, y: 8 },    // 1 - Фитнес-студия
+  { x: 57, y: 8 },    // 1 - фитнес студия
   { x: 10, y: 18 },   // 2 - Вкусдом (Доставка еды)
   { x: 66, y: 18 },   // 3 - Streetwear (Интернет-магазин одежды)
-  { x: 20, y: 32 },   // 4 - Natura (Интернет-магазин cosmetics)
-  { x: 55, y: 38 },   // 5 - Неизвестно (пусто)
+  { x: 20, y: 32 },   // 4 - socks (Интернет-магазин носков)
+  { x: 60, y: 35 },   // 5 - Туристическое агентство
   { x: 15, y: 48 },   // 6
-  { x: 40, y: 52 },   // 7
-  { x: 65, y: 58 },   // 8
-  { x: 25, y: 64 },   // 9
-  { x: 50, y: 72 },   // 10
-  { x: 35, y: 95 },   // 11
-  { x: 15, y: 82 },   // 12
-  { x: 45, y: 88 },   // 13
+  { x: 40, y: 42 },   // 7 - Стоматологическая клиника
+  { x: 65, y: 50 },   // 8 - Ремонт квартир
+  { x: 32, y: 58 },   // 9 - Сайт-визитка фотографа
+  { x: 61, y: 62 },   // 10 - Автосервис
+  { x: 25, y: 85 },   // 11 - Агентство недвижимости
+  { x: 15, y: 71 },   // 12 - Салон красоты
+  { x: 45, y: 76 },   // 13 - Платформа онлайн-курсов
   { x: 40, y: 28 },   // 14
   { x: 60, y: 45 },   // 15
 ];
@@ -854,7 +854,7 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "1000px" : "800px" }}>
+    <section id="portfolio" className="relative overflow-hidden" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "900px" : "800px" }}>
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
@@ -897,7 +897,7 @@ export function PortfolioSection() {
 
         {/* Созвездие */}
         <div 
-          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[700px] md:min-h-0"
+          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[650px] md:min-h-0 pb-12"
         >
           <Nebulae />
           <StarParticles />
