@@ -240,15 +240,25 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-tight mb-8 relative">
-          <GlowPulse />
-          <span className="text-white/20 block px-2 mb-[-0.2em] font-medium tracking-tight blur-[1px] transform scale-95 transition-all duration-700">
-            <AnimatedText text={line1} startIndex={0} />
-          </span>
-          <span className="relative z-10 block px-2 font-extrabold tracking-tighter text-white drop-shadow-[0_20px_30px_rgba(0,0,0,0.8)] transform scale-105">
-            <AnimatedText text={line2} startIndex={line1.length} isGradient />
-          </span>
-        </h1>
+        <div className="text-left md:pl-12 max-w-4xl">
+          <h1 className="leading-tight mb-8 relative">
+            <GlowPulse />
+            <span className="text-stone-400 block px-2 text-lg md:text-xl font-light tracking-widest opacity-80 mb-2 uppercase font-mono">
+              <AnimatedText text={line1} startIndex={0} />
+            </span>
+            <div className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-serif">
+              <span className="block px-2 text-white drop-shadow-2xl italic leading-[0.8] mb-4">
+                Это
+              </span>
+              <span className="block px-2 font-black tracking-tighter text-white bg-gradient-to-br from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent">
+                Витрина
+              </span>
+              <span className="block px-2 text-stone-500 text-3xl md:text-4xl mt-4 font-sans tracking-normal opacity-60">
+                для вас.
+              </span>
+            </div>
+          </h1>
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
