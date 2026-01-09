@@ -196,6 +196,43 @@
   /* Fallback for older browsers */
   --destructive-border: hsl(var(--destructive));
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  /* Нейро-Интерфейс (Neural Link) */
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+
+  @keyframes neural-glitch {
+    0% { opacity: 0.8; filter: blur(0.5px); }
+    5% { opacity: 1; filter: blur(0px); }
+    10% { opacity: 0.9; filter: blur(0.2px); }
+    15% { opacity: 1; filter: blur(0px); }
+    100% { opacity: 1; filter: blur(0px); }
+  }
+
+  .neural-interface {
+    font-family: var(--font-mono);
+    color: #f0f9ff;
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.4), 0 0 12px rgba(56, 189, 248, 0.2);
+    font-weight: 200;
+    letter-spacing: 0.05em;
+    position: relative;
+    display: inline-block;
+    opacity: 0.85;
+    animation: neural-glitch 4s infinite;
+  }
+
+  .neural-interface::after {
+    content: "";
+    position: absolute;
+    inset: -10% -5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.8), transparent);
+    box-shadow: 0 0 10px rgba(125, 211, 252, 0.5);
+    animation: scan-line 3s linear infinite;
+    pointer-events: none;
+    z-index: 20;
+  }
 }
 
 @layer base {

@@ -240,27 +240,20 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <div className="relative group perspective-1000 flex flex-col items-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-none relative font-serif italic text-center lowercase flex flex-col items-center gap-4">
-            <GlowPulse />
-            <div className="relative inline-block">
-              <span className="relative z-10 block px-4 py-2 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transform skew-x-[-12deg] tracking-tight">
-                <AnimatedText text={line1.toLowerCase()} startIndex={0} />
+        <div className="relative flex flex-col items-center gap-6">
+          <h1 className="flex flex-col items-center gap-4 text-center">
+            <div className="relative">
+              <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
+                Это не реклама про нас.
               </span>
-              <div className="absolute -inset-1 bg-cyan-400/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity" />
             </div>
             
-            <div className="relative inline-block">
-              <span className="relative z-10 block px-6 py-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-400 to-indigo-500 font-black tracking-tighter italic transform skew-x-[-15deg] drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] border-y-2 border-white/10">
-                <AnimatedText text={line2.toLowerCase()} startIndex={line1.length} isGradient />
+            <div className="relative">
+              <span className="neural-interface text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
+                Это витрина для вас.
               </span>
-              {/* Retro Sun element simulated with a circular gradient */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-t from-orange-500/0 via-orange-500/20 to-yellow-500/40 rounded-full blur-3xl -z-10 pointer-events-none" />
             </div>
           </h1>
-          
-          {/* Decorative Synthwave lines */}
-          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
         </div>
 
         <motion.p
