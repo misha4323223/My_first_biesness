@@ -945,7 +945,7 @@ export default function StreetWearShop() {
               Лучшие российские бренды уличной одежды. Оригинальный дизайн, качественные материалы, честные цены.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black hover:text-white font-black" onClick={scrollToProducts} data-testid="button-shop-now">
+              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-white font-black shadow-[0_0_20px_rgba(245,158,11,0.3)]" onClick={scrollToProducts} data-testid="button-shop-now">
                 Смотреть каталог
               </Button>
               <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" onClick={scrollToBrands} data-testid="button-brands">
