@@ -240,25 +240,15 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <div className="text-left md:pl-12 max-w-4xl">
-          <h1 className="leading-tight mb-8 relative">
-            <GlowPulse />
-            <span className="text-stone-400 block px-2 text-lg md:text-xl font-light tracking-widest opacity-80 mb-2 uppercase font-mono">
-              <AnimatedText text={line1} startIndex={0} />
-            </span>
-            <div className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-serif">
-              <span className="block px-2 text-white drop-shadow-2xl italic leading-[0.8] mb-4">
-                Это
-              </span>
-              <span className="block px-2 font-black tracking-tighter text-white bg-gradient-to-br from-white via-cyan-200 to-purple-200 bg-clip-text text-transparent">
-                Витрина
-              </span>
-              <span className="block px-2 text-stone-500 text-3xl md:text-4xl mt-4 font-sans tracking-normal opacity-60">
-                для вас.
-              </span>
-            </div>
-          </h1>
-        </div>
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.4] mb-12 relative font-mono">
+          <GlowPulse />
+          <span className="text-stone-300 block px-2 mb-6">
+            Это не <span className="relative inline-block px-4 py-1 border border-white/20 bg-white/5 rounded-sm transform rotate-[-2deg] hover:rotate-0 transition-transform duration-300">реклама</span> про нас.
+          </span>
+          <span className="block px-2 text-white">
+            Это <span className="relative inline-block px-6 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-md transform rotate-[1deg] shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:scale-110 transition-transform duration-300">витрина</span> для вас.
+          </span>
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
