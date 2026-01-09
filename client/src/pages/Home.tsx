@@ -61,6 +61,13 @@ export default function Home() {
       },
       "sameAs": [
         "https://t.me/MPWebStudio"
+      ],
+      "description": "Веб-студия по созданию профессиональных сайтов, лендингов и интернет-магазинов под ключ. Интеграция AI-технологий.",
+      "founders": [
+        {
+          "@type": "Person",
+          "name": "Maxim"
+        }
       ]
     });
     document.head.appendChild(script);
