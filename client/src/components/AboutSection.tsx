@@ -11,6 +11,8 @@ export function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isFlipped, setIsFlipped] = useState(false);
   const [isSecondFlipped, setIsSecondFlipped] = useState(false);
+  const [isThirdFlipped, setIsThirdFlipped] = useState(false);
+  const [isFourthFlipped, setIsFourthFlipped] = useState(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -123,32 +125,90 @@ export function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Stats Box 1 - Rounded Pill-like */}
-          <motion.div variants={itemVariants} className="col-span-1 md:col-span-4 h-[160px] md:h-auto">
-            <Card className="h-full p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem]">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="p-3 md:p-4 rounded-full bg-cyan-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
-                  <Code2 className="w-6 h-6 md:w-10 md:h-10 text-cyan-400" />
+          {/* Stats Box 1 - Flip Card */}
+          <motion.div 
+            variants={itemVariants} 
+            className="col-span-1 md:col-span-4 h-[160px] md:h-auto group/flip relative"
+            style={{ perspective: "1200px" }}
+          >
+            <div
+              className="relative w-full h-full transition-transform duration-700 ease-in-out"
+              style={{ 
+                transformStyle: "preserve-3d",
+                transform: isThirdFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
+              }}
+              onMouseEnter={() => setIsThirdFlipped(true)}
+              onMouseLeave={() => setIsThirdFlipped(false)}
+              onClick={() => setIsThirdFlipped(!isThirdFlipped)}
+            >
+              {/* Front Side */}
+              <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem]">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="p-3 md:p-4 rounded-full bg-cyan-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
+                    <Code2 className="w-6 h-6 md:w-10 md:h-10 text-cyan-400" />
+                  </div>
+                  <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
+                  <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Чистая разработка</div>
                 </div>
-                <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
-                <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Чистая разработка</div>
-              </div>
-            </Card>
+              </Card>
+
+              {/* Back Side */}
+              <Card 
+                className="absolute inset-0 p-4 md:p-6 bg-white/5 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[3rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20"
+                style={{ transform: "rotateY(180deg)" }}
+              >
+                <div className="relative z-10 text-center">
+                  <h4 className="font-semibold text-cyan-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Технологии будущего</h4>
+                  <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
+                    Мы создаем «цифровую ДНК» вашего бренда на React и Node.js. Чистый, элегантный код для безграничного роста.
+                  </p>
+                </div>
+              </Card>
+            </div>
           </motion.div>
 
-          {/* Stats Box 2 - Rounded Different Radius */}
-          <motion.div variants={itemVariants} className="col-span-1 md:col-span-4 h-[160px] md:h-auto">
-            <Card className="h-full p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative z-10">
-                <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-purple-500/10 mb-2 md:mb-4 group-hover:rotate-12 transition-transform duration-500 inline-block">
-                  <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
+          {/* Stats Box 2 - Flip Card */}
+          <motion.div 
+            variants={itemVariants} 
+            className="col-span-1 md:col-span-4 h-[160px] md:h-auto group/flip relative"
+            style={{ perspective: "1200px" }}
+          >
+            <div
+              className="relative w-full h-full transition-transform duration-700 ease-in-out"
+              style={{ 
+                transformStyle: "preserve-3d",
+                transform: isFourthFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
+              }}
+              onMouseEnter={() => setIsFourthFlipped(true)}
+              onMouseLeave={() => setIsFourthFlipped(false)}
+              onClick={() => setIsFourthFlipped(!isFourthFlipped)}
+            >
+              {/* Front Side */}
+              <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-purple-500/10 mb-2 md:mb-4 group-hover:rotate-12 transition-transform duration-500 inline-block">
+                    <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
+                  </div>
+                  <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
+                  <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">отраслевых решений</div>
                 </div>
-                <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
-                <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">отраслевых решений</div>
-              </div>
-            </Card>
+              </Card>
+
+              {/* Back Side */}
+              <Card 
+                className="absolute inset-0 p-4 md:p-6 bg-white/5 border-purple-400/20 backdrop-blur-md backface-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-purple-950/20"
+                style={{ transform: "rotateY(180deg)" }}
+              >
+                <div className="relative z-10 text-center">
+                  <h4 className="font-semibold text-purple-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Инфраструктура Яндекса</h4>
+                  <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
+                    Отказоустойчивая среда Yandex Cloud. Безопасность, скорость доступа и стабильность при любых нагрузках.
+                  </p>
+                </div>
+              </Card>
+            </div>
           </motion.div>
 
           {/* Second Main Content Box - Flip Card */}
