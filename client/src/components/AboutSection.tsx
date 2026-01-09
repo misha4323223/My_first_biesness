@@ -49,14 +49,15 @@ export function AboutSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:grid-rows-2"
+          className="grid grid-cols-1 md:grid-cols-12 gap-6"
         >
-          {/* Main Content Box */}
-          <motion.div variants={itemVariants} className="md:col-span-2 md:row-span-1">
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate transition-all duration-300">
-              <div className="flex flex-col h-full justify-center">
-                <h3 className="text-2xl font-semibold mb-4 text-cyan-400">Наш подход</h3>
-                <p className="text-muted-foreground text-lg leading-relaxed">
+          {/* Main Content Box - Rounded Large */}
+          <motion.div variants={itemVariants} className="md:col-span-8 md:row-span-1">
+            <Card className="h-full p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden rounded-[2.5rem]">
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors duration-700" />
+              <div className="relative z-10 flex flex-col h-full justify-center">
+                <h3 className="text-2xl md:text-3xl font-semibold mb-6 text-cyan-400">Наш подход</h3>
+                <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl">
                   MP.WebStudio — это сочетание современных технологий и внимания к деталям. 
                   Мы не предлагаем шаблонные решения — каждый проект разрабатывается индивидуально 
                   под ваш бизнес и цели.
@@ -65,42 +66,42 @@ export function AboutSection() {
             </Card>
           </motion.div>
 
-          {/* Stats Box 1 */}
-          <motion.div variants={itemVariants}>
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden">
+          {/* Stats Box 1 - Rounded Pill-like */}
+          <motion.div variants={itemVariants} className="md:col-span-4">
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[3rem]">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
-                <div className="p-4 rounded-2xl bg-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
-                  <Code2 className="w-8 h-8 text-cyan-400" />
+                <div className="p-5 rounded-full bg-cyan-500/10 mb-6 group-hover:scale-110 transition-transform duration-500 inline-block">
+                  <Code2 className="w-10 h-10 text-cyan-400" />
                 </div>
-                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
-                <div className="text-sm text-muted-foreground uppercase tracking-[0.2em] font-medium">Чистая разработка</div>
+                <div className="text-5xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-[0.3em] font-medium">Чистая разработка</div>
               </div>
             </Card>
           </motion.div>
 
-          {/* Stats Box 2 */}
-          <motion.div variants={itemVariants}>
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden">
+          {/* Stats Box 2 - Rounded Different Radius */}
+          <motion.div variants={itemVariants} className="md:col-span-4">
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[5rem] rounded-bl-[5rem] rounded-tl-2xl rounded-br-2xl">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
-                <div className="p-4 rounded-2xl bg-purple-500/10 mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
-                  <Rocket className="w-8 h-8 text-purple-400" />
+                <div className="p-5 rounded-2xl bg-purple-500/10 mb-6 group-hover:rotate-12 transition-transform duration-500 inline-block">
+                  <Rocket className="w-10 h-10 text-purple-400" />
                 </div>
-                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
-                <div className="text-sm text-muted-foreground uppercase tracking-[0.2em] font-medium">Отраслевых решений</div>
+                <div className="text-5xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
+                <div className="text-xs text-muted-foreground uppercase tracking-[0.3em] font-medium">Отраслевых решений</div>
               </div>
             </Card>
           </motion.div>
 
-          {/* Second Main Content Box */}
-          <motion.div variants={itemVariants} className="md:col-span-2 md:row-span-1">
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors duration-700" />
+          {/* Second Main Content Box - Rounded Medium */}
+          <motion.div variants={itemVariants} className="md:col-span-8">
+            <Card className="h-full p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden rounded-[2rem]">
+              <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors duration-700" />
               <div className="relative z-10 flex flex-col h-full justify-center">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 rounded-xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
-                    <Target className="w-6 h-6 text-cyan-400" />
+                <div className="flex items-center gap-5 mb-6">
+                  <div className="p-4 rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
+                    <Target className="w-8 h-8 text-cyan-400" />
                   </div>
                   <h3 className="text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
                 </div>
