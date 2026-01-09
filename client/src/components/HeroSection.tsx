@@ -183,7 +183,7 @@ export function HeroSection() {
   const line2 = "Это витрина для вас.";
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-20 md:pt-32">
+    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-16 pb-12">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -215,7 +215,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[#0a0a0a]/10" />
         
         {/* Bottom Fade Overlay to hide video edges and particles cutting off */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
       </div>
 
       <div className="absolute inset-0 z-1">
@@ -235,7 +235,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center -mt-20 md:-mt-40">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <div className="mb-10">
           <GlassBadge />
         </div>
