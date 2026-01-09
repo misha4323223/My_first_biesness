@@ -506,8 +506,10 @@ export default function SocksShop() {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
-                  className={`text-sm font-bold transition-colors ${
-                    item === "SALE" ? "text-rose-500 hover:text-rose-600" : "text-neutral-900 hover:text-rose-500"
+                  className={`text-sm font-extrabold px-4 py-2 rounded-full transition-all ${
+                    item === "SALE" 
+                      ? "bg-rose-500 text-white hover:bg-rose-600 shadow-md shadow-rose-500/20" 
+                      : "bg-neutral-900 text-white hover:bg-black shadow-md shadow-black/10"
                   }`}
                 >
                   {item}
@@ -601,7 +603,7 @@ export default function SocksShop() {
                     Смотреть каталог
                     <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                  <Button variant="outline" size="lg" className="h-12 sm:h-14 px-8 border-2 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50 text-neutral-900 font-black rounded-xl sm:rounded-2xl" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
+                  <Button size="lg" className="h-12 sm:h-14 px-8 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-xl sm:rounded-2xl shadow-xl shadow-rose-500/20" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
                     О нас
                   </Button>
                 </div>
@@ -634,8 +636,8 @@ export default function SocksShop() {
                   onClick={() => setActiveCategory(cat.name)}
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all border ${
                     activeCategory === cat.name
-                      ? "bg-neutral-900 text-white border-neutral-900 shadow-lg shadow-black/10"
-                      : "bg-neutral-100 text-neutral-600 border-neutral-200 hover:border-neutral-900 hover:text-neutral-900"
+                      ? "bg-rose-500 text-white border-rose-500 shadow-lg shadow-rose-500/20"
+                      : "bg-neutral-900 text-white border-neutral-900 hover:bg-black"
                   }`}
                 >
                   {cat.icon && <cat.icon className="w-3.5 h-3.5 sm:w-4 h-4" />}
@@ -735,9 +737,9 @@ export default function SocksShop() {
                         </div>
                         <div className="flex gap-1 items-center w-full">
                           <Button 
-                            variant="secondary" 
+                            variant="default" 
                             size="sm" 
-                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 border border-neutral-200"
+                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1 bg-neutral-900 hover:bg-black text-white"
                             onClick={() => setSelectedProduct(product)}
                             data-testid={`button-view-details-${product.id}`}
                           >
