@@ -506,6 +506,14 @@ export default function SocksShop() {
                 <button
                   key={item}
                   onClick={() => handleNavClick(item)}
+                  className={`text-sm font-bold transition-colors ${
+                    item === "SALE" ? "text-rose-500 hover:text-rose-600" : "text-neutral-600 hover:text-neutral-900"
+                  }`}
+                >
+                  {item}
+                </button>
+              ))}
+            </nav>
                   className={`text-sm font-bold tracking-tight transition-all relative group ${
                     item === "SALE" ? "text-rose-500" : "text-neutral-500 hover:text-neutral-900"
                   }`}
@@ -534,10 +542,10 @@ export default function SocksShop() {
                 onClick={() => setCartOpen(true)}
                 className="relative bg-neutral-900 hover:bg-black text-white rounded-full px-3 sm:px-4 gap-2 h-8 sm:h-10 shadow-lg shadow-black/10"
               >
-                <ShoppingCart className="w-3.5 h-3.5 sm:w-4 h-4" />
-                <span className="hidden sm:inline font-bold text-sm">Корзина</span>
+                <ShoppingCart className="w-3.5 h-3.5 sm:w-4 h-4 text-white" />
+                <span className="hidden sm:inline font-bold text-sm text-white">Корзина</span>
                 {cartCount > 0 && (
-                  <span className="flex items-center justify-center min-w-[16px] h-[16px] sm:min-w-[18px] sm:h-[18px] rounded-full bg-rose-500 text-[9px] sm:text-[10px] font-black">
+                  <span className="flex items-center justify-center min-w-[16px] h-[16px] sm:min-w-[18px] sm:h-[18px] rounded-full bg-rose-500 text-[9px] sm:text-[10px] font-black text-white">
                     {cartCount}
                   </span>
                 )}
@@ -602,7 +610,7 @@ export default function SocksShop() {
                     Смотреть каталог
                     <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                  <Button variant="outline" size="lg" className="h-12 sm:h-14 px-8 border-2 font-black rounded-xl sm:rounded-2xl" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
+                  <Button variant="outline" size="lg" className="h-12 sm:h-14 px-8 border-2 border-neutral-200 hover:border-neutral-900 hover:bg-neutral-50 text-neutral-900 font-black rounded-xl sm:rounded-2xl" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
                     О нас
                   </Button>
                 </div>
@@ -750,7 +758,7 @@ export default function SocksShop() {
                             onClick={() => addToCart(product.id)}
                             data-testid={`button-add-to-cart-${product.id}`}
                           >
-                            <Plus className="w-3.5 h-3.5 stroke-[3px]" />
+                            <Plus className="w-3.5 h-3.5 stroke-[4px] text-white" />
                           </Button>
                         </div>
                       </div>
