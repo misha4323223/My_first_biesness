@@ -328,20 +328,39 @@ const portfolioItems: PortfolioItem[] = [
 const starPositions = [
   { x: 50, y: 5 },    // 0 - MP.WebStudio - главная звезда (центр самый верх)
   { x: 50, y: 18 },   // 1 - центр верх
-  { x: 20, y: 6 },    // 2 - Вкусдом (Доставка еды)
-  { x: 80, y: 18 },   // 3 - правый верх
-  { x: 18, y: 38 },   // 4 - Natura (Интернет-магазин косметики)
-  { x: 65, y: 35 },   // 5 - правый центр
-  { x: 22, y: 52 },   // 6 - левый низ
-  { x: 50, y: 48 },   // 7 - центр
-  { x: 78, y: 50 },   // 8 - правый
-  { x: 28, y: 68 },   // 9 - левый низ
-  { x: 68, y: 66 },   // 10 - Ремонтмастер (Ремонт квартир)
-  { x: 50, y: 85 },   // 11 - центр низ (Фотограф)
-  { x: 35, y: 78 },   // 12 - ТехноПро Сервис (автосервис)
-  { x: 71, y: 76 },   // 13 - ЛюксПро (агенство недвижимости)
-  { x: 12, y: 22 },   // 14 - Лумина (салон красоты)
-  { x: 49, y: 62 },   // 15 - ОнлайнОкадемия (платформа курсов)
+  { x: 20, y: 12 },   // 2 - Вкусдом (Доставка еды)
+  { x: 80, y: 12 },   // 3 - правый верх
+  { x: 15, y: 28 },   // 4 - Natura (Интернет-магазин косметики)
+  { x: 85, y: 28 },   // 5 - правый центр
+  { x: 15, y: 44 },   // 6 - левый низ
+  { x: 50, y: 44 },   // 7 - центр
+  { x: 85, y: 44 },   // 8 - правый
+  { x: 20, y: 60 },   // 9 - левый низ
+  { x: 80, y: 60 },   // 10 - Ремонтмастер (Ремонт квартир)
+  { x: 50, y: 92 },   // 11 - центр низ (Фотограф)
+  { x: 25, y: 76 },   // 12 - ТехноПро Сервис (автосервис)
+  { x: 75, y: 76 },   // 13 - ЛюксПро (агенство недвижимости)
+  { x: 50, y: 28 },   // 14 - Лумина (салон красоты)
+  { x: 50, y: 68 },   // 15 - ОнлайнОкадемия (платформа курсов)
+];
+
+const mobileStarPositions = [
+  { x: 50, y: 5 },    // 0
+  { x: 50, y: 12 },   // 1
+  { x: 25, y: 18 },   // 2
+  { x: 75, y: 18 },   // 3
+  { x: 25, y: 30 },   // 4
+  { x: 75, y: 30 },   // 5
+  { x: 25, y: 42 },   // 6
+  { x: 50, y: 42 },   // 7
+  { x: 75, y: 42 },   // 8
+  { x: 25, y: 54 },   // 9
+  { x: 75, y: 54 },   // 10
+  { x: 50, y: 95 },   // 11
+  { x: 25, y: 70 },   // 12
+  { x: 75, y: 70 },   // 13
+  { x: 50, y: 56 },   // 14
+  { x: 50, y: 82 },   // 15
 ];
 
 // Связи между проектами по категориям
@@ -506,13 +525,14 @@ function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
       </defs>
       {connections.map(([from, to], index) => {
         const isActive = hoveredId !== null && (from === hoveredId || to === hoveredId);
+        const positions = useIsMobile() ? mobileStarPositions : starPositions;
         return (
           <g key={index}>
             <motion.line
-              x1={`${starPositions[from].x}%`}
-              y1={`${starPositions[from].y}%`}
-              x2={`${starPositions[to].x}%`}
-              y2={`${starPositions[to].y}%`}
+              x1={`${positions[from].x}%`}
+              y1={`${positions[from].y}%`}
+              x2={`${positions[to].x}%`}
+              y2={`${positions[to].y}%`}
               stroke={isActive ? "url(#lineGradientActive)" : "url(#lineGradient)"}
               strokeWidth={isActive ? 1.5 : 0.5}
               initial={{ pathLength: 0, opacity: 0 }}
@@ -655,7 +675,7 @@ function StarNode({
       <motion.div 
         className="absolute whitespace-nowrap pointer-events-none text-center px-2"
         style={{
-          top: starSize * 2 + (isMobile ? 12 : 15),
+          top: starSize * 2 + (isMobile ? 8 : 15),
           left: "50%",
           transform: "translateX(-50%)",
         }}
@@ -665,7 +685,7 @@ function StarNode({
         }}
         transition={{ duration: 0.3 }}
       >
-        <p className="text-[8px] sm:text-[10px] md:text-[12px] text-white font-light tracking-[0.1em] sm:tracking-[0.15em] uppercase transition-all duration-300 group-hover:text-cyan-400 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+        <p className="text-[7px] sm:text-[10px] md:text-[12px] text-white font-light tracking-[0.05em] sm:tracking-[0.15em] uppercase transition-all duration-300 group-hover:text-cyan-400 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)] max-w-[80px] sm:max-w-none break-words">
           {item.subtitle}
         </p>
         <motion.div 
@@ -830,8 +850,11 @@ export function PortfolioSection() {
   const line1 = "Галактика ";
   const line2 = "наших проектов и концепций";
 
+  const isMobile = useIsMobile();
+  const currentPositions = isMobile ? mobileStarPositions : starPositions;
+
   return (
-    <section id="portfolio" className="relative overflow-hidden" style={{ height: "100vh", minHeight: "800px" }}>
+    <section id="portfolio" className="relative overflow-hidden" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "1000px" : "800px" }}>
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
@@ -874,7 +897,7 @@ export function PortfolioSection() {
 
         {/* Созвездие */}
         <div 
-          className="relative w-full overflow-hidden flex-1 bg-transparent"
+          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[700px] md:min-h-0"
         >
           <Nebulae />
           <StarParticles />
@@ -885,7 +908,7 @@ export function PortfolioSection() {
             <StarNode
               key={item.id}
               item={item}
-              position={starPositions[index]}
+              position={currentPositions[index]}
               index={index}
               isHovered={hoveredId === index}
               onHover={setHoveredId}
