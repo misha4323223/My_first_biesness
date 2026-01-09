@@ -159,7 +159,7 @@ export function AboutSection() {
                 style={{ transform: "rotateY(180deg)" }}
               >
                 <div className="relative z-10 text-center">
-                  <h4 className="font-semibold text-cyan-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Технологии будущего</h4>
+                  <h4 className="font-semibold text-purple-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Технологии будущего</h4>
                   <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
                     Мы создаем «цифровую ДНК» вашего бренда на React и Node.js. Никаких конструкторов и костылей — только чистый, элегантный код, который обеспечивает молниеносный отклик и безграничные возможности для роста вашего бизнеса.
                   </p>
@@ -253,7 +253,7 @@ export function AboutSection() {
                 style={{ transform: "rotateY(180deg)" }}
               >
                 <div className="relative z-10">
-                  <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-purple-400">Процесс и прозрачность</h3>
+                  <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-cyan-400">Процесс и прозрачность</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                     <div>
                       <h4 className="font-medium text-white text-xs md:text-sm mb-1">Аналитика бизнеса</h4>
