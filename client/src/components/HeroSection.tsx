@@ -240,21 +240,48 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-none mb-10 relative font-sans font-thin tracking-tight text-center uppercase">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-8 relative font-mono lowercase">
           <GlowPulse />
-          <span className="text-stone-500 block px-2 opacity-40 mb-2">
-            <AnimatedText text={line1} startIndex={0} />
-          </span>
-          <span className="relative inline-block px-2 text-white">
-            <AnimatedText text={line2} startIndex={line1.length} />
-            <div className="absolute -right-4 bottom-2 w-3 h-3 bg-red-600 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.8)] animate-pulse" />
-          </span>
-          {/* Scanning Line Effect */}
-          <motion.div 
-            className="absolute left-0 top-0 w-full h-px bg-white/20 z-20 pointer-events-none"
-            animate={{ top: ["0%", "100%"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          />
+          <div className="relative inline-block">
+            <span className="relative z-10 block px-2 text-stone-300 opacity-90">
+              <AnimatedText text={line1} startIndex={0} />
+            </span>
+            {/* Glitch layers for line 1 */}
+            <div className="absolute inset-0 text-red-500/30 translate-x-[2px] -translate-y-[1px] select-none pointer-events-none blur-[0.5px] animate-pulse">
+              {line1}
+            </div>
+            <div className="absolute inset-0 text-blue-500/30 -translate-x-[2px] translate-y-[1px] select-none pointer-events-none blur-[0.5px] animate-pulse">
+              {line1}
+            </div>
+          </div>
+          
+          <div className="relative block mt-4 group">
+            <span className="relative z-10 block px-2 text-white font-black tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+              <AnimatedText text={line2} startIndex={line1.length} isGradient />
+            </span>
+            {/* Glitch layers for line 2 */}
+            <div className="absolute inset-0 text-[#ff00ff]/40 translate-x-[3px] select-none pointer-events-none blur-[1px] group-hover:animate-ping opacity-0 group-hover:opacity-100">
+              {line2}
+            </div>
+            <div className="absolute inset-0 text-[#00ffff]/40 -translate-x-[3px] select-none pointer-events-none blur-[1px] group-hover:animate-ping opacity-0 group-hover:opacity-100">
+              {line2}
+            </div>
+            
+            {/* Scanline/Glitch bar */}
+            <motion.div 
+              className="absolute left-0 w-full h-[2px] bg-cyan-400/50 z-20 pointer-events-none"
+              animate={{ 
+                top: ["0%", "100%", "0%"],
+                opacity: [0, 1, 0, 1, 0]
+              }}
+              transition={{ 
+                duration: 2, 
+                repeat: Infinity, 
+                ease: "linear",
+                times: [0, 0.4, 0.5, 0.6, 1]
+              }}
+            />
+          </div>
         </h1>
 
         <motion.p
