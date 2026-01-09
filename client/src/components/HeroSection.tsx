@@ -240,21 +240,22 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="flex flex-col items-center mb-8 relative overflow-hidden">
+        <h1 className="flex flex-col items-center mb-8 relative">
           <GlowPulse />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="mb-4 px-4 py-1.5 rounded-md border border-cyan-400/30 bg-cyan-400/5 font-mono text-sm md:text-base text-cyan-400 tracking-wider"
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] text-cyan-400 mb-4 opacity-80"
           >
-            <span className="opacity-70">&lt;</span>
             {line1}
-            <span className="opacity-70"> /&gt;</span>
-          </motion.div>
-          <span className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.15em] uppercase text-white drop-shadow-2xl">
-            <AnimatedText text={line2} startIndex={line1.length} />
-          </span>
+          </motion.span>
+          <div className="relative">
+            <span className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none text-white inline-block">
+              Это <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-cyan-400 animate-gradient-x">витрина</span> для вас.
+            </span>
+            <div className="absolute -inset-x-4 -inset-y-2 bg-white/5 blur-2xl -z-10 rounded-full opacity-50" />
+          </div>
         </h1>
 
         <motion.p
