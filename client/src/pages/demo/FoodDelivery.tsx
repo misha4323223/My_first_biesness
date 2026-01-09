@@ -615,7 +615,7 @@ export default function FoodDelivery() {
                   Закажите сейчас и получите скидку 10% на первый заказ через наше новое мобильное приложение.
                 </p>
                 <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                  <Button size="lg" className="bg-white text-orange-600 hover:bg-neutral-100 h-14 md:h-16 px-8 md:px-10 rounded-xl md:rounded-2xl text-base md:text-lg font-black uppercase italic shadow-xl w-full sm:w-auto" onClick={scrollToMenu}>
+                  <Button size="lg" className="bg-white text-black hover:bg-neutral-100 h-14 md:h-16 px-8 md:px-10 rounded-xl md:rounded-2xl text-base md:text-lg font-black uppercase italic shadow-xl w-full sm:w-auto" onClick={scrollToMenu}>
                     Заказать сейчас
                   </Button>
                 </div>
