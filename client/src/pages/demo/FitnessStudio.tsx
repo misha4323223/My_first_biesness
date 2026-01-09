@@ -539,7 +539,7 @@ export default function FitnessStudio() {
                 </p>
                 <Button 
                   size="lg" 
-                  className="bg-white text-black hover:bg-neutral-200 h-12 sm:h-14 rounded-xl text-base sm:text-lg font-bold shadow-xl shadow-white/5"
+                  className="bg-violet-600 hover:bg-violet-700 text-white h-12 sm:h-14 rounded-xl text-base sm:text-lg font-bold shadow-xl shadow-violet-600/20"
                   onClick={() => setTrialOpen(true)}
                 >
                   Записаться на тест-драйв
