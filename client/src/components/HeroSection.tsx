@@ -240,32 +240,27 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <div className="relative inline-block py-12 px-10 border border-amber-500/20 bg-amber-500/5 rounded-sm overflow-hidden group">
-          {/* Hacker Terminal Scanline */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none z-10" />
-          
-          <div className="absolute top-2 left-3 flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            <span className="text-[10px] font-mono text-amber-500/60 uppercase tracking-widest">
-              Status: Breach_Detected
-            </span>
-          </div>
-
-          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl leading-[1.4] relative font-mono text-center tracking-tight lowercase">
+        <div className="relative group perspective-1000">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-none relative font-serif italic text-center lowercase">
             <GlowPulse />
-            <span className="block px-2 text-amber-500/80 mb-4 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
-              <AnimatedText text={line1} startIndex={0} />
-            </span>
-            <span className="block px-2 text-amber-400 font-bold tracking-widest uppercase drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
-              <AnimatedText text={line2} startIndex={line1.length} />
-            </span>
+            <div className="relative inline-block mb-4">
+              <span className="relative z-10 block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-white to-cyan-500 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)] transform skew-x-[-12deg] tracking-tight">
+                <AnimatedText text={line1} startIndex={0} />
+              </span>
+              <div className="absolute -inset-1 bg-cyan-400/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity" />
+            </div>
+            
+            <div className="relative block mt-2">
+              <span className="relative z-10 block px-6 py-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-400 to-indigo-500 font-black tracking-tighter uppercase italic transform skew-x-[-15deg] drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] border-y-2 border-white/10">
+                <AnimatedText text={line2} startIndex={line1.length} isGradient />
+              </span>
+              {/* Retro Sun element simulated with a circular gradient */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-t from-orange-500/0 via-orange-500/20 to-yellow-500/40 rounded-full blur-3xl -z-10 pointer-events-none" />
+            </div>
           </h1>
-
-          <div className="absolute bottom-2 right-3">
-            <span className="text-[10px] font-mono text-amber-500/40 uppercase tracking-tighter">
-              Access_Granted_v2.1
-            </span>
-          </div>
+          
+          {/* Decorative Synthwave lines */}
+          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
         </div>
 
         <motion.p
