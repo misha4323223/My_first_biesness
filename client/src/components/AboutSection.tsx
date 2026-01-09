@@ -67,37 +67,44 @@ export function AboutSection() {
 
           {/* Stats Box 1 */}
           <motion.div variants={itemVariants}>
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate flex flex-col items-center justify-center text-center group">
-              <div className="p-3 rounded-2xl bg-cyan-500/10 mb-4 group-hover:bg-cyan-500/20 transition-colors">
-                <Code2 className="w-8 h-8 text-cyan-400" />
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="p-4 rounded-2xl bg-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
+                  <Code2 className="w-8 h-8 text-cyan-400" />
+                </div>
+                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
+                <div className="text-sm text-muted-foreground uppercase tracking-[0.2em] font-medium">Чистая разработка</div>
               </div>
-              <div className="text-4xl font-bold mb-2">100%</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-widest">Без шаблонов</div>
             </Card>
           </motion.div>
 
           {/* Stats Box 2 */}
           <motion.div variants={itemVariants}>
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate flex flex-col items-center justify-center text-center group">
-              <div className="p-3 rounded-2xl bg-purple-500/10 mb-4 group-hover:bg-purple-500/20 transition-colors">
-                <Rocket className="w-8 h-8 text-purple-400" />
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative z-10">
+                <div className="p-4 rounded-2xl bg-purple-500/10 mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
+                  <Rocket className="w-8 h-8 text-purple-400" />
+                </div>
+                <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
+                <div className="text-sm text-muted-foreground uppercase tracking-[0.2em] font-medium">Отраслевых решений</div>
               </div>
-              <div className="text-4xl font-bold mb-2">Десятки</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-widest">Отраслевых решений</div>
             </Card>
           </motion.div>
 
           {/* Second Main Content Box */}
           <motion.div variants={itemVariants} className="md:col-span-2 md:row-span-1">
-            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate transition-all duration-300">
-              <div className="flex flex-col h-full justify-center">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="p-2 rounded-lg bg-cyan-500/10">
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden">
+              <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors duration-700" />
+              <div className="relative z-10 flex flex-col h-full justify-center">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
                     <Target className="w-6 h-6 text-cyan-400" />
                   </div>
-                  <h3 className="text-xl font-semibold">Ваша цель — наш приоритет</h3>
+                  <h3 className="text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
                   Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
                   сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получит 
                   лучший пользовательский опыт.
