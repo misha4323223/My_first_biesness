@@ -425,7 +425,7 @@ export function CalculatorSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-12 px-4">
           <SectionBadge>Расчёт стоимости / Контакты</SectionBadge>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap overflow-hidden">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap overflow-hidden scanline-header">
             <span className="neural-interface py-1">
               <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             </span>
