@@ -11,13 +11,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { useAggregateRatingSchema } from "@/lib/useAggregateRatingSchema";
-import autoServiceHeroImg from "@/assets/generated_images/modern_auto_service_garage_workshop_interior.webp";
-import serviceImg1 from "@/assets/stock_images/car_maintenance_oil__4b172ef8.webp";
-import serviceImg2 from "@/assets/stock_images/car_maintenance_oil__4b172ef8.webp";
-import serviceImg3 from "@/assets/stock_images/car_maintenance_oil__4b172ef8.webp";
-import serviceImg4 from "@/assets/stock_images/brake_service_car_ma_a2d2851b.webp";
-import serviceImg5 from "@/assets/stock_images/vehicle_inspection_d_e60ea11c.webp";
-import serviceImg6 from "@/assets/stock_images/engine_repair_mechan_8ba73ef9.webp";
+import autoServiceHeroImg from "@assets/generated_images/интерьер_современного_автосервиса.webp";
+import serviceImg1 from "@assets/generated_images/техническое_обслуживание_автомобиля_замена_масла.webp";
+import serviceImg2 from "@assets/generated_images/техническое_обслуживание_автомобиля_замена_масла.webp";
+import serviceImg3 from "@assets/generated_images/техническое_обслуживание_автомобиля_замена_масла.webp";
+import serviceImg4 from "@assets/generated_images/обслуживание_тормозной_системы_авто.webp";
+import serviceImg5 from "@assets/generated_images/компьютерная_диагностика_автомобиля.webp";
+import serviceImg6 from "@assets/generated_images/ремонт_двигателя_автомобиля_механиком.webp";
+import mechanic1Img from "@assets/generated_images/портрет_главного_механика_мужчины.webp";
+import mechanic2Img from "@assets/generated_images/портрет_мастера_по_ходовой_части_авто.webp";
+import mechanic3Img from "@assets/generated_images/портрет_мастера_по_двигателям_мужчины.webp";
 
 const services = [
   { id: 1, name: "ТО 1 (5 000 км)", duration: "1.5 часа", price: 2500, icon: Wrench, image: serviceImg1 },
@@ -36,7 +39,8 @@ const mechanics = [
     experience: "12 лет",
     rating: 4.9,
     reviews: 187,
-    status: "online"
+    status: "online",
+    image: mechanic1Img
   },
   { 
     id: 2, 
@@ -45,7 +49,8 @@ const mechanics = [
     experience: "8 лет",
     rating: 4.8,
     reviews: 142,
-    status: "busy"
+    status: "busy",
+    image: mechanic2Img
   },
   { 
     id: 3, 
@@ -54,7 +59,8 @@ const mechanics = [
     experience: "10 лет",
     rating: 4.9,
     reviews: 165,
-    status: "online"
+    status: "online",
+    image: mechanic3Img
   },
 ];
 
@@ -382,8 +388,13 @@ export default function AutoService() {
                   onClick={() => handleMechanicSelect(mechanic.id)}
                   data-testid={`card-mechanic-${mechanic.id}`}
                 >
-                  <div className="aspect-[16/10] sm:aspect-[4/5] relative overflow-hidden bg-gradient-to-br from-blue-600 to-neutral-900 flex items-center justify-center">
-                    <User className="w-16 h-16 md:w-24 md:h-24 text-blue-200/40" />
+                  <div className="aspect-[16/10] sm:aspect-[4/5] relative overflow-hidden bg-neutral-800">
+                    <img 
+                      src={mechanic.image} 
+                      alt={mechanic.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
                     <div className="absolute top-3 left-3 md:top-4 md:left-4 flex items-center gap-1 md:gap-2 px-2 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
                       <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full animate-pulse ${mechanic.status === 'online' ? 'bg-green-500' : 'bg-amber-500'}`} />
                       <span className="text-[9px] md:text-[10px] uppercase tracking-wider font-bold">
