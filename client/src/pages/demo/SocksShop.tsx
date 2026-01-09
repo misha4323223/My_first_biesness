@@ -32,12 +32,12 @@ import { useToast } from "@/hooks/use-toast";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 
-import giftBoxImg from "@assets/generated_images/classic_socks_gift_box.webp";
-import businessImg from "@assets/generated_images/business_socks_gift_set.webp";
-import noveltyImg from "@assets/generated_images/novelty_text_pattern_socks.webp";
-import athleticImg from "@assets/generated_images/athletic_compression_running_socks.webp";
-import colorfulImg from "@assets/generated_images/colorful_patterned_socks_set.webp";
-import heroImg from "@assets/generated_images/socks_collection_hero_banner.webp";
+import giftBoxImg from "@assets/generated_images/classic_gentleman_socks_gift_box..png";
+import businessImg from "@assets/generated_images/professional_business_socks_set..png";
+import noveltyImg from "@assets/generated_images/novelty_socks_with_creative_prints..png";
+import athleticImg from "@assets/generated_images/athletic_performance_compression_socks..png";
+import colorfulImg from "@assets/generated_images/colorful_patterned_socks_collection..png";
+import heroImg from "@assets/generated_images/premium_socks_hero_banner_aesthetic..png";
 
 const products = [
   {
