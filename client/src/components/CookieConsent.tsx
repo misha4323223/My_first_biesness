@@ -117,21 +117,12 @@ export function CookieConsent() {
 
               <div className="flex gap-2 pt-1">
                 <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleDecline}
-                  className="flex-1 text-xs font-medium hover:bg-white/5 no-default-hover-elevate"
-                  data-testid="button-cookie-decline"
-                >
-                  Отклонить
-                </Button>
-                <Button
                   size="sm"
                   onClick={handleAccept}
-                  className="flex-1 text-xs font-bold bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-white border-0 shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                  className="w-full text-xs font-bold bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-400 hover:to-purple-400 text-white border-0 shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   data-testid="button-cookie-accept"
                 >
-                  Принять
+                  Хорошо, я принимаю
                 </Button>
               </div>
             </div>
