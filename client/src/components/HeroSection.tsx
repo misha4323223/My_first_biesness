@@ -244,10 +244,10 @@ export function HeroSection() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-none relative font-serif italic text-center lowercase flex flex-col items-center gap-4">
             <GlowPulse />
             <div className="relative inline-block">
-              <span className="relative z-10 block px-4 py-2 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.6)] transform skew-x-[-12deg] tracking-tight">
+              <span className="relative z-10 block px-4 py-2 text-white drop-shadow-[0_0_15px_rgba(34,211,238,0.8)] transform skew-x-[-12deg] tracking-tight">
                 <AnimatedText text={line1.toLowerCase()} startIndex={0} />
               </span>
-              <div className="absolute -inset-1 bg-cyan-400/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute -inset-1 bg-cyan-400/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity" />
             </div>
             
             <div className="relative inline-block">
