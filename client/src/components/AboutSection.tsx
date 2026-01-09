@@ -10,6 +10,7 @@ export function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isSecondFlipped, setIsSecondFlipped] = useState(false);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -150,23 +151,70 @@ export function AboutSection() {
             </Card>
           </motion.div>
 
-          {/* Second Main Content Box - Rounded Medium */}
-          <motion.div variants={itemVariants} className="col-span-2 md:col-span-8">
-            <Card className="h-full p-6 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem]">
-              <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors duration-700" />
-              <div className="relative z-10 flex flex-col h-full justify-center">
-                <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-6">
-                  <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
-                    <Target className="w-5 h-5 md:w-8 md:h-8 text-cyan-400" />
+          {/* Second Main Content Box - Flip Card */}
+          <motion.div 
+            variants={itemVariants} 
+            className="col-span-2 md:col-span-8 group/flip relative h-[280px] md:h-auto"
+            style={{ perspective: "1200px" }}
+          >
+            <div
+              className="relative w-full h-full transition-transform duration-700 ease-in-out"
+              style={{ 
+                transformStyle: "preserve-3d",
+                transform: isSecondFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
+              }}
+              onMouseEnter={() => setIsSecondFlipped(true)}
+              onMouseLeave={() => setIsSecondFlipped(false)}
+              onClick={() => setIsSecondFlipped(!isSecondFlipped)}
+            >
+              {/* Front Side */}
+              <Card className="absolute inset-0 p-6 md:p-10 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-center overflow-hidden">
+                <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors duration-700" />
+                <div className="relative z-10 flex flex-col h-full justify-center">
+                  <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-6">
+                    <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
+                      <Target className="w-5 h-5 md:w-8 md:h-8 text-cyan-400" />
+                    </div>
+                    <h3 className="text-lg md:text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
                   </div>
-                  <h3 className="text-lg md:text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
+                  <p className="text-muted-foreground text-xs md:text-lg leading-relaxed max-w-2xl">
+                    Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
+                    сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получить лучший пользовательский опыт.
+                  </p>
+                  <div className="mt-4 text-[10px] text-cyan-400/50 uppercase tracking-widest md:hidden font-medium">
+                    Нажмите, чтобы узнать о технологиях
+                  </div>
                 </div>
-                <p className="text-muted-foreground text-xs md:text-lg leading-relaxed max-w-2xl">
-                  Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
-                  сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получить лучший пользовательский опыт.
-                </p>
-              </div>
-            </Card>
+              </Card>
+
+              {/* Back Side */}
+              <Card 
+                className="absolute inset-0 p-6 md:p-10 bg-white/5 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-purple-950/20"
+                style={{ transform: "rotateY(180deg)" }}
+              >
+                <div className="relative z-10">
+                  <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-purple-400">Node.js vs Конструкторы</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                    <div>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Чистый код</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Никакого лишнего "мусора" платформ. Только то, что нужно вашему бизнесу.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">SEO и Скорость</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Мгновенная загрузка, которую любят поисковики. Вне конкуренции с Tilda.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Масштабируемость</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Любые сложные функции и интеграции без ограничений тарифов.</p>
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Ваша собственность</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Вы владеете кодом на 100%. Полная независимость от обновлений сервисов.</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
           </motion.div>
         </motion.div>
       </div>
