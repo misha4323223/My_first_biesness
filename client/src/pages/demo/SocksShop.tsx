@@ -337,7 +337,7 @@ export default function SocksShop() {
                       <span className="text-base sm:text-lg text-neutral-400 line-through">{selectedProduct.oldPrice} ₽</span>
                     )}
                   </div>
-                  <Button className="w-full h-12 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-xl" onClick={() => addToCart(selectedProduct.id)}>
+                  <Button className="w-full h-12 bg-rose-500 hover:bg-rose-600 text-neutral-900 font-bold rounded-xl" onClick={() => addToCart(selectedProduct.id)}>
                     Добавить в корзину
                   </Button>
                 </div>
@@ -586,7 +586,7 @@ export default function SocksShop() {
                 animate={{ opacity: 1, x: 0 }}
                 className="relative z-10 text-center lg:text-left"
               >
-                <Badge className="mb-4 bg-rose-100 text-rose-600 hover:bg-rose-100 border-none font-bold py-1 px-4 rounded-full text-xs sm:text-sm">
+                <Badge className="mb-4 bg-rose-100 text-neutral-900 hover:bg-rose-100 border-none font-bold py-1 px-4 rounded-full text-xs sm:text-sm">
                   Новая коллекция '26
                 </Badge>
                 <h1 className="text-4xl sm:text-7xl font-[1000] leading-[0.9] tracking-tighter mb-4 sm:mb-6">
@@ -750,7 +750,7 @@ export default function SocksShop() {
                             onClick={() => addToCart(product.id)}
                             data-testid={`button-add-to-cart-${product.id}`}
                           >
-                            <Plus className="w-3.5 h-3.5" />
+                            <Plus className="w-3.5 h-3.5 stroke-[3px]" />
                           </Button>
                         </div>
                       </div>
@@ -839,7 +839,7 @@ export default function SocksShop() {
                   placeholder="Ваш e-mail" 
                   className="h-14 bg-white/5 border-white/10 text-white placeholder:text-neutral-600 rounded-2xl px-6 focus:ring-rose-500"
                 />
-                <Button className="h-14 px-8 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-2xl shadow-xl shadow-rose-500/20 whitespace-nowrap">
+                <Button className="h-14 px-8 bg-rose-500 hover:bg-rose-600 text-neutral-900 font-black rounded-2xl shadow-xl shadow-rose-500/20 whitespace-nowrap">
                   Подписаться
                 </Button>
               </form>
