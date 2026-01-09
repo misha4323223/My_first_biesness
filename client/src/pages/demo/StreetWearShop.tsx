@@ -460,11 +460,11 @@ export default function StreetWearShop() {
                     }}
                   >
                     {selectedSize ? (
-                      <span className="flex items-center gap-2">
-                        <ShoppingCart className="w-4 h-4" />
+                      <span className="flex items-center gap-2 text-yellow-400">
+                        <ShoppingCart className="w-4 h-4 text-yellow-400" />
                         ДОБАВИТЬ В КОРЗИНУ
                       </span>
-                    ) : "ВЫБЕРИТЕ РАЗМЕР"}
+                    ) : <span className="text-yellow-400">ВЫБЕРИТЕ РАЗМЕР</span>}
                   </Button>
                   <Button
                     variant="outline"
