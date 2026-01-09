@@ -215,7 +215,7 @@ export default function BeautySalon() {
             transition={{ duration: 1 }}
           >
             <span className="text-stone-600 uppercase tracking-[0.3em] md:tracking-[0.4em] text-[10px] md:text-sm mb-4 md:mb-6 block">Where Beauty Meets Artistry</span>
-            <h1 className="text-4xl md:text-8xl font-serif text-stone-900 mb-6 md:mb-8 leading-tight font-light">
+            <h1 className="text-4xl md:text-8xl font-serif text-stone-900 mb-6 md:mb-8 leading-tight font-light" style={{ WebkitTextStroke: '1px white' }}>
               Эстетика <br />
               <span className="italic">совершенства</span>
             </h1>
