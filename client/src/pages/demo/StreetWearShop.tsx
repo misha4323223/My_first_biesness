@@ -571,7 +571,7 @@ export default function StreetWearShop() {
                         required
                       />
                     </div>
-                    <Button type="submit" className="w-full h-14 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-none shadow-lg shadow-amber-500/10 transition-all">
+                    <Button type="submit" className="w-full h-14 bg-amber-500 hover:bg-amber-600 text-white font-black uppercase tracking-widest rounded-none shadow-lg shadow-amber-500/10 transition-all">
                       Оформить заказ
                     </Button>
                   </form>
@@ -835,7 +835,7 @@ export default function StreetWearShop() {
                       <span className="text-sm font-bold text-amber-500">{cartTotal.toLocaleString()} р</span>
                     </div>
                     <Button 
-                      className="w-full h-8 bg-amber-500 hover:bg-amber-600 text-black font-bold text-xs"
+                      className="w-full h-8 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs"
                       onClick={() => setCartOpen(true)}
                     >
                       Оформить заказ
