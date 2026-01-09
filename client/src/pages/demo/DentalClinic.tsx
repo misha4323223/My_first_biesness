@@ -233,7 +233,7 @@ export default function DentalClinic() {
                   required
                 />
               </div>
-              <Button type="submit" disabled={isLoading} className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold h-12">
+              <Button type="submit" disabled={isLoading} className="w-full bg-teal-500 hover:bg-teal-600 text-black font-bold h-12">
                 {isLoading ? "Обработка..." : "Записаться сейчас"}
               </Button>
             </form>
@@ -279,7 +279,7 @@ export default function DentalClinic() {
             <Button size="sm" variant="outline" className="md:hidden border-teal-200 text-teal-600" onClick={scrollToServices}>
               Услуги
             </Button>
-            <Button size="sm" className="bg-teal-500 hover:bg-teal-600 text-white shadow-lg shadow-teal-500/20 px-3 md:px-4" onClick={() => setBookingOpen(true)} data-testid="button-book-header">
+            <Button size="sm" className="bg-teal-500 hover:bg-teal-600 text-black shadow-lg shadow-teal-500/20 px-3 md:px-4" onClick={() => setBookingOpen(true)} data-testid="button-book-header">
               <Phone className="w-3.5 h-3.5 mr-1.5 md:mr-2" />
               <span className="text-xs md:text-sm font-bold">Запись</span>
             </Button>
@@ -307,7 +307,7 @@ export default function DentalClinic() {
               Инновационная клиника: от цифровой диагностики до эстетического восстановления. Почувствуйте разницу с первого визита.
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 md:gap-4">
-              <Button size="lg" className="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-white px-6 md:px-8 h-11 md:h-14 rounded-full shadow-lg shadow-teal-600/20 text-sm md:text-base font-bold" onClick={scrollToBooking} data-testid="button-book-hero">
+              <Button size="lg" className="w-full sm:w-auto bg-teal-600 hover:bg-teal-700 text-black px-6 md:px-8 h-11 md:h-14 rounded-full shadow-lg shadow-teal-600/20 text-sm md:text-base font-bold" onClick={scrollToBooking} data-testid="button-book-hero">
                 <Activity className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                 Начать диагностику
               </Button>
