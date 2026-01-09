@@ -240,23 +240,13 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 relative font-sans font-black tracking-tighter uppercase">
+        <h1 className="leading-none mb-12 relative">
           <GlowPulse />
-          <span className="block px-2 text-stone-600 relative overflow-hidden group">
-             <AnimatedText text={line1} startIndex={0} />
-             <motion.div 
-               className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
-               animate={{ left: ["-100%", "200%"] }}
-               transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
-             />
+          <span className="text-stone-500 block px-2 text-xs md:text-sm font-mono tracking-[0.5em] uppercase opacity-60 mb-4 text-center">
+            <AnimatedText text={line1} startIndex={0} />
           </span>
-          <span className="block px-2 text-stone-500 relative overflow-hidden">
-            <AnimatedText text={line2} startIndex={line1.length} />
-            <motion.div 
-               className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-[-20deg]"
-               animate={{ left: ["-100%", "200%"] }}
-               transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1.5 }}
-             />
+          <span className="block px-2 text-6xl sm:text-7xl md:text-9xl lg:text-[10rem] font-black tracking-[-0.05em] text-white text-center leading-[0.8]">
+            <AnimatedText text={line2} startIndex={line1.length} isGradient />
           </span>
         </h1>
 
