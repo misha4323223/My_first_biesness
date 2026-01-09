@@ -193,23 +193,23 @@ export function AboutSection() {
                 style={{ transform: "rotateY(180deg)" }}
               >
                 <div className="relative z-10">
-                  <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-purple-400">Node.js vs Конструкторы</h3>
+                  <h3 className="text-lg md:text-2xl font-semibold mb-3 md:mb-4 text-purple-400">Процесс и прозрачность</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                     <div>
-                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Чистый код</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Никакого лишнего "мусора" платформ. Только то, что нужно вашему бизнесу.</p>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Аналитика бизнеса</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Глубокое погружение в ваши процессы перед началом разработки.</p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">SEO и Скорость</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Мгновенная загрузка, которую любят поисковики. Вне конкуренции с Tilda.</p>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Прозрачные этапы</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Поэтапная оплата и регулярные отчеты о прогрессе каждой задачи.</p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Масштабируемость</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Любые сложные функции и интеграции без ограничений тарифов.</p>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Поддержка 24/7</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Мы не пропадаем после запуска и помогаем развивать ваш проект дальше.</p>
                     </div>
                     <div>
-                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Ваша собственность</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Вы владеете кодом на 100%. Полная независимость от обновлений сервисов.</p>
+                      <h4 className="font-medium text-white text-xs md:text-sm mb-1">Гарантия качества</h4>
+                      <p className="text-[10px] md:text-xs text-muted-foreground">Тщательное тестирование на всех типах устройств перед передачей вам.</p>
                     </div>
                   </div>
                 </div>
