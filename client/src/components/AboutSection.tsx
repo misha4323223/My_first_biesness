@@ -161,7 +161,7 @@ export function AboutSection() {
                 <div className="relative z-10 text-center">
                   <h4 className="font-semibold text-cyan-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Технологии будущего</h4>
                   <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
-                    Мы создаем «цифровую ДНК» вашего бренда на React и Node.js. Чистый, элегантный код для безграничного роста.
+                    Мы создаем «цифровую ДНК» вашего бренда на React и Node.js. Никаких конструкторов и костылей — только чистый, элегантный код, который обеспечивает молниеносный отклик и безграничные возможности для роста вашего бизнеса.
                   </p>
                 </div>
               </Card>
@@ -204,7 +204,7 @@ export function AboutSection() {
                 <div className="relative z-10 text-center">
                   <h4 className="font-semibold text-purple-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Инфраструктура Яндекса</h4>
                   <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
-                    Отказоустойчивая среда Yandex Cloud. Безопасность, скорость доступа и стабильность при любых нагрузках.
+                    Ваш проект развертывается в отказоустойчивой среде Yandex Cloud. Это гарантирует соответствие корпоративным стандартам безопасности, высокую скорость доступа и стабильность работы при любых нагрузках.
                   </p>
                 </div>
               </Card>
