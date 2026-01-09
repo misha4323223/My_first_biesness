@@ -181,9 +181,9 @@ export function ServicesSection() {
   const line2 = "предлагаем";
 
   return (
-    <section id="services" className="py-24 md:py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.08),transparent_50%)]" />
+    <section id="services" className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0a0a0a] to-[#0a0a0a]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
       </div>
 

@@ -854,9 +854,9 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)]" />
+    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#0a0a0a] to-[#0a0a0a]">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
       </div>
 
