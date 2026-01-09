@@ -414,7 +414,7 @@ export default function CosmeticsShop() {
             <div className="flex gap-4">
               <Button 
                 size="lg" 
-                className="bg-white text-stone-900 hover:bg-stone-100 rounded-full px-6 md:px-8 h-11 md:h-12 text-sm md:text-base font-light tracking-wide transition-all hover:scale-105 dark:text-stone-900" 
+                className="bg-white/20 text-white hover:bg-white hover:text-stone-900 backdrop-blur-sm border border-white/30 rounded-full px-6 md:px-8 h-11 md:h-12 text-sm md:text-base font-light tracking-wide transition-all hover:scale-105" 
                 onClick={scrollToProducts}
               >
                 Откройте коллекцию
