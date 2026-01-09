@@ -145,8 +145,8 @@ export function AboutSection() {
               <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem]">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className="p-3 md:p-4 rounded-full bg-cyan-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
-                    <Code2 className="w-6 h-6 md:w-10 md:h-10 text-cyan-400" />
+                  <div className="p-3 md:p-4 rounded-full bg-purple-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
+                    <Code2 className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
                   </div>
                   <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
                   <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Чистая разработка</div>
