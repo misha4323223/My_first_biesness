@@ -196,13 +196,11 @@ export function HeroSection() {
         />
         {/* Monolithic Overlays */}
         <div className="absolute inset-0 bg-[#0a0a0a]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-[#0a0a0a]/10" />
       </div>
 
       <div className="absolute inset-0 z-1">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.15),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.12),transparent_70%)]" />
       </div>
 
       <ParticleBackground />
