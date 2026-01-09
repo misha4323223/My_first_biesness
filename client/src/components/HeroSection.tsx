@@ -240,13 +240,23 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.4] mb-12 relative font-mono">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 relative font-sans font-black tracking-tighter uppercase">
           <GlowPulse />
-          <span className="text-stone-300 block px-2 mb-6">
-            Это не <span className="relative inline-block px-4 py-1 border border-white/20 bg-white/5 rounded-sm transform rotate-[-2deg] hover:rotate-0 transition-transform duration-300">реклама</span> про нас.
+          <span className="block px-2 text-stone-600 relative overflow-hidden group">
+             <AnimatedText text={line1} startIndex={0} />
+             <motion.div 
+               className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-20deg]"
+               animate={{ left: ["-100%", "200%"] }}
+               transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1 }}
+             />
           </span>
-          <span className="block px-2 text-white">
-            Это <span className="relative inline-block px-6 py-2 bg-gradient-to-r from-cyan-500 to-purple-500 text-white rounded-md transform rotate-[1deg] shadow-[0_0_20px_rgba(56,189,248,0.4)] hover:scale-110 transition-transform duration-300">витрина</span> для вас.
+          <span className="block px-2 text-stone-500 relative overflow-hidden">
+            <AnimatedText text={line2} startIndex={line1.length} />
+            <motion.div 
+               className="absolute inset-0 w-full bg-gradient-to-r from-transparent via-white/60 to-transparent skew-x-[-20deg]"
+               animate={{ left: ["-100%", "200%"] }}
+               transition={{ duration: 3, repeat: Infinity, ease: "linear", repeatDelay: 1.5 }}
+             />
           </span>
         </h1>
 
