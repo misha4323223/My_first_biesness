@@ -345,22 +345,22 @@ const starPositions = [
 ];
 
 const mobileStarPositions = [
-  { x: 50, y: 5 },    // 0
-  { x: 50, y: 12 },   // 1
-  { x: 25, y: 18 },   // 2
-  { x: 75, y: 18 },   // 3
-  { x: 25, y: 30 },   // 4
-  { x: 75, y: 30 },   // 5
-  { x: 25, y: 42 },   // 6
-  { x: 50, y: 42 },   // 7
-  { x: 75, y: 42 },   // 8
-  { x: 25, y: 54 },   // 9
-  { x: 75, y: 54 },   // 10
-  { x: 50, y: 95 },   // 11
-  { x: 25, y: 70 },   // 12
-  { x: 75, y: 70 },   // 13
-  { x: 50, y: 56 },   // 14
-  { x: 50, y: 82 },   // 15
+  { x: 15, y: 5 },    // 0
+  { x: 30, y: 12 },   // 1
+  { x: 10, y: 18 },   // 2
+  { x: 45, y: 22 },   // 3
+  { x: 20, y: 32 },   // 4
+  { x: 55, y: 38 },   // 5
+  { x: 15, y: 48 },   // 6
+  { x: 40, y: 52 },   // 7
+  { x: 65, y: 58 },   // 8
+  { x: 25, y: 64 },   // 9
+  { x: 50, y: 72 },   // 10
+  { x: 35, y: 95 },   // 11
+  { x: 15, y: 82 },   // 12
+  { x: 45, y: 88 },   // 13
+  { x: 40, y: 28 },   // 14
+  { x: 60, y: 45 },   // 15
 ];
 
 // Связи между проектами по категориям
@@ -675,7 +675,7 @@ function StarNode({
       <motion.div 
         className="absolute whitespace-nowrap pointer-events-none text-center px-2"
         style={{
-          top: starSize * 2 + (isMobile ? 8 : 15),
+          top: starSize * 2 + (isMobile ? 12 : 15),
           left: "50%",
           transform: "translateX(-50%)",
         }}
