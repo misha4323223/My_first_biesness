@@ -245,14 +245,14 @@ export function HeroSection() {
             <GlowPulse />
             <div className="relative inline-block mb-4">
               <span className="relative z-10 block px-4 py-2 text-transparent bg-clip-text bg-gradient-to-b from-cyan-300 via-white to-cyan-500 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)] transform skew-x-[-12deg] tracking-tight">
-                <AnimatedText text={line1} startIndex={0} />
+                <AnimatedText text={line1.toLowerCase()} startIndex={0} />
               </span>
               <div className="absolute -inset-1 bg-cyan-400/20 blur-xl opacity-50 group-hover:opacity-100 transition-opacity" />
             </div>
             
             <div className="relative block mt-2">
-              <span className="relative z-10 block px-6 py-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-400 to-indigo-500 font-black tracking-tighter uppercase italic transform skew-x-[-15deg] drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] border-y-2 border-white/10">
-                <AnimatedText text={line2} startIndex={line1.length} isGradient />
+              <span className="relative z-10 block px-6 py-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-400 to-indigo-500 font-black tracking-tighter italic transform skew-x-[-15deg] drop-shadow-[0_0_20px_rgba(168,85,247,0.7)] border-y-2 border-white/10">
+                <AnimatedText text={line2.toLowerCase()} startIndex={line1.length} isGradient />
               </span>
               {/* Retro Sun element simulated with a circular gradient */}
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-t from-orange-500/0 via-orange-500/20 to-yellow-500/40 rounded-full blur-3xl -z-10 pointer-events-none" />
