@@ -98,7 +98,7 @@ export function CookieConsent() {
                 </div>
                 <div>
                   <h3 className="font-bold text-sm text-foreground tracking-tight">
-                    Cookies & Privacy
+                    Файлы Cookie и Конфиденциальность
                   </h3>
                 </div>
               </div>
