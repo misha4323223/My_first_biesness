@@ -315,7 +315,7 @@ export default function TravelAgency() {
             <button onClick={scrollToContact} className="hover:text-amber-400 transition-colors cursor-pointer">Консьерж</button>
           </div>
           <div className="flex items-center gap-2">
-            <Button className="hidden sm:flex bg-amber-400 text-slate-950 hover:bg-amber-300 font-bold px-4 md:px-8 rounded-full transition-all hover:scale-105 text-xs md:text-sm h-9 md:h-10" data-testid="button-consultation">
+            <Button className="hidden sm:flex bg-amber-400 text-white hover:bg-amber-300 font-bold px-4 md:px-8 rounded-full transition-all hover:scale-105 text-xs md:text-sm h-9 md:h-10" data-testid="button-consultation">
               ЗАКАЗАТЬ ЗВОНОК
             </Button>
             <Button 
@@ -342,7 +342,7 @@ export default function TravelAgency() {
               <button onClick={() => { scrollToDestinations(); setMobileMenuOpen(false); }} className="text-2xl font-bold text-white text-left">Направления</button>
               <button onClick={() => { scrollToCategories(); setMobileMenuOpen(false); }} className="text-2xl font-bold text-white text-left">Впечатления</button>
               <button onClick={() => { scrollToContact(); setMobileMenuOpen(false); }} className="text-2xl font-bold text-white text-left">Консьерж</button>
-              <Button className="mt-auto bg-amber-400 text-slate-950 font-bold h-14 rounded-xl text-lg" onClick={() => setMobileMenuOpen(false)}>
+              <Button className="mt-auto bg-amber-400 text-white font-bold h-14 rounded-xl text-lg" onClick={() => setMobileMenuOpen(false)}>
                 ЗАКАЗАТЬ ЗВОНОК
               </Button>
             </div>
@@ -390,7 +390,7 @@ export default function TravelAgency() {
                     />
                   </div>
                 </div>
-                <Button className="h-14 md:h-16 px-10 bg-amber-400 text-slate-950 hover:bg-amber-300 font-bold text-base md:text-lg rounded-xl w-full md:w-auto" onClick={scrollToDestinations}>
+                <Button className="h-14 md:h-16 px-10 bg-amber-400 text-white hover:bg-amber-300 font-bold text-base md:text-lg rounded-xl w-full md:w-auto" onClick={scrollToDestinations}>
                   ИСКАТЬ
                 </Button>
               </div>
