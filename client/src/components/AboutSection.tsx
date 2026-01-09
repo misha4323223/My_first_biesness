@@ -55,14 +55,14 @@ export function AboutSection() {
           {/* Main Content Box - Flip Card */}
           <motion.div 
             variants={itemVariants} 
-            className="md:col-span-8 md:row-span-1 h-[300px] md:h-auto perspective-1000 cursor-pointer"
-            onMouseEnter={() => setIsFlipped(true)}
-            onMouseLeave={() => setIsFlipped(false)}
+            className="md:col-span-8 md:row-span-1 h-[300px] md:h-auto perspective-1000 group/flip"
             onClick={() => setIsFlipped(!isFlipped)}
           >
             <motion.div
               className="relative w-full h-full transition-all duration-700 preserve-3d"
               animate={{ rotateY: isFlipped ? 180 : 0 }}
+              onHoverStart={() => !isFlipped && setIsFlipped(true)}
+              onHoverEnd={() => isFlipped && setIsFlipped(false)}
             >
               {/* Front Side */}
               <Card className="absolute inset-0 p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center">
