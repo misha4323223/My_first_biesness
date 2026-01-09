@@ -216,9 +216,13 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-16">
           <SectionBadge>Контакты</SectionBadge>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            <AnimatedText text={line1} startIndex={0} isInView={isInView} />
-            <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap">
+            <span className="neural-interface py-1">
+              <AnimatedText text={line1} startIndex={0} isInView={isInView} />
+            </span>
+            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
+            </span>
           </h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
