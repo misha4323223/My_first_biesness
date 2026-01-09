@@ -240,12 +240,12 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.15] mb-6 relative overflow-hidden">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8 relative overflow-hidden tracking-tighter">
           <GlowPulse />
-          <span className="text-foreground block px-2 font-light tracking-tight text-white/90">
+          <span className="text-white/70 block px-2 font-medium">
             <AnimatedText text={line1} startIndex={0} />
           </span>
-          <span className="block mt-1 px-2 font-bold tracking-tighter">
+          <span className="block mt-2 px-2 font-bold bg-gradient-to-b from-white via-white to-white/20 bg-clip-text text-transparent drop-shadow-sm">
             <AnimatedText text={line2} startIndex={line1.length} isGradient />
           </span>
         </h1>
