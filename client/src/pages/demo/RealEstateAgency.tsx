@@ -207,7 +207,7 @@ export default function RealEstateAgency() {
             <button onClick={scrollToBooking} className="hover:text-emerald-400 transition-colors cursor-pointer">Просмотр</button>
             <button onClick={scrollToContact} className="hover:text-emerald-400 transition-colors cursor-pointer">Контакты</button>
           </div>
-          <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold h-8 md:h-10 px-3 md:px-4 text-xs md:text-sm" data-testid="button-book-header">
+          <Button size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold h-8 md:h-10 px-3 md:px-4 text-xs md:text-sm" data-testid="button-book-header">
             Записаться
           </Button>
         </nav>
@@ -258,7 +258,7 @@ export default function RealEstateAgency() {
                 </select>
               </div>
               <Button 
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-6 h-10 md:h-12 text-sm"
+                className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-6 h-10 md:h-12 text-sm"
                 onClick={scrollToProperties}
               >
                 Найти
@@ -268,7 +268,7 @@ export default function RealEstateAgency() {
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <Button 
                 size="lg" 
-                className="bg-emerald-500 hover:bg-emerald-600 text-black font-semibold w-full sm:w-auto h-11 md:h-12 text-sm" 
+                className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold w-full sm:w-auto h-11 md:h-12 text-sm" 
                 onClick={scrollToBooking}
                 data-testid="button-book-hero"
               >
@@ -348,7 +348,7 @@ export default function RealEstateAgency() {
                         <PlayCircle className="w-3 h-3" /> 3D
                       </Badge>
                       {property.popular && (
-                        <Badge className="bg-emerald-500 text-black border-0 text-[10px] h-5 py-0 px-2">Хит</Badge>
+                        <Badge className="bg-emerald-500 text-white border-0 text-[10px] h-5 py-0 px-2">Хит</Badge>
                       )}
                     </div>
                   </div>
@@ -407,7 +407,7 @@ export default function RealEstateAgency() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75" />
                     <div className="relative w-6 h-6 md:w-8 md:h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Home className="w-3 h-3 md:w-4 md:h-4 text-black" />
+                      <Home className="w-3 h-3 md:w-4 md:h-4 text-white" />
                     </div>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
                       Пентхаус Сити
@@ -419,7 +419,7 @@ export default function RealEstateAgency() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-300" />
                     <div className="relative w-6 h-6 md:w-8 md:h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Home className="w-3 h-3 md:w-4 md:h-4 text-black" />
+                      <Home className="w-3 h-3 md:w-4 md:h-4 text-white" />
                     </div>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
                       Резиденция Арбат
@@ -431,7 +431,7 @@ export default function RealEstateAgency() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-emerald-500 rounded-full animate-ping opacity-75 delay-700" />
                     <div className="relative w-6 h-6 md:w-8 md:h-8 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white cursor-pointer hover:scale-110 transition-transform">
-                      <Home className="w-3 h-3 md:w-4 md:h-4 text-black" />
+                      <Home className="w-3 h-3 md:w-4 md:h-4 text-white" />
                     </div>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-neutral-900/90 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover/pin:opacity-100 transition-all transform translate-y-2 group-hover/pin:translate-y-0 whitespace-nowrap border border-white/10 pointer-events-none font-bold z-20 shadow-xl">
                       Офис Класса А
@@ -441,7 +441,7 @@ export default function RealEstateAgency() {
               </div>
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors pointer-events-none" />
               <div className="absolute top-3 left-3 z-10">
-                <Badge className="bg-emerald-500 text-black font-bold border-none text-[8px] md:text-[10px] h-5 px-2">КАРТА ОБЪЕКТОВ</Badge>
+                <Badge className="bg-emerald-500 text-white font-bold border-none text-[8px] md:text-[10px] h-5 px-2">КАРТА ОБЪЕКТОВ</Badge>
               </div>
             </div>
           </div>
@@ -464,7 +464,7 @@ export default function RealEstateAgency() {
                 <DialogTrigger asChild>
                   <Button 
                     size="lg" 
-                    className="bg-emerald-500 hover:bg-emerald-600 text-black font-bold px-8 h-12 md:h-14 rounded-xl shadow-lg shadow-emerald-500/20 whitespace-nowrap w-full md:w-auto"
+                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 h-12 md:h-14 rounded-xl shadow-lg shadow-emerald-500/20 whitespace-nowrap w-full md:w-auto"
                     onClick={() => {
                       setQuizStep(0);
                       setQuizAnswers({});
@@ -513,7 +513,7 @@ export default function RealEstateAgency() {
                         <h3 className="text-2xl font-bold mb-2">Отлично!</h3>
                         <p className="text-neutral-400 mb-8">Мы подобрали лучшие варианты на основе ваших предпочтений.</p>
                         <Button 
-                          className="w-full bg-emerald-500 text-black font-bold h-12 rounded-xl" 
+                          className="w-full bg-emerald-500 text-white font-bold h-12 rounded-xl" 
                           onClick={() => {
                             setQuizOpen(false);
                             setQuizStep(0);
@@ -611,7 +611,7 @@ export default function RealEstateAgency() {
                       </div>
                     </div>
                   </div>
-                  <Button size="sm" variant="outline" className="w-full border-neutral-700 hover:bg-emerald-500 hover:text-black hover:border-emerald-500 transition-all font-bold text-xs h-9" data-testid={`button-select-agent-${agent.id}`}>
+                  <Button size="sm" variant="outline" className="w-full border-neutral-700 hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all font-bold text-xs h-9" data-testid={`button-select-agent-${agent.id}`}>
                     Выбрать
                   </Button>
                 </Card>
@@ -737,7 +737,7 @@ export default function RealEstateAgency() {
 
                   <div className="pt-2 md:pt-0">
                     <Button 
-                      className="w-full h-12 md:h-16 bg-emerald-500 hover:bg-emerald-600 text-black font-black text-sm md:text-lg rounded-xl md:rounded-2xl shadow-xl md:shadow-2xl shadow-emerald-500/20 disabled:opacity-30 disabled:grayscale transition-all duration-500 transform active:scale-[0.98]"
+                      className="w-full h-12 md:h-16 bg-emerald-500 hover:bg-emerald-600 text-white font-black text-sm md:text-lg rounded-xl md:rounded-2xl shadow-xl md:shadow-2xl shadow-emerald-500/20 disabled:opacity-30 disabled:grayscale transition-all duration-500 transform active:scale-[0.98]"
                       disabled={!selectedProperty || !selectedDate || !selectedTime}
                       onClick={handleBook}
                       data-testid="button-confirm-booking"
