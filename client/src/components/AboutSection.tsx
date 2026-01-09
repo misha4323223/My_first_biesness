@@ -44,8 +44,8 @@ export function AboutSection() {
         <div className="text-center mb-12 md:mb-16">
           <SectionBadge>О студии</SectionBadge>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap">
-            <span className="neural-interface py-1">Мы создаём</span>
-            <span className="neural-interface font-bold py-1 text-cyan-400">цифровые решения</span>
+            <span className="neural-interface py-1 text-white">Мы создаём</span>
+            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">цифровые решения</span>
           </h2>
         </div>
 
