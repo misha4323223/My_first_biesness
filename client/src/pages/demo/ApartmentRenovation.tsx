@@ -562,8 +562,8 @@ export default function ApartmentRenovation() {
                         <div className="text-[10px] sm:text-base font-bold text-gray-900">{service.duration}</div>
                       </div>
                     </div>
-                    <Button className="w-full bg-gray-900 hover:bg-amber-600 text-white transition-colors h-8 sm:h-11 text-[10px] sm:text-base" onClick={scrollToContact}>
-                      <span className="text-white group-hover:text-black transition-colors">Заказать расчет</span>
+                    <Button className="w-full bg-amber-500 hover:bg-amber-600 text-black transition-colors h-8 sm:h-11 text-[10px] sm:text-base font-bold" onClick={scrollToContact}>
+                      Заказать расчет
                     </Button>
                   </div>
                 </Card>
