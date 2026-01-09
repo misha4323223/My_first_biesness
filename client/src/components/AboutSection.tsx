@@ -1,139 +1,29 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useMemo } from "react";
+import { useRef } from "react";
 import { ParticleBackground } from "./ParticleBackground";
-
 import { SectionBadge } from "./SectionBadge";
-
-interface FlyingLetterProps {
-  letter: string;
-  index: number;
-  totalLetters: number;
-  isGradient?: boolean;
-  isInView: boolean;
-}
-
-function FlyingLetter({ letter, index, totalLetters, isGradient, isInView }: FlyingLetterProps) {
-  const isAndroid = useMemo(() => {
-    return /Android/i.test(navigator.userAgent);
-  }, []);
-
-  const startPosition = useMemo(() => {
-    if (isAndroid) {
-      return {
-        x: 0,
-        y: 0,
-        rotate: 0,
-        scale: 0.2,
-      };
-    }
-    const angle = (index / totalLetters) * Math.PI * 2 + Math.random() * 0.5;
-    const distance = 200 + Math.random() * 300;
-    return {
-      x: Math.cos(angle) * distance,
-      y: Math.sin(angle) * distance - 100,
-      rotate: (Math.random() - 0.5) * 180,
-      scale: 0.5 + Math.random() * 0.3,
-    };
-  }, [index, totalLetters, isAndroid]);
-
-  const delay = index * 0.02;
-
-  if (isAndroid) {
-    return (
-      <span
-        className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent" : ""}`}
-      >
-        {letter}
-      </span>
-    );
-  }
-
-  if (letter === " ") {
-    return <span className="inline-block w-[0.3em]">&nbsp;</span>;
-  }
-
-  return (
-    <motion.span
-      className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent" : ""}`}
-      initial={{
-        x: startPosition.x,
-        y: startPosition.y,
-        rotate: startPosition.rotate,
-        scale: startPosition.scale,
-        opacity: 0,
-        filter: isAndroid ? "blur(2px)" : "blur(6px)",
-      }}
-      animate={isInView ? {
-        x: 0,
-        y: 0,
-        rotate: 0,
-        scale: 1,
-        opacity: 1,
-        filter: "blur(0px)",
-      } : {}}
-      transition={isAndroid ? {
-        duration: 0.4,
-        delay: delay,
-        ease: "easeOut",
-      } : {
-        duration: 0.6,
-        delay: delay,
-        type: "spring",
-        stiffness: 120,
-        damping: 14,
-      }}
-      style={{ willChange: "transform, opacity, filter" }}
-    >
-      {letter}
-    </motion.span>
-  );
-}
-
-interface AnimatedTextProps {
-  text: string;
-  startIndex: number;
-  isGradient?: boolean;
-  isInView: boolean;
-}
-
-function AnimatedText({ text, startIndex, isGradient, isInView }: AnimatedTextProps) {
-  const words = text.split(" ");
-  let letterIndex = startIndex;
-
-  return (
-    <>
-      {words.map((word, wordIdx) => {
-        const wordStartIndex = letterIndex;
-        letterIndex += word.length + 1;
-        
-        return (
-          <span key={wordIdx} className="inline-block whitespace-nowrap">
-            {word.split("").map((letter, i) => (
-              <FlyingLetter
-                key={i}
-                letter={letter}
-                index={wordStartIndex + i}
-                totalLetters={startIndex + text.length + 10}
-                isGradient={isGradient}
-                isInView={isInView}
-              />
-            ))}
-            {wordIdx < words.length - 1 && <span className="inline-block w-[0.3em]">&nbsp;</span>}
-          </span>
-        );
-      })}
-    </>
-  );
-}
+import { Card } from "@/components/ui/card";
+import { Code2, Rocket, Users, Target } from "lucide-react";
 
 export function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const line1 = "Мы создаём ";
-  const line2 = "цифровые решения";
-  const line3 = " для вашего бизнеса";
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+  };
 
   return (
     <section id="about" className="py-20 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
@@ -147,31 +37,75 @@ export function AboutSection() {
       <ParticleBackground />
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
-        <div ref={ref} className="max-w-3xl mx-auto text-center">
+        <div className="text-center mb-16">
           <SectionBadge>О студии</SectionBadge>
-          
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
-            <AnimatedText text={line1} startIndex={0} isInView={isInView} />
-            <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
-            <AnimatedText text={line3} startIndex={line1.length + line2.length} isInView={isInView} />
+          <h2 className="text-3xl md:text-5xl font-bold mt-4 tracking-tight">
+            Мы создаём <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">цифровые решения</span>
           </h2>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="space-y-4 md:space-y-6"
-          >
-            <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-              MP.WebStudio — это сочетание современных технологий и внимания к деталям. 
-              Мы используем актуальные инструменты разработки, чтобы создавать сайты быстрее и качественнее.
-            </p>
-            <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-              Каждый проект начинается с понимания вашей задачи. Мы не предлагаем шаблонные решения — 
-              мы разрабатываем продукт под ваш бизнес, вашу аудиторию и ваши цели.
-            </p>
-          </motion.div>
         </div>
+
+        <motion.div
+          ref={ref}
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? "show" : "hidden"}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:grid-rows-2"
+        >
+          {/* Main Content Box */}
+          <motion.div variants={itemVariants} className="md:col-span-2 md:row-span-1">
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate transition-all duration-300">
+              <div className="flex flex-col h-full justify-center">
+                <h3 className="text-2xl font-semibold mb-4 text-cyan-400">Наш подход</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">
+                  MP.WebStudio — это сочетание современных технологий и внимания к деталям. 
+                  Мы не предлагаем шаблонные решения — каждый проект разрабатывается индивидуально 
+                  под ваш бизнес и цели.
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Stats Box 1 */}
+          <motion.div variants={itemVariants}>
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate flex flex-col items-center justify-center text-center group">
+              <div className="p-3 rounded-2xl bg-cyan-500/10 mb-4 group-hover:bg-cyan-500/20 transition-colors">
+                <Code2 className="w-8 h-8 text-cyan-400" />
+              </div>
+              <div className="text-4xl font-bold mb-2">100%</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-widest">Кастомный код</div>
+            </Card>
+          </motion.div>
+
+          {/* Stats Box 2 */}
+          <motion.div variants={itemVariants}>
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate flex flex-col items-center justify-center text-center group">
+              <div className="p-3 rounded-2xl bg-purple-500/10 mb-4 group-hover:bg-purple-500/20 transition-colors">
+                <Rocket className="w-8 h-8 text-purple-400" />
+              </div>
+              <div className="text-4xl font-bold mb-2">14+</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-widest">Демо-концепций</div>
+            </Card>
+          </motion.div>
+
+          {/* Second Main Content Box */}
+          <motion.div variants={itemVariants} className="md:col-span-2 md:row-span-1">
+            <Card className="h-full p-8 bg-white/5 border-white/10 backdrop-blur-sm hover-elevate transition-all duration-300">
+              <div className="flex flex-col h-full justify-center">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-2 rounded-lg bg-cyan-500/10">
+                    <Target className="w-6 h-6 text-cyan-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold">Ваша цель — наш приоритет</h3>
+                </div>
+                <p className="text-muted-foreground">
+                  Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
+                  приложения, которые легко масштабировать. Ваша аудитория получит 
+                  лучший пользовательский опыт.
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
