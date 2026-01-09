@@ -246,13 +246,13 @@ export function HeroSection() {
           <h1 className="flex flex-col items-center gap-4 text-center">
             <div className="relative">
               <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
-                Это не реклама про нас.
+                <AnimatedText text={line1.toLowerCase()} startIndex={0} />
               </span>
             </div>
             
             <div className="relative">
               <span className="neural-interface text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
-                Это витрина для вас.
+                <AnimatedText text={line2.toLowerCase()} startIndex={line1.length} />
               </span>
             </div>
           </h1>
