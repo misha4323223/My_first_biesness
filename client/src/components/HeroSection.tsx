@@ -240,34 +240,33 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-8 relative font-mono lowercase text-center">
-          <GlowPulse />
-          <div className="relative inline-block">
-            {/* Japanese decorative text */}
-            <div className="absolute -left-12 top-0 text-[10px] text-cyan-500/30 vertical-text hidden md:block select-none pointer-events-none">
-              ウェブスタジオ
-            </div>
-            <span className="relative z-10 block px-2 text-white/60 tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+        <div className="relative inline-block py-12 px-10 border border-amber-500/20 bg-amber-500/5 rounded-sm overflow-hidden group">
+          {/* Hacker Terminal Scanline */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] pointer-events-none z-10" />
+          
+          <div className="absolute top-2 left-3 flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+            <span className="text-[10px] font-mono text-amber-500/60 uppercase tracking-widest">
+              Status: Breach_Detected
+            </span>
+          </div>
+
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl leading-[1.4] relative font-mono text-center tracking-tight lowercase">
+            <GlowPulse />
+            <span className="block px-2 text-amber-500/80 mb-4 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
               <AnimatedText text={line1} startIndex={0} />
             </span>
-          </div>
-          
-          <div className="relative block mt-2 group">
-            <span className="relative z-10 block px-2 text-white font-black tracking-tighter bg-gradient-to-r from-purple-500 via-pink-400 to-yellow-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
-              <AnimatedText text={line2} startIndex={line1.length} isGradient />
+            <span className="block px-2 text-amber-400 font-bold tracking-widest uppercase drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
+              <AnimatedText text={line2} startIndex={line1.length} />
             </span>
-            {/* Neon Flicker Effect on a few letters could be simulated by AnimatedText, but here we add a global flicker */}
-            <motion.div 
-              className="absolute inset-0 bg-white/5 pointer-events-none rounded-lg"
-              animate={{ opacity: [0, 0.1, 0, 0.05, 0] }}
-              transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3 }}
-            />
-            {/* Japanese decorative text right */}
-            <div className="absolute -right-12 bottom-0 text-[10px] text-purple-500/30 vertical-text hidden md:block select-none pointer-events-none">
-              デジタル
-            </div>
+          </h1>
+
+          <div className="absolute bottom-2 right-3">
+            <span className="text-[10px] font-mono text-amber-500/40 uppercase tracking-tighter">
+              Access_Granted_v2.1
+            </span>
           </div>
-        </h1>
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
