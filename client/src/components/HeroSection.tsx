@@ -183,7 +183,7 @@ export function HeroSection() {
   const line2 = "Это витрина для вас.";
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-12 pb-24">
+    <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-12 md:pt-32 pb-24 md:pb-0">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
