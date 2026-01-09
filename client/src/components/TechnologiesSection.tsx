@@ -4,6 +4,8 @@ import { SiReact, SiNextdotjs, SiVuedotjs, SiTypescript, SiNodedotjs, SiPython, 
 import { Cloud, CreditCard, Server, Database, Truck, Building2, BarChart3, MapPin } from "lucide-react";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -235,14 +237,7 @@ export function TechnologiesSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-10">
-          <motion.span
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-4"
-          >
-            Технологии
-          </motion.span>
+          <SectionBadge>Технологии</SectionBadge>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />

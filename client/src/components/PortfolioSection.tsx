@@ -8,6 +8,8 @@ import { useLocation } from "wouter";
 import { ParticleBackground } from "./ParticleBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;

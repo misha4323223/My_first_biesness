@@ -15,6 +15,8 @@ import { Mail, Phone, Send, CheckCircle } from "lucide-react";
 import { SiTelegram, SiVk } from "react-icons/si";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -214,16 +216,7 @@ export function ContactSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-6"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text">Контакты</span>
-            </span>
-          </motion.div>
+          <SectionBadge>Контакты</SectionBadge>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />

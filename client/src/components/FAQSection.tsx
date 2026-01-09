@@ -6,6 +6,8 @@ import { ChevronDown } from "lucide-react";
 import { useFAQSchema } from "@/lib/useFAQSchema";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -198,16 +200,7 @@ export function FAQSection() {
 
       <div className="max-w-3xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text">Вопросы</span>
-            </span>
-          </motion.div>
+          <SectionBadge>Вопросы</SectionBadge>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />

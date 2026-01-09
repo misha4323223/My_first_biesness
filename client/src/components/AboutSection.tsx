@@ -3,6 +3,8 @@ import { useInView } from "framer-motion";
 import { useRef, useMemo } from "react";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -144,16 +146,7 @@ export function AboutSection() {
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         <div ref={ref} className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text text-xs sm:text-sm">О студии</span>
-            </span>
-          </motion.div>
+          <SectionBadge>О студии</SectionBadge>
           
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />

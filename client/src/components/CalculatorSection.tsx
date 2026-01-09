@@ -19,6 +19,8 @@ import { Calculator, ArrowRight, Check, ChevronDown, Plus, X, Mail, Phone } from
 import { SiTelegram, SiVk } from "react-icons/si";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -423,16 +425,7 @@ export function CalculatorSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-12 px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text text-xs sm:text-sm">Расчёт стоимости / Контакты</span>
-            </span>
-          </motion.div>
+          <SectionBadge>Расчёт стоимости / Контакты</SectionBadge>
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 overflow-hidden">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <div className="block sm:inline">

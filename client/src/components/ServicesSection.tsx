@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Globe, ShoppingCart, Gauge, Palette, Code, FileText, Rocket } from "lucide-react";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -203,16 +205,7 @@ export function ServicesSection() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-12 px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text">Услуги</span>
-            </span>
-          </motion.div>
+          <SectionBadge>Услуги</SectionBadge>
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />

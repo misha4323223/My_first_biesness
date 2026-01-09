@@ -3,6 +3,8 @@ import { useRef, useMemo } from "react";
 import { MessageSquare, PenTool, Code, Rocket } from "lucide-react";
 import { ParticleBackground } from "./ParticleBackground";
 
+import { SectionBadge } from "./SectionBadge";
+
 interface FlyingLetterProps {
   letter: string;
   index: number;
@@ -186,16 +188,7 @@ export function ProcessSection() {
 
       <div className="max-w-4xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-12">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text">Процесс</span>
-            </span>
-          </motion.div>
+          <SectionBadge>Процесс</SectionBadge>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
