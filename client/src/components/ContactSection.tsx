@@ -459,7 +459,7 @@ export function ContactSection() {
                     <span>Telegram</span>
                   </Button>
                 </a>
-                <a href="https://vk.com/mpwebstudio" target="_blank" rel="noopener noreferrer">
+                <a href="https://vk.com/mp.webstudio" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="outline"
                     className="gap-2 px-4 h-12"

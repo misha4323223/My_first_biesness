@@ -49,27 +49,6 @@ export function Footer() {
               </Button>
             ))}
           </nav>
-
-          <div className="flex items-center gap-2">
-            <a href="https://t.me/MPWebStudio_ru" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="ghost"
-                size="icon"
-                data-testid="button-footer-telegram"
-              >
-                <SiTelegram className="w-5 h-5" />
-              </Button>
-            </a>
-            <a href="https://vk.com/mp.webstudio" target="_blank" rel="noopener noreferrer">
-              <Button
-                variant="ghost"
-                size="icon"
-                data-testid="button-footer-vk"
-              >
-                <SiVk className="w-5 h-5" />
-              </Button>
-            </a>
-          </div>
         </div>
 
         <div className="mt-8 pt-8 border-t border-border">
