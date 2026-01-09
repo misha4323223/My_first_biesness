@@ -240,17 +240,36 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.2] mb-10 relative font-sans font-black tracking-tight text-center uppercase">
-          <GlowPulse />
-          <span className="block px-2 text-blue-400 opacity-60 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-            <AnimatedText text={line1} startIndex={0} />
-          </span>
-          <span className="block px-2 mt-2 text-white bg-gradient-to-r from-blue-400 via-cyan-200 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-shimmer drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]">
-            <AnimatedText text={line2} startIndex={line1.length} isGradient />
-          </span>
-          {/* Эффект плазмы */}
-          <div className="absolute inset-x-0 -bottom-2 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-sm opacity-50" />
-        </h1>
+        <div className="relative inline-block py-12 px-16 group">
+          {/*Blueprint Guidelines */}
+          <div className="absolute inset-0 border border-blue-500/20 pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-px bg-blue-500/10" />
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full h-px bg-blue-500/10" />
+          
+          {/* Coordinates */}
+          <div className="absolute top-2 left-2 text-[10px] font-mono text-blue-500/40 uppercase tracking-widest">
+            X: 192.00 / Y: 844.21
+          </div>
+          <div className="absolute bottom-2 right-2 text-[10px] font-mono text-blue-500/40 uppercase tracking-widest">
+            ID: MP_WS_SR_16
+          </div>
+
+          <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl leading-[1.4] relative font-mono text-center tracking-tight">
+            <GlowPulse />
+            <span className="block px-2 text-blue-400/60 mb-4">
+              <AnimatedText text={line1} startIndex={0} />
+            </span>
+            <span className="block px-2 text-white font-bold tracking-widest uppercase">
+              <AnimatedText text={line2} startIndex={line1.length} />
+            </span>
+          </h1>
+
+          {/* Corner Marks */}
+          <div className="absolute -top-1 -left-1 w-4 h-4 border-t border-l border-blue-500/60" />
+          <div className="absolute -top-1 -right-1 w-4 h-4 border-t border-r border-blue-500/60" />
+          <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b border-l border-blue-500/60" />
+          <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b border-r border-blue-500/60" />
+        </div>
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
