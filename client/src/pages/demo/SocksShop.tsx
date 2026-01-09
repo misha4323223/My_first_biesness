@@ -508,8 +508,8 @@ export default function SocksShop() {
                   onClick={() => handleNavClick(item)}
                   className={`text-sm font-extrabold px-4 py-2 rounded-full transition-all ${
                     item === "SALE" 
-                      ? "bg-rose-500 text-white hover:bg-rose-600 shadow-md shadow-rose-500/20" 
-                      : "bg-neutral-900 text-white hover:bg-black shadow-md shadow-black/10"
+                      ? "bg-rose-500 text-black hover:text-white hover:bg-rose-600 shadow-md shadow-rose-500/20" 
+                      : "bg-neutral-900 text-black hover:text-white hover:bg-black shadow-md shadow-black/10"
                   }`}
                 >
                   {item}
@@ -533,10 +533,10 @@ export default function SocksShop() {
               </Button>
               <Button 
                 onClick={() => setCartOpen(true)}
-                className="relative bg-neutral-900 hover:bg-black text-white rounded-full px-3 sm:px-4 gap-2 h-8 sm:h-10 shadow-lg shadow-black/10"
+                className="relative bg-neutral-900 hover:bg-black text-black hover:text-white rounded-full px-3 sm:px-4 gap-2 h-8 sm:h-10 shadow-lg shadow-black/10"
               >
-                <ShoppingCart className="w-3.5 h-3.5 sm:w-4 h-4 text-white" />
-                <span className="hidden sm:inline font-bold text-sm text-white">Корзина</span>
+                <ShoppingCart className="w-3.5 h-3.5 sm:w-4 h-4" />
+                <span className="hidden sm:inline font-bold text-sm">Корзина</span>
                 {cartCount > 0 && (
                   <span className="flex items-center justify-center min-w-[16px] h-[16px] sm:min-w-[18px] sm:h-[18px] rounded-full bg-rose-500 text-[9px] sm:text-[10px] font-black text-white">
                     {cartCount}
@@ -599,11 +599,11 @@ export default function SocksShop() {
                   Бутик мужских носков, где качество хлопка встречается с безупречным дизайном. 
                 </p>
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-3 sm:gap-4">
-                  <Button size="lg" className="h-12 sm:h-14 px-8 bg-neutral-900 hover:bg-black text-white font-black rounded-xl sm:rounded-2xl shadow-xl shadow-black/20 group" onClick={scrollToProducts}>
+                  <Button size="lg" className="h-12 sm:h-14 px-8 bg-neutral-900 hover:bg-black text-black hover:text-white font-black rounded-xl sm:rounded-2xl shadow-xl shadow-black/20 group" onClick={scrollToProducts}>
                     Смотреть каталог
                     <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                  <Button size="lg" className="h-12 sm:h-14 px-8 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-xl sm:rounded-2xl shadow-xl shadow-rose-500/20" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
+                  <Button size="lg" className="h-12 sm:h-14 px-8 bg-rose-500 hover:bg-rose-600 text-black hover:text-white font-black rounded-xl sm:rounded-2xl shadow-xl shadow-rose-500/20" onClick={() => footerRef.current?.scrollIntoView({ behavior: "smooth" })}>
                     О нас
                   </Button>
                 </div>
@@ -636,8 +636,8 @@ export default function SocksShop() {
                   onClick={() => setActiveCategory(cat.name)}
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all border ${
                     activeCategory === cat.name
-                      ? "bg-rose-500 text-white border-rose-500 shadow-lg shadow-rose-500/20"
-                      : "bg-neutral-900 text-white border-neutral-900 hover:bg-black"
+                      ? "bg-rose-500 text-black hover:text-white border-rose-500 shadow-lg shadow-rose-500/20"
+                      : "bg-neutral-900 text-black hover:text-white border-neutral-900 hover:bg-black"
                   }`}
                 >
                   {cat.icon && <cat.icon className="w-3.5 h-3.5 sm:w-4 h-4" />}
@@ -739,7 +739,7 @@ export default function SocksShop() {
                           <Button 
                             variant="default" 
                             size="sm" 
-                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1 bg-neutral-900 hover:bg-black text-white"
+                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1 bg-neutral-900 hover:bg-black text-black hover:text-white"
                             onClick={() => setSelectedProduct(product)}
                             data-testid={`button-view-details-${product.id}`}
                           >
