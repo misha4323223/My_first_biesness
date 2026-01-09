@@ -240,22 +240,14 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="flex flex-col items-center mb-8 relative">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.15] mb-6 relative overflow-hidden">
           <GlowPulse />
-          <motion.span 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-xs md:text-sm font-bold uppercase tracking-[0.5em] text-cyan-400 mb-4 opacity-80"
-          >
-            {line1}
-          </motion.span>
-          <div className="relative">
-            <span className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none text-white inline-block">
-              Это <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-cyan-400 animate-gradient-x">витрина</span> для вас.
-            </span>
-            <div className="absolute -inset-x-4 -inset-y-2 bg-white/5 blur-2xl -z-10 rounded-full opacity-50" />
-          </div>
+          <span className="text-foreground block px-2">
+            <AnimatedText text={line1} startIndex={0} />
+          </span>
+          <span className="block mt-1 px-2">
+            <AnimatedText text={line2} startIndex={line1.length} isGradient />
+          </span>
         </h1>
 
         <motion.p
