@@ -628,7 +628,7 @@ export default function DentalClinic() {
                   <Label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Сообщение (необязательно)</Label>
                   <Textarea className="bg-gray-50 border-gray-100 rounded-xl min-h-[80px] md:min-h-[100px] focus:ring-teal-500" placeholder="Опишите вашу проблему..." />
                 </div>
-                <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white font-black h-12 md:h-14 rounded-xl shadow-xl shadow-teal-600/20 uppercase tracking-widest text-xs md:text-sm">
+                <Button className="w-full bg-teal-600 hover:bg-teal-700 text-black font-black h-12 md:h-14 rounded-xl shadow-xl shadow-teal-600/20 uppercase tracking-widest text-xs md:text-sm">
                   Отправить запрос
                 </Button>
               </form>
