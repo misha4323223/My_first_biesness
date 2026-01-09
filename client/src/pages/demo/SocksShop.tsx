@@ -514,15 +514,6 @@ export default function SocksShop() {
                 </button>
               ))}
             </nav>
-                  className={`text-sm font-bold tracking-tight transition-all relative group ${
-                    item === "SALE" ? "text-rose-500" : "text-neutral-500 hover:text-neutral-900"
-                  }`}
-                >
-                  {item}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-current transition-all group-hover:w-full" />
-                </button>
-              ))}
-            </nav>
 
             <div className="flex items-center gap-1 sm:gap-2">
               <Button 
