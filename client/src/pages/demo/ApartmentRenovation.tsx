@@ -298,8 +298,8 @@ export default function ApartmentRenovation() {
             <button onClick={scrollToContact} className="hover:text-amber-600 transition-colors cursor-pointer">Контакты</button>
           </div>
 
-          <Button size="sm" className="h-8 sm:h-9 px-3 sm:px-4 text-[10px] sm:text-sm bg-amber-500 hover:bg-amber-600 text-white" onClick={() => setCallbackOpen(true)} data-testid="button-call-header">
-            <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
+          <Button size="sm" className="h-8 sm:h-9 px-3 sm:px-4 text-[10px] sm:text-sm bg-amber-500 hover:bg-amber-600 text-black font-bold" onClick={() => setCallbackOpen(true)} data-testid="button-call-header">
+            <Phone className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-black" />
             <span className="hidden xs:inline">Вызвать замерщика</span>
             <span className="xs:hidden">Замер</span>
           </Button>
@@ -335,8 +335,8 @@ export default function ApartmentRenovation() {
               Фиксированная цена, точные сроки, гарантия 3 года.
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4">
-              <Button size="lg" className="h-10 sm:h-12 px-4 sm:px-8 text-xs sm:text-base bg-amber-500 hover:bg-amber-600 text-white" onClick={scrollToContact} data-testid="button-calculate">
-                <Ruler className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <Button size="lg" className="h-10 sm:h-12 px-4 sm:px-8 text-xs sm:text-base bg-amber-500 hover:bg-amber-600 text-black font-bold" onClick={scrollToContact} data-testid="button-calculate">
+                <Ruler className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-black" />
                 Рассчитать стоимость
               </Button>
               <Button size="lg" variant="outline" className="h-10 sm:h-12 px-4 sm:px-8 text-xs sm:text-base border-gray-300 text-gray-700 hover:bg-gray-50" onClick={scrollToPortfolio} data-testid="button-portfolio">
@@ -431,15 +431,15 @@ export default function ApartmentRenovation() {
                     </div>
                     <div className="grid grid-cols-1 gap-2 md:gap-3">
                       {quizSteps[quizStep].options.map(opt => (
-                        <Button 
-                          key={opt} 
-                          variant="outline" 
-                          className="justify-between h-auto py-3 md:py-4 px-4 md:px-6 border-gray-200 hover:border-amber-500 hover:bg-amber-50/50 text-sm md:text-base rounded-xl transition-all group"
-                          onClick={() => handleQuizNext(opt)}
-                        >
-                          {opt}
-                          <Plus className="w-4 h-4 text-gray-300 group-hover:text-amber-500 transition-colors" />
-                        </Button>
+                          <Button 
+                            key={opt} 
+                            variant="outline" 
+                            className="justify-between h-auto py-3 md:py-4 px-4 md:px-6 border-gray-200 hover:border-amber-500 hover:bg-amber-50/50 text-black font-bold text-sm md:text-base rounded-xl transition-all group"
+                            onClick={() => handleQuizNext(opt)}
+                          >
+                            {opt}
+                            <Plus className="w-4 h-4 text-gray-300 group-hover:text-amber-500 transition-colors" />
+                          </Button>
                       ))}
                     </div>
                   </motion.div>
@@ -461,7 +461,7 @@ export default function ApartmentRenovation() {
                           <span className="text-gray-400 font-bold">м²</span>
                         </div>
                       </div>
-                      <Button className="w-full h-12 md:h-14 bg-amber-500 hover:bg-amber-600 text-white text-base md:text-lg font-bold rounded-xl shadow-lg shadow-amber-500/20" onClick={() => setQuizStep(3)}>
+                      <Button className="w-full h-12 md:h-14 bg-amber-500 hover:bg-amber-600 text-black text-base md:text-lg font-bold rounded-xl shadow-lg shadow-amber-500/20" onClick={() => setQuizStep(3)}>
                         Рассчитать результат
                       </Button>
                     </div>
@@ -476,7 +476,7 @@ export default function ApartmentRenovation() {
                     <div className="text-3xl md:text-4xl font-black text-amber-600 mb-6 bg-amber-50 py-4 rounded-xl">
                       ~ {formatPrice(calculateQuizPrice())} ₽
                     </div>
-                    <Button className="w-full h-12 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl" onClick={scrollToContact}>
+                    <Button className="w-full h-12 bg-amber-500 hover:bg-amber-600 text-black font-bold rounded-xl" onClick={scrollToContact}>
                       Получить детальную смету
                     </Button>
                     <button className="text-xs text-gray-400 mt-4 hover:text-gray-600 underline underline-offset-4" onClick={() => setQuizStep(0)}>Начать заново</button>
@@ -563,7 +563,7 @@ export default function ApartmentRenovation() {
                       </div>
                     </div>
                     <Button className="w-full bg-gray-900 hover:bg-amber-600 text-white transition-colors h-8 sm:h-11 text-[10px] sm:text-base" onClick={scrollToContact}>
-                      Заказать расчет
+                      <span className="text-white group-hover:text-black transition-colors">Заказать расчет</span>
                     </Button>
                   </div>
                 </Card>
@@ -804,7 +804,7 @@ export default function ApartmentRenovation() {
             <Button 
               type="submit" 
               size="lg" 
-              className="w-full bg-amber-500 hover:bg-amber-600 text-white"
+              className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold"
               data-testid="button-submit"
             >
               Получить бесплатную смету
