@@ -240,17 +240,16 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.3] mb-8 relative font-mono text-center tracking-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.2] mb-10 relative font-sans font-black tracking-tight text-center uppercase">
           <GlowPulse />
-          <span className="block px-2 text-orange-400/60 drop-shadow-[0_0_8px_rgba(251,146,60,0.4)] opacity-80 mb-2">
+          <span className="block px-2 text-blue-400 opacity-60 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
             <AnimatedText text={line1} startIndex={0} />
           </span>
-          <span className="block px-2 text-white bg-gradient-to-r from-orange-400 via-amber-200 to-yellow-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(251,146,60,0.6)] font-bold">
+          <span className="block px-2 mt-2 text-white bg-gradient-to-r from-blue-400 via-cyan-200 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-shimmer drop-shadow-[0_0_20px_rgba(34,211,238,0.8)]">
             <AnimatedText text={line2} startIndex={line1.length} isGradient />
           </span>
-          {/* Декоративные элементы артефакта */}
-          <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-orange-500/30" />
-          <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-orange-500/30" />
+          {/* Эффект плазмы */}
+          <div className="absolute inset-x-0 -bottom-2 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent blur-sm opacity-50" />
         </h1>
 
         <motion.p
