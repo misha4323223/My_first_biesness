@@ -145,7 +145,7 @@ export function AboutSection() {
                   <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
                 </div>
                 <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
-                <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Решений</div>
+                <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">отраслевых решений</div>
               </div>
             </Card>
           </motion.div>
@@ -163,7 +163,7 @@ export function AboutSection() {
                 </div>
                 <p className="text-muted-foreground text-xs md:text-lg leading-relaxed max-w-2xl">
                   Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
-                  сайты, которые легко масштабировать.
+                  сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получить лучший пользовательский опыт.
                 </p>
               </div>
             </Card>
