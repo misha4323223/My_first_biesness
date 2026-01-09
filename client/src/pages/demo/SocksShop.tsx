@@ -507,7 +507,7 @@ export default function SocksShop() {
                   key={item}
                   onClick={() => handleNavClick(item)}
                   className={`text-sm font-bold transition-colors ${
-                    item === "SALE" ? "text-rose-500 hover:text-rose-600" : "text-neutral-600 hover:text-neutral-900"
+                    item === "SALE" ? "text-rose-500 hover:text-rose-600" : "text-neutral-900 hover:text-rose-500"
                   }`}
                 >
                   {item}
@@ -635,7 +635,7 @@ export default function SocksShop() {
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all border ${
                     activeCategory === cat.name
                       ? "bg-neutral-900 text-white border-neutral-900 shadow-lg shadow-black/10"
-                      : "bg-white text-neutral-500 border-neutral-200 hover:border-neutral-900 hover:text-neutral-900"
+                      : "bg-neutral-100 text-neutral-600 border-neutral-200 hover:border-neutral-900 hover:text-neutral-900"
                   }`}
                 >
                   {cat.icon && <cat.icon className="w-3.5 h-3.5 sm:w-4 h-4" />}
@@ -737,7 +737,7 @@ export default function SocksShop() {
                           <Button 
                             variant="secondary" 
                             size="sm" 
-                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1"
+                            className="h-7 flex-1 rounded-lg text-[9px] font-black uppercase tracking-tight px-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-900 border border-neutral-200"
                             onClick={() => setSelectedProduct(product)}
                             data-testid={`button-view-details-${product.id}`}
                           >
