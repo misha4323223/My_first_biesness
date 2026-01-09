@@ -240,13 +240,39 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8 relative overflow-hidden tracking-tighter">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-8 relative overflow-hidden tracking-tighter font-bold">
           <GlowPulse />
-          <span className="text-white/70 block px-2 font-medium">
+          <span className="text-white block px-2 relative group cursor-default">
             <AnimatedText text={line1} startIndex={0} />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+              animate={{
+                left: ["-100%", "200%"]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+                repeatDelay: 1
+              }}
+            />
           </span>
-          <span className="block mt-2 px-2 font-bold bg-gradient-to-b from-white via-white to-white/20 bg-clip-text text-transparent drop-shadow-sm">
-            <AnimatedText text={line2} startIndex={line1.length} isGradient />
+          <span className="block mt-2 px-2 relative group cursor-default">
+            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient-x">
+              <AnimatedText text={line2} startIndex={line1.length} isGradient />
+            </span>
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 pointer-events-none"
+              animate={{
+                left: ["-100%", "200%"]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+                repeatDelay: 1.5
+              }}
+            />
           </span>
         </h1>
 
