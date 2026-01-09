@@ -196,6 +196,44 @@
   /* Fallback for older browsers */
   --destructive-border: hsl(var(--destructive));
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+  /* Эффект жидкого металла / ртути */
+  @keyframes mercury-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .mercury-text {
+    background: linear-gradient(
+      135deg,
+      #9ca3af 0%,
+      #f3f4f6 25%,
+      #6b7280 45%,
+      #ffffff 50%,
+      #6b7280 55%,
+      #f3f4f6 75%,
+      #9ca3af 100%
+    );
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3)) brightness(1.1);
+    animation: mercury-flow 8s ease infinite;
+    position: relative;
+    display: inline-block;
+  }
+
+  .mercury-text::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+    filter: blur(1px);
+  }
+
   /* Нейро-Интерфейс (Neural Link) */
   @keyframes scan-line {
     0% { transform: translateY(-100%); }
