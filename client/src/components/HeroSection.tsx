@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
+import dataFlowVideo from "@assets/generated_videos/minimalist_abstract_data_flow_video_loop.mp4";
 
 interface FlyingLetterProps {
   letter: string;
@@ -182,8 +183,24 @@ export function HeroSection() {
   const line2 = "Это витрина для вас.";
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          src={dataFlowVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40 mix-blend-screen"
+        />
+        {/* Monolithic Overlays */}
+        <div className="absolute inset-0 bg-[#0a0a0a]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
+      </div>
+
+      <div className="absolute inset-0 z-1">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(56,189,248,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
       </div>
