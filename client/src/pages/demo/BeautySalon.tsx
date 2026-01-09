@@ -10,22 +10,22 @@ import { useToast } from "@/hooks/use-toast";
 import { useDocumentMeta } from "@/lib/useDocumentMeta";
 import { useBreadcrumbSchema } from "@/lib/useBreadcrumbSchema";
 import { useAggregateRatingSchema } from "@/lib/useAggregateRatingSchema";
-import salonHeroImg from "@assets/generated_images/stylish_barbershop_interior.webp";
-import stylist1Img from "@assets/generated_images/professional_woman_portrait_photography.webp";
-import stylist2Img from "@assets/generated_images/professional_woman_portrait_photography.webp";
-import stylist3Img from "@assets/generated_images/professional_woman_portrait_photography.webp";
-import galleryImg1 from "@assets/generated_images/professional_beard_styling_result.webp";
-import galleryImg2 from "@assets/generated_images/modern_undercut_fade_haircut.webp";
-import galleryImg3 from "@assets/generated_images/classic_gentleman_side_part.webp";
-import galleryImg4 from "@assets/generated_images/trendy_textured_crop_fade.webp";
-import galleryImg5 from "@assets/generated_images/stylish_barbershop_interior.webp";
-import galleryImg6 from "@assets/generated_images/modern_luxury_real_estate_agency_office.webp";
-import svcImg1 from "@assets/generated_images/modern_undercut_fade_haircut.webp";
-import svcImg2 from "@assets/generated_images/classic_gentleman_side_part.webp";
-import svcImg3 from "@assets/generated_images/trendy_textured_crop_fade.webp";
-import svcImg4 from "@assets/generated_images/professional_beard_styling_result.webp";
-import svcImg5 from "@assets/generated_images/stylish_barbershop_interior.webp";
-import svcImg6 from "@assets/generated_images/modern_luxury_real_estate_agency_office.webp";
+import salonHeroImg from "@assets/generated_images/интерьер_премиального_салона_красоты.webp";
+import stylist1Img from "@assets/generated_images/портрет_топ-стилиста_женщины.webp";
+import stylist2Img from "@assets/generated_images/портрет_мастера_маникюра_женщины.webp";
+import stylist3Img from "@assets/generated_images/портрет_спа-терапевта_женщины.webp";
+import galleryImg1 from "@assets/generated_images/элегантная_стрижка_и_укладка.webp";
+import galleryImg2 from "@assets/generated_images/процесс_окрашивания_волос_в_салоне.webp";
+import galleryImg3 from "@assets/generated_images/процесс_маникюра_в_салоне_красоты.webp";
+import galleryImg4 from "@assets/generated_images/процедура_педикюра_в_спа_салоне.webp";
+import galleryImg5 from "@assets/generated_images/процедура_наращивания_ресниц.webp";
+import galleryImg6 from "@assets/generated_images/массаж_лица_спа_процедура.webp";
+import svcImg1 from "@assets/generated_images/элегантная_стрижка_и_укладка.webp";
+import svcImg2 from "@assets/generated_images/процесс_окрашивания_волос_в_салоне.webp";
+import svcImg3 from "@assets/generated_images/процесс_маникюра_в_салоне_красоты.webp";
+import svcImg4 from "@assets/generated_images/процедура_педикюра_в_спа_салоне.webp";
+import svcImg5 from "@assets/generated_images/процедура_наращивания_ресниц.webp";
+import svcImg6 from "@assets/generated_images/массаж_лица_спа_процедура.webp";
 
 const services = [
   { id: 1, name: "Стрижка + укладка", duration: "60 мин", price: 2500, icon: Sparkles, image: svcImg1 },
