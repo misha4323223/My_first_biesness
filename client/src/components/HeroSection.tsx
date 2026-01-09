@@ -222,7 +222,9 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.12),transparent_70%)]" />
       </div>
 
-      <ParticleBackground />
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <ParticleBackground />
+      </div>
 
       <div className="absolute inset-0 opacity-[0.03]">
         <div
