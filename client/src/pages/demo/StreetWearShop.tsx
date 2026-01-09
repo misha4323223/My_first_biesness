@@ -945,7 +945,7 @@ export default function StreetWearShop() {
               Лучшие российские бренды уличной одежды. Оригинальный дизайн, качественные материалы, честные цены.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black font-bold" onClick={scrollToProducts} data-testid="button-shop-now">
+              <Button size="lg" className="bg-amber-500 hover:bg-amber-600 text-black hover:text-white font-black" onClick={scrollToProducts} data-testid="button-shop-now">
                 Смотреть каталог
               </Button>
               <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10" onClick={scrollToBrands} data-testid="button-brands">
@@ -1202,7 +1202,7 @@ export default function StreetWearShop() {
 
                         <div className="absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 hidden md:block">
                           <Button
-                            className="w-full bg-white text-black hover:bg-amber-500 font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl"
+                            className="w-full bg-white text-yellow-400 hover:bg-amber-500 hover:text-black font-black uppercase tracking-[0.15em] py-6 rounded-none shadow-2xl"
                             onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
                           >
                             ПОДРОБНЕЕ
@@ -1253,11 +1253,14 @@ export default function StreetWearShop() {
                             className={`w-7 h-7 md:w-12 md:h-12 rounded-none transition-all duration-500 ${
                               quickSizes[product.id] 
                                 ? "bg-amber-500 hover:bg-amber-600 text-black shadow-lg shadow-amber-500/20" 
-                                : "bg-neutral-800 text-neutral-600 cursor-not-allowed"
+                                : "bg-neutral-800 text-neutral-600"
                             }`}
-                            disabled={!quickSizes[product.id]}
                             onClick={(e) => {
                               e.stopPropagation();
+                              if (!quickSizes[product.id]) {
+                                setSelectedProduct(product);
+                                return;
+                              }
                               addToCart(product.id, e);
                               setQuickSizes(prev => {
                                 const next = { ...prev };
@@ -1271,7 +1274,7 @@ export default function StreetWearShop() {
                             }}
                             data-testid={`button-add-cart-${product.id}`}
                           >
-                            <Plus className={`w-3.5 h-3.5 md:w-5 md:h-5 ${quickSizes[product.id] ? "animate-pulse" : ""}`} />
+                            <Plus className={`w-3.5 h-3.5 md:w-5 md:h-5 stroke-[4px] ${quickSizes[product.id] ? "text-yellow-400" : "text-neutral-600"}`} />
                           </Button>
                         </div>
                       </div>
