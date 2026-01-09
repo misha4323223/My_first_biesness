@@ -854,7 +854,7 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "900px" : "800px" }}>
+    <section id="portfolio" className="relative overflow-hidden" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(168,85,247,0.08),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(56,189,248,0.08),transparent_50%)]" />
@@ -897,7 +897,7 @@ export function PortfolioSection() {
 
         {/* Созвездие */}
         <div 
-          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[650px] md:min-h-0 pb-12"
+          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[550px] md:min-h-0 pb-6"
         >
           <Nebulae />
           <StarParticles />
