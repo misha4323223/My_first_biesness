@@ -1,10 +1,131 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState, useMemo } from "react";
 import { ParticleBackground } from "./ParticleBackground";
 import { SectionBadge } from "./SectionBadge";
 import { Card } from "@/components/ui/card";
 import { Code2, Rocket, Target, Zap, Layout, ShieldCheck } from "lucide-react";
+
+interface FlyingLetterProps {
+  letter: string;
+  index: number;
+  totalLetters: number;
+  isGradient?: boolean;
+  isInView: boolean;
+}
+
+function FlyingLetter({ letter, index, totalLetters, isGradient, isInView }: FlyingLetterProps) {
+  const isAndroid = useMemo(() => {
+    return /Android/i.test(navigator.userAgent);
+  }, []);
+
+  const startPosition = useMemo(() => {
+    if (isAndroid) {
+      return {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        scale: 0.2,
+      };
+    }
+    const angle = (index / totalLetters) * Math.PI * 2 + Math.random() * 0.5;
+    const distance = 200 + Math.random() * 300;
+    return {
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance - 100,
+      rotate: (Math.random() - 0.5) * 180,
+      scale: 0.5 + Math.random() * 0.3,
+    };
+  }, [index, totalLetters, isAndroid]);
+
+  const delay = index * 0.02;
+
+  if (isAndroid) {
+    return (
+      <span
+        className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent" : ""}`}
+      >
+        {letter}
+      </span>
+    );
+  }
+
+  if (letter === " ") {
+    return <span className="inline-block w-[0.3em]">&nbsp;</span>;
+  }
+
+  return (
+    <motion.span
+      className={`inline-block ${isGradient ? "bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent" : ""}`}
+      initial={{
+        x: startPosition.x,
+        y: startPosition.y,
+        rotate: startPosition.rotate,
+        scale: startPosition.scale,
+        opacity: 0,
+        filter: isAndroid ? "blur(2px)" : "blur(6px)",
+      }}
+      animate={isInView ? {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        scale: 1,
+        opacity: 1,
+        filter: "blur(0px)",
+      } : {}}
+      transition={isAndroid ? {
+        duration: 0.4,
+        delay: delay,
+        ease: "easeOut",
+      } : {
+        duration: 0.6,
+        delay: delay,
+        type: "spring",
+        stiffness: 120,
+        damping: 14,
+      }}
+      style={{ willChange: "transform, opacity, filter" }}
+    >
+      {letter}
+    </motion.span>
+  );
+}
+
+interface AnimatedTextProps {
+  text: string;
+  startIndex: number;
+  isGradient?: boolean;
+  isInView: boolean;
+}
+
+function AnimatedText({ text, startIndex, isGradient, isInView }: AnimatedTextProps) {
+  const words = text.split(" ");
+  let letterIndex = startIndex;
+
+  return (
+    <>
+      {words.map((word, wordIdx) => {
+        const wordStartIndex = letterIndex;
+        letterIndex += word.length + 1;
+        
+        return (
+          <span key={wordIdx} className="inline-block whitespace-nowrap">
+            {word.split("").map((letter, i) => (
+              <FlyingLetter
+                key={i}
+                letter={letter}
+                index={wordStartIndex + i}
+                totalLetters={startIndex + text.length + 10}
+                isGradient={isGradient}
+                isInView={isInView}
+              />
+            ))}
+            {wordIdx < words.length - 1 && <span className="inline-block w-[0.3em]">&nbsp;</span>}
+          </span>
+        );
+      })}
+    </>
+  );
+}
 
 export function AboutSection() {
   const ref = useRef(null);
@@ -29,6 +150,9 @@ export function AboutSection() {
     show: { opacity: 1, y: 0 },
   };
 
+  const line1 = "Мы создаём ";
+  const line2 = "цифровые решения";
+
   return (
     <section id="about" className="py-16 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
       {/* Top Fade for smooth transition from Hero */}
@@ -43,9 +167,13 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12 md:mb-16">
           <SectionBadge>О студии</SectionBadge>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap">
-            <span className="neural-interface py-1 text-white">Мы создаём</span>
-            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">цифровые решения</span>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap overflow-visible scanline-header">
+            <span className="neural-interface py-1">
+              <AnimatedText text={line1} startIndex={0} isInView={isInView} />
+            </span>
+            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+              <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
+            </span>
           </h2>
         </div>
 
