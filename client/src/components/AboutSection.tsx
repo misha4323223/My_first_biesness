@@ -72,7 +72,7 @@ export function AboutSection() {
                 <Code2 className="w-8 h-8 text-cyan-400" />
               </div>
               <div className="text-4xl font-bold mb-2">100%</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-widest">Кастомный код</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-widest">Без шаблонов</div>
             </Card>
           </motion.div>
 
@@ -82,8 +82,8 @@ export function AboutSection() {
               <div className="p-3 rounded-2xl bg-purple-500/10 mb-4 group-hover:bg-purple-500/20 transition-colors">
                 <Rocket className="w-8 h-8 text-purple-400" />
               </div>
-              <div className="text-4xl font-bold mb-2">14+</div>
-              <div className="text-sm text-muted-foreground uppercase tracking-widest">Демо-концепций</div>
+              <div className="text-4xl font-bold mb-2">Десятки</div>
+              <div className="text-sm text-muted-foreground uppercase tracking-widest">Отраслевых решений</div>
             </Card>
           </motion.div>
 
@@ -99,7 +99,7 @@ export function AboutSection() {
                 </div>
                 <p className="text-muted-foreground">
                   Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
-                  приложения, которые легко масштабировать. Ваша аудитория получит 
+                  сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получит 
                   лучший пользовательский опыт.
                 </p>
               </div>
