@@ -31,14 +31,56 @@ export function CookieConsent() {
       {isVisible && (
         <motion.div
           initial={{ y: 50, x: 50, opacity: 0, scale: 0.95 }}
-          animate={{ y: 0, x: 0, opacity: 1, scale: 1 }}
+          animate={{ 
+            y: 0, 
+            x: 0, 
+            opacity: [0, 0.4, 0.2, 0.8, 0.3, 1],
+            scale: 1,
+            transition: {
+              opacity: {
+                times: [0, 0.1, 0.2, 0.3, 0.4, 1],
+                duration: 1.2,
+                ease: "linear"
+              },
+              duration: 0.4
+            }
+          }}
           exit={{ y: 50, x: 50, opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
           className="fixed bottom-6 right-6 z-[100] w-[calc(100%-3rem)] max-w-[380px]"
           data-testid="cookie-consent-banner"
         >
-          <div className="relative bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-5 overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+          <div className="relative bg-background/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_0_20px_rgba(34,211,238,0.1)] p-5 overflow-hidden group">
+            {/* Анимация неонового свечения (мерцание в начале) */}
+            <motion.div 
+              className="absolute inset-0 bg-cyan-500/5 pointer-events-none"
+              animate={{
+                opacity: [0, 1, 0.3, 0.8, 0, 1],
+              }}
+              transition={{
+                duration: 1.2,
+                times: [0, 0.1, 0.2, 0.3, 0.4, 1],
+                ease: "linear"
+              }}
+            />
+            
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 pointer-events-none" />
+            
+            {/* Постоянное мягкое пульсирование после включения */}
+            <motion.div 
+              className="absolute inset-0 shadow-[inset_0_0_20px_rgba(34,211,238,0.1)] pointer-events-none rounded-2xl"
+              animate={{
+                boxShadow: [
+                  "inset 0 0 20px rgba(34,211,238,0.1)",
+                  "inset 0 0 30px rgba(34,211,238,0.2)",
+                  "inset 0 0 20px rgba(34,211,238,0.1)"
+                ]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
             
             <button
               onClick={handleDecline}
