@@ -637,7 +637,7 @@ export default function SocksShop() {
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all border ${
                     activeCategory === cat.name
                       ? "bg-rose-500 text-black hover:text-white border-rose-500 shadow-lg shadow-rose-500/20"
-                      : "bg-neutral-900 text-black hover:text-white border-neutral-900 hover:bg-black"
+                      : "bg-neutral-900 text-white hover:text-white border-neutral-900 hover:bg-black"
                   }`}
                 >
                   {cat.icon && <cat.icon className="w-3.5 h-3.5 sm:w-4 h-4" />}
@@ -747,11 +747,11 @@ export default function SocksShop() {
                           </Button>
                           <Button 
                             size="icon" 
-                            className="w-7 h-7 rounded-lg bg-neutral-900 hover:bg-black text-white flex-shrink-0"
+                            className="w-7 h-7 rounded-lg bg-neutral-900 hover:bg-black text-black hover:text-white flex-shrink-0"
                             onClick={() => addToCart(product.id)}
                             data-testid={`button-add-to-cart-${product.id}`}
                           >
-                            <Plus className="w-3.5 h-3.5 stroke-[4px] text-white" />
+                            <Plus className="w-3.5 h-3.5 stroke-[4px]" />
                           </Button>
                         </div>
                       </div>
@@ -840,7 +840,7 @@ export default function SocksShop() {
                   placeholder="Ваш e-mail" 
                   className="h-14 bg-white/5 border-white/10 text-white placeholder:text-neutral-600 rounded-2xl px-6 focus:ring-rose-500"
                 />
-                <Button className="h-14 px-8 bg-rose-500 hover:bg-rose-600 text-neutral-900 font-black rounded-2xl shadow-xl shadow-rose-500/20 whitespace-nowrap">
+                <Button className="h-14 px-8 bg-rose-500 hover:bg-rose-600 text-white font-black rounded-2xl shadow-xl shadow-rose-500/20 whitespace-nowrap">
                   Подписаться
                 </Button>
               </form>
