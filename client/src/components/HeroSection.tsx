@@ -240,47 +240,32 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-8 relative font-mono lowercase">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-8 relative font-mono lowercase text-center">
           <GlowPulse />
           <div className="relative inline-block">
-            <span className="relative z-10 block px-2 text-stone-300 opacity-90">
+            {/* Japanese decorative text */}
+            <div className="absolute -left-12 top-0 text-[10px] text-cyan-500/30 vertical-text hidden md:block select-none pointer-events-none">
+              ウェブスタジオ
+            </div>
+            <span className="relative z-10 block px-2 text-white/60 tracking-widest drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
               <AnimatedText text={line1} startIndex={0} />
             </span>
-            {/* Glitch layers for line 1 */}
-            <div className="absolute inset-0 text-red-500/30 translate-x-[2px] -translate-y-[1px] select-none pointer-events-none blur-[0.5px] animate-pulse">
-              {line1}
-            </div>
-            <div className="absolute inset-0 text-blue-500/30 -translate-x-[2px] translate-y-[1px] select-none pointer-events-none blur-[0.5px] animate-pulse">
-              {line1}
-            </div>
           </div>
           
-          <div className="relative block mt-4 group">
-            <span className="relative z-10 block px-2 text-white font-black tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+          <div className="relative block mt-2 group">
+            <span className="relative z-10 block px-2 text-white font-black tracking-tighter bg-gradient-to-r from-purple-500 via-pink-400 to-yellow-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">
               <AnimatedText text={line2} startIndex={line1.length} isGradient />
             </span>
-            {/* Glitch layers for line 2 */}
-            <div className="absolute inset-0 text-[#ff00ff]/40 translate-x-[3px] select-none pointer-events-none blur-[1px] group-hover:animate-ping opacity-0 group-hover:opacity-100">
-              {line2}
-            </div>
-            <div className="absolute inset-0 text-[#00ffff]/40 -translate-x-[3px] select-none pointer-events-none blur-[1px] group-hover:animate-ping opacity-0 group-hover:opacity-100">
-              {line2}
-            </div>
-            
-            {/* Scanline/Glitch bar */}
+            {/* Neon Flicker Effect on a few letters could be simulated by AnimatedText, but here we add a global flicker */}
             <motion.div 
-              className="absolute left-0 w-full h-[2px] bg-cyan-400/50 z-20 pointer-events-none"
-              animate={{ 
-                top: ["0%", "100%", "0%"],
-                opacity: [0, 1, 0, 1, 0]
-              }}
-              transition={{ 
-                duration: 2, 
-                repeat: Infinity, 
-                ease: "linear",
-                times: [0, 0.4, 0.5, 0.6, 1]
-              }}
+              className="absolute inset-0 bg-white/5 pointer-events-none rounded-lg"
+              animate={{ opacity: [0, 0.1, 0, 0.05, 0] }}
+              transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3 }}
             />
+            {/* Japanese decorative text right */}
+            <div className="absolute -right-12 bottom-0 text-[10px] text-purple-500/30 vertical-text hidden md:block select-none pointer-events-none">
+              デジタル
+            </div>
           </div>
         </h1>
 
