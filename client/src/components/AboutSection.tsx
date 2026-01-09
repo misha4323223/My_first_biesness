@@ -137,6 +137,9 @@ export function AboutSection() {
 
   return (
     <section id="about" className="py-20 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
+      {/* Top Fade for smooth transition from Hero */}
+      <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-[#0a0a0a] to-transparent z-[1] pointer-events-none" />
+      
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08),transparent_70%)]" />
       </div>

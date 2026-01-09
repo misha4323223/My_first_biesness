@@ -192,11 +192,14 @@ export function HeroSection() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-40 mix-blend-screen"
+          className="w-full h-full object-cover opacity-40 mix-blend-screen brightness-[0.8] contrast-[1.2]"
         />
         {/* Monolithic Overlays */}
         <div className="absolute inset-0 bg-[#0a0a0a]/40" />
         <div className="absolute inset-0 bg-[#0a0a0a]/10" />
+        
+        {/* Bottom Fade Overlay to hide video edges and particles cutting off */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
       </div>
 
       <div className="absolute inset-0 z-1">
