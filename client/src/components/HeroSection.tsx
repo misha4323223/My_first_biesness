@@ -248,7 +248,7 @@ export function HeroSection() {
         >
           <a href="/order" className="w-full sm:w-auto">
             <Button
-              className="w-full sm:w-auto bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0 shadow-lg shadow-cyan-500/25 min-h-[3rem]"
+              className="w-full sm:w-auto min-h-[3rem]"
               data-testid="button-hero-cta"
             >
               Заказать сайт
@@ -257,7 +257,7 @@ export function HeroSection() {
           <Button
             variant="outline"
             onClick={scrollToPortfolio}
-            className="w-full sm:w-auto backdrop-blur-sm min-h-[3rem]"
+            className="w-full sm:w-auto min-h-[3rem]"
             data-testid="button-hero-portfolio"
           >
             Смотреть работы

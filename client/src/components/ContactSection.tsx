@@ -402,7 +402,7 @@ export function ContactSection() {
                     type="submit"
                     size="lg"
                     disabled={mutation.isPending}
-                    className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0"
+                    className="w-full"
                     data-testid="button-submit-contact"
                   >
                     {mutation.isPending ? (
