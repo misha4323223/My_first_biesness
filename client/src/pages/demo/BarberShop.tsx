@@ -446,7 +446,7 @@ export default function BarberShop() {
                 </span>
               )}
             </Button>
-            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-black font-semibold h-9 px-4" data-testid="button-book-header" onClick={scrollToBooking}>
+            <Button size="sm" className="bg-amber-500 hover:bg-amber-600 text-white font-semibold h-9 px-4" data-testid="button-book-header" onClick={scrollToBooking}>
               <span className="text-xs sm:text-sm">Запись</span>
             </Button>
           </div>
@@ -492,7 +492,7 @@ export default function BarberShop() {
               Мужская парикмахерская с атмосферой и вниманием к деталям. Только лучшие мастера и премиальный уход.
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center sm:justify-start gap-4 mb-12">
-              <Button size="lg" className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-black font-bold h-12 sm:h-14 px-8 text-base" data-testid="button-book-hero" onClick={scrollToBooking}>
+              <Button size="lg" className="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white font-bold h-12 sm:h-14 px-8 text-base" data-testid="button-book-hero" onClick={scrollToBooking}>
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться
               </Button>
