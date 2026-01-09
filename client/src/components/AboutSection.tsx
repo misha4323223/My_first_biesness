@@ -50,12 +50,12 @@ export function AboutSection() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6"
+          className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-6"
         >
           {/* Main Content Box - Flip Card */}
           <motion.div 
             variants={itemVariants} 
-            className="md:col-span-8 md:row-span-1 h-[300px] md:h-auto group/flip relative"
+            className="col-span-2 md:col-span-8 md:row-span-1 h-[280px] md:h-auto group/flip relative"
             style={{ perspective: "1200px" }}
           >
             <div
@@ -69,16 +69,16 @@ export function AboutSection() {
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {/* Front Side */}
-              <Card className="absolute inset-0 p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center overflow-hidden">
+              <Card className="absolute inset-0 p-6 md:p-10 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center overflow-hidden">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
                 <div className="relative z-10">
-                  <h3 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-cyan-400">Наш подход</h3>
-                  <p className="text-muted-foreground text-base md:text-xl leading-relaxed max-w-2xl">
+                  <h3 className="text-xl md:text-3xl font-semibold mb-3 md:mb-6 text-cyan-400">Наш подход</h3>
+                  <p className="text-muted-foreground text-sm md:text-xl leading-relaxed max-w-2xl">
                     MP.WebStudio — это сочетание современных технологий и внимания к деталям. 
                     Мы не предлагаем шаблонные решения — каждый проект разрабатывается индивидуально 
                     под ваш бизнес и цели.
                   </p>
-                  <div className="mt-6 text-xs text-cyan-400/50 uppercase tracking-widest md:hidden font-medium">
+                  <div className="mt-4 text-[10px] text-cyan-400/50 uppercase tracking-widest md:hidden font-medium">
                     Нажмите, чтобы узнать больше
                   </div>
                 </div>
@@ -86,35 +86,35 @@ export function AboutSection() {
 
               {/* Back Side */}
               <Card 
-                className="absolute inset-0 p-8 md:p-10 bg-white/5 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20"
+                className="absolute inset-0 p-6 md:p-10 bg-white/5 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20"
                 style={{ transform: "rotateY(180deg)" }}
               >
-                <div className="relative z-10 grid grid-cols-1 gap-4 md:gap-6">
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-cyan-400/10 shrink-0">
-                      <Zap className="w-5 h-5 text-cyan-400" />
+                <div className="relative z-10 grid grid-cols-1 gap-3 md:gap-6">
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="p-1.5 md:p-2 rounded-lg bg-cyan-400/10 shrink-0">
+                      <Zap className="w-4 h-4 md:w-5 md:h-5 text-cyan-400" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-cyan-400 text-sm md:text-base">Мгновенная скорость</h4>
-                      <p className="text-xs md:text-sm text-muted-foreground">Чистый код без лишних библиотек конструкторов. Максимальный балл в Google Speed.</p>
+                      <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Мгновенная скорость</h4>
+                      <p className="text-[10px] md:text-sm text-muted-foreground">Чистый код без лишних библиотек.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-cyan-400/10 shrink-0">
-                      <Layout className="w-5 h-5 text-cyan-400" />
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="p-1.5 md:p-2 rounded-lg bg-cyan-400/10 shrink-0">
+                      <Layout className="w-4 h-4 md:w-5 md:h-5 text-cyan-400" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-cyan-400 text-sm md:text-base">Полная свобода</h4>
-                      <p className="text-xs md:text-sm text-muted-foreground">Любой дизайн и анимация. Мы не ограничены рамками и блоками платформ.</p>
+                      <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Полная свобода</h4>
+                      <p className="text-[10px] md:text-sm text-muted-foreground">Любой дизайн и анимация.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 rounded-lg bg-cyan-400/10 shrink-0">
-                      <ShieldCheck className="w-5 h-5 text-cyan-400" />
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="p-1.5 md:p-2 rounded-lg bg-cyan-400/10 shrink-0">
+                      <ShieldCheck className="w-4 h-4 md:w-5 md:h-5 text-cyan-400" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-cyan-400 text-sm md:text-base">Безопасность</h4>
-                      <p className="text-xs md:text-sm text-muted-foreground">Полный контроль над кодом. Независимость от тарифов и обновлений конструкторов.</p>
+                      <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Безопасность</h4>
+                      <p className="text-[10px] md:text-sm text-muted-foreground">Полный контроль над кодом.</p>
                     </div>
                   </div>
                 </div>
@@ -123,48 +123,47 @@ export function AboutSection() {
           </motion.div>
 
           {/* Stats Box 1 - Rounded Pill-like */}
-          <motion.div variants={itemVariants} className="md:col-span-4 h-[200px] md:h-auto">
-            <Card className="h-full p-6 md:p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[2.5rem] md:rounded-[3rem]">
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-4 h-[160px] md:h-auto">
+            <Card className="h-full p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem]">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
-                <div className="p-4 rounded-full bg-cyan-500/10 mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
-                  <Code2 className="w-8 h-8 md:w-10 md:h-10 text-cyan-400" />
+                <div className="p-3 md:p-4 rounded-full bg-cyan-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
+                  <Code2 className="w-6 h-6 md:w-10 md:h-10 text-cyan-400" />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
-                <div className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-[0.3em] font-medium">Чистая разработка</div>
+                <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
+                <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Чистая разработка</div>
               </div>
             </Card>
           </motion.div>
 
           {/* Stats Box 2 - Rounded Different Radius */}
-          <motion.div variants={itemVariants} className="md:col-span-4 h-[200px] md:h-auto">
-            <Card className="h-full p-6 md:p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[4rem] rounded-bl-[4rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-2xl rounded-br-2xl">
+          <motion.div variants={itemVariants} className="col-span-1 md:col-span-4 h-[160px] md:h-auto">
+            <Card className="h-full p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md hover-elevate flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
-                <div className="p-4 rounded-2xl bg-purple-500/10 mb-4 group-hover:rotate-12 transition-transform duration-500 inline-block">
-                  <Rocket className="w-8 h-8 md:w-10 md:h-10 text-purple-400" />
+                <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-purple-500/10 mb-2 md:mb-4 group-hover:rotate-12 transition-transform duration-500 inline-block">
+                  <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
-                <div className="text-[10px] md:text-xs text-muted-foreground uppercase tracking-[0.3em] font-medium">Отраслевых решений</div>
+                <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
+                <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Решений</div>
               </div>
             </Card>
           </motion.div>
 
           {/* Second Main Content Box - Rounded Medium */}
-          <motion.div variants={itemVariants} className="md:col-span-8">
-            <Card className="h-full p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden rounded-[2rem]">
+          <motion.div variants={itemVariants} className="col-span-2 md:col-span-8">
+            <Card className="h-full p-6 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate transition-all duration-500 group relative overflow-hidden rounded-[1.5rem] md:rounded-[2rem]">
               <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors duration-700" />
               <div className="relative z-10 flex flex-col h-full justify-center">
-                <div className="flex items-center gap-4 md:gap-5 mb-6">
-                  <div className="p-3 rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
-                    <Target className="w-6 h-6 md:w-8 md:h-8 text-cyan-400" />
+                <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-6">
+                  <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
+                    <Target className="w-5 h-5 md:w-8 md:h-8 text-cyan-400" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
+                  <h3 className="text-lg md:text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
                 </div>
-                <p className="text-muted-foreground text-sm md:text-lg leading-relaxed max-w-2xl">
+                <p className="text-muted-foreground text-xs md:text-lg leading-relaxed max-w-2xl">
                   Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
-                  сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получит 
-                  лучший пользовательский опыт.
+                  сайты, которые легко масштабировать.
                 </p>
               </div>
             </Card>
