@@ -20,8 +20,8 @@ import baliImg from "@assets/generated_images/bali_rice_terraces_tropical.webp";
 import dubaiImg from "@assets/generated_images/dubai_skyline_night_burj.webp";
 import santoriniImg from "@assets/generated_images/santorini_greece_blue_domes.webp";
 import tokyoImg from "@assets/generated_images/tokyo_neon_cityscape_night.webp";
-import luxuryHero from "@assets/generated_images/luxury_overwater_villa_maldives_luxury_travel_hero.webp";
-import itineraryPreview from "@assets/generated_images/personalized_travel_itinerary_generator_interface_preview.webp";
+import luxuryHero from "@assets/generated_images/tropical_beach_travel_destination.webp";
+import itineraryPreview from "@assets/generated_images/tokyo_neon_cityscape_night.webp";
 
 const destinations = [
   { 
