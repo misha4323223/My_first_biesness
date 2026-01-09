@@ -240,14 +240,17 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 relative font-serif italic text-center perspective-1000">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.3] mb-8 relative font-mono text-center tracking-tight">
           <GlowPulse />
-          <span className="block px-2 text-white/30 tracking-[0.2em] transform-gpu transition-transform duration-1000 hover:scale-x-110 hover:skew-x-3 skew-x-[-10deg] blur-[0.5px]">
+          <span className="block px-2 text-orange-400/60 drop-shadow-[0_0_8px_rgba(251,146,60,0.4)] opacity-80 mb-2">
             <AnimatedText text={line1} startIndex={0} />
           </span>
-          <span className="block px-2 mt-2 text-white bg-gradient-to-r from-white via-indigo-300 to-white bg-clip-text text-transparent opacity-95 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transform-gpu transition-all duration-1000 scale-y-125 hover:scale-y-150 hover:skew-x-[-5deg] skew-x-5">
+          <span className="block px-2 text-white bg-gradient-to-r from-orange-400 via-amber-200 to-yellow-500 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(251,146,60,0.6)] font-bold">
             <AnimatedText text={line2} startIndex={line1.length} isGradient />
           </span>
+          {/* Декоративные элементы артефакта */}
+          <div className="absolute -top-4 -left-4 w-8 h-8 border-t-2 border-l-2 border-orange-500/30" />
+          <div className="absolute -bottom-4 -right-4 w-8 h-8 border-b-2 border-r-2 border-orange-500/30" />
         </h1>
 
         <motion.p
