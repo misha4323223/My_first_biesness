@@ -55,17 +55,17 @@ export function AboutSection() {
           {/* Main Content Box - Flip Card */}
           <motion.div 
             variants={itemVariants} 
-            className="md:col-span-8 md:row-span-1 h-[300px] md:h-auto perspective-1000 group/flip"
+            className="md:col-span-8 md:row-span-1 h-[300px] md:h-auto perspective-1000 group/flip relative"
+            onMouseEnter={() => setIsFlipped(true)}
+            onMouseLeave={() => setIsFlipped(false)}
             onClick={() => setIsFlipped(!isFlipped)}
           >
             <motion.div
-              className="relative w-full h-full transition-all duration-700 preserve-3d"
+              className="relative w-full h-full transition-all duration-700 preserve-3d pointer-events-none"
               animate={{ rotateY: isFlipped ? 180 : 0 }}
-              onHoverStart={() => !isFlipped && setIsFlipped(true)}
-              onHoverEnd={() => isFlipped && setIsFlipped(false)}
             >
               {/* Front Side */}
-              <Card className="absolute inset-0 p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center">
+              <Card className="absolute inset-0 p-8 md:p-10 bg-white/5 border-white/10 backdrop-blur-md hover-elevate backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center pointer-events-auto">
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
                 <div className="relative z-10">
                   <h3 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-cyan-400">Наш подход</h3>
@@ -81,7 +81,7 @@ export function AboutSection() {
               </Card>
 
               {/* Back Side */}
-              <Card className="absolute inset-0 p-8 md:p-10 bg-white/5 border-cyan-400/20 backdrop-blur-md rotate-y-180 backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20">
+              <Card className="absolute inset-0 p-8 md:p-10 bg-white/5 border-cyan-400/20 backdrop-blur-md rotate-y-180 backface-hidden rounded-[2rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20 pointer-events-auto">
                 <div className="relative z-10 grid grid-cols-1 gap-4 md:gap-6">
                   <div className="flex items-start gap-4">
                     <div className="p-2 rounded-lg bg-cyan-400/10 shrink-0">
