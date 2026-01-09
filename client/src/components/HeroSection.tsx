@@ -243,28 +243,22 @@ export function HeroSection() {
         </div>
 
         <div className="relative group perspective-1000 flex flex-col items-center">
-          <h1 className="flex flex-col items-center gap-6 text-center">
+          <h1 className="flex flex-col items-center gap-4 text-center">
             <div className="relative">
-              <span 
-                className="mercury-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2 font-light tracking-wider"
-                data-text="это не реклама про нас."
-              >
-                это не реклама про нас.
+              <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
+                Это не реклама про нас.
               </span>
             </div>
             
             <div className="relative">
-              <span 
-                className="mercury-text text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4 tracking-tight"
-                data-text="это витрина для вас."
-              >
-                это витрина для вас.
+              <span className="neural-interface text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
+                Это витрина для вас.
               </span>
             </div>
           </h1>
           
           {/* Decorative Synthwave lines */}
-          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg h-px bg-gradient-to-r from-transparent via-white/30 to-transparent shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
+          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
         </div>
 
         <motion.p
