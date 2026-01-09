@@ -96,7 +96,7 @@ export function AboutSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Мгновенная скорость</h4>
-                      <p className="text-[10px] md:text-sm text-muted-foreground">Чистый код без лишних библиотек.</p>
+                      <p className="text-[10px] md:text-sm text-muted-foreground">Чистый код без лишних библиотек, конструкторов. Максимальный бал в Google Speed.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 md:gap-4">
@@ -105,7 +105,7 @@ export function AboutSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Полная свобода</h4>
-                      <p className="text-[10px] md:text-sm text-muted-foreground">Любой дизайн и анимация.</p>
+                      <p className="text-[10px] md:text-sm text-muted-foreground">Любой дизайн и анимация. Мы не ограничены рамками и блоками платформ.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 md:gap-4">
@@ -114,7 +114,7 @@ export function AboutSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Безопасность</h4>
-                      <p className="text-[10px] md:text-sm text-muted-foreground">Полный контроль над кодом.</p>
+                      <p className="text-[10px] md:text-sm text-muted-foreground">Полный контроль над кодом. Независимость от тарифов и обновлений конструкторов</p>
                     </div>
                   </div>
                 </div>
