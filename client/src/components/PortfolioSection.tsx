@@ -650,18 +650,29 @@ function StarNode({
       </motion.div>
 
       {/* Подпись под звездой */}
-      <div 
+      <motion.div 
         className="absolute whitespace-nowrap pointer-events-none text-center"
         style={{
-          top: starSize * 2 + 5,
+          top: starSize * 2 + 10,
           left: "50%",
           transform: "translateX(-50%)",
         }}
+        animate={{
+          opacity: isHovered || isMobile ? 1 : 0.4,
+          y: isHovered ? 5 : 0,
+        }}
+        transition={{ duration: 0.3 }}
       >
-        <p className="text-[9px] md:text-[11px] text-white/60 font-medium tracking-wide">
+        <p className="text-[10px] md:text-[12px] text-white font-light tracking-[0.15em] uppercase transition-all duration-300 group-hover:text-cyan-400 group-hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
           {item.subtitle}
         </p>
-      </div>
+        <motion.div 
+          className="h-[1px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent mt-1 mx-auto"
+          initial={{ width: 0 }}
+          animate={{ width: isHovered ? "100%" : "0%" }}
+          transition={{ duration: 0.3 }}
+        />
+      </motion.div>
 
       {/* Превью при наведении */}
       <AnimatePresence>
