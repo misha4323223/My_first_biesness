@@ -209,7 +209,7 @@ export function FAQSection() {
           </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
@@ -218,21 +218,23 @@ export function FAQSection() {
               transition={{ duration: 0.4, delay: 0.05 * index }}
               data-testid={`faq-item-${index}`}
             >
-              <Card className="p-0 overflow-hidden border border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-300 rounded-xl no-default-hover-elevate">
+              <Card className="p-0 overflow-hidden border border-white/[0.03] bg-white/[0.01] hover:bg-white/[0.03] backdrop-blur-md transition-all duration-300 rounded-lg no-default-hover-elevate">
                 <Button
                   variant="ghost"
-                  className="w-full justify-between items-center px-5 py-4 h-auto hover:bg-transparent text-left"
+                  className="w-full justify-between items-center px-4 py-3 h-auto hover:bg-transparent text-left group"
                   onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                   data-testid={`button-faq-${index}`}
                 >
-                  <span className="font-medium text-sm md:text-base text-foreground/90 leading-tight pr-4">
+                  <span className="font-medium text-xs md:text-sm text-foreground/80 group-hover:text-foreground transition-colors leading-snug pr-4">
                     {faq.question}
                   </span>
-                  <ChevronDown
-                    className={`w-4 h-4 text-primary/70 flex-shrink-0 transition-transform duration-300 ${
-                      expandedIndex === index ? "rotate-180" : ""
-                    }`}
-                  />
+                  <div className={`p-1 rounded-md bg-white/[0.03] transition-colors ${expandedIndex === index ? "bg-primary/10" : "group-hover:bg-white/[0.08]"}`}>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 text-primary/70 transition-transform duration-300 ${
+                        expandedIndex === index ? "rotate-180 text-primary" : ""
+                      }`}
+                    />
+                  </div>
                 </Button>
 
                 {expandedIndex === index && (
@@ -242,7 +244,7 @@ export function FAQSection() {
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-5 pb-4 text-muted-foreground/80 text-xs md:text-sm leading-relaxed border-t border-white/[0.05] pt-3">
+                    <div className="px-4 pb-3 text-muted-foreground/70 text-[11px] md:text-xs leading-relaxed border-t border-white/[0.03] pt-2 max-w-[95%]">
                       {faq.answer}
                     </div>
                   </motion.div>
