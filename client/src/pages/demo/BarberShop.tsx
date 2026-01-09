@@ -385,7 +385,7 @@ export default function BarberShop() {
               <span className="text-2xl font-black text-amber-400 uppercase tracking-tighter">{formatPrice(cartTotal)}</span>
             </div>
             <Button 
-              className="w-full bg-amber-500 hover:bg-amber-600 text-black font-black h-12 uppercase tracking-widest"
+              className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black h-12 uppercase tracking-widest"
               onClick={() => {
                 setIsCartOpen(false);
                 setIsCheckoutOpen(true);
