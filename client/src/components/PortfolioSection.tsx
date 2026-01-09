@@ -855,16 +855,7 @@ export function PortfolioSection() {
 
       <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
         <div className="text-center mb-8 max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.5 }}
-            className="mb-4"
-          >
-            <span className="neon-badge">
-              <span className="neon-badge-text">Портфолио</span>
-            </span>
-          </motion.div>
+          <SectionBadge>Портфолио</SectionBadge>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
             <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
