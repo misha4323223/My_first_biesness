@@ -179,8 +179,8 @@ export function HeroSection() {
     }
   };
 
-  const line1 = "Заказать сайт под ключ.";
-  const line2 = "Студия разработки с нуля.";
+  const line1 = "Это не реклама про нас.";
+  const line2 = "Это витрина для вас.";
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
