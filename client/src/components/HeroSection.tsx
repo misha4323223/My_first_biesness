@@ -179,7 +179,7 @@ export function HeroSection() {
     }
   };
 
-  const line1 = "Это не реклама про нас.";
+  const line1 = "Это не лендинг про нас.";
   const line2 = "Это витрина для вас.";
 
   return (
@@ -246,13 +246,13 @@ export function HeroSection() {
           <h1 className="flex flex-col items-center gap-4 text-center">
             <div className="relative">
               <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
-                <AnimatedText text={line1.toLowerCase()} startIndex={0} />
+                <AnimatedText text={line1} startIndex={0} />
               </span>
             </div>
             
             <div className="relative">
               <span className="neural-interface text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
-                <AnimatedText text={line2.toLowerCase()} startIndex={line1.length} />
+                <AnimatedText text={line2} startIndex={line1.length} />
               </span>
             </div>
           </h1>
