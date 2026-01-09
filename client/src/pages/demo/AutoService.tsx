@@ -245,7 +245,7 @@ export default function AutoService() {
             <button onClick={scrollToBooking} className="hover:text-blue-400 transition-colors cursor-pointer">Запись</button>
             <button onClick={scrollToContact} className="hover:text-blue-400 transition-colors cursor-pointer">Контакты</button>
           </div>
-          <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold h-9 px-3 md:px-4" onClick={scrollToBooking} data-testid="button-book-header">
+          <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold h-9 px-3 md:px-4" onClick={scrollToBooking} data-testid="button-book-header">
             Записаться
           </Button>
         </nav>
@@ -270,7 +270,7 @@ export default function AutoService() {
               Полное техническое обслуживание и ремонт автомобилей любых марок. Современное оборудование и опытные механики.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-black font-semibold w-full sm:w-auto" onClick={scrollToBooking} data-testid="button-book-hero">
+              <Button size="lg" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold w-full sm:w-auto" onClick={scrollToBooking} data-testid="button-book-hero">
                 <Calendar className="w-5 h-5 mr-2" />
                 Записаться онлайн
               </Button>
@@ -590,7 +590,7 @@ export default function AutoService() {
                         onClick={() => handleTimeSelect(time)}
                         className={`py-2.5 rounded-xl border text-[11px] font-bold transition-all duration-300 ${
                           selectedTime === time
-                            ? 'bg-blue-500 border-blue-500 text-black shadow-[0_0_15px_rgba(59,130,246,0.4)] scale-105'
+                            ? 'bg-blue-500 border-blue-500 text-white shadow-[0_0_15px_rgba(59,130,246,0.4)] scale-105'
                             : 'bg-neutral-900 border-neutral-700 text-neutral-400 hover:border-blue-500/50 hover:text-blue-400'
                         }`}
                       >
@@ -613,7 +613,7 @@ export default function AutoService() {
                     size="lg" 
                     disabled={!selectedService || !selectedMechanic || !selectedTime || !selectedDate}
                     onClick={handleBook}
-                    className="group relative bg-blue-500 hover:bg-blue-600 text-black font-bold h-14 md:h-16 px-10 md:px-12 rounded-2xl transition-all hover:scale-105 active:scale-95 disabled:opacity-30 disabled:grayscale overflow-hidden"
+                    className="group relative bg-blue-500 hover:bg-blue-600 text-white font-bold h-14 md:h-16 px-10 md:px-12 rounded-2xl transition-all hover:scale-105 active:scale-95 disabled:opacity-30 disabled:grayscale overflow-hidden"
                     data-testid="button-confirm-booking"
                   >
                     <span className="relative z-10 flex items-center gap-2">
@@ -687,7 +687,7 @@ export default function AutoService() {
               <p className="text-xs md:text-sm text-neutral-400 mb-6 leading-relaxed">
                 Своевременное обращение экономит до <span className="text-blue-400 font-bold">40%</span> на стоимости запчастей.
               </p>
-              <Button size="sm" className="w-full sm:w-fit bg-white text-black font-bold h-10 md:h-11" onClick={scrollToBooking}>
+              <Button size="sm" className="w-full sm:w-fit bg-blue-500 hover:bg-blue-600 text-white font-bold h-10 md:h-11" onClick={scrollToBooking}>
                 Консультация
               </Button>
             </div>
