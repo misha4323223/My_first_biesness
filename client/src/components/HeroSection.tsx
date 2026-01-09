@@ -240,12 +240,12 @@ export function HeroSection() {
           <GlassBadge />
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 relative font-sans font-thin tracking-widest text-center">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 relative font-serif italic text-center perspective-1000">
           <GlowPulse />
-          <span className="block px-2 text-emerald-500/40 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)] animate-[pulse_4s_ease-in-out_infinite]">
+          <span className="block px-2 text-white/30 tracking-[0.2em] transform-gpu transition-transform duration-1000 hover:scale-x-110 hover:skew-x-3 skew-x-[-10deg] blur-[0.5px]">
             <AnimatedText text={line1} startIndex={0} />
           </span>
-          <span className="block px-2 mt-4 text-white bg-gradient-to-r from-lime-400 via-emerald-200 to-lime-400 bg-clip-text text-transparent opacity-95 drop-shadow-[0_0_30px_rgba(163,230,53,0.7)] animate-[pulse_3s_ease-in-out_infinite]">
+          <span className="block px-2 mt-2 text-white bg-gradient-to-r from-white via-indigo-300 to-white bg-clip-text text-transparent opacity-95 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transform-gpu transition-all duration-1000 scale-y-125 hover:scale-y-150 hover:skew-x-[-5deg] skew-x-5">
             <AnimatedText text={line2} startIndex={line1.length} isGradient />
           </span>
         </h1>
