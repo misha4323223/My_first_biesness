@@ -364,6 +364,25 @@ const mobileStarPositions = [
   { x: 60, y: 45 },   // 15
 ];
 
+const seStarPositions = [
+  { x: 15, y: 15 },    // 0
+  { x: 50, y: 80 },    // 1
+  { x: 30, y: 25 },   // 2
+  { x: 55, y: 18 },   // 3
+  { x: 20, y: 35 },   // 4
+  { x: 70, y: 32 },   // 5
+  { x: 15, y: 90 },   // 6
+  { x: 20, y: 50 },   // 7
+  { x: 80, y: 50 },   // 8
+  { x: 35, y: 60 },   // 9
+  { x: 70, y: 70 },   // 10
+  { x: 25, y: 95 },   // 11
+  { x: 20, y: 75 },   // 12
+  { x: 75, y: 90 },   // 13
+  { x: 45, y: 25 },   // 14
+  { x: 65, y: 40 },   // 15
+];
+
 // Связи между проектами по категориям
 const connections: [number, number][] = [
   [2, 3], 
@@ -497,6 +516,9 @@ function StarParticles() {
 }
 
 function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
+  const isMobile = useIsMobile();
+  const isSE = typeof window !== 'undefined' && window.innerWidth <= 375;
+
   return (
     <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
       <defs>
@@ -518,7 +540,7 @@ function ConstellationLines({ hoveredId }: { hoveredId: number | null }) {
       </defs>
       {connections.map(([from, to], index) => {
         const isActive = hoveredId !== null && (from === hoveredId || to === hoveredId);
-        const positions = useIsMobile() ? mobileStarPositions : starPositions;
+        const positions = isSE ? seStarPositions : (isMobile ? mobileStarPositions : starPositions);
         return (
           <g key={index}>
             <motion.line
@@ -844,7 +866,8 @@ export function PortfolioSection() {
   const line2 = "наших проектов и концепций";
 
   const isMobile = useIsMobile();
-  const currentPositions = isMobile ? mobileStarPositions : starPositions;
+  const isSE = typeof window !== 'undefined' && window.innerWidth <= 375;
+  const currentPositions = isSE ? seStarPositions : (isMobile ? mobileStarPositions : starPositions);
 
   return (
     <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a] pt-4 md:pt-6" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
