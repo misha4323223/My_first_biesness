@@ -179,8 +179,8 @@ export function HeroSection() {
     }
   };
 
-  const line1 = "Это не лендинг про нас.";
-  const line2 = "Это витрина для вас.";
+  const line1 = "Это не лендинг про нас";
+  const line2 = "Это витрина для вас";
 
   return (
     <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-32 md:pt-32 pb-24 md:pb-0">
