@@ -244,20 +244,25 @@ export function HeroSection() {
         <div className="relative group perspective-1000 flex flex-col items-center">
           <h1 className="flex flex-col items-center gap-4 text-center">
             <div className="relative">
+              {/* Top line */}
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
               <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
                 <AnimatedText text={line1} startIndex={0} />
               </span>
+              {/* Middle line */}
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
             </div>
             
-            <div className="relative">
+            <div className="relative mt-2">
               <span className="neural-interface text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
                 <AnimatedText text={line2} startIndex={line1.length} />
               </span>
+              {/* Bottom line */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.6)]" />
             </div>
           </h1>
           
-          {/* Decorative Synthwave lines */}
-          <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-full max-w-lg h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+          {/* Decorative Synthwave lines (removed the old absolute bottom-10 line as it's replaced by the structure above) */}
         </div>
 
         <motion.p
