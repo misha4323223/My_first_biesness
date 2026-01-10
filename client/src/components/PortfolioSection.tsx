@@ -379,7 +379,7 @@ const connections: [number, number][] = [
 
 function Nebulae() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#0a0a0a]">
       {/* Galaxy Nebula Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -387,14 +387,14 @@ function Nebulae() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-40 scale-110"
-          style={{ filter: "brightness(0.6) contrast(1.2) saturate(0.8)" }}
+          className="w-full h-full object-cover opacity-60 scale-105"
+          style={{ filter: "brightness(0.7) contrast(1.1)" }}
         >
           <source src="/attached_assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4" type="video/mp4" />
         </video>
         {/* Monolithic blending overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-        <div className="absolute inset-0 bg-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a] opacity-90" />
+        <div className="absolute inset-0 bg-[#0a0a0a]/40" />
       </div>
 
       <div 
@@ -871,12 +871,18 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
-      <div className="absolute inset-0">
+    <section id="portfolio" className="relative overflow-hidden bg-transparent" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
+      <div className="absolute inset-0 z-[-2]">
+        <Nebulae />
+      </div>
+
+      <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08),transparent_70%)]" />
       </div>
 
-      <ParticleBackground />
+      <div className="absolute inset-0 z-[-1]">
+        <ParticleBackground />
+      </div>
 
       <div className="absolute inset-0 opacity-[0.03]">
         <div
