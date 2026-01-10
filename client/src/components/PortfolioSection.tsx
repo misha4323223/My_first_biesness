@@ -9,6 +9,7 @@ import { ParticleBackground } from "./ParticleBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { SectionBadge } from "./SectionBadge";
+import nebulaVideo from "@assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4";
 
 interface FlyingLetterProps {
   letter: string;
@@ -379,21 +380,38 @@ const connections: [number, number][] = [
 
 function Nebulae() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#0a0a0a]">
       {/* Galaxy Nebula Video Background */}
       <div className="absolute inset-0 z-0">
         <video
+          src={nebulaVideo}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
-          style={{ filter: "brightness(0.7) contrast(1.1)" }}
-        >
-          <source src="/attached_assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4" type="video/mp4" />
-        </video>
-        {/* Blending overlay to integrate with the rest of the site */}
-        <div className="absolute inset-0 bg-black/60" />
+          onTimeUpdate={(e) => {
+            const video = e.currentTarget;
+            const buffer = 3.0;
+            if (video.duration - video.currentTime < buffer) {
+              const progress = (video.duration - video.currentTime) / buffer;
+              video.style.opacity = String(0.6 * Math.pow(progress, 2));
+            } else if (video.currentTime < buffer) {
+              const progress = video.currentTime / buffer;
+              video.style.opacity = String(0.6 * Math.pow(progress, 2));
+            } else {
+              video.style.opacity = "0.6";
+            }
+          }}
+          className="w-full h-full object-cover opacity-60 transition-opacity duration-1000 ease-in-out"
+          style={{ filter: "brightness(0.8) contrast(1.1)" }}
+        />
+        {/* Monolithic blending overlays */}
+        <div className="absolute inset-0 bg-[#0a0a0a]/40" />
+        <div className="absolute inset-0 bg-[#0a0a0a]/10" />
+        
+        {/* Top and Bottom Fades to blend with neighboring sections */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0a0a] to-transparent z-[1]" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
       </div>
     </div>
   );
