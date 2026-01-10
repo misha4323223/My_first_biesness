@@ -9,7 +9,7 @@ import { ParticleBackground } from "./ParticleBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { SectionBadge } from "./SectionBadge";
-import nebulaVideo from "@assets/generated_videos/stationary_deep_space_galaxy_nebula.mp4";
+import portfolioBgImage from "@assets/image_1768055031859.png";
 
 interface FlyingLetterProps {
   letter: string;
@@ -381,22 +381,21 @@ const connections: [number, number][] = [
 function Nebulae() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#0a0a0a]">
-      {/* Galaxy Nebula Video Background */}
+      {/* Galaxy Nebula Image Background */}
       <div className="absolute inset-0">
-        <video
-          src={nebulaVideo}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-60 mix-blend-screen brightness-[0.8] contrast-[1.2]"
+        <img
+          src={portfolioBgImage}
+          alt=""
+          className="w-full h-full object-cover opacity-80 brightness-[0.9] contrast-[1.1]"
         />
         {/* Monolithic Overlays */}
-        <div className="absolute inset-0 bg-[#0a0a0a]/40" />
-        <div className="absolute inset-0 bg-[#0a0a0a]/10" />
+        <div className="absolute inset-0 bg-gradient-radial from-transparent to-[#0a0a0a]/60" />
+        <div className="absolute inset-0 bg-[#0a0a0a]/20" />
         
         {/* Bottom Fade Overlay */}
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-[1]" />
+        {/* Top Fade Overlay */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-[1]" />
       </div>
     </div>
   );
