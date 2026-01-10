@@ -1097,5 +1097,49 @@ export async function registerRoutes(
     }
   });
 
+  app.get("/robots.txt", (req, res) => {
+    res.type("text/plain");
+    res.send("User-agent: *\nAllow: /\nSitemap: https://mp-webstudio.ru/sitemap.xml");
+  });
+
+  app.get("/sitemap.xml", (req, res) => {
+    const pages = [
+      "",
+      "/order",
+      "/privacy",
+      "/offer",
+      "/demo/food-delivery",
+      "/demo/fitness",
+      "/demo/cosmetics",
+      "/demo/streetwear",
+      "/demo/socks",
+      "/demo/travel",
+      "/demo/barber",
+      "/demo/dental",
+      "/demo/renovation",
+      "/demo/photographer",
+      "/demo/auto-service",
+      "/demo/real-estate",
+      "/demo/beauty-salon",
+      "/demo/online-academy",
+    ];
+
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages
+  .map(
+    (page) => `  <url>
+    <loc>${SITE_URL}${page}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>${page === "" ? "1.0" : "0.8"}</priority>
+  </url>`
+  )
+  .join("\n")}
+</urlset>`;
+
+    res.type("application/xml");
+    res.send(sitemap);
+  });
+
   return httpServer;
 }
