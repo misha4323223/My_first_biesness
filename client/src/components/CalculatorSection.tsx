@@ -529,41 +529,52 @@ export function CalculatorSection() {
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                             className="overflow-hidden"
                           >
-                            <div className="p-4 bg-primary/5 border border-primary border-t-0 rounded-b-md">
-                              <p className="text-sm text-muted-foreground mb-3">
-                                Доп. опции для «{type.label}»:
+                            <div className="p-4 bg-primary/5 border border-primary/20 border-t-0 rounded-b-md">
+                              <p className="text-sm text-muted-foreground mb-4 font-medium flex items-center gap-2">
+                                <Plus className="w-3 h-3 text-primary" />
+                                Дополнительные модули и функции:
                               </p>
-                              <div className="grid sm:grid-cols-2 gap-2">
-                                {typeFeatures.map((feature) => (
-                                  <div
-                                    key={feature.id}
-                                    className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-all ${
-                                      selectedFeatures.includes(feature.id)
-                                        ? "border-primary bg-background/80"
-                                        : "border-border/50 bg-background/40"
-                                    }`}
-                                    onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
-                                    data-testid={`checkbox-container-${feature.id}`}
-                                  >
-                                    <Checkbox
-                                      checked={selectedFeatures.includes(feature.id)}
-                                      onCheckedChange={() => {}}
-                                      className="mt-0.5"
-                                      data-testid={`checkbox-${feature.id}`}
-                                    />
-                                    <div className="flex-1 min-w-0">
-                                      <div className="flex items-center justify-between gap-2">
-                                        <span className="text-xs font-medium text-foreground">{feature.label}</span>
-                                        <span className="text-xs font-mono text-primary whitespace-nowrap">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                {typeFeatures.map((feature) => {
+                                  const isFeatureSelected = selectedFeatures.includes(feature.id);
+                                  return (
+                                    <div
+                                      key={feature.id}
+                                      onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
+                                      className={`group relative p-4 rounded-md border transition-all cursor-pointer hover-elevate overflow-visible ${
+                                        isFeatureSelected
+                                          ? "border-primary bg-primary/10 shadow-[0_0_20px_rgba(56,189,248,0.1)]"
+                                          : "border-border/40 bg-background/40 hover:border-primary/30"
+                                      }`}
+                                    >
+                                      <div className="flex items-start justify-between gap-3 mb-2">
+                                        <div className="flex-1 min-w-0">
+                                          <span className="text-sm font-bold block truncate group-hover:text-primary transition-colors">
+                                            {feature.label}
+                                          </span>
+                                          {feature.description && (
+                                            <p className="text-[11px] text-muted-foreground leading-relaxed mt-1 line-clamp-2">
+                                              {feature.description}
+                                            </p>
+                                          )}
+                                        </div>
+                                        <div className={`shrink-0 w-5 h-5 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                                          isFeatureSelected 
+                                            ? "bg-primary border-primary scale-110 shadow-[0_0_10px_rgba(56,189,248,0.5)]" 
+                                            : "border-muted-foreground/30 group-hover:border-primary/50"
+                                        }`}>
+                                          {isFeatureSelected && <Check className="w-3 h-3 text-primary-foreground" />}
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/10">
+                                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Наценка</span>
+                                        <span className="text-xs font-mono font-bold text-primary">
                                           +{formatPrice(feature.price)} ₽
                                         </span>
                                       </div>
-                                      {feature.description && (
-                                        <span className="text-xs text-muted-foreground">{feature.description}</span>
-                                      )}
                                     </div>
-                                  </div>
-                                ))}
+                                  );
+                                })}
                               </div>
                             </div>
                           </motion.div>
