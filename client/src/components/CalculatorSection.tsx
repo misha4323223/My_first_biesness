@@ -649,9 +649,13 @@ export function CalculatorSection() {
               </div>
 
               <div className="space-y-4 mb-8 relative z-10">
-                <div className="flex justify-between items-center px-2">
-                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">База: {currentProjectType?.label}</span>
-                  <span className="font-mono font-bold text-foreground">{formatPrice(basePrice)} ₽</span>
+                <div className="flex justify-between items-start px-2 gap-4">
+                  <span className="text-[11px] sm:text-sm font-bold text-muted-foreground uppercase tracking-widest leading-tight flex-1">
+                    База: {currentProjectType?.label}
+                  </span>
+                  <span className="font-mono font-bold text-foreground whitespace-nowrap shrink-0">
+                    {formatPrice(basePrice)} ₽
+                  </span>
                 </div>
                 
                 <div className="px-2 space-y-3">
