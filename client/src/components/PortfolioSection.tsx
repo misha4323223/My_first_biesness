@@ -9,7 +9,7 @@ import { ParticleBackground } from "./ParticleBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { SectionBadge } from "./SectionBadge";
-import portfolioBgImage from "@assets/image_1768055031859.png";
+import portfolioBgImage from "@assets/portfolio_bg.webp";
 
 interface FlyingLetterProps {
   letter: string;
