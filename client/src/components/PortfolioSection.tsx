@@ -878,7 +878,6 @@ export function PortfolioSection() {
         <div 
           className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[550px] md:min-h-0 pb-6"
         >
-          <Nebulae />
           <StarParticles />
           <ShootingStars />
           <ConstellationLines hoveredId={hoveredId} />
