@@ -847,12 +847,12 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a] pt-32 md:pt-48" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
+    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a] pt-12 md:pt-16" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
       <Nebulae />
 
       <div className="relative z-10 h-full flex flex-col" ref={ref}>
         {/* Фиксированный заголовок сверху секции */}
-        <div className="absolute top-0 left-0 right-0 z-30 pt-10 md:pt-16 px-6 pointer-events-none">
+        <div className="absolute top-0 left-0 right-0 z-30 pt-2 md:pt-4 px-6 pointer-events-none">
           <div className="max-w-7xl mx-auto text-center">
             <div className="pointer-events-auto inline-block">
               <SectionBadge>Портфолио</SectionBadge>
