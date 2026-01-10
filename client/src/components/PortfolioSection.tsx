@@ -382,23 +382,21 @@ function Nebulae() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#0a0a0a]">
       {/* Galaxy Nebula Video Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0">
         <video
           src={nebulaVideo}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-60"
-          style={{ filter: "brightness(0.8) contrast(1.1)" }}
+          className="w-full h-full object-cover opacity-60 mix-blend-screen brightness-[0.8] contrast-[1.2]"
         />
-        {/* Monolithic blending overlays */}
+        {/* Monolithic Overlays */}
         <div className="absolute inset-0 bg-[#0a0a0a]/40" />
         <div className="absolute inset-0 bg-[#0a0a0a]/10" />
         
-        {/* Top and Bottom Fades to blend with neighboring sections */}
-        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#0a0a0a] to-transparent z-[1]" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
+        {/* Bottom Fade Overlay */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a0a0a] to-transparent z-[1]" />
       </div>
     </div>
   );
@@ -850,10 +848,8 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-black" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
-      <div className="absolute inset-0 z-0">
-        <Nebulae />
-      </div>
+    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
+      <Nebulae />
 
       <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
         <div className="text-center mb-8 max-w-7xl mx-auto px-6">
