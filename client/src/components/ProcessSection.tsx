@@ -228,7 +228,6 @@ export function ProcessSection() {
                 
                 <div className="pt-2 md:pt-4">
                   <div className="flex items-center gap-4 mb-2">
-                    <span className="text-[10px] font-mono text-cyan-500/60 tracking-tighter">DATA_STREAM :: {step.number}</span>
                     <h3 className="text-xl md:text-3xl font-bold text-foreground/90 group-hover/step:text-white transition-colors tracking-tight">
                       {step.title}
                     </h3>
