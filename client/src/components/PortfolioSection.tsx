@@ -380,6 +380,23 @@ const connections: [number, number][] = [
 function Nebulae() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Galaxy Nebula Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40 scale-110"
+          style={{ filter: "brightness(0.6) contrast(1.2) saturate(0.8)" }}
+        >
+          <source src="/attached_assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4" type="video/mp4" />
+        </video>
+        {/* Monolithic blending overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+        <div className="absolute inset-0 bg-background/20" />
+      </div>
+
       <div 
         className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
         style={{
