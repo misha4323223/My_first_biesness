@@ -202,8 +202,11 @@ export function AboutSection() {
             >
               {/* Front Side */}
               <Card className="absolute inset-0 p-6 md:p-10 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center overflow-hidden group/card">
-                {/* Milky Way Stars Layer */}
-                <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)] group-hover/card:scale-110 transition-transform duration-1000" />
+                {/* Variant 2: Asteroid Belt / Polygonal Depth */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
+                  <div className="absolute top-[-10%] left-[-10%] w-[120%] h-[120%] bg-[linear-gradient(45deg,transparent_45%,rgba(56,189,248,0.1)_50%,transparent_55%)] bg-[length:100px_100px] group-hover/card:animate-pulse" />
+                  <div className="absolute inset-0 bg-[conic-gradient(from_0deg_at_50%_50%,transparent_0deg,rgba(168,85,247,0.05)_120deg,transparent_180deg)] mix-blend-overlay group-hover/card:rotate-12 transition-transform duration-1000" />
+                </div>
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
                 <div className="relative z-10">
                   <h3 className="text-xl md:text-3xl font-semibold mb-3 md:mb-6 text-cyan-400">Наш подход</h3>
@@ -274,9 +277,12 @@ export function AboutSection() {
             >
               {/* Front Side */}
               <Card className="absolute inset-0 p-4 md:p-8 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem] group/card">
-                {/* Milky Way Stars Layer */}
-                <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] group-hover/card:scale-125 transition-transform duration-1000" />
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Variant 2: Asteroid Belt / Polygonal Depth */}
+                <div className="absolute inset-0 opacity-15 pointer-events-none overflow-hidden">
+                  <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_40%,rgba(56,189,248,0.1)_50%,transparent_60%)] bg-[length:80px_80px]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(168,85,247,0.05)_0%,transparent_50%)]" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
                   <div className="p-3 md:p-4 rounded-full bg-purple-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
                     <Code2 className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
@@ -319,9 +325,11 @@ export function AboutSection() {
             >
               {/* Front Side */}
               <Card className="absolute inset-0 p-4 md:p-8 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl group/card">
-                {/* Milky Way Stars Layer */}
-                <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:18px_18px] group-hover/card:scale-125 transition-transform duration-1000" />
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Variant 2: Asteroid Belt / Polygonal Depth */}
+                <div className="absolute inset-0 opacity-15 pointer-events-none overflow-hidden">
+                  <div className="absolute inset-0 bg-[linear-gradient(225deg,transparent_40%,rgba(168,85,247,0.1)_50%,transparent_60%)] bg-[length:80px_80px]" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
                   <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-purple-500/10 mb-2 md:mb-4 group-hover:rotate-12 transition-transform duration-500 inline-block">
                     <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
@@ -364,9 +372,11 @@ export function AboutSection() {
             >
               {/* Front Side */}
               <Card className="absolute inset-0 p-6 md:p-10 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-center overflow-hidden group/card">
-                {/* Milky Way Stars Layer */}
-                <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)] group-hover/card:scale-110 transition-transform duration-1000" />
-                <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-colors duration-700" />
+                {/* Variant 2: Asteroid Belt / Polygonal Depth */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none overflow-hidden">
+                  <div className="absolute bottom-[-10%] right-[-10%] w-[120%] h-[120%] bg-[linear-gradient(-45deg,transparent_45%,rgba(168,85,247,0.1)_50%,transparent_55%)] bg-[length:120px_120px]" />
+                </div>
+                <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl group-hover/card:bg-purple-500/20 transition-colors duration-700" />
                 <div className="relative z-10 flex flex-col h-full justify-center">
                   <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-6">
                     <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
