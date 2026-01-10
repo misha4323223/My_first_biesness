@@ -192,6 +192,19 @@ export function HeroSection() {
           loop
           muted
           playsInline
+          onTimeUpdate={(e) => {
+            const video = e.currentTarget;
+            const buffer = 1.0;
+            if (video.duration - video.currentTime < buffer) {
+              const progress = (video.duration - video.currentTime) / buffer;
+              video.style.opacity = String(0.4 * progress);
+            } else if (video.currentTime < buffer) {
+              const progress = video.currentTime / buffer;
+              video.style.opacity = String(0.4 * progress);
+            } else {
+              video.style.opacity = "0.4";
+            }
+          }}
           className="w-full h-full object-cover opacity-40 mix-blend-screen brightness-[0.8] contrast-[1.2] transition-opacity duration-1000 ease-in-out"
         />
         {/* Monolithic Overlays */}
