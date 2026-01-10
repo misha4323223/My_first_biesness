@@ -346,21 +346,21 @@ const starPositions = [
 
 const mobileStarPositions = [
   { x: 15, y: 5 },    // 0
-  { x: 75, y: 10 },   // 1
-  { x: 15, y: 15 },   // 2
-  { x: 75, y: 20 },   // 3
-  { x: 15, y: 28 },   // 4
-  { x: 75, y: 35 },   // 5
-  { x: 15, y: 45 },   // 6
-  { x: 75, y: 50 },   // 7
-  { x: 15, y: 60 },   // 8
-  { x: 75, y: 65 },   // 9
-  { x: 15, y: 75 },   // 10
-  { x: 75, y: 80 },   // 11
-  { x: 15, y: 90 },   // 12
-  { x: 75, y: 95 },   // 13
-  { x: 45, y: 55 },   // 14
-  { x: 45, y: 85 },   // 15
+  { x: 57, y: 8 },    // 1 - фитнес студия
+  { x: 10, y: 18 },   // 2 - Вкусдом (Доставка еды)
+  { x: 60, y: 18 },   // 3 - Streetwear (Интернет-магазин одежды)
+  { x: 20, y: 32 },   // 4 - socks (Интернет-магазин носков)
+  { x: 60, y: 35 },   // 5 - Туристическое агентство
+  { x: 15, y: 48 },   // 6
+  { x: 40, y: 42 },   // 7 - Стоматологическая клиника
+  { x: 65, y: 50 },   // 8 - Ремонт квартир
+  { x: 32, y: 58 },   // 9 - Сайт-визитка фотографа
+  { x: 61, y: 62 },   // 10 - Автосервис
+  { x: 25, y: 85 },   // 11 - Агентство недвижимости
+  { x: 15, y: 71 },   // 12 - Салон красоты
+  { x: 45, y: 76 },   // 13 - Платформа онлайн-курсов
+  { x: 40, y: 28 },   // 14
+  { x: 60, y: 45 },   // 15
 ];
 
 // Связи между проектами по категориям
@@ -854,7 +854,7 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "900px" : "100vh", minHeight: isMobile ? "900px" : "800px" }}>
+    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.08),transparent_70%)]" />
       </div>
