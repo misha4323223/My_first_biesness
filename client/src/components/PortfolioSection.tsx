@@ -379,9 +379,9 @@ const connections: [number, number][] = [
 
 function Nebulae() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none bg-black">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Galaxy Nebula Video Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0 bg-black">
         <video
           autoPlay
           loop
@@ -392,12 +392,13 @@ function Nebulae() {
         >
           <source src="/attached_assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4" type="video/mp4" />
         </video>
-        {/* Subtle blending to ensure seamless loop and edges */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-40" />
+        {/* Monolithic blending overlays - positioned to be clearly behind content but blending well */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60 z-10" />
       </div>
-
+      
+      {/* Moving Nebulae Glows - moved behind the video or made very subtle to not block */}
       <div 
-        className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
+        className="absolute w-96 h-96 rounded-full opacity-10 blur-3xl z-20"
         style={{
           left: "10%",
           top: "20%",
@@ -405,19 +406,11 @@ function Nebulae() {
         }}
       />
       <div 
-        className="absolute w-80 h-80 rounded-full opacity-15 blur-3xl"
+        className="absolute w-80 h-80 rounded-full opacity-10 blur-3xl z-20"
         style={{
           right: "5%",
           top: "40%",
           background: "radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)",
-        }}
-      />
-      <div 
-        className="absolute w-64 h-64 rounded-full opacity-20 blur-3xl"
-        style={{
-          left: "40%",
-          bottom: "10%",
-          background: "radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%)",
         }}
       />
     </div>
@@ -870,28 +863,12 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
+    <section id="portfolio" className="relative overflow-hidden bg-black" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
       <div className="absolute inset-0 z-0">
         <Nebulae />
       </div>
 
-      <div className="absolute inset-0 z-1 pointer-events-none">
-        <ParticleBackground />
-      </div>
-
-      <div className="absolute inset-0 z-2 opacity-[0.03] pointer-events-none">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage: `linear-gradient(rgba(168,85,247,0.3) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(168,85,247,0.3) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
-
-      <div className="absolute top-1/4 left-10 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl animate-float pointer-events-none" />
-      <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl animate-float-slow pointer-events-none" />
+      {/* Overlays are now INSIDE Nebulae or removed to ensure video visibility */}
 
       <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
         <div className="text-center mb-8 max-w-7xl mx-auto px-6">
