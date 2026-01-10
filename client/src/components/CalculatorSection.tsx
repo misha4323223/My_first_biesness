@@ -526,53 +526,78 @@ export function CalculatorSection() {
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                             className="overflow-hidden"
                           >
-                            <div className="p-4 bg-primary/5 border border-primary/20 border-t-0 rounded-b-md">
-                              <p className="text-sm text-muted-foreground mb-4 font-medium flex items-center gap-2">
-                                <Plus className="w-3 h-3 text-primary" />
-                                Дополнительные модули и функции:
+                            <div className="p-4 bg-primary/[0.03] border border-primary/20 border-t-0 rounded-b-xl">
+                              <p className="text-sm text-muted-foreground mb-5 font-medium flex items-center gap-2 px-1">
+                                <Plus className="w-4 h-4 text-primary animate-pulse" />
+                                <span className="tracking-tight">Дополнительные модули и функции:</span>
                               </p>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {typeFeatures.map((feature) => {
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                                {typeFeatures.map((feature, idx) => {
                                   const isFeatureSelected = selectedFeatures.includes(feature.id);
                                   return (
-                                    <div
+                                    <motion.div
+                                      initial={{ opacity: 0, y: 10 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ delay: idx * 0.05 }}
                                       key={feature.id}
                                       onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
-                                      className={`group relative p-4 rounded-md border transition-all cursor-pointer hover-elevate overflow-visible ${
+                                      className={`group relative p-5 rounded-xl border transition-all duration-300 cursor-pointer hover-elevate overflow-visible select-none ${
                                         isFeatureSelected
-                                          ? "border-primary bg-primary/10 shadow-[0_0_20px_rgba(56,189,248,0.1)]"
-                                          : "border-border/40 bg-background/40 hover:border-primary/30"
+                                          ? "border-primary bg-primary/10 shadow-[0_0_25px_rgba(56,189,248,0.15)] ring-1 ring-primary/20"
+                                          : "border-border/40 bg-card/40 hover:border-primary/40 hover:bg-card/60"
                                       }`}
                                     >
-                                      <div className="flex items-start justify-between gap-3 mb-2">
+                                      <div className="flex items-start justify-between gap-4 mb-3">
                                         <div className="flex-1 min-w-0">
-                                          <span className="text-sm font-bold block truncate group-hover:text-primary transition-colors">
+                                          <span className={`text-sm font-bold block truncate transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>
                                             {feature.label}
                                           </span>
                                           {feature.description && (
-                                            <p className="text-[11px] text-muted-foreground leading-relaxed mt-1 line-clamp-2">
+                                            <p className="text-[12px] text-muted-foreground leading-relaxed mt-1.5 line-clamp-2 font-medium">
                                               {feature.description}
                                             </p>
                                           )}
                                         </div>
-                                        <div className={`shrink-0 w-5 h-5 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                                        <div className={`shrink-0 w-6 h-6 rounded-lg border flex items-center justify-center transition-all duration-500 ${
                                           isFeatureSelected 
-                                            ? "bg-primary border-primary scale-110 shadow-[0_0_10px_rgba(56,189,248,0.5)]" 
-                                            : "border-muted-foreground/30 group-hover:border-primary/50"
+                                            ? "bg-primary border-primary rotate-0 scale-110 shadow-[0_0_15px_rgba(56,189,248,0.6)]" 
+                                            : "border-muted-foreground/30 group-hover:border-primary/50 -rotate-12 group-hover:rotate-0"
                                         }`}>
-                                          {isFeatureSelected && <Check className="w-3 h-3 text-primary-foreground" />}
+                                          <AnimatePresence mode="wait">
+                                            {isFeatureSelected ? (
+                                              <motion.div
+                                                initial={{ scale: 0, rotate: -45 }}
+                                                animate={{ scale: 1, rotate: 0 }}
+                                                exit={{ scale: 0 }}
+                                                key="check"
+                                              >
+                                                <Check className="w-3.5 h-3.5 text-primary-foreground stroke-[3]" />
+                                              </motion.div>
+                                            ) : (
+                                              <motion.div
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                key="plus"
+                                              >
+                                                <Plus className="w-3 h-3 text-muted-foreground/50 group-hover:text-primary/70" />
+                                              </motion.div>
+                                            )}
+                                          </AnimatePresence>
                                         </div>
                                       </div>
-                                      <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/10">
-                                        <span className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">Наценка</span>
-                                        <span className="text-xs font-mono font-bold text-primary">
+                                      <div className={`flex items-center justify-between mt-3 pt-3 border-t transition-colors duration-300 ${isFeatureSelected ? "border-primary/20" : "border-border/10"}`}>
+                                        <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60 font-bold">Стоимость модуля</span>
+                                        <span className={`text-xs font-mono font-black transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-primary/70 group-hover:text-primary"}`}>
                                           +{formatPrice(feature.price)} ₽
                                         </span>
                                       </div>
-                                    </div>
+                                      
+                                      {/* Декоративный эффект свечения при наведении */}
+                                      <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                                    </motion.div>
                                   );
                                 })}
                               </div>
