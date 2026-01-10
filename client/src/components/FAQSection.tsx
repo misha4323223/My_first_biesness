@@ -229,7 +229,7 @@ export function FAQSection() {
                   onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
                   data-testid={`button-faq-${index}`}
                 >
-                  <span className="font-medium text-xs md:text-sm text-foreground/80 group-hover:text-foreground transition-colors leading-snug pr-4">
+                  <span className="font-medium text-xs md:text-sm text-foreground/80 group-hover:text-foreground transition-colors leading-snug pr-4 flex-1 break-words">
                     {faq.question}
                   </span>
                   <div className={`p-1 rounded-md bg-white/[0.03] transition-colors ${expandedIndex === index ? "bg-primary/10" : "group-hover:bg-white/[0.08]"}`}>
