@@ -383,6 +383,22 @@ module.exports.handler = async function (event, context) {
             };
         }
 
+        // Favicon.ico
+        if (path.endsWith('/favicon.ico')) {
+            return {
+                statusCode: 301,
+                headers: { 'Location': 'https://mp-webstudio.ru/favicon.ico' }
+            };
+        }
+
+        // Favicon.png
+        if (path.endsWith('/favicon.png')) {
+            return {
+                statusCode: 301,
+                headers: { 'Location': 'https://mp-webstudio.ru/favicon.png' }
+            };
+        }
+
         // Sitemap.xml
         if (path.endsWith('/sitemap.xml')) {
             const pages = [
