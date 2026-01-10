@@ -194,7 +194,7 @@ export function HeroSection() {
           playsInline
           onTimeUpdate={(e) => {
             const video = e.currentTarget;
-            const buffer = 2.0;
+            const buffer = 3.0; // Затухание 3 секунды
             if (video.duration - video.currentTime < buffer) {
               const progress = (video.duration - video.currentTime) / buffer;
               const easeProgress = Math.pow(progress, 2);
