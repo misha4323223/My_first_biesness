@@ -850,8 +850,8 @@ export function PortfolioSection() {
     <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
       <Nebulae />
 
-      <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
-        <div className="text-center mb-8 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 h-full flex flex-col" ref={ref}>
+        <div className="text-center pt-8 md:pt-12 mb-4 max-w-7xl mx-auto px-6">
           <SectionBadge>Портфолио</SectionBadge>
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-2">
             <span className="neural-interface py-1">
