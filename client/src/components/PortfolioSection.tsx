@@ -382,7 +382,7 @@ function Nebulae() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none bg-[#0a0a0a]">
       {/* Galaxy Nebula Image Background */}
-      <div className="absolute inset-0 top-[89px] md:top-[116px]">
+      <div className="absolute inset-0 top-[114px] md:top-[116px]">
         <img
           src={portfolioBgImage}
           alt=""
