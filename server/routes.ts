@@ -1104,24 +1104,24 @@ export async function registerRoutes(
 
   app.get("/sitemap.xml", (req, res) => {
     const pages = [
-      "",
-      "/order",
-      "/privacy",
-      "/offer",
-      "/demo/food-delivery",
-      "/demo/fitness",
-      "/demo/cosmetics",
-      "/demo/streetwear",
-      "/demo/socks",
-      "/demo/travel",
-      "/demo/barber",
-      "/demo/dental",
-      "/demo/renovation",
-      "/demo/photographer",
-      "/demo/auto-service",
-      "/demo/real-estate",
-      "/demo/beauty-salon",
-      "/demo/online-academy",
+      { path: "", freq: "daily", priority: "1.0" },
+      { path: "/order", freq: "weekly", priority: "0.9" },
+      { path: "/privacy", freq: "monthly", priority: "0.5" },
+      { path: "/offer", freq: "monthly", priority: "0.5" },
+      { path: "/demo/food-delivery", freq: "monthly", priority: "0.8" },
+      { path: "/demo/fitness", freq: "monthly", priority: "0.8" },
+      { path: "/demo/cosmetics", freq: "monthly", priority: "0.8" },
+      { path: "/demo/dental", freq: "monthly", priority: "0.8" },
+      { path: "/demo/barber", freq: "monthly", priority: "0.8" },
+      { path: "/demo/travel", freq: "monthly", priority: "0.8" },
+      { path: "/demo/renovation", freq: "monthly", priority: "0.8" },
+      { path: "/demo/streetwear", freq: "monthly", priority: "0.8" },
+      { path: "/demo/socks", freq: "monthly", priority: "0.8" },
+      { path: "/demo/photographer", freq: "monthly", priority: "0.8" },
+      { path: "/demo/auto-service", freq: "monthly", priority: "0.8" },
+      { path: "/demo/real-estate", freq: "monthly", priority: "0.8" },
+      { path: "/demo/beauty-salon", freq: "monthly", priority: "0.8" },
+      { path: "/demo/online-academy", freq: "monthly", priority: "0.8" },
     ];
 
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -1129,9 +1129,10 @@ export async function registerRoutes(
 ${pages
   .map(
     (page) => `  <url>
-    <loc>${SITE_URL}${page}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>${page === "" ? "1.0" : "0.8"}</priority>
+    <loc>${SITE_URL}${page.path}</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>${page.freq}</changefreq>
+    <priority>${page.priority}</priority>
   </url>`
   )
   .join("\n")}
