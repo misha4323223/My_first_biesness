@@ -275,7 +275,7 @@ export function HeroSection() {
               Каждый сайт создаётся с нуля — под ваш бизнес, под вашу аудиторию, под ваши цели.
             </motion.p>
             
-            <div className="w-96 h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.2)]" />
+            <div className="w-full max-w-2xl h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.2)]" />
           </div>
         </div>
 
