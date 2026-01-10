@@ -201,8 +201,10 @@ export function AboutSection() {
               onClick={() => setIsFlipped(!isFlipped)}
             >
               {/* Front Side */}
-              <Card className="absolute inset-0 p-6 md:p-10 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center overflow-hidden">
-                <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl" />
+              <Card className="absolute inset-0 p-6 md:p-10 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col justify-center overflow-hidden group/card">
+                {/* Milky Way Stars Layer */}
+                <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)] group-hover/card:scale-110 transition-transform duration-1000" />
+                <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
                 <div className="relative z-10">
                   <h3 className="text-xl md:text-3xl font-semibold mb-3 md:mb-6 text-cyan-400">Наш подход</h3>
                   <p className="text-muted-foreground text-sm md:text-xl leading-relaxed max-w-2xl">
@@ -271,8 +273,10 @@ export function AboutSection() {
               onClick={() => setIsThirdFlipped(!isThirdFlipped)}
             >
               {/* Front Side */}
-              <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem]">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Card className="absolute inset-0 p-4 md:p-8 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-[1.5rem] md:rounded-[3rem] group/card">
+                {/* Milky Way Stars Layer */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] group-hover/card:scale-125 transition-transform duration-1000" />
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
                   <div className="p-3 md:p-4 rounded-full bg-purple-500/10 mb-2 md:mb-4 group-hover:scale-110 transition-transform duration-500 inline-block">
                     <Code2 className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
@@ -314,8 +318,10 @@ export function AboutSection() {
               onClick={() => setIsFourthFlipped(!isFourthFlipped)}
             >
               {/* Front Side */}
-              <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Card className="absolute inset-0 p-4 md:p-8 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden flex flex-col items-center justify-center text-center group relative overflow-hidden rounded-tr-[2.5rem] rounded-bl-[2.5rem] md:rounded-tr-[5rem] md:rounded-bl-[5rem] rounded-tl-xl rounded-br-xl group/card">
+                {/* Milky Way Stars Layer */}
+                <div className="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:18px_18px] group-hover/card:scale-125 transition-transform duration-1000" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
                   <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-purple-500/10 mb-2 md:mb-4 group-hover:rotate-12 transition-transform duration-500 inline-block">
                     <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
@@ -357,8 +363,10 @@ export function AboutSection() {
               onClick={() => setIsSecondFlipped(!isSecondFlipped)}
             >
               {/* Front Side */}
-              <Card className="absolute inset-0 p-6 md:p-10 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-center overflow-hidden">
-                <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl group-hover:bg-purple-500/10 transition-colors duration-700" />
+              <Card className="absolute inset-0 p-6 md:p-10 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden rounded-[1.5rem] md:rounded-[2rem] flex flex-col justify-center overflow-hidden group/card">
+                {/* Milky Way Stars Layer */}
+                <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)] group-hover/card:scale-110 transition-transform duration-1000" />
+                <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-colors duration-700" />
                 <div className="relative z-10 flex flex-col h-full justify-center">
                   <div className="flex items-center gap-3 md:gap-5 mb-4 md:mb-6">
                     <div className="p-2 md:p-3 rounded-xl md:rounded-2xl bg-cyan-500/10 group-hover:rotate-12 transition-transform duration-500">
