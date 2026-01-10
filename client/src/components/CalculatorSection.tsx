@@ -887,43 +887,44 @@ export function CalculatorSection() {
                     )}
                   />
 
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Описание проекта *</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Расскажите о вашем проекте..."
-                          rows={4}
-                          {...field}
-                          className="bg-background/50 resize-none"
-                          data-testid="input-order-description"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs font-bold uppercase tracking-wider">Описание проекта *</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Расскажите о вашем проекте..."
+                            rows={4}
+                            {...field}
+                            className="bg-background/50 resize-none border-border/40 focus:border-cyan-500/50 transition-colors"
+                            data-testid="input-order-description"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px]" />
+                      </FormItem>
+                    )}
+                  />
 
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0"
-                  disabled={mutation.isPending}
-                  data-testid="button-submit-order"
-                >
-                  {mutation.isPending ? (
-                    <span className="flex items-center gap-2">
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Отправляем...
-                    </span>
-                  ) : (
-                    "Заказать"
-                  )}
-                </Button>
-              </form>
-            </Form>
+                  <Button
+                    type="submit"
+                    className="w-full h-12 bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0 font-bold uppercase tracking-widest shadow-lg shadow-cyan-500/20"
+                    disabled={mutation.isPending}
+                    data-testid="button-submit-order"
+                  >
+                    {mutation.isPending ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Отправляем...
+                      </span>
+                    ) : (
+                      "Заказать"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
