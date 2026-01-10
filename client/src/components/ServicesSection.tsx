@@ -247,26 +247,26 @@ export function ServicesSection() {
                 className={`${gridClasses} group relative`}
               >
                 <Card
-                  className="relative overflow-hidden h-full min-h-[160px] md:min-h-[220px] p-6 md:p-8 bg-white/5 border-white/10 backdrop-blur-md transition-all duration-500 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col no-default-hover-elevate"
+                  className="relative overflow-hidden h-full min-h-[120px] md:min-h-[220px] p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md transition-all duration-500 rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col no-default-hover-elevate"
                   data-testid={`card-service-${index}`}
                 >
                   {/* Subtle gradient background on hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
                   
                   {/* Icon Container */}
-                  <div className="flex items-start justify-between mb-4 md:mb-6">
-                    <div className={`relative w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                      <service.icon className="w-5 h-5 md:w-7 md:h-7 text-white" />
+                  <div className="flex items-start justify-between mb-3 md:mb-6">
+                    <div className={`relative w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
+                      <service.icon className="w-4 h-4 md:w-7 md:h-7 text-white" />
                       <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
                     </div>
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className="relative font-bold text-foreground/90 mb-2 group-hover:text-white transition-colors text-lg md:text-2xl">
+                    <h3 className="relative font-bold text-foreground/90 mb-1 md:mb-2 group-hover:text-white transition-colors text-sm sm:text-base md:text-2xl leading-tight">
                       {service.title}
                     </h3>
                     
-                    <p className="relative text-muted-foreground/70 leading-relaxed group-hover:text-muted-foreground transition-colors text-xs md:text-base">
+                    <p className="relative text-muted-foreground/70 leading-tight md:leading-relaxed group-hover:text-muted-foreground transition-colors text-[10px] sm:text-xs md:text-base line-clamp-2 sm:line-clamp-3 md:line-clamp-none">
                       {service.description}
                     </p>
                   </div>
