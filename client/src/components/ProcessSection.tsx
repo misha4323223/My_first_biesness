@@ -222,19 +222,21 @@ export function ProcessSection() {
                 {/* Animated pulse for the stream line */}
                 <div className="absolute left-4 md:left-6 top-6 w-12 h-[1px] bg-gradient-to-r from-cyan-500 to-transparent opacity-50" />
 
-                <div className="absolute left-4 md:left-6 top-0 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl flex items-center justify-center shadow-2xl group-hover/step:border-cyan-500/50 group-hover/step:bg-cyan-500/5 transition-all duration-500 shrink-0">
-                  <step.icon className="w-6 h-6 md:w-8 md:h-8 text-cyan-400 group-hover/step:scale-110 group-hover/step:text-white transition-all duration-500" />
-                </div>
-                
-                <div className="pt-14 md:pt-4">
-                  <div className="flex items-center gap-4 mb-2">
-                    <h3 className="text-xl md:text-3xl font-bold text-foreground/90 group-hover/step:text-white transition-colors tracking-tight">
-                      {step.title}
-                    </h3>
+                <div className="flex flex-row gap-4 md:gap-6">
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl flex items-center justify-center shadow-2xl group-hover/step:border-cyan-500/50 group-hover/step:bg-cyan-500/5 transition-all duration-500 shrink-0">
+                    <step.icon className="w-6 h-6 md:w-8 md:h-8 text-cyan-400 group-hover/step:scale-110 group-hover/step:text-white transition-all duration-500" />
                   </div>
-                  <p className="text-muted-foreground/70 text-sm md:text-lg leading-relaxed max-w-2xl group-hover/step:text-muted-foreground transition-colors">
-                    {step.description}
-                  </p>
+                  
+                  <div className="flex-1 pt-1 md:pt-4">
+                    <div className="flex items-center gap-4 mb-2">
+                      <h3 className="text-xl md:text-3xl font-bold text-foreground/90 group-hover/step:text-white transition-colors tracking-tight">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="text-muted-foreground/70 text-sm md:text-lg leading-relaxed max-w-2xl group-hover/step:text-muted-foreground transition-colors">
+                      {step.description}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Motion blur highlight on hover */}
