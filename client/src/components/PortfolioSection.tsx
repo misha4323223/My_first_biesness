@@ -381,38 +381,20 @@ function Nebulae() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Galaxy Nebula Video Background */}
-      <div className="absolute inset-0 z-0 bg-black">
+      <div className="absolute inset-0 z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-100"
-          style={{ filter: "brightness(0.9) contrast(1.1)" }}
+          className="w-full h-full object-cover"
+          style={{ filter: "brightness(0.7) contrast(1.1)" }}
         >
           <source src="/attached_assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4" type="video/mp4" />
         </video>
-        {/* Monolithic blending overlays - positioned to be clearly behind content but blending well */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-60 z-10" />
+        {/* Blending overlay to integrate with the rest of the site */}
+        <div className="absolute inset-0 bg-black/60" />
       </div>
-      
-      {/* Moving Nebulae Glows - moved behind the video or made very subtle to not block */}
-      <div 
-        className="absolute w-96 h-96 rounded-full opacity-10 blur-3xl z-20"
-        style={{
-          left: "10%",
-          top: "20%",
-          background: "radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, transparent 70%)",
-        }}
-      />
-      <div 
-        className="absolute w-80 h-80 rounded-full opacity-10 blur-3xl z-20"
-        style={{
-          right: "5%",
-          top: "40%",
-          background: "radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)",
-        }}
-      />
     </div>
   );
 }
@@ -867,8 +849,6 @@ export function PortfolioSection() {
       <div className="absolute inset-0 z-0">
         <Nebulae />
       </div>
-
-      {/* Overlays are now INSIDE Nebulae or removed to ensure video visibility */}
 
       <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
         <div className="text-center mb-8 max-w-7xl mx-auto px-6">
