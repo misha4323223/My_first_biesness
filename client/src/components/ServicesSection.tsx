@@ -223,11 +223,20 @@ export function ServicesSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 auto-rows-min">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-6">
           {services.map((service, index) => {
-            // Bento grid layout logic: making it look like AboutSection
-            // Service 2 (Corporate) and 3 (Shops) are primary
-            const isLarge = index === 2 || index === 3;
+            // Mapping services to the same layout as AboutSection
+            // Box 1 (Service 0 & 1 combined into a wide block or kept separate)
+            // Let's mirror the 8-4 / 4-4 / 8 layout
+            
+            let gridClasses = "";
+            if (index === 0) gridClasses = "col-span-2 md:col-span-8"; // Wide
+            else if (index === 1) gridClasses = "col-span-1 md:col-span-4"; // Square
+            else if (index === 2) gridClasses = "col-span-1 md:col-span-4"; // Square
+            else if (index === 3) gridClasses = "col-span-2 md:col-span-8"; // Wide
+            else if (index === 4) gridClasses = "col-span-1 md:col-span-4"; // Square
+            else if (index === 5) gridClasses = "col-span-1 md:col-span-4"; // Square
+            else if (index === 6) gridClasses = "col-span-2 md:col-span-4"; // Square
             
             return (
               <motion.div
@@ -235,56 +244,35 @@ export function ServicesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                className={`
-                  ${index === 2 ? "lg:col-span-2 lg:row-span-2 sm:col-span-2" : ""}
-                  ${index === 3 ? "lg:col-span-2 lg:row-span-2 sm:col-span-2" : ""}
-                  ${!isLarge ? "lg:col-span-1 lg:row-span-1 sm:col-span-1" : ""}
-                `}
+                className={`${gridClasses} group relative`}
               >
                 <Card
-                  className={`
-                    group relative overflow-hidden h-full p-6 border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-500 rounded-3xl flex flex-col no-default-hover-elevate
-                    ${isLarge ? "min-h-[300px]" : "min-h-[180px]"}
-                  `}
+                  className="relative overflow-hidden h-full min-h-[160px] md:min-h-[220px] p-6 md:p-8 bg-white/5 border-white/10 backdrop-blur-md transition-all duration-500 rounded-[1.5rem] md:rounded-[2.5rem] flex flex-col no-default-hover-elevate"
                   data-testid={`card-service-${index}`}
                 >
                   {/* Subtle gradient background on hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
                   
-                  {/* Icon and Title Container */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className={`relative w-12 h-12 rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                      <service.icon className="w-6 h-6 text-white" />
+                  {/* Icon Container */}
+                  <div className="flex items-start justify-between mb-4 md:mb-6">
+                    <div className={`relative w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
+                      <service.icon className="w-5 h-5 md:w-7 md:h-7 text-white" />
                       <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
                     </div>
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className={`relative font-bold text-foreground/90 mb-2 group-hover:text-white transition-colors ${
-                      isLarge ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
-                    }`}>
+                    <h3 className="relative font-bold text-foreground/90 mb-2 group-hover:text-white transition-colors text-lg md:text-2xl">
                       {service.title}
                     </h3>
                     
-                    <p className={`relative text-muted-foreground/70 leading-relaxed group-hover:text-muted-foreground transition-colors ${
-                      isLarge ? "text-sm md:text-base max-w-md" : "text-xs md:text-sm"
-                    }`}>
+                    <p className="relative text-muted-foreground/70 leading-relaxed group-hover:text-muted-foreground transition-colors text-xs md:text-base">
                       {service.description}
                     </p>
                   </div>
 
-                  {/* Decorative element for large cards */}
-                  {isLarge && (
-                    <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:opacity-[0.1] transition-opacity duration-700 pointer-events-none">
-                      <service.icon className="w-32 h-32 rotate-12" />
-                    </div>
-                  )}
-
-                  {/* Corner Accent */}
-                  <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${service.color} opacity-0 blur-3xl group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
-                  
-                  {/* Bottom Accent Line */}
-                  <div className={`absolute bottom-0 left-0 h-[3px] bg-gradient-to-r ${service.color} w-0 group-hover:w-full transition-all duration-500`} />
+                  {/* Decorative background element */}
+                  <div className={`absolute -right-10 -bottom-10 w-32 h-32 bg-gradient-to-br ${service.color} opacity-[0.02] group-hover:opacity-[0.08] rounded-full blur-3xl transition-opacity duration-700`} />
                 </Card>
               </motion.div>
             );
