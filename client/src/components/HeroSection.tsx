@@ -194,15 +194,15 @@ export function HeroSection() {
           playsInline
           onTimeUpdate={(e) => {
             const video = e.currentTarget;
-            const buffer = 1.5; // Increased buffer for smoother transition
+            const buffer = 2.0; // Ещё больше буфер для очень долгого затухания
             if (video.duration - video.currentTime < buffer) {
               const progress = (video.duration - video.currentTime) / buffer;
-              // Smooth easing function for opacity
-              const easeProgress = progress * progress * (3 - 2 * progress);
+              // Экспоненциальное затухание для максимальной мягкости
+              const easeProgress = Math.pow(progress, 2);
               video.style.opacity = String(0.4 * easeProgress);
             } else if (video.currentTime < buffer) {
               const progress = video.currentTime / buffer;
-              const easeProgress = progress * progress * (3 - 2 * progress);
+              const easeProgress = Math.pow(progress, 2);
               video.style.opacity = String(0.4 * easeProgress);
             } else {
               video.style.opacity = "0.4";
