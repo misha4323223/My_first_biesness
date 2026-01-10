@@ -374,6 +374,59 @@ module.exports.handler = async function (event, context) {
             }
         }
 
+        // Robots.txt
+        if (path.endsWith('/robots.txt')) {
+            return {
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/plain' },
+                body: "User-agent: *\nAllow: /\nSitemap: https://mp-webstudio.ru/sitemap.xml"
+            };
+        }
+
+        // Sitemap.xml
+        if (path.endsWith('/sitemap.xml')) {
+            const pages = [
+                { path: "", freq: "daily", priority: "1.0" },
+                { path: "/order", freq: "weekly", priority: "0.9" },
+                { path: "/privacy", freq: "monthly", priority: "0.5" },
+                { path: "/offer", freq: "monthly", priority: "0.5" },
+                { path: "/demo/food-delivery", freq: "monthly", priority: "0.8" },
+                { path: "/demo/fitness", freq: "monthly", priority: "0.8" },
+                { path: "/demo/cosmetics", freq: "monthly", priority: "0.8" },
+                { path: "/demo/dental", freq: "monthly", priority: "0.8" },
+                { path: "/demo/barber", freq: "monthly", priority: "0.8" },
+                { path: "/demo/travel", freq: "monthly", priority: "0.8" },
+                { path: "/demo/renovation", freq: "monthly", priority: "0.8" },
+                { path: "/demo/streetwear", freq: "monthly", priority: "0.8" },
+                { path: "/demo/socks", freq: "monthly", priority: "0.8" },
+                { path: "/demo/photographer", freq: "monthly", priority: "0.8" },
+                { path: "/demo/auto-service", freq: "monthly", priority: "0.8" },
+                { path: "/demo/real-estate", freq: "monthly", priority: "0.8" },
+                { path: "/demo/beauty-salon", freq: "monthly", priority: "0.8" },
+                { path: "/demo/online-academy", freq: "monthly", priority: "0.8" },
+            ];
+
+            const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages
+  .map(
+    (p) => `  <url>
+    <loc>${SITE_URL}${p.path}</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>${p.freq}</changefreq>
+    <priority>${p.priority}</priority>
+  </url>`
+  )
+  .join("\n")}
+</urlset>`;
+
+            return {
+                statusCode: 200,
+                headers: { 'Content-Type': 'application/xml' },
+                body: sitemap
+            };
+        }
+
         // Telegram Bot Webhook
         if ((action === 'telegram-webhook' || path.includes('/telegram-webhook')) && method === 'POST') {
             return await handleTelegramWebhook(body, headers);
