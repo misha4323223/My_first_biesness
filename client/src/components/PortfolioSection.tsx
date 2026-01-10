@@ -851,31 +851,35 @@ export function PortfolioSection() {
       <Nebulae />
 
       <div className="relative z-10 h-full flex flex-col" ref={ref}>
-        <div className="text-center pt-4 md:pt-6 mb-2 max-w-7xl mx-auto px-6">
-          <SectionBadge>Портфолио</SectionBadge>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-2">
-            <span className="neural-interface py-1">
-              <AnimatedText text={line1} startIndex={0} isInView={isInView} />
-            </span>
-            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient text-center">
-              <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
-            </span>
-          </h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base px-4 mt-4"
-          >
-            В нашей веб-студии вы можете заказать сайт под ключ или купить готовое решение. 
-            Каждая звезда — это демо концепция: от интернет-магазинов и лендингов до сложных корпоративных систем. 
-            Мы создаем сайты с нуля, чтобы они работали на ваш бизнес.
-          </motion.p>
+        {/* Фиксированный заголовок сверху секции */}
+        <div className="absolute top-0 left-0 right-0 z-30 pt-6 md:pt-10 px-6 pointer-events-none">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="pointer-events-auto inline-block">
+              <SectionBadge>Портфолио</SectionBadge>
+            </div>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-3 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-2 pointer-events-auto">
+              <span className="neural-interface py-1">
+                <AnimatedText text={line1} startIndex={0} isInView={isInView} />
+              </span>
+              <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient text-center">
+                <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
+              </span>
+            </h2>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base px-4 mt-3 pointer-events-auto"
+            >
+              В нашей веб-студии вы можете заказать сайт под ключ или купить готовое решение. 
+              Каждая звезда — это демо концепция: от интернет-магазинов и лендингов до сложных корпоративных систем. 
+            </motion.p>
+          </div>
         </div>
 
         {/* Созвездие */}
         <div 
-          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[550px] md:min-h-0 pb-6"
+          className="relative w-full overflow-hidden flex-1 bg-transparent min-h-[550px] md:min-h-0 pb-6 mt-48 md:mt-64"
         >
           <StarParticles />
           <ShootingStars />
