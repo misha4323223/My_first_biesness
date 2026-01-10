@@ -425,7 +425,7 @@ export function CalculatorSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10" ref={ref}>
         <div className="text-center mb-12 px-4">
           <SectionBadge>Расчёт стоимости / Контакты</SectionBadge>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap overflow-visible scanline-header">
+          <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 whitespace-normal sm:whitespace-nowrap overflow-visible scanline-header text-center">
             <span className="neural-interface py-1">
               <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             </span>
@@ -443,23 +443,23 @@ export function CalculatorSection() {
           </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 px-4">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 px-2 sm:px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-4 sm:space-y-6"
           >
-            <Card className="p-6 bg-background/30 border-border/40 backdrop-blur-xl relative overflow-hidden group/main">
+            <Card className="p-4 sm:p-6 bg-background/30 border-border/40 backdrop-blur-xl relative overflow-hidden group/main">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 pointer-events-none" />
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
                 <span className="w-2 h-6 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-full" />
                 Выберите основу проекта
               </h3>
               <RadioGroup
                 value={projectType}
                 onValueChange={(value) => handleProjectTypeChange(value as ProjectType)}
-                className="space-y-4"
+                className="space-y-3 sm:space-y-4"
               >
                 {projectTypes.map((type) => {
                   const typeFeatures = getAvailableFeatures(type.value);
@@ -476,7 +476,7 @@ export function CalculatorSection() {
                       />
                       <Label
                         htmlFor={type.value}
-                        className={`flex flex-col p-5 rounded-xl border transition-all duration-500 cursor-pointer relative overflow-hidden ${
+                        className={`flex flex-col p-4 sm:p-5 rounded-xl border transition-all duration-500 cursor-pointer relative overflow-hidden ${
                           isSelected
                             ? "border-cyan-500/50 bg-cyan-500/10 shadow-[0_0_30px_rgba(56,189,248,0.1)]"
                             : "border-border/30 bg-card/20 hover:border-border/60 hover:bg-card/30"
@@ -490,32 +490,32 @@ export function CalculatorSection() {
                             transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                           />
                         )}
-                        <div className="flex flex-col sm:flex-row sm:items-start gap-4 relative z-10">
+                        <div className="flex flex-col gap-3 sm:gap-4 relative z-10">
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-3 mb-2 flex-wrap">
-                              <span className={`font-bold text-lg tracking-tight transition-colors ${isSelected ? "text-cyan-400" : "text-foreground"}`}>
+                            <div className="flex items-center gap-2 sm:gap-3 mb-2 flex-wrap">
+                              <span className={`font-bold text-base sm:text-lg tracking-tight transition-colors ${isSelected ? "text-cyan-400" : "text-foreground"}`}>
                                 {type.label}
                               </span>
-                              <div className="h-px w-8 bg-border/50 hidden sm:block" />
-                              <span className="text-sm font-mono font-bold text-purple-400">
+                              <div className="h-px w-6 sm:w-8 bg-border/50 hidden sm:block" />
+                              <span className="text-xs sm:text-sm font-mono font-bold text-purple-400">
                                 {formatPrice(type.basePrice)} ₽
                               </span>
                               {selectedCount > 0 && isSelected && (
                                 <motion.span 
                                   initial={{ scale: 0 }}
                                   animate={{ scale: 1 }}
-                                  className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold uppercase tracking-wider border border-cyan-500/30"
+                                  className="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold uppercase tracking-wider border border-cyan-500/30"
                                 >
                                   +{selectedCount} модуля
                                 </motion.span>
                               )}
                             </div>
-                            <p className="text-sm text-muted-foreground mb-4 leading-relaxed font-medium">{type.description}</p>
-                            <div className="flex flex-wrap gap-x-4 gap-y-2">
+                            <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 leading-relaxed font-medium">{type.description}</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 sm:gap-y-2">
                               {type.includes.map((item, i) => (
-                                <span key={i} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
-                                  <div className="w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_5px_rgba(56,189,248,0.8)]" />
-                                  {item}
+                                <span key={i} className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-muted-foreground font-medium">
+                                  <div className="w-1 h-1 shrink-0 rounded-full bg-cyan-400 shadow-[0_0_5px_rgba(56,189,248,0.8)]" />
+                                  <span className="truncate">{item}</span>
                                 </span>
                               ))}
                             </div>
@@ -550,7 +550,7 @@ export function CalculatorSection() {
                                 <Plus className="w-4 h-4 text-primary animate-pulse" />
                                 <span className="tracking-tight">Дополнительные модули и функции:</span>
                               </p>
-                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4">
                                 {typeFeatures.map((feature, idx) => {
                                   const isFeatureSelected = selectedFeatures.includes(feature.id);
                                   return (
@@ -560,24 +560,24 @@ export function CalculatorSection() {
                                       transition={{ delay: idx * 0.05 }}
                                       key={feature.id}
                                       onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
-                                      className={`group relative p-5 rounded-xl border transition-all duration-300 cursor-pointer hover-elevate overflow-visible select-none ${
+                                      className={`group relative p-4 sm:p-5 rounded-xl border transition-all duration-300 cursor-pointer hover-elevate overflow-visible select-none ${
                                         isFeatureSelected
                                           ? "border-primary bg-primary/10 shadow-[0_0_25px_rgba(56,189,248,0.15)] ring-1 ring-primary/20"
                                           : "border-border/40 bg-card/40 hover:border-primary/40 hover:bg-card/60"
                                       }`}
                                     >
-                                      <div className="flex items-start justify-between gap-4 mb-3">
+                                      <div className="flex items-start justify-between gap-3 sm:gap-4 mb-2 sm:mb-3">
                                         <div className="flex-1 min-w-0">
-                                          <span className={`text-sm font-bold block truncate transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>
+                                          <span className={`text-xs sm:text-sm font-bold block truncate transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>
                                             {feature.label}
                                           </span>
                                           {feature.description && (
-                                            <p className="text-[12px] text-muted-foreground leading-relaxed mt-1.5 line-clamp-2 font-medium">
+                                            <p className="text-[10px] sm:text-[12px] text-muted-foreground leading-relaxed mt-1 sm:mt-1.5 line-clamp-2 font-medium">
                                               {feature.description}
                                             </p>
                                           )}
                                         </div>
-                                        <div className={`shrink-0 w-6 h-6 rounded-lg border flex items-center justify-center transition-all duration-500 ${
+                                        <div className={`shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-lg border flex items-center justify-center transition-all duration-500 ${
                                           isFeatureSelected 
                                             ? "bg-primary border-primary rotate-0 scale-110 shadow-[0_0_15px_rgba(56,189,248,0.6)]" 
                                             : "border-muted-foreground/30 group-hover:border-primary/50 -rotate-12 group-hover:rotate-0"
@@ -590,7 +590,7 @@ export function CalculatorSection() {
                                                 exit={{ scale: 0 }}
                                                 key="check"
                                               >
-                                                <Check className="w-3.5 h-3.5 text-primary-foreground stroke-[3]" />
+                                                <Check className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-primary-foreground stroke-[3]" />
                                               </motion.div>
                                             ) : (
                                               <motion.div
@@ -598,20 +598,19 @@ export function CalculatorSection() {
                                                 animate={{ opacity: 1 }}
                                                 key="plus"
                                               >
-                                                <Plus className="w-3 h-3 text-muted-foreground/50 group-hover:text-primary/70" />
+                                                <Plus className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-muted-foreground/50 group-hover:text-primary/70" />
                                               </motion.div>
                                             )}
                                           </AnimatePresence>
                                         </div>
                                       </div>
-                                      <div className={`flex items-center justify-between mt-3 pt-3 border-t transition-colors duration-300 ${isFeatureSelected ? "border-primary/20" : "border-border/10"}`}>
-                                        <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60 font-bold">Стоимость модуля</span>
-                                        <span className={`text-xs font-mono font-black transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-primary/70 group-hover:text-primary"}`}>
+                                      <div className={`flex items-center justify-between mt-2 sm:mt-3 pt-2 sm:pt-3 border-t transition-colors duration-300 ${isFeatureSelected ? "border-primary/20" : "border-border/10"}`}>
+                                        <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60 font-bold">Стоимость</span>
+                                        <span className={`text-[11px] sm:text-xs font-mono font-black transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-primary/70 group-hover:text-primary"}`}>
                                           +{formatPrice(feature.price)} ₽
                                         </span>
                                       </div>
                                       
-                                      {/* Декоративный эффект свечения при наведении */}
                                       <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                                     </motion.div>
                                   );
@@ -634,31 +633,31 @@ export function CalculatorSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="lg:h-full flex flex-col gap-6"
           >
-            <Card className="p-8 bg-background/40 border-cyan-500/20 backdrop-blur-2xl sticky top-24 overflow-hidden group/price">
+            <Card className="p-5 sm:p-8 bg-background/40 border-cyan-500/20 backdrop-blur-2xl lg:sticky lg:top-24 overflow-hidden group/price">
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 pointer-events-none" />
               <div className="absolute -top-24 -right-24 w-48 h-48 bg-cyan-500/20 rounded-full blur-[80px] group-hover/price:bg-cyan-500/30 transition-colors duration-700" />
               
-              <div className="flex items-center gap-4 mb-8 relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)]">
-                  <Calculator className="w-6 h-6 text-white" />
+              <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8 relative z-10">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+                  <Calculator className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black tracking-tighter uppercase">Итоговый расчёт</h3>
+                  <h3 className="text-lg sm:text-xl font-black tracking-tighter uppercase">Итоговый расчёт</h3>
                   <div className="h-0.5 w-full bg-gradient-to-r from-cyan-400 to-transparent rounded-full mt-1" />
                 </div>
               </div>
 
-              <div className="space-y-4 mb-8 relative z-10">
-                <div className="flex justify-between items-start px-2 gap-4">
-                  <span className="text-[11px] sm:text-sm font-bold text-muted-foreground uppercase tracking-widest leading-tight flex-1">
+              <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 relative z-10">
+                <div className="flex justify-between items-start px-1 sm:px-2 gap-4">
+                  <span className="text-[10px] sm:text-sm font-bold text-muted-foreground uppercase tracking-widest leading-tight flex-1">
                     База: {currentProjectType?.label}
                   </span>
-                  <span className="font-mono font-bold text-foreground whitespace-nowrap shrink-0">
+                  <span className="font-mono font-bold text-foreground text-sm sm:text-base whitespace-nowrap shrink-0">
                     {formatPrice(basePrice)} ₽
                   </span>
                 </div>
                 
-                <div className="px-2 space-y-3">
+                <div className="px-1 sm:px-2 space-y-2 sm:space-y-3">
                   {selectedFeatures.length > 0 ? (
                     selectedFeatures.map((featureId) => {
                       const feature = features.find((f) => f.id === featureId);
@@ -668,52 +667,52 @@ export function CalculatorSection() {
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           key={featureId} 
-                          className="flex justify-between text-[13px] items-center"
+                          className="flex justify-between text-[11px] sm:text-[13px] items-center"
                         >
                           <span className="text-muted-foreground/80 flex items-center gap-2">
                             <div className="w-1 h-1 rounded-full bg-purple-400" />
                             {feature.label}
                           </span>
-                          <span className="font-mono text-purple-400">+{formatPrice(feature.price)} ₽</span>
+                          <span className="font-mono text-purple-400 whitespace-nowrap">+{formatPrice(feature.price)} ₽</span>
                         </motion.div>
                       );
                     })
                   ) : (
-                    <p className="text-[12px] text-muted-foreground/40 italic px-1">Дополнительные модули не выбраны</p>
+                    <p className="text-[10px] sm:text-[12px] text-muted-foreground/40 italic px-1">Дополнительные модули не выбраны</p>
                   )}
                 </div>
 
-                <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent my-6" />
+                <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent my-4 sm:my-6" />
                 
-                <div className="bg-background/40 p-5 rounded-2xl border border-white/5 shadow-inner">
+                <div className="bg-background/40 p-4 sm:p-5 rounded-2xl border border-white/5 shadow-inner">
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-xs font-black uppercase tracking-[0.2em] text-cyan-400">Общая сумма</span>
-                    <div className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-[10px] text-cyan-400 font-bold uppercase">Ready to start</div>
+                    <span className="text-[9px] sm:text-xs font-black uppercase tracking-[0.2em] text-cyan-400">Общая сумма</span>
+                    <div className="px-1.5 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-[8px] sm:text-[10px] text-cyan-400 font-bold uppercase whitespace-nowrap">Ready to start</div>
                   </div>
-                  <div className="flex justify-between items-baseline pt-2">
-                    <span className="text-3xl font-black bg-gradient-to-r from-cyan-400 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-sm">
+                  <div className="flex justify-between items-baseline pt-1 sm:pt-2">
+                    <span className="text-2xl sm:text-3xl font-black bg-gradient-to-r from-cyan-400 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-sm">
                       {formatPrice(totalPrice)}
                     </span>
-                    <span className="text-sm font-bold text-foreground/60 ml-1">₽</span>
+                    <span className="text-xs sm:text-sm font-bold text-foreground/60 ml-1">₽</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-4 relative z-10">
+              <div className="space-y-3 sm:space-y-4 relative z-10">
                 <Button
                   onClick={() => setOpenOrderModal(true)}
-                  className="w-full h-14 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold uppercase tracking-widest border-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.4)] transition-all duration-500 group/btn"
+                  className="w-full h-12 sm:h-14 bg-gradient-to-r from-cyan-500 to-purple-600 text-white text-xs sm:text-sm font-bold uppercase tracking-widest border-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.4)] transition-all duration-500 group/btn"
                 >
                   <span className="flex items-center gap-2">
                     Получить консультацию
-                    <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover/btn:translate-x-1 transition-transform" />
                   </span>
                 </Button>
                 
                 <a href="/order" className="block">
                   <Button
                     variant="outline"
-                    className="w-full h-12 border-cyan-500/30 hover:border-cyan-500/60 bg-transparent text-xs font-black uppercase tracking-[0.3em] hover:bg-cyan-500/5 transition-all duration-500"
+                    className="w-full h-10 sm:h-12 border-cyan-500/30 hover:border-cyan-500/60 bg-transparent text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] hover:bg-cyan-500/5 transition-all duration-500"
                   >
                     Заказать проект
                   </Button>
@@ -781,44 +780,44 @@ export function CalculatorSection() {
       </div>
 
       <Dialog open={openOrderModal} onOpenChange={setOpenOrderModal}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-order-modal">
-          <DialogHeader>
-            <DialogTitle>Оформить заказ</DialogTitle>
-            <DialogDescription>
-              Заполните форму ниже, чтобы отправить заказ. Слева указаны выбранные услуги и итоговая стоимость.
+        <DialogContent className="max-w-2xl max-h-[95vh] overflow-y-auto p-4 sm:p-6" data-testid="dialog-order-modal">
+          <DialogHeader className="mb-4">
+            <DialogTitle className="text-xl sm:text-2xl">Оформить заказ</DialogTitle>
+            <DialogDescription className="text-sm">
+              Заполните форму ниже, чтобы отправить заказ. Справа указаны выбранные услуги и итоговая стоимость.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="p-4 bg-card/50 rounded-md border border-border">
-                <h3 className="font-bold mb-3 text-sm">Состав заказа</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            <div className="order-2 md:order-1 space-y-4">
+              <div className="p-4 sm:p-5 bg-card/50 rounded-xl border border-border/40 backdrop-blur-sm shadow-inner">
+                <h3 className="font-bold mb-4 text-xs sm:text-sm uppercase tracking-widest text-cyan-400">Состав заказа</h3>
+                <div className="space-y-3 text-sm">
+                  <div className="flex justify-between items-start gap-4">
+                    <span className="text-muted-foreground font-medium">
                       {projectTypes.find((p) => p.value === projectType)?.label}
                     </span>
-                    <span className="font-mono">{formatPrice(basePrice)} ₽</span>
+                    <span className="font-mono font-bold whitespace-nowrap">{formatPrice(basePrice)} ₽</span>
                   </div>
                   {selectedFeatures.length > 0 && (
                     <>
-                      <div className="h-px bg-border" />
+                      <div className="h-px bg-border/20" />
                       {selectedFeatures.map((featureId) => {
                         const feature = features.find((f) => f.id === featureId);
                         if (!feature || !feature.availableFor.includes(projectType)) return null;
                         return (
-                          <div key={featureId} className="flex justify-between">
-                            <span className="text-muted-foreground truncate mr-2">{feature.label}</span>
-                            <span className="font-mono whitespace-nowrap">+{formatPrice(feature.price)} ₽</span>
+                          <div key={featureId} className="flex justify-between items-start gap-4">
+                            <span className="text-muted-foreground text-xs leading-relaxed">{feature.label}</span>
+                            <span className="font-mono text-xs text-purple-400 whitespace-nowrap">+{formatPrice(feature.price)} ₽</span>
                           </div>
                         );
                       })}
                     </>
                   )}
-                  <div className="h-px bg-border" />
-                  <div className="flex justify-between font-bold text-base">
-                    <span>Итого:</span>
-                    <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  <div className="h-px bg-gradient-to-r from-transparent via-border/40 to-transparent my-4" />
+                  <div className="flex justify-between items-center font-black text-lg">
+                    <span className="uppercase text-[10px] tracking-[0.2em] text-muted-foreground/60">Итого</span>
+                    <span className="bg-gradient-to-r from-cyan-400 via-white to-purple-400 bg-clip-text text-transparent font-mono">
                       {formatPrice(totalPrice)} ₽
                     </span>
                   </div>
@@ -826,66 +825,67 @@ export function CalculatorSection() {
               </div>
             </div>
 
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Ваше имя *</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Иван Иванов"
-                          {...field}
-                          className="bg-background/50"
-                          data-testid="input-order-name"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+            <div className="order-1 md:order-2">
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs font-bold uppercase tracking-wider">Ваше имя *</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Иван Иванов"
+                            {...field}
+                            className="bg-background/50 h-11 border-border/40 focus:border-cyan-500/50 transition-colors"
+                            data-testid="input-order-name"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px]" />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Телефон *</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder="+7 (999) 123-45-67"
-                          {...field}
-                          className="bg-background/50"
-                          data-testid="input-order-phone"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs font-bold uppercase tracking-wider">Телефон *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="tel"
+                            placeholder="+7 (999) 123-45-67"
+                            {...field}
+                            className="bg-background/50 h-11 border-border/40 focus:border-cyan-500/50 transition-colors"
+                            data-testid="input-order-phone"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px]" />
+                      </FormItem>
+                    )}
+                  />
 
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email *</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          placeholder="ivan@example.com"
-                          {...field}
-                          className="bg-background/50"
-                          data-testid="input-order-email"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs font-bold uppercase tracking-wider">Email *</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="ivan@example.com"
+                            {...field}
+                            className="bg-background/50 h-11 border-border/40 focus:border-cyan-500/50 transition-colors"
+                            data-testid="input-order-email"
+                          />
+                        </FormControl>
+                        <FormMessage className="text-[10px]" />
+                      </FormItem>
+                    )}
+                  />
 
                 <FormField
                   control={form.control}
