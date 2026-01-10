@@ -450,8 +450,12 @@ export function CalculatorSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="lg:col-span-2 space-y-6"
           >
-            <Card className="p-6 bg-background/50 border-border backdrop-blur-sm">
-              <h3 className="text-lg font-bold mb-4">Выберите основу и доп. опции</h3>
+            <Card className="p-6 bg-background/30 border-border/40 backdrop-blur-xl relative overflow-hidden group/main">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 pointer-events-none" />
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <span className="w-2 h-6 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-full" />
+                Выберите основу проекта
+              </h3>
               <RadioGroup
                 value={projectType}
                 onValueChange={(value) => handleProjectTypeChange(value as ProjectType)}
@@ -464,40 +468,53 @@ export function CalculatorSection() {
                   const isSelected = projectType === type.value;
 
                   return (
-                    <div key={type.value} className="space-y-0">
+                    <div key={type.value} className="relative">
                       <RadioGroupItem
                         value={type.value}
                         id={type.value}
                         className="peer sr-only"
-                        data-testid={`radio-input-${type.value}`}
                       />
                       <Label
                         htmlFor={type.value}
-                        className={`flex flex-col p-4 rounded-md border cursor-pointer transition-all hover-elevate ${
+                        className={`flex flex-col p-5 rounded-xl border transition-all duration-500 cursor-pointer relative overflow-hidden ${
                           isSelected
-                            ? "border-primary bg-primary/5"
-                            : "border-border bg-card/50"
-                        } ${isExpanded && isSelected ? "rounded-b-none border-b-0" : ""}`}
-                        data-testid={`radio-label-${type.value}`}
+                            ? "border-cyan-500/50 bg-cyan-500/10 shadow-[0_0_30px_rgba(56,189,248,0.1)]"
+                            : "border-border/30 bg-card/20 hover:border-border/60 hover:bg-card/30"
+                        }`}
                       >
-                        <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
-                              <span className="font-bold text-lg text-foreground">{type.label}</span>
-                              <span className="text-sm font-mono text-primary">
+                        {isSelected && (
+                          <motion.div
+                            layoutId="active-border"
+                            className="absolute inset-0 border-2 border-cyan-400/30 rounded-xl"
+                            initial={false}
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                          />
+                        )}
+                        <div className="flex flex-col sm:flex-row sm:items-start gap-4 relative z-10">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-3 mb-2 flex-wrap">
+                              <span className={`font-bold text-lg tracking-tight transition-colors ${isSelected ? "text-cyan-400" : "text-foreground"}`}>
+                                {type.label}
+                              </span>
+                              <div className="h-px w-8 bg-border/50 hidden sm:block" />
+                              <span className="text-sm font-mono font-bold text-purple-400">
                                 {formatPrice(type.basePrice)} ₽
                               </span>
                               {selectedCount > 0 && isSelected && (
-                                <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
-                                  +{selectedCount} опций
-                                </span>
+                                <motion.span 
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold uppercase tracking-wider border border-cyan-500/30"
+                                >
+                                  +{selectedCount} модуля
+                                </motion.span>
                               )}
                             </div>
-                            <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-                            <div className="flex flex-wrap gap-2">
+                            <p className="text-sm text-muted-foreground mb-4 leading-relaxed font-medium">{type.description}</p>
+                            <div className="flex flex-wrap gap-x-4 gap-y-2">
                               {type.includes.map((item, i) => (
-                                <span key={i} className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                                  <Check className="w-3 h-3 text-emerald-500" />
+                                <span key={i} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
+                                  <div className="w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_5px_rgba(56,189,248,0.8)]" />
                                   {item}
                                 </span>
                               ))}
@@ -509,12 +526,11 @@ export function CalculatorSection() {
                               variant="ghost"
                               size="sm"
                               onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleExpanded(type.value); }}
-                              className="shrink-0 gap-1"
-                              data-testid={`button-expand-${type.value}`}
+                              className="shrink-0 gap-2 bg-background/40 hover:bg-background/60 border border-border/40 rounded-lg h-10 px-4"
                             >
-                              <Plus className="w-4 h-4" />
-                              <span className="hidden sm:inline">Опции</span>
-                              <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                              <Plus className={`w-4 h-4 transition-transform duration-500 ${isExpanded ? "rotate-45" : ""}`} />
+                              <span className="text-xs font-bold uppercase tracking-widest">Опции</span>
+                              <ChevronDown className={`w-4 h-4 transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`} />
                             </Button>
                           )}
                         </div>
@@ -613,120 +629,152 @@ export function CalculatorSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 0, x: 20 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
+            className="lg:h-full flex flex-col gap-6"
           >
-            <Card className="p-6 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border-primary/20 sticky top-24">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-md bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center">
-                  <Calculator className="w-5 h-5 text-white" />
+            <Card className="p-8 bg-background/40 border-cyan-500/20 backdrop-blur-2xl sticky top-24 overflow-hidden group/price">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 pointer-events-none" />
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-cyan-500/20 rounded-full blur-[80px] group-hover/price:bg-cyan-500/30 transition-colors duration-700" />
+              
+              <div className="flex items-center gap-4 mb-8 relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+                  <Calculator className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold">Итого</h3>
+                <div>
+                  <h3 className="text-xl font-black tracking-tighter uppercase">Итоговый расчёт</h3>
+                  <div className="h-0.5 w-full bg-gradient-to-r from-cyan-400 to-transparent rounded-full mt-1" />
+                </div>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">{currentProjectType?.label}</span>
-                  <span className="font-mono">{formatPrice(basePrice)} ₽</span>
+              <div className="space-y-4 mb-8 relative z-10">
+                <div className="flex justify-between items-center px-2">
+                  <span className="text-sm font-bold text-muted-foreground uppercase tracking-widest">База: {currentProjectType?.label}</span>
+                  <span className="font-mono font-bold text-foreground">{formatPrice(basePrice)} ₽</span>
                 </div>
-                {selectedFeatures.length > 0 && (
-                  <>
-                    <div className="h-px bg-border" />
-                    {selectedFeatures.map((featureId) => {
+                
+                <div className="px-2 space-y-3">
+                  {selectedFeatures.length > 0 ? (
+                    selectedFeatures.map((featureId) => {
                       const feature = features.find((f) => f.id === featureId);
                       if (!feature || !feature.availableFor.includes(projectType)) return null;
                       return (
-                        <div key={featureId} className="flex justify-between text-sm">
-                          <span className="text-muted-foreground truncate mr-2">{feature.label}</span>
-                          <span className="font-mono whitespace-nowrap">+{formatPrice(feature.price)} ₽</span>
-                        </div>
+                        <motion.div 
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          key={featureId} 
+                          className="flex justify-between text-[13px] items-center"
+                        >
+                          <span className="text-muted-foreground/80 flex items-center gap-2">
+                            <div className="w-1 h-1 rounded-full bg-purple-400" />
+                            {feature.label}
+                          </span>
+                          <span className="font-mono text-purple-400">+{formatPrice(feature.price)} ₽</span>
+                        </motion.div>
                       );
-                    })}
-                  </>
-                )}
-                <div className="h-px bg-border" />
-                <div className="flex justify-between items-end pt-2">
-                  <span className="font-medium">Стоимость</span>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-                    {formatPrice(totalPrice)} ₽
-                  </span>
+                    })
+                  ) : (
+                    <p className="text-[12px] text-muted-foreground/40 italic px-1">Дополнительные модули не выбраны</p>
+                  )}
+                </div>
+
+                <div className="h-px bg-gradient-to-r from-transparent via-border/60 to-transparent my-6" />
+                
+                <div className="bg-background/40 p-5 rounded-2xl border border-white/5 shadow-inner">
+                  <div className="flex justify-between items-center mb-1">
+                    <span className="text-xs font-black uppercase tracking-[0.2em] text-cyan-400">Общая сумма</span>
+                    <div className="px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20 text-[10px] text-cyan-400 font-bold uppercase">Ready to start</div>
+                  </div>
+                  <div className="flex justify-between items-baseline pt-2">
+                    <span className="text-3xl font-black bg-gradient-to-r from-cyan-400 via-white to-purple-400 bg-clip-text text-transparent drop-shadow-sm">
+                      {formatPrice(totalPrice)}
+                    </span>
+                    <span className="text-sm font-bold text-foreground/60 ml-1">₽</span>
+                  </div>
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground mb-4">
-                * Окончательная стоимость определяется после обсуждения деталей проекта
-              </p>
-
-              <div className="space-y-3">
+              <div className="space-y-4 relative z-10">
                 <Button
                   onClick={() => setOpenOrderModal(true)}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0"
-                  data-testid="button-send-order"
+                  className="w-full h-14 bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold uppercase tracking-widest border-0 shadow-[0_0_25px_rgba(56,189,248,0.25)] hover:shadow-[0_0_35px_rgba(56,189,248,0.4)] transition-all duration-500 group/btn"
                 >
-                  Отправить заявку
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <span className="flex items-center gap-2">
+                    Получить консультацию
+                    <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                  </span>
                 </Button>
+                
                 <a href="/order" className="block">
                   <Button
-                    className="w-full bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0"
-                    data-testid="button-calculator-cta"
+                    variant="outline"
+                    className="w-full h-12 border-cyan-500/30 hover:border-cyan-500/60 bg-transparent text-xs font-black uppercase tracking-[0.3em] hover:bg-cyan-500/5 transition-all duration-500"
                   >
-                    Заказать сайт
+                    Заказать проект
                   </Button>
                 </a>
               </div>
+
+              <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+                <div className="flex gap-4">
+                  <SiTelegram className="w-4 h-4" />
+                  <SiVk className="w-4 h-4" />
+                </div>
+                <span className="text-[10px] font-mono tracking-tighter uppercase">Neural Engine v2.0</span>
+              </div>
             </Card>
 
-            <div className="mt-6 p-6 rounded-md bg-card/50 border border-border backdrop-blur-sm">
-              <h4 className="font-bold mb-4 text-base">Свяжитесь с нами</h4>
+            <div className="p-6 rounded-2xl bg-card/30 border border-border/40 backdrop-blur-xl group/contacts">
+              <h4 className="font-bold mb-5 text-base flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-ping" />
+                Свяжитесь с нами
+              </h4>
               <div className="space-y-4 mb-6">
-                <div className="flex items-center gap-3" data-testid="contact-info-email">
-                  <div className="w-10 h-10 rounded-md bg-card border border-border flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors group/item">
+                  <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0 group-hover/item:bg-cyan-500/20 transition-colors">
+                    <Mail className="w-4 h-4 text-cyan-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground">Email</div>
-                    <a href="mailto:mpwebstudio1@gmail.com" className="text-sm text-foreground font-medium hover:text-primary transition-colors">
+                    <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Email</div>
+                    <a href="mailto:mpwebstudio1@gmail.com" className="text-sm text-foreground font-medium hover:text-cyan-400 transition-colors">
                       mpwebstudio1@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3" data-testid="contact-info-phone">
-                  <div className="w-10 h-10 rounded-md bg-card border border-border flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-4 h-4 text-primary" />
+                <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors group/item">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center flex-shrink-0 group-hover/item:bg-purple-500/20 transition-colors">
+                    <Phone className="w-4 h-4 text-purple-400" />
                   </div>
                   <div>
-                    <div className="text-xs text-muted-foreground">Телефон</div>
-                    <a href="tel:+79531814136" className="text-sm text-foreground font-medium hover:text-primary transition-colors">
+                    <div className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Телефон</div>
+                    <a href="tel:+79531814136" className="text-sm text-foreground font-medium hover:text-purple-400 transition-colors">
                       +7 (953) 181-41-36
                     </a>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-md bg-background/50 border border-border">
-                <h5 className="font-bold mb-3 text-sm">Наши сообщества</h5>
-                <div className="flex gap-2">
+              <div className="p-4 rounded-xl bg-background/40 border border-white/5">
+                <h5 className="font-bold mb-4 text-xs uppercase tracking-widest text-muted-foreground/70">Наши сообщества</h5>
+                <div className="grid grid-cols-2 gap-2">
                   <a href="https://t.me/MPWebStudio_ru" target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
-                      className="gap-2 px-3 h-10"
-                      data-testid="button-contact-telegram"
+                      className="w-full gap-2 h-10 border-cyan-500/20 hover:border-cyan-500/50 text-xs px-2"
                     >
-                      <SiTelegram className="w-4 h-4" />
-                      <span className="text-xs">Telegram</span>
+                      <SiTelegram className="w-4 h-4 text-cyan-400" />
+                      <span>Telegram</span>
                     </Button>
                   </a>
                   <a href="https://vk.com/mp.webstudio" target="_blank" rel="noopener noreferrer">
                     <Button
                       variant="outline"
-                      className="gap-2 px-3 h-10"
-                      data-testid="button-contact-vk"
+                      className="w-full gap-2 h-10 border-purple-500/20 hover:border-purple-500/50 text-xs px-2"
                     >
-                      <SiVk className="w-4 h-4" />
-                      <span className="text-xs">ВКонтакте</span>
+                      <SiVk className="w-4 h-4 text-purple-400" />
+                      <span>ВКонтакте</span>
                     </Button>
                   </a>
                 </div>
