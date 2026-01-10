@@ -201,28 +201,38 @@ export function ProcessSection() {
         <div className="relative">
           <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-cyan-500/50 via-purple-500/50 to-cyan-500/20" />
 
-          <div className="space-y-6">
+          <div className="space-y-12">
             {steps.map((step, index) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.4 + 0.15 * index }}
-                className="relative pl-12 md:pl-16"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: 0.2 * index }}
+                className="relative pl-12 md:pl-20 group/step"
               >
-                <div className="absolute left-0 md:left-2 top-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                  <step.icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                {/* Node-like connector point */}
+                <div className="absolute left-[-5px] md:left-[-5px] top-5 w-[11px] h-[11px] rounded-full bg-[#0a0a0a] border-2 border-cyan-500 z-20 group-hover/step:scale-150 transition-transform duration-300 shadow-[0_0_10px_rgba(34,211,238,0.5)]" />
+                
+                <div className="absolute left-4 md:left-6 top-0 w-12 h-12 md:w-16 md:h-16 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-xl flex items-center justify-center shadow-2xl group-hover/step:border-cyan-500/50 group-hover/step:bg-white/[0.08] transition-all duration-500 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10 opacity-0 group-hover/step:opacity-100 transition-opacity duration-500" />
+                  <step.icon className="w-6 h-6 md:w-8 md:h-8 text-cyan-400 group-hover/step:scale-110 group-hover/step:text-white transition-all duration-500 relative z-10" />
                 </div>
                 
-                <div className="pb-2">
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-xs font-mono text-primary/60">{step.number}</span>
-                    <h3 className="text-lg font-bold text-foreground" data-testid={`process-step-${index + 1}`}>
+                <div className="pt-2 md:pt-4">
+                  <div className="flex items-center gap-4 mb-2">
+                    <span className="text-xs font-mono text-cyan-500/40 bg-cyan-500/5 px-2 py-1 rounded border border-cyan-500/10 group-hover/step:text-cyan-400 transition-colors">STEP_{step.number}</span>
+                    <h3 className="text-xl md:text-3xl font-bold text-foreground/90 group-hover/step:text-white transition-colors tracking-tight">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="text-muted-foreground text-sm">{step.description}</p>
+                  <p className="text-muted-foreground/70 text-sm md:text-lg leading-relaxed max-w-2xl group-hover/step:text-muted-foreground transition-colors">
+                    {step.description}
+                  </p>
                 </div>
+
+                {/* Decorative glow effect */}
+                <div className="absolute -inset-x-4 -inset-y-2 bg-gradient-to-r from-cyan-500/5 to-transparent opacity-0 group-hover/step:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
               </motion.div>
             ))}
           </div>
