@@ -1,9 +1,8 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
-import { Globe, ShoppingCart, Gauge, Palette, Code, FileText, Rocket } from "lucide-react";
+import { Globe, ShoppingCart, Gauge, Palette, Code, FileText, Rocket, Zap, Layout, ShieldCheck } from "lucide-react";
 import { ParticleBackground } from "./ParticleBackground";
-
 import { SectionBadge } from "./SectionBadge";
 
 interface FlyingLetterProps {
@@ -176,6 +175,14 @@ const services = [
 export function ServicesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [flippedIndexes, setFlippedIndexes] = useState<Record<number, boolean>>({});
+
+  const toggleFlip = (index: number) => {
+    setFlippedIndexes(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
 
   const line1 = "Купить сайт ";
   const line2 = "под ключ";
@@ -225,18 +232,14 @@ export function ServicesSection() {
 
         <div className="grid grid-cols-2 md:grid-cols-12 gap-3 md:gap-6">
           {services.map((service, index) => {
-            // Mapping services to the same layout as AboutSection
-            // Box 1 (Service 0 & 1 combined into a wide block or kept separate)
-            // Let's mirror the 8-4 / 4-4 / 8 layout
-            
             let gridClasses = "";
-            if (index === 0) gridClasses = "col-span-2 md:col-span-8"; // Wide
-            else if (index === 1) gridClasses = "col-span-1 md:col-span-4"; // Square
-            else if (index === 2) gridClasses = "col-span-1 md:col-span-4"; // Square
-            else if (index === 3) gridClasses = "col-span-2 md:col-span-8"; // Wide
-            else if (index === 4) gridClasses = "col-span-1 md:col-span-4"; // Square
-            else if (index === 5) gridClasses = "col-span-1 md:col-span-4"; // Square
-            else if (index === 6) gridClasses = "col-span-2 md:col-span-4"; // Square
+            if (index === 0) gridClasses = "col-span-2 md:col-span-8";
+            else if (index === 1) gridClasses = "col-span-1 md:col-span-4";
+            else if (index === 2) gridClasses = "col-span-1 md:col-span-4";
+            else if (index === 3) gridClasses = "col-span-2 md:col-span-8";
+            else if (index === 4) gridClasses = "col-span-1 md:col-span-4";
+            else if (index === 5) gridClasses = "col-span-1 md:col-span-4";
+            else if (index === 6) gridClasses = "col-span-2 md:col-span-4";
             
             return (
               <motion.div
@@ -244,36 +247,50 @@ export function ServicesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                className={`${gridClasses} group relative`}
+                className={`${gridClasses} group/flip relative h-[180px] md:h-[280px]`}
+                style={{ perspective: "1200px" }}
               >
-                <Card
-                  className="relative overflow-hidden h-full min-h-[120px] md:min-h-[220px] p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md transition-all duration-500 rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col no-default-hover-elevate"
-                  data-testid={`card-service-${index}`}
+                <div
+                  className="relative w-full h-full transition-transform duration-700 ease-in-out"
+                  style={{ 
+                    transformStyle: "preserve-3d",
+                    transform: flippedIndexes[index] ? "rotateY(180deg)" : "rotateY(0deg)"
+                  }}
+                  onMouseEnter={() => toggleFlip(index)}
+                  onMouseLeave={() => toggleFlip(index)}
+                  onClick={() => toggleFlip(index)}
                 >
-                  {/* Subtle gradient background on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
-                  
-                  {/* Icon Container */}
-                  <div className="flex items-start justify-between mb-3 md:mb-6">
-                    <div className={`relative w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                      <service.icon className="w-4 h-4 md:w-7 md:h-7 text-white" />
-                      <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
+                  {/* Front Side */}
+                  <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col items-center justify-center text-center overflow-hidden">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover/flip:opacity-[0.05] transition-opacity duration-500`} />
+                    <div className="relative z-10 flex flex-col items-center">
+                      <div className={`relative w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-[1.5rem] bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover/flip:scale-110 transition-transform duration-500 mb-3 md:mb-6`}>
+                        <service.icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
+                      </div>
+                      <h3 className="text-sm md:text-2xl font-bold text-foreground/95 group-hover/flip:text-white transition-colors leading-tight">
+                        {service.title}
+                      </h3>
+                      <div className="mt-3 text-[8px] md:text-[10px] text-cyan-400/50 uppercase tracking-widest md:hidden font-medium">
+                        Нажмите для описания
+                      </div>
                     </div>
-                  </div>
+                  </Card>
 
-                  <div className="mt-auto">
-                    <h3 className="relative font-bold text-foreground/90 mb-1 md:mb-2 group-hover:text-white transition-colors text-sm sm:text-base md:text-2xl leading-tight">
-                      {service.title}
-                    </h3>
-                    
-                    <p className="relative text-muted-foreground/70 leading-tight md:leading-relaxed group-hover:text-muted-foreground transition-colors text-[10px] sm:text-xs md:text-base line-clamp-2 sm:line-clamp-3 md:line-clamp-none">
-                      {service.description}
-                    </p>
-                  </div>
-
-                  {/* Decorative background element */}
-                  <div className={`absolute -right-10 -bottom-10 w-32 h-32 bg-gradient-to-br ${service.color} opacity-[0.02] group-hover:opacity-[0.08] rounded-full blur-3xl transition-opacity duration-700`} />
-                </Card>
+                  {/* Back Side */}
+                  <Card 
+                    className="absolute inset-0 p-4 md:p-8 bg-white/5 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20 overflow-hidden"
+                    style={{ transform: "rotateY(180deg)" }}
+                  >
+                    <div className="relative z-10 text-center md:text-left">
+                      <h4 className="text-[10px] md:text-sm font-semibold mb-2 uppercase tracking-wider text-cyan-400">
+                        {service.title}
+                      </h4>
+                      <p className="text-[10px] md:text-lg text-muted-foreground leading-snug md:leading-relaxed">
+                        {service.description}
+                      </p>
+                    </div>
+                  </Card>
+                </div>
               </motion.div>
             );
           })}
