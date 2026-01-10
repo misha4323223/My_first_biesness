@@ -389,20 +389,7 @@ function Nebulae() {
           loop
           muted
           playsInline
-          onTimeUpdate={(e) => {
-            const video = e.currentTarget;
-            const buffer = 3.0;
-            if (video.duration - video.currentTime < buffer) {
-              const progress = (video.duration - video.currentTime) / buffer;
-              video.style.opacity = String(0.6 * Math.pow(progress, 2));
-            } else if (video.currentTime < buffer) {
-              const progress = video.currentTime / buffer;
-              video.style.opacity = String(0.6 * Math.pow(progress, 2));
-            } else {
-              video.style.opacity = "0.6";
-            }
-          }}
-          className="w-full h-full object-cover opacity-60 transition-opacity duration-1000 ease-in-out"
+          className="w-full h-full object-cover opacity-60"
           style={{ filter: "brightness(0.8) contrast(1.1)" }}
         />
         {/* Monolithic blending overlays */}
