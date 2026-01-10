@@ -246,7 +246,7 @@ export function HeroSection() {
             <div className="relative">
               {/* Top line */}
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-72 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
-              <span className="neural-interface text-xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
+              <span className="neural-interface text-lg sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
                 <AnimatedText text={line1} startIndex={0} />
               </span>
               {/* Middle line */}
@@ -254,7 +254,7 @@ export function HeroSection() {
             </div>
             
             <div className="relative mt-2">
-              <span className="neural-interface text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
+              <span className="neural-interface text-xl sm:text-4xl md:text-5xl lg:text-7xl font-bold px-6 py-4">
                 <AnimatedText text={line2} startIndex={line1.length} />
               </span>
               {/* Bottom line */}
