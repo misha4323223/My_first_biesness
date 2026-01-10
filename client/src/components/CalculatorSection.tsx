@@ -715,14 +715,6 @@ export function CalculatorSection() {
                   </Button>
                 </a>
               </div>
-
-              <div className="mt-6 pt-6 border-t border-white/5 flex items-center justify-between opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-                <div className="flex gap-4">
-                  <SiTelegram className="w-4 h-4" />
-                  <SiVk className="w-4 h-4" />
-                </div>
-                <span className="text-[10px] font-mono tracking-tighter uppercase">Neural Engine v2.0</span>
-              </div>
             </Card>
 
             <div className="p-6 rounded-2xl bg-card/30 border border-border/40 backdrop-blur-xl group/contacts">
