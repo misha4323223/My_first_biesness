@@ -9,7 +9,7 @@ import { ParticleBackground } from "./ParticleBackground";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 import { SectionBadge } from "./SectionBadge";
-import nebulaVideo from "@assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4";
+import nebulaVideo from "@assets/generated_videos/stationary_deep_space_galaxy_nebula.mp4";
 
 interface FlyingLetterProps {
   letter: string;
