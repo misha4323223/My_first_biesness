@@ -386,7 +386,7 @@ function Nebulae() {
         <img
           src={portfolioBgImage}
           alt=""
-          className="w-full h-full object-cover max-[640px]:scale-[0.7] max-[640px]:translate-y-[-10%] opacity-80 brightness-[0.9] contrast-[1.1]"
+          className="w-full h-full object-cover opacity-80 brightness-[0.9] contrast-[1.1]"
         />
         {/* Monolithic Overlays */}
         <div className="absolute inset-0 bg-gradient-radial from-transparent to-[#0a0a0a]/60" />
