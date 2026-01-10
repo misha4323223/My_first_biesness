@@ -261,13 +261,17 @@ export function ServicesSection() {
                   onClick={() => toggleFlip(index)}
                 >
                   {/* Front Side */}
-                  <Card className="absolute inset-0 p-4 md:p-8 bg-white/5 border-white/10 backdrop-blur-md backface-hidden rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col items-center justify-center text-center overflow-hidden">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover/flip:opacity-[0.05] transition-opacity duration-500`} />
+                  <Card className="absolute inset-0 p-4 md:p-8 bg-[#0a0a0a]/80 border-white/10 backdrop-blur-md backface-hidden rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col items-center justify-center text-center overflow-hidden group/card">
+                    {/* Variant 2: Asteroid Belt / Polygonal Depth (Static) */}
+                    <div className="absolute inset-0 opacity-15 pointer-events-none overflow-hidden">
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,transparent_40%,rgba(56,189,248,0.1)_50%,transparent_60%)] bg-[length:80px_80px]" />
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(168,85,247,0.05)_0%,transparent_50%)]" />
+                    </div>
                     <div className="relative z-10 flex flex-col items-center">
-                      <div className={`relative w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-[1.5rem] bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover/flip:scale-110 transition-transform duration-500 mb-3 md:mb-6`}>
+                      <div className={`relative w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-[1.5rem] bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 transition-transform duration-500 mb-3 md:mb-6`}>
                         <service.icon className="w-5 h-5 md:w-8 md:h-8 text-white" />
                       </div>
-                      <h3 className="text-sm md:text-2xl font-bold text-foreground/95 group-hover/flip:text-white transition-colors leading-tight">
+                      <h3 className="text-sm md:text-2xl font-bold text-foreground/95 transition-colors leading-tight">
                         {service.title}
                       </h3>
                       <div className="mt-3 text-[8px] md:text-[10px] text-cyan-400/50 uppercase tracking-widest md:hidden font-medium">
@@ -278,7 +282,7 @@ export function ServicesSection() {
 
                   {/* Back Side */}
                   <Card 
-                    className="absolute inset-0 p-4 md:p-8 bg-white/5 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20 overflow-hidden"
+                    className="absolute inset-0 p-4 md:p-8 bg-[#0a0a0a]/80 border-cyan-400/20 backdrop-blur-md backface-hidden rounded-[1.2rem] md:rounded-[2.5rem] flex flex-col justify-center bg-gradient-to-br from-[#0a0a0a] to-cyan-950/20 overflow-hidden"
                     style={{ transform: "rotateY(180deg)" }}
                   >
                     <div className="relative z-10 text-center md:text-left">
