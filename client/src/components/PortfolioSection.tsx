@@ -878,11 +878,11 @@ export function PortfolioSection() {
       <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
         <div className="text-center mb-8 max-w-7xl mx-auto px-6">
           <SectionBadge>Портфолио</SectionBadge>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-row items-center justify-center gap-2 whitespace-nowrap">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-2">
             <span className="neural-interface py-1">
               <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             </span>
-            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+            <span className="neural-interface font-bold py-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient text-center">
               <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
             </span>
           </h2>
@@ -890,7 +890,7 @@ export function PortfolioSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base px-4 mt-4"
           >
             В нашей веб-студии вы можете заказать сайт под ключ или купить готовое решение. 
             Каждая звезда — это демо концепция: от интернет-магазинов и лендингов до сложных корпоративных систем. 
