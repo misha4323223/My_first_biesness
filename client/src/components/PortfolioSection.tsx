@@ -379,22 +379,21 @@ const connections: [number, number][] = [
 
 function Nebulae() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none bg-black">
       {/* Galaxy Nebula Video Background */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-80 scale-105"
-          style={{ filter: "brightness(0.8) contrast(1.1)" }}
+          className="w-full h-full object-cover opacity-100"
+          style={{ filter: "brightness(0.9) contrast(1.1)" }}
         >
           <source src="/attached_assets/generated_videos/seamless_deep_space_galaxy_nebula_loop.mp4" type="video/mp4" />
         </video>
-        {/* Monolithic blending overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a] opacity-60" />
-        <div className="absolute inset-0 bg-[#0a0a0a]/20" />
+        {/* Subtle blending to ensure seamless loop and edges */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black opacity-40" />
       </div>
 
       <div 
@@ -871,20 +870,16 @@ export function PortfolioSection() {
   const currentPositions = isMobile ? mobileStarPositions : starPositions;
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-transparent" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
-      <div className="absolute inset-0 z-[-1]">
+    <section id="portfolio" className="relative overflow-hidden bg-[#0a0a0a]" style={{ height: isMobile ? "auto" : "100vh", minHeight: isMobile ? "750px" : "800px" }}>
+      <div className="absolute inset-0 z-0">
         <Nebulae />
       </div>
 
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(56,189,248,0.05),transparent_70%)]" />
-      </div>
-
-      <div className="absolute inset-0 z-[-1] opacity-30">
+      <div className="absolute inset-0 z-1 pointer-events-none">
         <ParticleBackground />
       </div>
 
-      <div className="absolute inset-0 opacity-[0.03]">
+      <div className="absolute inset-0 z-2 opacity-[0.03] pointer-events-none">
         <div
           className="w-full h-full"
           style={{
@@ -895,8 +890,8 @@ export function PortfolioSection() {
         />
       </div>
 
-      <div className="absolute top-1/4 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-float-slow" />
+      <div className="absolute top-1/4 left-10 w-72 h-72 bg-purple-500/5 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute bottom-1/4 right-10 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl animate-float-slow pointer-events-none" />
 
       <div className="relative z-10 h-full flex flex-col pt-12" ref={ref}>
         <div className="text-center mb-8 max-w-7xl mx-auto px-6">
