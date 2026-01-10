@@ -245,12 +245,12 @@ export function HeroSection() {
           <h1 className="flex flex-col items-center gap-4 text-center">
             <div className="relative">
               {/* Top line */}
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.4)]" />
               <span className="neural-interface text-2xl sm:text-3xl md:text-4xl lg:text-5xl px-4 py-2">
                 <AnimatedText text={line1} startIndex={0} />
               </span>
               {/* Middle line */}
-              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-72 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
             </div>
             
             <div className="relative mt-2">
@@ -258,7 +258,7 @@ export function HeroSection() {
                 <AnimatedText text={line2} startIndex={line1.length} />
               </span>
               {/* Bottom line */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.6)]" />
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[85%] max-w-2xl h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent shadow-[0_0_10px_rgba(34,211,238,0.6)]" />
             </div>
           </h1>
           
