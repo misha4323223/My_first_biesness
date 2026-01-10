@@ -223,41 +223,69 @@ export function ServicesSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 px-4">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-            >
-              <Card
-                className="group relative overflow-hidden h-full p-4 border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-500 rounded-2xl flex flex-col items-center text-center no-default-hover-elevate"
-                data-testid={`card-service-${index}`}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 auto-rows-[180px]">
+          {services.map((service, index) => {
+            // Bento grid layout logic: some cards are wider or taller
+            const isLarge = index === 2 || index === 3; // Корпоративные сайты и Магазины
+            const isWide = index === 0 || index === 1; // Визитка и Лендинг (на десктопе)
+
+            return (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
+                className={`${
+                  index === 2 ? "lg:col-span-2 lg:row-span-2" : 
+                  index === 3 ? "lg:col-span-2 lg:row-span-2" : 
+                  "lg:col-span-1 lg:row-span-1"
+                } ${index === 0 || index === 1 ? "sm:col-span-1" : ""}`}
               >
-                {/* Subtle gradient background on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
-                
-                {/* Minimalist Icon Container */}
-                <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center mb-4 shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                  <service.icon className="w-6 h-6 text-white" />
-                  {/* Icon Glow */}
-                  <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
-                </div>
+                <Card
+                  className="group relative overflow-hidden h-full p-6 border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-500 rounded-3xl flex flex-col no-default-hover-elevate"
+                  data-testid={`card-service-${index}`}
+                >
+                  {/* Subtle gradient background on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
+                  
+                  {/* Icon and Title Container */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`relative w-12 h-12 rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
+                      <service.icon className="w-6 h-6 text-white" />
+                      <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
+                    </div>
+                    
+                    {/* Decorative element for large cards */}
+                    {(index === 2 || index === 3) && (
+                      <div className="hidden lg:block">
+                        <div className={`w-24 h-24 rounded-full bg-gradient-to-br ${service.color} opacity-[0.03] blur-2xl group-hover:opacity-[0.08] transition-opacity duration-700`} />
+                      </div>
+                    )}
+                  </div>
 
-                <h3 className="relative text-sm md:text-base font-bold text-foreground/90 mb-2 group-hover:text-white transition-colors">
-                  {service.title}
-                </h3>
-                
-                <p className="relative text-[11px] md:text-xs text-muted-foreground/70 leading-relaxed group-hover:text-muted-foreground transition-colors">
-                  {service.description}
-                </p>
+                  <div className="mt-auto">
+                    <h3 className={`relative font-bold text-foreground/90 mb-2 group-hover:text-white transition-colors ${
+                      index === 2 || index === 3 ? "text-xl md:text-2xl" : "text-base md:text-lg"
+                    }`}>
+                      {service.title}
+                    </h3>
+                    
+                    <p className={`relative text-muted-foreground/70 leading-relaxed group-hover:text-muted-foreground transition-colors ${
+                      index === 2 || index === 3 ? "text-sm md:text-base max-w-md" : "text-xs md:text-sm"
+                    }`}>
+                      {service.description}
+                    </p>
+                  </div>
 
-                {/* Bottom Accent Line */}
-                <div className={`absolute bottom-0 left-0 h-[2px] bg-gradient-to-r ${service.color} w-0 group-hover:w-full transition-all duration-500`} />
-              </Card>
-            </motion.div>
-          ))}
+                  {/* Corner Accent */}
+                  <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${service.color} opacity-0 blur-3xl group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
+                  
+                  {/* Bottom Accent Line */}
+                  <div className={`absolute bottom-0 left-0 h-[3px] bg-gradient-to-r ${service.color} w-0 group-hover:w-full transition-all duration-500`} />
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
