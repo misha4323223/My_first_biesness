@@ -223,7 +223,7 @@ export function ServicesSection() {
           </motion.p>
         </div>
 
-        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-4 px-2 md:px-4 md:auto-rows-[180px] flex flex-wrap justify-center gap-y-8 gap-x-2 pt-8 md:pt-0">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-4 px-2 md:px-4 md:auto-rows-[180px] flex flex-wrap justify-center gap-y-2 gap-x-1 pt-8 md:pt-0">
           {services.map((service, index) => {
             return (
               <motion.div
@@ -235,8 +235,8 @@ export function ServicesSection() {
                   relative
                   md:col-span-1 md:row-span-1
                   ${index === 2 || index === 3 ? "md:col-span-2 md:row-span-2" : ""}
-                  w-[140px] h-[160px] md:w-full md:h-full
-                  ${index % 2 === 1 ? "mt-10 md:mt-0" : ""}
+                  w-[125px] h-[145px] md:w-full md:h-full
+                  ${index % 2 === 1 ? "mt-6 md:mt-0" : ""}
                 `}
               >
                 <Card
