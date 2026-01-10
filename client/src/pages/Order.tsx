@@ -492,12 +492,16 @@ export default function Order() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-2 space-y-6"
             >
-              <Card className="p-6 bg-background/50 border-border backdrop-blur-sm">
-                <h3 className="text-lg font-semibold mb-4">1. Выберите основу и доп. опции</h3>
+              <Card className="p-6 bg-background/30 border-border/40 backdrop-blur-xl relative overflow-hidden group/main">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-purple-500/5 pointer-events-none" />
+                <h3 className="text-xl font-bold mb-6 flex items-center gap-2 relative z-10">
+                  <span className="w-2 h-6 bg-gradient-to-b from-cyan-400 to-purple-400 rounded-full" />
+                  1. Выберите основу проекта
+                </h3>
                 <RadioGroup
                   value={selectedType}
                   onValueChange={(value) => handleProjectTypeChange(value as ProjectType)}
-                  className="space-y-3"
+                  className="space-y-4"
                 >
                   {projectTypes.map((type) => {
                     const typeFeatures = getAvailableFeatures(type.value);
@@ -506,39 +510,53 @@ export default function Order() {
                     const isSelected = selectedType === type.value;
 
                     return (
-                      <div key={type.value} className="space-y-0">
+                      <div key={type.value} className="relative">
                         <RadioGroupItem
                           value={type.value}
                           id={`order-${type.value}`}
                           className="peer sr-only"
-                          data-testid={`radio-${type.value}`}
                         />
                         <Label
                           htmlFor={`order-${type.value}`}
-                          className={`flex flex-col p-4 rounded-md border cursor-pointer transition-all hover-elevate ${
+                          className={`flex flex-col p-5 rounded-xl border transition-all duration-500 cursor-pointer relative overflow-hidden ${
                             isSelected
-                              ? "border-primary bg-primary/5"
-                              : "border-border bg-card/50"
-                          } ${isExpanded && isSelected ? "rounded-b-none border-b-0" : ""}`}
+                              ? "border-cyan-500/50 bg-cyan-500/10 shadow-[0_0_30px_rgba(56,189,248,0.1)]"
+                              : "border-border/30 bg-card/20 hover:border-border/60 hover:bg-card/30"
+                          }`}
                         >
-                          <div className="flex flex-col sm:flex-row sm:items-start gap-3">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <span className="font-bold text-foreground">{type.label}</span>
-                                <span className="text-sm font-mono text-primary">
+                          {isSelected && (
+                            <motion.div
+                              layoutId="active-border"
+                              className="absolute inset-0 border-2 border-cyan-400/30 rounded-xl"
+                              initial={false}
+                              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                            />
+                          )}
+                          <div className="flex flex-col sm:flex-row sm:items-start gap-4 relative z-10">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-3 mb-2 flex-wrap">
+                                <span className={`font-bold text-lg tracking-tight transition-colors ${isSelected ? "text-cyan-400" : "text-foreground"}`}>
+                                  {type.label}
+                                </span>
+                                <div className="h-px w-8 bg-border/50 hidden sm:block" />
+                                <span className="text-sm font-mono font-bold text-purple-400 whitespace-nowrap">
                                   {formatPrice(type.basePrice)} ₽
                                 </span>
                                 {selectedCount > 0 && isSelected && (
-                                  <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary font-medium">
-                                    +{selectedCount} опций
-                                  </span>
+                                  <motion.span 
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold uppercase tracking-wider border border-cyan-500/30"
+                                  >
+                                    +{selectedCount} модуля
+                                  </motion.span>
                                 )}
                               </div>
-                              <p className="text-sm text-muted-foreground mb-2">{type.description}</p>
-                              <div className="flex flex-wrap gap-x-3 gap-y-1">
+                              <p className="text-sm text-muted-foreground mb-4 leading-relaxed font-medium">{type.description}</p>
+                              <div className="flex flex-wrap gap-x-4 gap-y-2">
                                 {type.includes.map((item, i) => (
-                                  <span key={i} className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-                                    <Check className="w-3 h-3 text-emerald-500" />
+                                  <span key={i} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
+                                    <div className="w-1 h-1 rounded-full bg-cyan-400 shadow-[0_0_5px_rgba(56,189,248,0.8)]" />
                                     {item}
                                   </span>
                                 ))}
@@ -550,12 +568,11 @@ export default function Order() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleExpanded(type.value); }}
-                                className="shrink-0 gap-1"
-                                data-testid={`button-expand-${type.value}`}
+                                className="shrink-0 gap-2 bg-background/40 hover:bg-background/60 border border-border/40 rounded-lg h-10 px-4"
                               >
-                                <Plus className="w-4 h-4" />
-                                <span className="hidden sm:inline">Опции</span>
-                                <ChevronDown className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`} />
+                                <Plus className={`w-4 h-4 transition-transform duration-500 ${isExpanded ? "rotate-45" : ""}`} />
+                                <span className="text-xs font-bold uppercase tracking-widest">Опции</span>
+                                <ChevronDown className={`w-4 h-4 transition-transform duration-500 ${isExpanded ? "rotate-180" : ""}`} />
                               </Button>
                             )}
                           </div>
@@ -567,43 +584,77 @@ export default function Order() {
                               initial={{ height: 0, opacity: 0 }}
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
-                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                              transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                               className="overflow-hidden"
                             >
-                              <div className="p-4 bg-primary/5 border border-primary border-t-0 rounded-b-md">
-                                <p className="text-sm text-muted-foreground mb-3">
-                                  Доп. опции для «{type.label}»:
+                              <div className="p-4 bg-primary/[0.03] border border-primary/20 border-t-0 rounded-b-xl">
+                                <p className="text-sm text-muted-foreground mb-5 font-medium flex items-center gap-2 px-1">
+                                  <Plus className="w-4 h-4 text-primary animate-pulse" />
+                                  <span className="tracking-tight">Дополнительные модули и функции:</span>
                                 </p>
-                                <div className="grid sm:grid-cols-2 gap-2">
-                                  {typeFeatures.map((feature) => (
-                                    <div
-                                      key={feature.id}
-                                      className={`flex items-start gap-3 p-3 rounded-md border cursor-pointer transition-all ${
-                                        selectedFeatures.includes(feature.id)
-                                          ? "border-primary bg-background/80"
-                                          : "border-border/50 bg-background/40"
-                                      }`}
-                                      onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
-                                      data-testid={`feature-${feature.id}`}
-                                    >
-                                      <Checkbox
-                                        checked={selectedFeatures.includes(feature.id)}
-                                        onCheckedChange={() => {}}
-                                        className="mt-0.5"
-                                      />
-                                      <div className="flex-1 min-w-0">
-                                        <div className="flex items-center justify-between gap-2">
-                                          <span className="text-xs font-medium text-foreground">{feature.label}</span>
-                                          <span className="text-xs font-mono text-primary whitespace-nowrap">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                  {typeFeatures.map((feature, idx) => {
+                                    const isFeatureSelected = selectedFeatures.includes(feature.id);
+                                    return (
+                                      <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: idx * 0.05 }}
+                                        key={feature.id}
+                                        onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
+                                        className={`group relative p-5 rounded-xl border transition-all duration-300 cursor-pointer hover-elevate overflow-visible select-none ${
+                                          isFeatureSelected
+                                            ? "border-primary bg-primary/10 shadow-[0_0_25px_rgba(56,189,248,0.15)] ring-1 ring-primary/20"
+                                            : "border-border/40 bg-card/40 hover:border-primary/40 hover:bg-card/60"
+                                        }`}
+                                      >
+                                        <div className="flex items-start justify-between gap-4 mb-3">
+                                          <div className="flex-1 min-w-0">
+                                            <span className={`text-sm font-bold block truncate transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>
+                                              {feature.label}
+                                            </span>
+                                            {feature.description && (
+                                              <p className="text-[12px] text-muted-foreground leading-relaxed mt-1.5 line-clamp-2 font-medium">
+                                                {feature.description}
+                                              </p>
+                                            )}
+                                          </div>
+                                          <div className={`shrink-0 w-6 h-6 rounded-lg border flex items-center justify-center transition-all duration-500 ${
+                                            isFeatureSelected 
+                                              ? "bg-primary border-primary rotate-0 scale-110 shadow-[0_0_15px_rgba(56,189,248,0.6)]" 
+                                              : "border-muted-foreground/30 group-hover:border-primary/50 -rotate-12 group-hover:rotate-0"
+                                          }`}>
+                                            <AnimatePresence mode="wait">
+                                              {isFeatureSelected ? (
+                                                <motion.div
+                                                  initial={{ scale: 0, rotate: -45 }}
+                                                  animate={{ scale: 1, rotate: 0 }}
+                                                  exit={{ scale: 0 }}
+                                                  key="check"
+                                                >
+                                                  <Check className="w-3.5 h-3.5 text-primary-foreground stroke-[3]" />
+                                                </motion.div>
+                                              ) : (
+                                                <motion.div
+                                                  initial={{ opacity: 0 }}
+                                                  animate={{ opacity: 1 }}
+                                                  key="plus"
+                                                >
+                                                  <Plus className="w-3 h-3 text-muted-foreground/50 group-hover:text-primary/70" />
+                                                </motion.div>
+                                              )}
+                                            </AnimatePresence>
+                                          </div>
+                                        </div>
+                                        <div className={`flex items-center justify-between mt-3 pt-3 border-t transition-colors duration-300 ${isFeatureSelected ? "border-primary/20" : "border-border/10"}`}>
+                                          <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60 font-bold">Стоимость модуля</span>
+                                          <span className={`text-xs font-mono font-black transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-primary/70 group-hover:text-primary"}`}>
                                             +{formatPrice(feature.price)} ₽
                                           </span>
                                         </div>
-                                        {feature.description && (
-                                          <span className="text-xs text-muted-foreground">{feature.description}</span>
-                                        )}
-                                      </div>
-                                    </div>
-                                  ))}
+                                      </motion.div>
+                                    );
+                                  })}
                                 </div>
                               </div>
                             </motion.div>
