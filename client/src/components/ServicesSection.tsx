@@ -223,48 +223,49 @@ export function ServicesSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 px-2 md:px-4 auto-rows-[140px] md:auto-rows-[180px]">
+        <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-4 px-2 md:px-4 md:auto-rows-[180px] flex flex-wrap justify-center gap-y-8 gap-x-2 pt-8 md:pt-0">
           {services.map((service, index) => {
-            // Bento grid layout logic: some cards are wider or taller
-            // На мобилках (grid-cols-2) сделаем некоторые карточки на всю ширину (col-span-2)
-            // index 2 (Корпоративные) и 3 (Магазины) - главные
-            
             return (
               <motion.div
                 key={service.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                className={`${
-                  index === 2 ? "col-span-2 row-span-2 lg:col-span-2 lg:row-span-2" : 
-                  index === 3 ? "col-span-2 row-span-2 lg:col-span-2 lg:row-span-2" : 
-                  "col-span-1 row-span-1 lg:col-span-1 lg:row-span-1"
-                }`}
+                className={`
+                  relative
+                  md:col-span-1 md:row-span-1
+                  ${index === 2 || index === 3 ? "md:col-span-2 md:row-span-2" : ""}
+                  w-[140px] h-[160px] md:w-full md:h-full
+                  ${index % 2 === 1 ? "mt-10 md:mt-0" : ""}
+                `}
               >
                 <Card
-                  className="group relative overflow-hidden h-full p-3 md:p-6 border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-500 rounded-2xl md:rounded-3xl flex flex-col no-default-hover-elevate"
+                  className={`
+                    group relative overflow-hidden h-full border-white/[0.05] bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-md transition-all duration-500 flex flex-col no-default-hover-elevate
+                    clip-hexagon md:clip-none p-4 md:p-6
+                  `}
                   data-testid={`card-service-${index}`}
                 >
                   {/* Subtle gradient background on hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500`} />
                   
-                  {/* Icon and Title Container */}
-                  <div className="flex items-start justify-between mb-2 md:mb-4">
-                    <div className={`relative w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
-                      <service.icon className="w-4 h-4 md:w-6 md:h-6 text-white" />
+                  {/* Icon Container */}
+                  <div className="flex items-center justify-center md:justify-start mb-2 md:mb-4">
+                    <div className={`relative w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-2xl bg-gradient-to-br ${service.color} opacity-90 flex items-center justify-center shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-500`}>
+                      <service.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
                       <div className={`absolute inset-0 blur-lg bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
                     </div>
                   </div>
 
-                  <div className="mt-auto">
-                    <h3 className={`relative font-bold text-foreground/90 mb-1 group-hover:text-white transition-colors ${
-                      index === 2 || index === 3 ? "text-lg md:text-2xl" : "text-xs md:text-lg"
+                  <div className="mt-auto text-center md:text-left">
+                    <h3 className={`relative font-bold text-foreground/90 mb-1 group-hover:text-white transition-colors text-[10px] md:text-lg ${
+                      index === 2 || index === 3 ? "md:text-2xl" : ""
                     }`}>
                       {service.title}
                     </h3>
                     
-                    <p className={`relative text-muted-foreground/70 leading-tight md:leading-relaxed group-hover:text-muted-foreground transition-colors ${
-                      index === 2 || index === 3 ? "text-xs md:text-base max-w-md" : "text-[10px] md:text-sm line-clamp-2 md:line-clamp-none"
+                    <p className={`relative text-muted-foreground/70 leading-tight group-hover:text-muted-foreground transition-colors text-[8px] md:text-sm ${
+                      index === 2 || index === 3 ? "md:text-base max-w-md" : "line-clamp-2 md:line-clamp-none"
                     }`}>
                       {service.description}
                     </p>
@@ -273,8 +274,8 @@ export function ServicesSection() {
                   {/* Corner Accent */}
                   <div className={`absolute top-0 right-0 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br ${service.color} opacity-0 blur-3xl group-hover:opacity-20 transition-opacity duration-500 pointer-events-none`} />
                   
-                  {/* Bottom Accent Line */}
-                  <div className={`absolute bottom-0 left-0 h-[2px] md:h-[3px] bg-gradient-to-r ${service.color} w-0 group-hover:w-full transition-all duration-500`} />
+                  {/* Bottom Accent Line (Hidden on mobile hexagon) */}
+                  <div className={`absolute bottom-0 left-0 h-[2px] md:h-[3px] bg-gradient-to-r ${service.color} w-0 group-hover:w-full transition-all duration-500 hidden md:block`} />
                 </Card>
               </motion.div>
             );
