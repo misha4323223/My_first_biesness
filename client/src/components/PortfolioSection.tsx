@@ -851,9 +851,9 @@ export function PortfolioSection() {
       <Nebulae />
 
       <div className="relative z-10 h-full flex flex-col" ref={ref}>
-        <div className="text-center pt-8 md:pt-12 mb-4 max-w-7xl mx-auto px-6">
+        <div className="text-center pt-4 md:pt-6 mb-2 max-w-7xl mx-auto px-6">
           <SectionBadge>Портфолио</SectionBadge>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-4 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-2">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mt-2 tracking-tight flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-2">
             <span className="neural-interface py-1">
               <AnimatedText text={line1} startIndex={0} isInView={isInView} />
             </span>
