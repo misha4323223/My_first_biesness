@@ -155,7 +155,7 @@ export function Footer() {
             </div>
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20">
-              <p>© {new Date().getFullYear()} MP.WebStudio. Все системы работают в штатном режиме.</p>
+              <p>© {new Date().getFullYear()} MP.WebStudio.</p>
               <div className="flex gap-6">
                 <a href="/privacy" className="hover:text-cyan-400 transition-colors">Политика</a>
                 <a href="/offer" className="hover:text-cyan-400 transition-colors">Оферта</a>
