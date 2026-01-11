@@ -126,7 +126,7 @@ export function Navigation() {
               : "w-full max-w-7xl rounded-2xl bg-white/[0.02] backdrop-blur-md border border-white/5 py-4 px-6"
           }`}
         >
-          <nav className="flex items-center justify-between gap-4 w-full">
+          <nav className="flex items-center justify-between gap-4 w-full relative">
             {/* Desktop Navigation */}
             <div className={`hidden md:flex items-center gap-4 w-full`}>
               <a
@@ -137,7 +137,7 @@ export function Navigation() {
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }
                 }}
-                className="flex items-center gap-2 flex-shrink-0 group"
+                className="flex items-center gap-2 flex-shrink-0 group z-10"
                 data-testid="link-logo"
               >
                 <div className="relative">
@@ -153,8 +153,8 @@ export function Navigation() {
                 </span>
               </a>
 
-              <div className="flex-1 flex justify-center">
-                <div className={`flex items-center gap-0.5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
+              <div className="flex-1 flex justify-center relative">
+                <div className={`flex items-center gap-0.5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden pointer-events-none" : "opacity-100 scale-100"}`}>
                   {navItems.map((item) => (
                     <Button
                       key={item.href}
@@ -169,9 +169,31 @@ export function Navigation() {
                     </Button>
                   ))}
                 </div>
+
+                {/* Centered AI Button on scroll */}
+                <div className={`absolute left-1/2 -translate-x-1/2 flex items-center transition-all duration-700 ease-[0.16, 1, 0.3, 1] ${
+                  isScrolled ? "opacity-100 translate-y-0 scale-100 visible" : "opacity-0 translate-y-4 scale-90 invisible"
+                }`}>
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('open-ai-chat'));
+                    }}
+                    className="group relative flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 hover:border-cyan-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.1)] hover:shadow-[0_0_30px_rgba(34,211,238,0.2)]"
+                    data-testid="button-scrolled-ai"
+                  >
+                    <div className="relative w-4 h-4">
+                      <div className="absolute inset-0 bg-cyan-400 blur-sm opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
+                      <Brain className="relative w-full h-full text-cyan-400 group-hover:text-white transition-colors duration-300" />
+                    </div>
+                    <span className="text-[11px] font-black uppercase tracking-[0.15em] bg-gradient-to-r from-white via-slate-300 to-white bg-clip-text text-transparent group-hover:text-white transition-all duration-300">
+                      ИИ Помощник
+                    </span>
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
+                </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 z-10">
                 <div className={`hidden lg:flex items-center gap-0.5 px-3 py-1 rounded-full bg-white/5 border border-white/5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
                   {legalLinks.map((link) => (
                     <a key={link.href} href={link.href} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground hover:text-cyan-400 transition-colors px-1.5">
@@ -180,18 +202,20 @@ export function Navigation() {
                   ))}
                 </div>
                 
-                <div className="hidden md:block h-9 w-9 rounded-sm bg-gradient-to-br from-slate-400 via-slate-200 to-slate-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(148,163,184,0.3)]">
-                  <button
-                    onClick={() => {
-                      window.dispatchEvent(new CustomEvent('open-ai-chat'));
-                    }}
-                    data-testid="button-desktop-ai"
-                    className="h-full w-full rounded-sm bg-black flex flex-col items-center justify-center font-mono"
-                    title="AI Assistant"
-                  >
-                    <Brain className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors duration-200" />
-                    <span className="text-[8px] leading-none mt-0.5 text-slate-300 group-hover:text-white transition-colors duration-200">AI</span>
-                  </button>
+                <div className={`transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden pointer-events-none" : "opacity-100 scale-100"}`}>
+                  <div className="h-9 w-9 rounded-sm bg-gradient-to-br from-slate-400 via-slate-200 to-slate-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(148,163,184,0.3)]">
+                    <button
+                      onClick={() => {
+                        window.dispatchEvent(new CustomEvent('open-ai-chat'));
+                      }}
+                      data-testid="button-desktop-ai"
+                      className="h-full w-full rounded-sm bg-black flex flex-col items-center justify-center font-mono"
+                      title="AI Assistant"
+                    >
+                      <Brain className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors duration-200" />
+                      <span className="text-[8px] leading-none mt-0.5 text-slate-300 group-hover:text-white transition-colors duration-200">AI</span>
+                    </button>
+                  </div>
                 </div>
 
                 <Button
