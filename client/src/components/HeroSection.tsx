@@ -261,7 +261,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.5 }}
-              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-4 px-4"
+              className="text-base sm:text-lg md:text-xl max-w-xl mx-auto mb-4 px-4 bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium"
             >
               Проектируем быстрые и адаптивные сайты с нуля. От глубокой аналитики до уникального дизайна — создаем идеальный инструмент для роста вашего бизнеса.
             </motion.p>
