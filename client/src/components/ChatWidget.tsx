@@ -9,6 +9,95 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
 
+const ParticleSphere = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let particles: Array<{
+      x: number;
+      y: number;
+      targetX: number;
+      targetY: number;
+      size: number;
+      speed: number;
+      alpha: number;
+    }> = [];
+
+    const particleCount = 150;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 60;
+
+    // Инициализация частиц в случайных позициях снаружи
+    for (let i = 0; i < particleCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const r = radius + Math.random() * 100;
+      const targetAngle = Math.random() * Math.PI * 2;
+      const targetR = Math.random() * radius;
+
+      particles.push({
+        x: centerX + Math.cos(angle) * (r + 100),
+        y: centerY + Math.sin(angle) * (r + 100),
+        targetX: centerX + Math.cos(targetAngle) * targetR,
+        targetY: centerY + Math.sin(targetAngle) * targetR,
+        size: Math.random() * 2 + 1,
+        speed: 0.02 + Math.random() * 0.03,
+        alpha: 0
+      });
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(p => {
+        // Движение к цели (сборка сферы)
+        p.x += (p.targetX - p.x) * p.speed;
+        p.y += (p.targetY - p.y) * p.speed;
+        p.alpha = Math.min(p.alpha + 0.01, 0.6);
+
+        // Легкое дрожание для эффекта жизни
+        const jitter = Math.sin(Date.now() * 0.01 + p.x) * 0.5;
+        
+        ctx.beginPath();
+        ctx.arc(p.x + jitter, p.y + jitter, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(34, 211, 238, ${p.alpha})`;
+        ctx.fill();
+
+        // Эффект свечения вокруг частицы
+        const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2);
+        gradient.addColorStop(0, `rgba(34, 211, 238, ${p.alpha * 0.5})`);
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      });
+
+      // Отрисовка основного ядра сферы
+      const pulse = Math.sin(Date.now() * 0.002) * 5;
+      const coreGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius + pulse);
+      coreGradient.addColorStop(0, 'rgba(34, 211, 238, 0.1)');
+      coreGradient.addColorStop(0.5, 'rgba(168, 85, 247, 0.05)');
+      coreGradient.addColorStop(1, 'transparent');
+      ctx.fillStyle = coreGradient;
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, radius + pulse, 0, Math.PI * 2);
+      ctx.fill();
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
+  return <canvas ref={canvasRef} width={400} height={400} className="w-64 h-64" />;
+};
+
 const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
@@ -48,17 +137,14 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
         <AnimatePresence>
           {isVideoEnded && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.3, filter: "blur(20px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              className="absolute inset-x-0 top-[20%] flex items-center justify-center pointer-events-none z-0"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute inset-x-0 top-[15%] flex items-center justify-center pointer-events-none z-0"
             >
-              <div className="relative w-48 h-48 flex items-center justify-center">
-                {/* Внешнее свечение сферы */}
-                <div className="absolute inset-0 bg-cyan-500/30 rounded-full blur-[40px] animate-pulse" />
-                {/* Сама сфера */}
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-cyan-600 opacity-60 shadow-[0_0_50px_rgba(34,211,238,0.5)] border border-white/20" />
-                {/* Эффект ядра */}
-                <div className="absolute w-12 h-12 bg-white rounded-full blur-[10px] animate-ping opacity-40" />
+              <div className="relative w-64 h-64 flex items-center justify-center">
+                <ParticleSphere />
+                {/* Дополнительное свечение в центре */}
+                <div className="absolute w-32 h-32 bg-cyan-400/10 rounded-full blur-[40px] animate-pulse" />
               </div>
             </motion.div>
           )}
