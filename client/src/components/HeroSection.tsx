@@ -179,8 +179,8 @@ export function HeroSection() {
     }
   };
 
-  const line1 = "Это не лендинг про нас";
-  const line2 = "Это витрина для вас";
+  const line1 = "Заказать";
+  const line2 = "современный сайт";
 
   return (
     <section className="relative min-h-[70vh] md:min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-32 md:pt-32 pb-24 md:pb-0">
@@ -272,7 +272,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 1.5 }}
               className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-4 px-4"
             >
-              Каждый сайт создаётся с нуля — под ваш бизнес, под вашу аудиторию, под ваши цели.
+              Мы проектируем сайты нового поколения: быстрые, адаптивные и полностью готовые к продвижению. Весь процесс идет с чистого листа — от глубокой аналитики рынка до уникального визуала, чтобы ваш бизнес получил идеальный инструмент для захвата внимания в сети.
             </motion.p>
             
             <div className="w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.2)]" />
