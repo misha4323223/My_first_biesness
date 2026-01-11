@@ -421,7 +421,7 @@ export function ChatWidget() {
   return (
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="w-[95vw] md:w-full max-w-md h-[80vh] md:h-[600px] flex flex-col p-0 bg-black/90 backdrop-blur-2xl border-white/10 rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden font-sans">
+        <DialogContent className="fixed bottom-0 left-0 right-0 top-auto translate-y-0 w-full md:relative md:translate-y-[-50%] md:w-full max-w-md h-[80vh] md:h-[600px] flex flex-col p-0 bg-black/90 backdrop-blur-2xl border-white/10 rounded-t-3xl md:rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden font-sans">
           
           <DialogHeader className="p-4 border-b border-white/5 flex flex-row items-center justify-between space-y-0">
             <div className="flex items-center gap-3">
@@ -503,7 +503,7 @@ export function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex-1 flex flex-col"
                 >
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar touch-pan-y">
                     {messages.map((msg, idx) => (
                       <motion.div
                         key={idx}
