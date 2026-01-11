@@ -208,7 +208,7 @@ export function FAQSection() {
               <AnimatedText text={line2} startIndex={line1.length} isGradient isInView={isInView} />
             </span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="max-w-2xl mx-auto text-lg font-medium bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent">
             Отвечаем на вопросы клиентов о разработке, стоимости, сроках и поддержке
           </p>
         </div>
@@ -248,7 +248,7 @@ export function FAQSection() {
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-4 pb-3 text-muted-foreground/70 text-[11px] md:text-xs leading-relaxed border-t border-white/[0.03] pt-2 max-w-[95%]">
+                    <div className="max-w-[95%] border-t border-white/[0.03] px-4 pb-3 pt-2 text-[11px] font-medium leading-relaxed bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent md:text-xs">
                       {faq.answer}
                     </div>
                   </motion.div>

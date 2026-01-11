@@ -210,7 +210,7 @@ export function AboutSection() {
                 <div className="absolute -right-20 -top-20 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
                 <div className="relative z-10">
                   <h3 className="text-xl md:text-3xl font-semibold mb-3 md:mb-6 text-cyan-400">Наш подход</h3>
-                  <p className="text-muted-foreground text-sm md:text-xl leading-relaxed max-w-2xl">
+                  <p className="max-w-2xl text-sm leading-relaxed bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium md:text-xl">
                     MP.WebStudio — это сочетание современных технологий и внимания к деталям. 
                     Мы не предлагаем шаблонные решения — каждый проект разрабатывается индивидуально 
                     под ваш бизнес и цели.
@@ -233,7 +233,7 @@ export function AboutSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Мгновенная скорость</h4>
-                      <p className="text-[10px] md:text-sm text-muted-foreground">Чистый код без лишних библиотек, конструкторов. Максимальный бал в Google Speed.</p>
+                      <p className="text-[10px] md:text-sm bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Чистый код без лишних библиотек, конструкторов. Максимальный бал в Google Speed.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 md:gap-4">
@@ -242,7 +242,7 @@ export function AboutSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Полная свобода</h4>
-                      <p className="text-[10px] md:text-sm text-muted-foreground">Любой дизайн и анимация. Мы не ограничены рамками и блоками платформ.</p>
+                      <p className="text-[10px] md:text-sm bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Любой дизайн и анимация. Мы не ограничены рамками и блоками платформ.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3 md:gap-4">
@@ -251,7 +251,7 @@ export function AboutSection() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-cyan-400 text-xs md:text-base">Безопасность</h4>
-                      <p className="text-[10px] md:text-sm text-muted-foreground">Полный контроль над кодом. Независимость от тарифов и обновлений конструкторов</p>
+                      <p className="text-[10px] md:text-sm bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Полный контроль над кодом. Независимость от тарифов и обновлений конструкторов</p>
                     </div>
                   </div>
                 </div>
@@ -288,7 +288,7 @@ export function AboutSection() {
                     <Code2 className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
                   </div>
                   <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">100%</div>
-                  <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">Чистая разработка</div>
+                  <div className="text-[8px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent uppercase tracking-[0.2em] md:tracking-[0.3em] font-bold">Чистая разработка</div>
                 </div>
               </Card>
 
@@ -299,7 +299,7 @@ export function AboutSection() {
               >
                 <div className="relative z-10 text-center">
                   <h4 className="font-semibold text-purple-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Технологии будущего</h4>
-                  <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
+                  <p className="text-[8px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">
                     Мы создаем «цифровую ДНК» вашего бренда на React и Node.js. Никаких конструкторов и костылей — только чистый, элегантный код, который обеспечивает молниеносный отклик и безграничные возможности для роста вашего бизнеса.
                   </p>
                 </div>
@@ -335,7 +335,7 @@ export function AboutSection() {
                     <Rocket className="w-6 h-6 md:w-10 md:h-10 text-purple-400" />
                   </div>
                   <div className="text-2xl md:text-5xl font-bold mb-1 md:mb-2 bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">Десятки</div>
-                  <div className="text-[8px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium">отраслевых решений</div>
+                  <div className="text-[8px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent uppercase tracking-[0.2em] md:tracking-[0.3em] font-bold">отраслевых решений</div>
                 </div>
               </Card>
 
@@ -346,7 +346,7 @@ export function AboutSection() {
               >
                 <div className="relative z-10 text-center">
                   <h4 className="font-semibold text-purple-400 text-[10px] md:text-sm mb-1 uppercase tracking-wider">Инфраструктура Яндекса</h4>
-                  <p className="text-[8px] md:text-xs text-muted-foreground leading-tight">
+                  <p className="text-[8px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">
                     Ваш проект развертывается в отказоустойчивой среде Yandex Cloud. Это гарантирует соответствие корпоративным стандартам безопасности, высокую скорость доступа и стабильность работы при любых нагрузках.
                   </p>
                 </div>
@@ -384,7 +384,7 @@ export function AboutSection() {
                     </div>
                     <h3 className="text-lg md:text-2xl font-semibold tracking-tight">Ваша цель — наш приоритет</h3>
                   </div>
-                  <p className="text-muted-foreground text-xs md:text-lg leading-relaxed max-w-2xl">
+                  <p className="max-w-2xl text-xs leading-relaxed bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium md:text-lg">
                     Мы используем стек React + Node.js, что позволяет создавать сверхбыстрые 
                     сайты и веб-интерфейсы, которые легко масштабировать. Ваша аудитория получить лучший пользовательский опыт.
                   </p>
@@ -404,19 +404,19 @@ export function AboutSection() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                     <div>
                       <h4 className="font-medium text-white text-xs md:text-sm mb-1">Аналитика бизнеса</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Глубокое погружение в ваши процессы перед началом разработки.</p>
+                      <p className="text-[10px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Глубокое погружение в ваши процессы перед началом разработки.</p>
                     </div>
                     <div>
                       <h4 className="font-medium text-white text-xs md:text-sm mb-1">Прозрачные этапы</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Поэтапная оплата и регулярные отчеты о прогрессе каждой задачи.</p>
+                      <p className="text-[10px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Поэтапная оплата и регулярные отчеты о прогрессе каждой задачи.</p>
                     </div>
                     <div>
                       <h4 className="font-medium text-white text-xs md:text-sm mb-1">Поддержка 24/7</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Мы не пропадаем после запуска и помогаем развивать ваш проект дальше.</p>
+                      <p className="text-[10px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Мы не пропадаем после запуска и помогаем развивать ваш проект дальше.</p>
                     </div>
                     <div>
                       <h4 className="font-medium text-white text-xs md:text-sm mb-1">Гарантия качества</h4>
-                      <p className="text-[10px] md:text-xs text-muted-foreground">Тщательное тестирование на всех типах устройств перед передачей вам.</p>
+                      <p className="text-[10px] md:text-xs bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-tight">Тщательное тестирование на всех типах устройств перед передачей вам.</p>
                     </div>
                   </div>
                 </div>

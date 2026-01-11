@@ -224,7 +224,7 @@ export function ServicesSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto text-base font-medium bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent md:text-lg"
           >
             Качественное воплощение идей в готовый цифровой продукт с гарантией стабильной работы и развития.
           </motion.p>
@@ -289,7 +289,7 @@ export function ServicesSection() {
                       <h4 className="text-[10px] md:text-sm font-semibold mb-2 uppercase tracking-wider text-cyan-400">
                         {service.title}
                       </h4>
-                      <p className="text-[10px] md:text-lg text-muted-foreground leading-snug md:leading-relaxed">
+                      <p className="text-[10px] md:text-lg bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium leading-snug md:leading-relaxed">
                         {service.description}
                       </p>
                     </div>

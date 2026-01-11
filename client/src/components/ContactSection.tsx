@@ -228,7 +228,7 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto text-lg font-medium bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent"
           >
             Оставьте заявку и мы свяжемся с вами для бесплатной консультации
           </motion.p>
@@ -252,7 +252,7 @@ export function ContactSection() {
                   <CheckCircle className="w-8 h-8 text-white" aria-hidden="true" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Спасибо за заявку!</h3>
-                <p className="text-muted-foreground mb-6">
+                <p className="mb-6 font-medium bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent">
                   Мы получили ваше сообщение и свяжемся с вами в течение 24 часов.
                 </p>
                 <Button

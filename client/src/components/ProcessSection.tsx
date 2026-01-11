@@ -233,7 +233,7 @@ export function ProcessSection() {
                         {step.title}
                       </h3>
                     </div>
-                    <p className="text-muted-foreground/70 text-sm md:text-lg leading-relaxed max-w-2xl group-hover/step:text-muted-foreground transition-colors">
+                    <p className="max-w-2xl text-sm leading-relaxed bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent font-medium md:text-lg group-hover/step:opacity-90">
                       {step.description}
                     </p>
                   </div>

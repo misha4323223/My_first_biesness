@@ -311,7 +311,7 @@ export function TechnologiesSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-base max-w-xl mx-auto"
+            className="max-w-xl mx-auto text-base font-medium bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent"
           >
             Объединяем мощь современной разработки с популярными сервисами оплаты, логистики и облачными вычислениями для комплексной автоматизации.
           </motion.p>

@@ -437,7 +437,7 @@ export function CalculatorSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto text-sm font-medium bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent sm:text-base md:text-lg"
           >
             Выберите тип сайта и добавьте нужные функции — цена рассчитается автоматически
           </motion.p>
@@ -510,7 +510,7 @@ export function CalculatorSection() {
                                 </motion.span>
                               )}
                             </div>
-                            <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 leading-relaxed font-medium">{type.description}</p>
+                            <p className="mb-3 text-xs font-bold leading-relaxed bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent sm:mb-4 sm:text-sm">{type.description}</p>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 sm:gap-y-2">
                               {type.includes.map((item, i) => (
                                 <span key={i} className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs text-muted-foreground font-medium">
