@@ -184,8 +184,8 @@ export function ServicesSection() {
     }));
   };
 
-  const line1 = "Купить сайт ";
-  const line2 = "под ключ";
+  const line1 = "Разработка и ";
+  const line2 = "поддержка";
 
   return (
     <section id="services" className="py-24 md:py-32 relative overflow-hidden bg-[#0a0a0a]">
@@ -226,7 +226,7 @@ export function ServicesSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto"
           >
-            Полный спектр услуг для создания и развития вашего присутствия в интернете
+            Качественное воплощение идей в готовый цифровой продукт с гарантией стабильной работы и развития.
           </motion.p>
         </div>
 
