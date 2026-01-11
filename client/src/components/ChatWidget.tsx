@@ -1,15 +1,102 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Brain, Send, X } from "lucide-react";
+import { Brain, Send, X, Sparkles } from "lucide-react";
 import { apiRequest } from "@/lib/queryClient";
 import logoUrl from "@assets/mp_hexagonal_tech_logo_1766320057712.webp";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
+
+const HolographicSphere = ({ isProcessing, isNaming }: { isProcessing: boolean, isNaming: boolean }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let time = 0;
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    const draw = () => {
+      time += isProcessing ? 0.05 : 0.02;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      const centerX = canvas.offsetWidth / 2;
+      const centerY = canvas.offsetHeight / 2;
+      const baseRadius = isNaming ? 60 : 20;
+      
+      ctx.save();
+      ctx.translate(centerX, centerY);
+
+      // Draw layers
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        const pulse = Math.sin(time + i) * (isProcessing ? 15 : 5);
+        const radius = baseRadius + pulse + (i * 10);
+        
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
+        if (i === 0) {
+          gradient.addColorStop(0, 'rgba(34, 211, 238, 0.4)');
+          gradient.addColorStop(1, 'rgba(168, 85, 247, 0)');
+        } else {
+          gradient.addColorStop(0, 'transparent');
+          gradient.addColorStop(1, i === 1 ? 'rgba(34, 211, 238, 0.2)' : 'rgba(168, 85, 247, 0.1)');
+        }
+
+        ctx.fillStyle = gradient;
+        ctx.arc(0, 0, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Wave effect
+        ctx.beginPath();
+        ctx.strokeStyle = i === 1 ? 'rgba(34, 211, 238, 0.3)' : 'rgba(168, 85, 247, 0.2)';
+        ctx.lineWidth = 1;
+        for (let a = 0; a < Math.PI * 2; a += 0.1) {
+          const r = radius + Math.sin(a * 5 + time * 2) * 2;
+          const x = Math.cos(a) * r;
+          const y = Math.sin(a) * r;
+          if (a === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.stroke();
+      }
+
+      ctx.restore();
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isProcessing, isNaming]);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      className="w-full h-full pointer-events-none"
+      style={{ filter: 'blur(1px)' }}
+    />
+  );
+};
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +141,7 @@ export function ChatWidget() {
   }, [isVisible]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -66,9 +153,7 @@ export function ChatWidget() {
     if (!userName.trim()) return;
 
     const trimmedName = userName.trim();
-    setUserName("");
     setIsLoading(true);
-    setIsNameStep(false);
 
     try {
       const response = await apiRequest("POST", "/api/giga-chat", { 
@@ -83,6 +168,7 @@ export function ChatWidget() {
         setMessages([
           { role: "assistant", content: data.response },
         ]);
+        setIsNameStep(false);
       } else {
         const errorMsg = data.response || "Ошибка при получении ответа. Попробуйте снова.";
         setMessages([
@@ -113,7 +199,6 @@ export function ChatWidget() {
         history: messages 
       });
 
-      // apiRequest уже обрабатывает response.ok и выбрасывает ошибку, если статус не 2xx
       const data = await response.json();
 
       if (data.success) {
@@ -137,7 +222,6 @@ export function ChatWidget() {
       let errorMessage = "Не удалось связаться с AI-ассистентом";
       
       if (error instanceof Error) {
-        // Пытаемся распарсить JSON из ошибки
         try {
           const jsonMatch = error.message.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
@@ -165,124 +249,136 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Модалка чата - NEO TERMINAL */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="w-[95vw] md:w-full max-w-md h-[80vh] md:h-[500px] flex flex-col p-0 bg-black border-2 border-transparent bg-gradient-to-br from-cyan-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-padding rounded-sm shadow-[0_0_30px_rgba(168,85,247,0.3),0_0_20px_rgba(34,211,238,0.3)] neo-terminal">
+        <DialogContent className="w-[95vw] md:w-full max-w-md h-[80vh] md:h-[600px] flex flex-col p-0 bg-black/90 backdrop-blur-2xl border-white/10 rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden font-sans">
           
-          {/* Шапка - NEO TERMINAL */}
-          <DialogHeader className="bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-cyan-400/10 border-b-2 border-cyan-400/50 p-3 space-y-0">
-            <div className="flex items-center justify-between">
-              <DialogTitle className="bg-gradient-to-r from-cyan-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent font-mono text-sm font-bold tracking-wider">
-                ИИ Помощник MP.WebStudio
-              </DialogTitle>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-1 text-cyan-400 hover:text-purple-400 hover:bg-purple-400/10 rounded-sm transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
+          <DialogHeader className="p-4 border-b border-white/5 flex flex-row items-center justify-between space-y-0">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 p-[1px]">
+                <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                  <HolographicSphere isProcessing={isLoading} isNaming={false} />
+                </div>
+              </div>
+              <div>
+                <DialogTitle className="text-sm font-bold text-white tracking-tight">
+                  MP<span className="text-cyan-400">.</span>Assistant
+                </DialogTitle>
+                <div className="flex items-center gap-1.5">
+                  <div className={`w-1.5 h-1.5 rounded-full ${isLoading ? 'bg-cyan-400 animate-pulse' : 'bg-emerald-500'}`} />
+                  <span className="text-[10px] text-white/40 uppercase tracking-widest font-bold">
+                    {isLoading ? 'Processing' : 'Online'}
+                  </span>
+                </div>
+              </div>
             </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white/20 hover:text-white hover:bg-white/5 transition-all"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </DialogHeader>
 
-          {/* История сообщений */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-3 bg-black font-mono text-xs chat-messages-scroll">
-            {messages.length === 0 && isNameStep && (
-              <div className="h-full flex flex-col items-center justify-center gap-6 p-4">
-                <img 
-                  src={logoUrl} 
-                  alt="MP Logo" 
-                  className="w-24 h-24 opacity-60"
-                />
-                <form onSubmit={handleNameSubmit} className="w-full flex flex-col gap-3">
-                  <label className="text-cyan-400 text-xs font-bold">Ваше имя:</label>
-                  <input
-                    type="text"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
-                    disabled={isLoading}
-                    placeholder="Введите ваше имя..."
-                    className="w-full bg-black border border-cyan-400/30 text-cyan-400 placeholder-cyan-400/40 px-3 py-2 rounded-sm text-xs focus:border-purple-400 focus:outline-none focus:ring-0"
-                    autoFocus
-                  />
-                  <button
-                    type="submit"
-                    disabled={isLoading || !userName.trim()}
-                    className="w-full bg-black border-2 border-cyan-400 text-cyan-400 hover:border-purple-400 hover:text-purple-400 disabled:opacity-50 disabled:cursor-not-allowed px-3 py-2 rounded-sm text-xs font-bold transition-colors"
-                  >
-                    {isLoading ? "Загрузка..." : "Задать вопрос"}
-                  </button>
-                  <p className="text-cyan-400/60 text-[10px] text-center mt-2 leading-relaxed">
-                    Формулируйте вопрос точно. Лимит: 5 ответов в сутки.<br/>
-                    История сообщений не сохраняется (лимит 10 реплик).
-                  </p>
-                </form>
-              </div>
-            )}
-            {messages.length === 0 && !isNameStep && (
-              <div className="h-full flex items-center justify-center">
-                <img 
-                  src={logoUrl} 
-                  alt="MP Logo" 
-                  className="w-32 h-32 opacity-60 hover:opacity-80 transition-opacity"
-                />
-              </div>
-            )}
-            
-            {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                data-testid={`message-${msg.role}-${idx}`}
-                className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`max-w-xs px-3 py-2 rounded-sm border ${
-                    msg.role === "user"
-                      ? "bg-gradient-to-r from-cyan-400/10 to-purple-400/10 border-purple-400/30 text-cyan-400"
-                      : "bg-black border-cyan-400/20 text-cyan-400"
-                  }`}
+          <div className="flex-1 overflow-hidden relative flex flex-col">
+            <AnimatePresence mode="wait">
+              {isNameStep ? (
+                <motion.div
+                  key="name-step"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  className="flex-1 flex flex-col items-center justify-center p-8 gap-8"
                 >
-                  <p className="text-xs leading-relaxed">{msg.content}</p>
-                </div>
-              </div>
-            ))}
-            
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-black border border-cyan-400/20 px-3 py-2 rounded-sm">
-                  <p className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent text-xs animate-none">
-                    &gt; PROCESSING...
-                  </p>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
+                  <div className="relative w-48 h-48">
+                    <div className="absolute inset-0 bg-cyan-500/5 blur-[40px] rounded-full" />
+                    <HolographicSphere isProcessing={isLoading} isNaming={true} />
+                  </div>
+                  
+                  <div className="w-full max-w-[280px] space-y-6 text-center">
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-black text-white tracking-tight">Представьтесь</h3>
+                      <p className="text-sm text-white/40">Чтобы начать диалог с нашим интеллектом</p>
+                    </div>
 
-          {/* Форма ввода - только если прошли шаг ввода имени */}
-          {!isNameStep && (
-            <div className="bg-gradient-to-r from-cyan-400/5 via-purple-400/5 to-cyan-400/5 border-t-2 border-cyan-400/50 p-3 space-y-2">
-              <div className="flex gap-2">
-                <Input
-                  data-testid="input-chat-message"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                  placeholder="Что вас интересует?"
-                  disabled={isLoading}
-                  className="bg-black border-cyan-400/30 focus:border-purple-400 text-cyan-400 placeholder-cyan-400/40 font-mono text-xs rounded-sm focus:ring-0 focus:outline-none transition-colors"
-                />
-                <Button
-                  data-testid="button-send-chat"
-                  onClick={sendMessage}
-                  disabled={isLoading || !inputValue.trim()}
-                  size="icon"
-                  className="bg-black border-2 border-cyan-400 hover:border-purple-400 text-cyan-400 hover:text-purple-400 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    <form onSubmit={handleNameSubmit} className="space-y-3">
+                      <div className="relative group">
+                        <Input
+                          value={userName}
+                          onChange={(e) => setUserName(e.target.value)}
+                          disabled={isLoading}
+                          placeholder="Ваше имя"
+                          className="h-12 bg-white/[0.03] border-white/10 rounded-2xl text-center font-bold tracking-tight focus:border-cyan-500/50 transition-all placeholder:text-white/10"
+                          autoFocus
+                        />
+                        <div className="absolute inset-0 rounded-2xl bg-cyan-500/5 opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
+                      </div>
+                      <Button
+                        type="submit"
+                        disabled={isLoading || !userName.trim()}
+                        className="w-full h-12 bg-white text-black hover:bg-white/90 font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50"
+                      >
+                        {isLoading ? (
+                          <div className="w-5 h-5 border-2 border-black/10 border-t-black rounded-full animate-spin" />
+                        ) : (
+                          "Начать чат"
+                        )}
+                      </Button>
+                    </form>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="chat-step"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex-1 flex flex-col"
                 >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          )}
+                  <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+                    {messages.map((msg, idx) => (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                      >
+                        <div
+                          className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                            msg.role === "user"
+                              ? "bg-white text-black font-medium rounded-tr-none shadow-xl shadow-white/5"
+                              : "bg-white/5 border border-white/10 text-white/90 rounded-tl-none"
+                          }`}
+                        >
+                          {msg.content}
+                        </div>
+                      </motion.div>
+                    ))}
+                    <div ref={messagesEndRef} />
+                  </div>
+
+                  <div className="p-4 bg-gradient-to-t from-black to-transparent">
+                    <div className="relative flex gap-2 p-1 bg-white/[0.03] border border-white/10 rounded-[24px] focus-within:border-cyan-500/50 transition-all">
+                      <Input
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+                        placeholder="Задайте вопрос..."
+                        disabled={isLoading}
+                        className="h-11 bg-transparent border-0 focus-visible:ring-0 text-sm font-medium placeholder:text-white/20 px-4"
+                      />
+                      <Button
+                        onClick={sendMessage}
+                        disabled={isLoading || !inputValue.trim()}
+                        size="icon"
+                        className="w-11 h-11 bg-white text-black hover:bg-white/90 rounded-full flex-shrink-0 transition-all active:scale-90"
+                      >
+                        <Send className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </DialogContent>
       </Dialog>
     </>
