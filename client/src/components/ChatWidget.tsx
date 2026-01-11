@@ -107,7 +107,6 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
     if (!video) return;
 
     const handleTimeUpdate = () => {
-      // Начинаем показывать частицы на 4-й секунде видео для плавного перехода
       if (video.currentTime >= 4 && !showParticles) {
         setShowParticles(true);
       }
@@ -116,6 +115,8 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
     video.addEventListener('timeupdate', handleTimeUpdate);
     return () => video.removeEventListener('timeupdate', handleTimeUpdate);
   }, [showParticles]);
+
+  const videoSrc = useMemo(() => `/assets/assistant_greeting.mp4?v=${Date.now()}`, []);
 
   return (
     <div className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden">
@@ -136,12 +137,13 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
       >
         <video
           ref={videoRef}
-          src="/assets/assistant_greeting.mp4"
+          src={videoSrc}
           autoPlay
           muted
           playsInline
           preload="auto"
           onEnded={() => setIsVideoEnded(true)}
+          onError={(e) => console.error("Video error:", e)}
           className={`w-full h-full object-cover transition-all duration-1000 ${
             isVideoEnded 
               ? "opacity-0 scale-110 blur-xl pointer-events-none" 
