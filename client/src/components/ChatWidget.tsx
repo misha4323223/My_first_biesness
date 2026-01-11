@@ -50,7 +50,7 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
             <motion.div
               initial={{ opacity: 0, scale: 0.3, filter: "blur(20px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none -translate-y-[30px]"
             >
               <div className="relative w-48 h-48 flex items-center justify-center">
                 {/* Внешнее свечение сферы */}
