@@ -269,7 +269,10 @@ export function HeroSection() {
             <div className="w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.2)]" />
           </div>
         </div>
+      </div>
 
+      <div className="absolute top-1/4 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-float" />
+      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float-slow" />
     </section>
   );
 }
