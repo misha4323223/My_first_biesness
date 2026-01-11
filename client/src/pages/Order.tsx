@@ -473,9 +473,9 @@ export default function Order() {
               <span className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-6">
                 Оформление заказа
               </span>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4 scanline-header">
-              Заказать{" "}
-              <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 scanline-header flex flex-col items-center sm:block">
+              <span className="inline-block">Заказать</span>{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent inline-block sm:inline">
                 разработку сайта
               </span>
             </h1>
