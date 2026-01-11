@@ -132,7 +132,7 @@ export function Navigation() {
             <a href={orderPagePath} className={`transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
               <Button
                 size="sm"
-                className="bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold px-6 py-2 h-auto text-[13px] rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border-0"
+                className="bg-[#38bdf8] hover:bg-[#7dd3fc] text-[#0a0a0a] font-black px-6 py-2 h-auto text-[13px] rounded-full shadow-[0_0_25px_rgba(56,189,248,0.5)] hover:shadow-[0_0_35px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border-0"
                 data-testid="button-nav-cta"
               >
                 Заказать сайт
