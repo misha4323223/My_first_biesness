@@ -361,7 +361,7 @@ export function ChatWidget() {
                     <HolographicVideo isProcessing={isLoading} />
                   </div>
                   
-                  <div className="w-full max-w-[280px] space-y-6 text-center relative z-10 mb-12 p-8 bg-black/40 backdrop-blur-md rounded-3xl border border-white/5 shadow-2xl">
+                  <div className="w-full max-w-[280px] space-y-6 text-center relative z-10 mb-6 p-8 bg-transparent">
                     <div className="space-y-2">
                       <h3 className="text-xl font-black text-white tracking-tight">Представьтесь</h3>
                       <p className="text-sm text-white/40">Чтобы начать диалог с нашим интеллектом</p>
