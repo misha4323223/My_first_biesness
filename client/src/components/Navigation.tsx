@@ -62,7 +62,7 @@ export function Navigation() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border py-2"
+          ? "bg-background/80 backdrop-blur-xl border-b border-cyan-500/20 py-2 shadow-[0_0_20px_rgba(0,0,0,0.5)]"
           : "bg-transparent py-4"
       }`}
     >
@@ -75,11 +75,20 @@ export function Navigation() {
               window.scrollTo({ top: 0, behavior: "smooth" });
             }
           }}
-          className="flex items-center gap-2 flex-shrink-0"
+          className="flex items-center gap-3 flex-shrink-0 group"
           data-testid="link-logo"
         >
-          <img src={logoImg} alt="MP.WebStudio" className="w-8 h-8 md:w-10 md:h-10 rounded-md object-cover transition-all" />
-          <span className="text-lg md:text-xl font-bold text-foreground">MP.WebStudio</span>
+          <div className="relative">
+            <div className="absolute inset-0 bg-cyan-500/20 blur-md group-hover:bg-cyan-500/40 transition-colors rounded-full" />
+            <img 
+              src={logoImg} 
+              alt="MP.WebStudio" 
+              className="relative w-8 h-8 md:w-10 md:h-10 object-cover transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[360deg] clip-hexagon border border-white/10" 
+            />
+          </div>
+          <span className="text-lg md:text-xl font-bold tracking-tighter text-foreground group-hover:text-cyan-400 transition-colors">
+            MP<span className="text-cyan-500">.</span>WebStudio
+          </span>
         </a>
 
         <div className="hidden md:flex items-center gap-1 flex-wrap">
@@ -89,19 +98,25 @@ export function Navigation() {
               variant="ghost"
               size="sm"
               onClick={() => scrollToSection(item.href)}
-              className="text-muted-foreground whitespace-nowrap"
+              className="relative text-muted-foreground whitespace-nowrap hover:text-cyan-400 group overflow-hidden"
               data-testid={`link-nav-${item.href.slice(1)}`}
             >
-              {item.label}
+              <span className="relative z-10">{item.label}</span>
+              <motion.div
+                className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-500 origin-left"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.3 }}
+              />
             </Button>
           ))}
-          <div className="hidden lg:flex items-center gap-0 ml-4 pl-4 border-l border-border">
+          <div className="hidden lg:flex items-center gap-0 ml-4 pl-4 border-l border-white/10">
             {legalLinks.map((link) => (
               <a key={link.href} href={link.href}>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-muted-foreground text-xs"
+                  className="text-muted-foreground/60 text-[10px] uppercase tracking-widest hover:text-white"
                   data-testid={`link-nav-legal-${link.href.slice(1)}`}
                 >
                   {link.label}
@@ -111,22 +126,22 @@ export function Navigation() {
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-3">
           <Button
             size="sm"
             onClick={() => scrollToSection("#calculator")}
-            className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0"
+            className="relative bg-transparent hover:bg-transparent border border-cyan-500/30 text-cyan-400 hover:text-cyan-300 transition-all duration-300 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] clip-hexagon px-6"
             data-testid="button-nav-send-request"
           >
-            Отправить заявку
+            <span className="relative z-10">Отправить заявку</span>
           </Button>
           <a href={orderPagePath}>
             <Button
               size="sm"
-              className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white border-0"
+              className="relative bg-cyan-500 hover:bg-cyan-400 text-black font-bold transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.5)] clip-hexagon px-6 border-0"
               data-testid="button-nav-cta"
             >
-              Заказать сайт
+              <span className="relative z-10">Заказать сайт</span>
             </Button>
           </a>
         </div>
