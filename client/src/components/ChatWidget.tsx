@@ -14,9 +14,9 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
   const [isVideoEnded, setIsVideoEnded] = useState(false);
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
+    <div className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden">
       {/* Плавное свечение вокруг */}
-      <div className={`absolute inset-0 bg-cyan-500/20 blur-[60px] rounded-full transition-opacity duration-1000 ${isVideoEnded ? 'opacity-100' : 'opacity-40'}`} />
+      <div className={`absolute inset-0 bg-cyan-500/20 blur-[100px] rounded-full transition-opacity duration-1000 ${isVideoEnded ? 'opacity-100' : 'opacity-40'}`} />
       
       <motion.div
         animate={isVideoEnded ? {
@@ -37,15 +37,15 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
           muted
           playsInline
           onEnded={() => setIsVideoEnded(true)}
-          className={`w-full h-full object-contain transition-all duration-1000 ${
+          className={`w-full h-full object-cover transition-all duration-1000 ${
             isVideoEnded 
-              ? "opacity-40 blur-[8px] scale-95 grayscale brightness-150 mix-blend-screen" 
-              : "opacity-100 blur-0 scale-100 mix-blend-lighten"
+              ? "opacity-30 blur-[12px] scale-110 grayscale brightness-150 mix-blend-screen" 
+              : "opacity-80 blur-0 scale-100 mix-blend-lighten"
           }`}
           style={{
             filter: isVideoEnded 
-              ? 'drop-shadow(0 0 20px rgba(34, 211, 238, 0.8))' 
-              : 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.3))'
+              ? 'drop-shadow(0 0 30px rgba(34, 211, 238, 0.8))' 
+              : 'drop-shadow(0 0 15px rgba(34, 211, 238, 0.4))'
           }}
         />
         
@@ -57,15 +57,19 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
               animate={{ opacity: 1, scale: 1 }}
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
             >
-              <div className="w-32 h-32 bg-cyan-400/20 rounded-full blur-[40px] animate-pulse" />
-              <div className="w-16 h-16 bg-white/10 rounded-full blur-[20px] animate-ping" />
+              <div className="w-64 h-64 bg-cyan-400/20 rounded-full blur-[60px] animate-pulse" />
+              <div className="w-32 h-32 bg-white/10 rounded-full blur-[30px] animate-ping" />
             </motion.div>
           )}
         </AnimatePresence>
       </motion.div>
 
       {/* Наложение сетки для эффекта прямой трансляции */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-20" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-30" />
+      
+      {/* Виньетка для бесшовного вписывания */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60" />
     </div>
   );
 };
@@ -350,13 +354,11 @@ export function ChatWidget() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  className="flex-1 flex flex-col items-center justify-center p-8 gap-8"
+                  className="flex-1 flex flex-col items-center justify-center p-8 gap-8 relative overflow-hidden"
                 >
-                  <div className="relative w-64 h-64">
-                    <HolographicVideo isProcessing={isLoading} />
-                  </div>
+                  <HolographicVideo isProcessing={isLoading} />
                   
-                  <div className="w-full max-w-[280px] space-y-6 text-center">
+                  <div className="w-full max-w-[280px] space-y-6 text-center relative z-10 mt-auto pb-4">
                     <div className="space-y-2">
                       <h3 className="text-xl font-black text-white tracking-tight">Представьтесь</h3>
                       <p className="text-sm text-white/40">Чтобы начать диалог с нашим интеллектом</p>
