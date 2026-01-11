@@ -58,7 +58,7 @@ export function Navigation() {
   });
 
   const mutation = useMutation({
-    mutationFn: async (data) => {
+    mutationFn: async (data: any) => {
       const response = await apiRequest("POST", "/api/send-calculator-order", {
         ...data,
         projectType: "direct_request",
@@ -254,82 +254,156 @@ export function Navigation() {
       </div>
 
       <Dialog open={isOrderModalOpen} onOpenChange={setIsOrderModalOpen}>
-        <DialogContent className="sm:max-w-[425px] bg-background/95 backdrop-blur-xl border-border/50 shadow-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-              Оставить заявку
-            </DialogTitle>
-            <DialogDescription className="text-muted-foreground">
-              Заполните форму, и наш менеджер свяжется с вами для обсуждения деталей проекта.
-            </DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-4 pt-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Ваше имя</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Иван Иванов" {...field} className="bg-background/50" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Телефон</FormLabel>
-                    <FormControl>
-                      <Input placeholder="+7 (999) 000-00-00" {...field} className="bg-background/50" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="example@mail.ru" {...field} className="bg-background/50" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Краткое описание проекта</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Расскажите немного о вашем будущем сайте..." 
-                        className="min-h-[100px] bg-background/50 resize-none" 
-                        {...field} 
+        <DialogContent className="sm:max-w-[480px] w-[95vw] p-0 overflow-hidden bg-transparent border-0 shadow-none gap-0">
+          <div className="relative w-full h-full p-1">
+            {/* Ambient Background Glows */}
+            <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-cyan-500/20 rounded-full blur-[80px] animate-pulse" />
+            <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-purple-500/20 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
+            
+            <div className="relative h-full flex flex-col bg-[#0a0a0a]/80 backdrop-blur-[32px] border border-white/10 rounded-[32px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden">
+              {/* Animated Header Section */}
+              <div className="relative p-6 sm:p-8 border-b border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent">
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+                
+                <DialogHeader className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-500 to-purple-500 p-[1px] shadow-[0_8px_16px_-4px_rgba(56,189,248,0.4)]">
+                      <div className="w-full h-full rounded-[14px] bg-[#0a0a0a] flex items-center justify-center">
+                        <img src={logoImg} alt="MP" className="w-6 h-6 object-contain" />
+                      </div>
+                    </div>
+                    <div>
+                      <DialogTitle className="text-xl sm:text-2xl font-black tracking-tight text-white leading-tight">
+                        Начать <span className="text-cyan-400">проект</span>
+                      </DialogTitle>
+                      <DialogDescription className="text-xs sm:text-sm text-white/50 font-medium mt-1">
+                        Воплотим вашу идею в реальность
+                      </DialogDescription>
+                    </div>
+                  </div>
+                </DialogHeader>
+              </div>
+
+              {/* Form Content */}
+              <div className="flex-1 overflow-y-auto max-h-[70vh] p-6 sm:p-8 custom-scrollbar">
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-5">
+                    <div className="grid gap-5">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem className="space-y-2">
+                            <FormLabel className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Ваше имя</FormLabel>
+                            <FormControl>
+                              <div className="group relative">
+                                <Input 
+                                  placeholder="Алексей" 
+                                  {...field} 
+                                  className="h-12 bg-white/[0.03] border-white/10 rounded-2xl focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all placeholder:text-white/20 pl-4" 
+                                />
+                                <div className="absolute inset-0 rounded-2xl bg-cyan-500/5 opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
+                              </div>
+                            </FormControl>
+                            <FormMessage className="text-[10px] font-bold text-red-400 ml-1" />
+                          </FormItem>
+                        )}
                       />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button 
-                type="submit" 
-                className="w-full bg-cyan-500 hover:bg-cyan-400 text-white font-bold h-12 rounded-xl transition-all shadow-[0_0_20px_rgba(34,211,238,0.2)]"
-                disabled={mutation.isPending}
-              >
-                {mutation.isPending ? "Отправка..." : "Отправить заявку"}
-              </Button>
-            </form>
-          </Form>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <FormField
+                          control={form.control}
+                          name="phone"
+                          render={({ field }) => (
+                            <FormItem className="space-y-2">
+                              <FormLabel className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Телефон</FormLabel>
+                              <FormControl>
+                                <div className="group relative">
+                                  <Input 
+                                    placeholder="+7 (___) ___ __ __" 
+                                    {...field} 
+                                    className="h-12 bg-white/[0.03] border-white/10 rounded-2xl focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all placeholder:text-white/20 pl-4" 
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormMessage className="text-[10px] font-bold text-red-400 ml-1" />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem className="space-y-2">
+                              <FormLabel className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">Email</FormLabel>
+                              <FormControl>
+                                <div className="group relative">
+                                  <Input 
+                                    placeholder="mail@example.ru" 
+                                    {...field} 
+                                    className="h-12 bg-white/[0.03] border-white/10 rounded-2xl focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all placeholder:text-white/20 pl-4" 
+                                  />
+                                </div>
+                              </FormControl>
+                              <FormMessage className="text-[10px] font-bold text-red-400 ml-1" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                          <FormItem className="space-y-2">
+                            <FormLabel className="text-xs font-bold uppercase tracking-widest text-white/40 ml-1">О проекте</FormLabel>
+                            <FormControl>
+                              <div className="group relative">
+                                <Textarea 
+                                  placeholder="Опишите ваши цели и пожелания..." 
+                                  className="min-h-[120px] bg-white/[0.03] border-white/10 rounded-2xl focus:border-cyan-500/50 focus:ring-cyan-500/20 transition-all placeholder:text-white/20 resize-none p-4 leading-relaxed" 
+                                  {...field} 
+                                />
+                              </div>
+                            </FormControl>
+                            <FormMessage className="text-[10px] font-bold text-red-400 ml-1" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
+                    <div className="pt-2">
+                      <Button 
+                        type="submit" 
+                        disabled={mutation.isPending}
+                        className="relative w-full h-14 bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-black text-base rounded-2xl transition-all duration-300 transform active:scale-[0.98] shadow-[0_12px_24px_-8px_rgba(56,189,248,0.5)] group overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" style={{ clipPath: 'polygon(20% 0, 100% 0, 80% 100%, 0% 100%)' }} />
+                        <span className="relative z-10 flex items-center justify-center gap-2">
+                          {mutation.isPending ? (
+                            <>
+                              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                              Отправка...
+                            </>
+                          ) : (
+                            <>
+                              Запустить процесс
+                              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                              </div>
+                            </>
+                          )}
+                        </span>
+                      </Button>
+                      <p className="text-[10px] text-center text-white/20 mt-4 font-medium uppercase tracking-widest">
+                        Безопасно • Конфиденциально • 24/7
+                      </p>
+                    </div>
+                  </form>
+                </Form>
+              </div>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </>
