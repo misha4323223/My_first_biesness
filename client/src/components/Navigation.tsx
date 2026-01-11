@@ -256,13 +256,13 @@ export function Navigation() {
               </div>
 
               <div className="z-20">
-                <div className="h-11 w-11 rounded-sm bg-gradient-to-br from-slate-400 via-slate-200 to-slate-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(148,163,184,0.3)]">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-slate-400 via-slate-200 to-slate-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(148,163,184,0.3)]">
                   <button
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('open-ai-chat'));
                     }}
                     data-testid="button-mobile-ai"
-                    className="h-full w-full rounded-sm bg-black flex flex-col items-center justify-center font-mono"
+                    className="h-full w-full rounded-full bg-black flex flex-col items-center justify-center font-mono"
                     title="AI Assistant"
                   >
                     <Brain className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors duration-200" />
