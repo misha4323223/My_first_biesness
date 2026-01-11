@@ -256,7 +256,7 @@ export function ChatWidget() {
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 p-[1px]">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
-                  <HolographicSphere isProcessing={isLoading} isNaming={false} />
+                  <img src={logoUrl} alt="MP" className="w-5 h-5 object-contain" />
                 </div>
               </div>
               <div>
