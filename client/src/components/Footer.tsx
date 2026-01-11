@@ -93,7 +93,7 @@ export function Footer() {
                 <Phone className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Phone</span>
+                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Телефон</span>
                 <span className="text-xs font-mono text-white/70">+7 (953) 181-41-36</span>
               </div>
             </a>
@@ -103,8 +103,8 @@ export function Footer() {
                 <Clock className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">Schedule</span>
-                <span className="text-xs font-mono text-white/70">9:00 — 20:00 MSK</span>
+                <span className="text-[9px] uppercase tracking-widest text-white/30 font-bold">График</span>
+                <span className="text-xs font-mono text-white/70">9:00 — 20:00 МСК</span>
               </div>
             </div>
           </div>
@@ -157,8 +157,8 @@ export function Footer() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/20">
               <p>© {new Date().getFullYear()} MP.WebStudio. All systems operational.</p>
               <div className="flex gap-6">
-                <a href="/privacy" className="hover:text-cyan-400 transition-colors">Privacy</a>
-                <a href="/offer" className="hover:text-cyan-400 transition-colors">Terms</a>
+                <a href="/privacy" className="hover:text-cyan-400 transition-colors">Политика</a>
+                <a href="/offer" className="hover:text-cyan-400 transition-colors">Оферта</a>
               </div>
             </div>
           </div>
