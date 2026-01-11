@@ -29,7 +29,7 @@ const ParticleSphere = () => {
       alpha: number;
     }> = [];
 
-    const particleCount = 150;
+    const particleCount = 300;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const radius = 60;
