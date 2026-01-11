@@ -209,8 +209,8 @@ export function TechnologiesSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const line1 = "Используем ";
-  const line2 = "современный стек";
+  const line1 = "Инструменты и ";
+  const line2 = "интеграции";
 
   return (
     <section className="py-16 md:py-24 relative overflow-hidden bg-[#0a0a0a]">
@@ -251,7 +251,7 @@ export function TechnologiesSection() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-muted-foreground text-base max-w-xl mx-auto"
           >
-            Проверенные технологии и российские сервисы
+            Объединяем мощь современной разработки с популярными сервисами оплаты, логистики и облачными вычислениями для комплексной автоматизации.
           </motion.p>
         </div>
 
