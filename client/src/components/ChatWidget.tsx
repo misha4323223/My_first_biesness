@@ -7,7 +7,7 @@ import { apiRequest } from "@/lib/queryClient";
 import logoUrl from "@assets/mp_hexagonal_tech_logo_1766320057712.webp";
 import { motion, AnimatePresence } from "framer-motion";
 
-import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
+// Removed: import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
 
 const ParticleSphere = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -137,10 +137,11 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
       >
         <video
           ref={videoRef}
-          src={generatedVideo}
+          src="/assets/assistant_greeting.mp4"
           autoPlay
           muted
           playsInline
+          preload="auto"
           onEnded={() => setIsVideoEnded(true)}
           className={`w-full h-full object-cover transition-all duration-1000 ${
             isVideoEnded 
