@@ -156,7 +156,7 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-x-0 top-[15%] flex items-center justify-center pointer-events-none z-0"
+              className="absolute inset-x-0 top-[0%] flex items-center justify-center pointer-events-none z-0"
             >
               <div className="relative w-64 h-64 flex items-center justify-center">
                 <ParticleSphere />
