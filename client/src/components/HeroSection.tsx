@@ -263,7 +263,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, delay: 1.5 }}
               className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-4 px-4"
             >
-              Мы проектируем сайты нового поколения: быстрые, адаптивные и полностью готовые к продвижению. Весь процесс идет с чистого листа — от глубокой аналитики рынка до уникального визуала, чтобы ваш бизнес получил идеальный инструмент для захвата внимания в сети.
+              Проектируем быстрые и адаптивные сайты с нуля. От глубокой аналитики до уникального дизайна — создаем идеальный инструмент для роста вашего бизнеса.
             </motion.p>
             
             <div className="w-full max-w-3xl h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.2)]" />
