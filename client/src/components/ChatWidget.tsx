@@ -7,8 +7,7 @@ import { apiRequest } from "@/lib/queryClient";
 import logoUrl from "@assets/mp_hexagonal_tech_logo_1766320057712.webp";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Removed: import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
-
+// AI Assistant Greeting Components
 const ParticleSphere = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
