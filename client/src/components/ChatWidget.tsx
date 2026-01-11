@@ -50,7 +50,7 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
             <motion.div
               initial={{ opacity: 0, scale: 0.3, filter: "blur(20px)" }}
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              className="absolute inset-0 flex items-center justify-center pointer-events-none -translate-y-[30px]"
+              className="absolute inset-x-0 top-[20%] flex items-center justify-center pointer-events-none z-0"
             >
               <div className="relative w-48 h-48 flex items-center justify-center">
                 {/* Внешнее свечение сферы */}
@@ -69,8 +69,8 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-30" />
       
       {/* Виньетка для бесшовного вписывания */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-60" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-40" />
     </div>
   );
 };
@@ -374,7 +374,7 @@ export function ChatWidget() {
                           onChange={(e) => setUserName(e.target.value)}
                           disabled={isLoading}
                           placeholder="Ваше имя"
-                          className="h-12 bg-white/[0.03] border-white/10 rounded-2xl text-center font-bold tracking-tight focus:border-cyan-500/50 transition-all placeholder:text-white/10"
+                          className="h-12 bg-white/[0.03] border-white/20 rounded-2xl text-center font-bold tracking-tight focus:border-cyan-500/50 transition-all placeholder:text-white/40 text-white"
                           autoFocus
                         />
                         <div className="absolute inset-0 rounded-2xl bg-cyan-500/5 opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
@@ -382,7 +382,7 @@ export function ChatWidget() {
                       <Button
                         type="submit"
                         disabled={isLoading || !userName.trim()}
-                        className="w-full h-12 bg-white text-black hover:bg-white/90 font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50"
+                        className="w-full h-12 bg-white/90 text-black hover:bg-white font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50"
                       >
                         {isLoading ? (
                           <div className="w-5 h-5 border-2 border-black/10 border-t-black rounded-full animate-spin" />
