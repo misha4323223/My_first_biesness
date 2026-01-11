@@ -485,7 +485,7 @@ export function ChatWidget() {
                       <Button
                         type="submit"
                         disabled={isLoading || !userName.trim()}
-                        className="w-full h-12 bg-white text-black hover:bg-white/90 font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50 !opacity-100"
+                        className="w-full h-12 bg-white/10 text-white hover:bg-white/20 font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50 border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
                       >
                         {isLoading ? (
                           <div className="w-5 h-5 border-2 border-black/10 border-t-black rounded-full animate-spin" />
