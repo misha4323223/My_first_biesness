@@ -863,7 +863,7 @@ export function PortfolioSection() {
   };
 
   const line1 = "Галактика ";
-  const line2 = "наших проектов и концепций";
+  const line2 = "веб-технологий";
 
   const isMobile = useIsMobile();
   const isSE = typeof window !== 'undefined' && window.innerWidth <= 375;
@@ -894,8 +894,7 @@ export function PortfolioSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base px-4 mt-3 pointer-events-auto"
             >
-              В нашей веб-студии вы можете заказать сайт под ключ или купить готовое решение. 
-              Каждая звезда — это демо концепция: от интернет-магазинов и лендингов до сложных корпоративных систем. 
+              Изучите портфолио концепций: от ритейла до сервисов. Заказывайте персональную разработку или выбирайте готовый старт для запуска проекта.
             </motion.p>
           </div>
         </div>
