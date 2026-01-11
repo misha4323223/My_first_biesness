@@ -503,7 +503,7 @@ export function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex-1 flex flex-col min-h-0"
                 >
-                  <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 relative z-20 min-h-0" style={{ maxHeight: 'calc(80vh - 180px)', flexBasis: 'auto' }}>
+                  <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 relative z-20 min-h-0 custom-scrollbar" style={{ maxHeight: 'calc(80vh - 180px)', flexBasis: 'auto' }}>
                     {messages.map((msg, idx) => (
                       <motion.div
                         key={idx}
