@@ -120,10 +120,10 @@ export function Navigation() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={`mt-4 mx-4 pointer-events-auto transition-all duration-500 ease-in-out flex justify-center relative ${
+          className={`mt-2 mx-4 pointer-events-auto transition-all duration-500 ease-in-out flex justify-center relative ${
             isScrolled
-              ? "w-[95%] max-w-5xl rounded-full bg-background/40 backdrop-blur-2xl border border-cyan-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] py-2 px-4"
-              : "w-full max-w-7xl rounded-2xl bg-white/[0.02] backdrop-blur-md border border-white/5 py-4 px-6"
+              ? "w-[95%] max-w-5xl rounded-full bg-background/40 backdrop-blur-2xl border border-cyan-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] py-1.5 px-4"
+              : "w-full max-w-7xl rounded-2xl bg-white/[0.02] backdrop-blur-md border border-white/5 py-2 px-6"
           }`}
         >
           <nav className="flex items-center justify-between gap-4 w-full relative">
@@ -244,16 +244,16 @@ export function Navigation() {
             </div>
 
             {/* Mobile Navigation - Variant 4: Center Logo */}
-            <div className="flex md:hidden items-center justify-between w-full relative h-12 px-2">
+            <div className="flex md:hidden items-center justify-between w-full relative h-10 px-2">
               <div className="z-20">
                 <Button
                   size="icon"
                   variant="ghost"
-                  className="rounded-full pointer-events-auto hover:bg-white/10"
+                  className="w-8 h-8 rounded-full pointer-events-auto hover:bg-white/10"
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   data-testid="button-mobile-menu"
                 >
-                  {isMobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+                  {isMobileMenuOpen ? <X className="w-4 h-4 text-white" /> : <Menu className="w-4 h-4 text-white" />}
                 </Button>
               </div>
 
@@ -274,13 +274,13 @@ export function Navigation() {
                   <img 
                     src={logoImg} 
                     alt="MP" 
-                    className="relative w-9 h-9 object-cover rounded-full border border-white/30 shadow-2xl" 
+                    className="relative w-7 h-7 object-cover rounded-full border border-white/30 shadow-2xl" 
                   />
                 </motion.div>
               </div>
 
               <div className="z-20">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-slate-400 via-slate-200 to-slate-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(148,163,184,0.3)]">
+                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-slate-400 via-slate-200 to-slate-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95 shadow-[0_0_20px_rgba(148,163,184,0.3)]">
                   <button
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('open-ai-chat'));
@@ -289,8 +289,8 @@ export function Navigation() {
                     className="h-full w-full rounded-full bg-black flex flex-col items-center justify-center font-mono"
                     title="AI Assistant"
                   >
-                    <Brain className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors duration-200" />
-                    <span className="text-[8px] leading-none mt-0.5 text-slate-300 group-hover:text-white transition-colors duration-200">AI</span>
+                    <Brain className="w-3 h-3 text-slate-300 group-hover:text-white transition-colors duration-200" />
+                    <span className="text-[7px] leading-none mt-0.5 text-slate-300 group-hover:text-white transition-colors duration-200">AI</span>
                   </button>
                 </div>
               </div>
