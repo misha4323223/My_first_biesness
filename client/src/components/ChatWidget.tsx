@@ -29,10 +29,10 @@ const ParticleSphere = () => {
       alpha: number;
     }> = [];
 
-    const particleCount = 300;
+    const particleCount = 450;
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const radius = 60;
+    const radius = 120;
 
     // Инициализация частиц в случайных позициях снаружи
     for (let i = 0; i < particleCount; i++) {
