@@ -59,12 +59,12 @@ export function Navigation() {
 
   const mutation = useMutation({
     mutationFn: async (data: any) => {
-      const response = await apiRequest("POST", "/api/send-calculator-order", {
+      // Прямая отправка на /api/contact для универсальности (обрабатывается и локально, и в Облаке)
+      const response = await apiRequest("POST", "/api/contact", {
         ...data,
         projectType: "direct_request",
-        selectedFeatures: [],
-        basePrice: 0,
-        totalPrice: 0,
+        budget: "Не указан",
+        message: data.description,
       });
       return response.json();
     },
