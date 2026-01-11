@@ -37,14 +37,11 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
           muted
           playsInline
           onEnded={() => setIsVideoEnded(true)}
-          className={`w-full h-full object-contain transition-all duration-1000 ${
+          className={`w-full h-full object-cover transition-all duration-1000 ${
             isVideoEnded 
-              ? "opacity-0 scale-90 blur-md pointer-events-none" 
-              : "opacity-80 blur-0 scale-100 mix-blend-lighten"
+              ? "opacity-0 scale-110 blur-xl pointer-events-none" 
+              : "opacity-60 blur-0 scale-100 mix-blend-lighten"
           }`}
-          style={{
-            filter: 'drop-shadow(0 0 15px rgba(34, 211, 238, 0.4))'
-          }}
         />
         
         {/* Эффект пульсирующего ядра (сферы) после окончания видео */}
@@ -355,14 +352,16 @@ export function ChatWidget() {
               {isNameStep ? (
                 <motion.div
                   key="name-step"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="flex-1 flex flex-col items-center justify-center p-8 gap-8 relative overflow-hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex-1 flex flex-col items-center justify-end relative overflow-hidden"
                 >
-                  <HolographicVideo isProcessing={isLoading} />
+                  <div className="absolute inset-0 z-0">
+                    <HolographicVideo isProcessing={isLoading} />
+                  </div>
                   
-                  <div className="w-full max-w-[280px] space-y-6 text-center relative z-10 mt-auto pb-4">
+                  <div className="w-full max-w-[280px] space-y-6 text-center relative z-10 mb-12 p-8 bg-black/40 backdrop-blur-md rounded-3xl border border-white/5 shadow-2xl">
                     <div className="space-y-2">
                       <h3 className="text-xl font-black text-white tracking-tight">Представьтесь</h3>
                       <p className="text-sm text-white/40">Чтобы начать диалог с нашим интеллектом</p>
