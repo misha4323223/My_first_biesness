@@ -270,34 +270,6 @@ export function HeroSection() {
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.7 }}
-          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 px-6"
-        >
-          <a href="/order" className="w-full sm:w-auto">
-            <Button
-              className="w-full sm:w-auto min-h-[3rem]"
-              data-testid="button-hero-cta"
-            >
-              Заказать сайт
-            </Button>
-          </a>
-          <Button
-            variant="outline"
-            onClick={scrollToPortfolio}
-            className="w-full sm:w-auto min-h-[3rem]"
-            data-testid="button-hero-portfolio"
-          >
-            Смотреть работы
-          </Button>
-        </motion.div>
-      </div>
-
-
-      <div className="absolute top-1/4 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-float" />
-      <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float-slow" />
     </section>
   );
 }
