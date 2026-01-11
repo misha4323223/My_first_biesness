@@ -171,11 +171,11 @@ function TechBadge({ tech }: { tech: TechItem }) {
   );
 }
 
-function MarqueeRow({ items, direction = "left", speed = 30 }: { items: TechItem[]; direction?: "left" | "right"; speed?: number }) {
+function MarqueeRow({ items, direction = "left", speed = 30, rowId }: { items: TechItem[]; direction?: "left" | "right"; speed?: number; rowId: string }) {
   const duplicatedItems = [...items, ...items, ...items];
   
   return (
-    <div className="relative overflow-hidden py-2">
+    <div className={`relative overflow-hidden py-2 marquee-row-${rowId}`}>
       <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
       
@@ -204,6 +204,68 @@ function MarqueeRow({ items, direction = "left", speed = 30 }: { items: TechItem
     </div>
   );
 }
+
+function ForceFieldEffect() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-20">
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute left-1/2 w-[2px] bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent"
+          initial={{ 
+            height: 0, 
+            top: "20%",
+            x: `${(i - 2.5) * 150}px`,
+            opacity: 0 
+          }}
+          animate={{ 
+            height: ["0%", "40%", "0%"],
+            opacity: [0, 0.5, 0],
+            top: ["20%", "30%", "40%"]
+          }}
+          transition={{
+            duration: 3 + Math.random() * 2,
+            repeat: Infinity,
+            delay: i * 0.8,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+      <svg className="absolute inset-0 w-full h-full opacity-20">
+        <defs>
+          <linearGradient id="beam-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(34, 211, 238, 0)" />
+            <stop offset="50%" stopColor="rgba(34, 211, 238, 0.5)" />
+            <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+          </linearGradient>
+        </defs>
+        {[...Array(4)].map((_, i) => (
+          <motion.path
+            key={i}
+            d={`M ${100 + i * 300} 150 L ${200 + i * 300} 250`}
+            stroke="url(#beam-grad)"
+            strokeWidth="1"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ 
+              pathLength: [0, 1, 0],
+              opacity: [0, 1, 0],
+              x: [0, directionFactor(i) * 100]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: i * 1.2,
+              ease: "linear"
+            }}
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+const directionFactor = (i: number) => (i % 2 === 0 ? 1 : -1);
 
 export function TechnologiesSection() {
   const ref = useRef(null);
@@ -255,15 +317,18 @@ export function TechnologiesSection() {
           </motion.p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="space-y-3"
-        >
-          <MarqueeRow items={programmingTech} direction="left" speed={25} />
-          <MarqueeRow items={russianServices} direction="right" speed={35} />
-        </motion.div>
+        <div className="relative">
+          <ForceFieldEffect />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="space-y-3 relative z-10"
+          >
+            <MarqueeRow items={programmingTech} direction="left" speed={25} rowId="tech" />
+            <MarqueeRow items={russianServices} direction="right" speed={35} rowId="services" />
+          </motion.div>
+        </div>
       </div>
     </section>
   );
