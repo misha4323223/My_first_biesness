@@ -472,7 +472,6 @@ export function ChatWidget() {
                           disabled={isLoading}
                           placeholder="Ваше имя"
                           className="h-12 bg-white/[0.03] border-white/20 rounded-2xl text-center font-bold tracking-tight focus:border-cyan-500/50 transition-all placeholder:text-white/40 text-white"
-                          autoFocus
                         />
                         <div className="absolute inset-0 rounded-2xl bg-cyan-500/5 opacity-0 group-focus-within:opacity-100 pointer-events-none transition-opacity" />
                       </div>
