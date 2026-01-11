@@ -40,7 +40,7 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
           className={`w-full h-full object-cover transition-all duration-1000 ${
             isVideoEnded 
               ? "opacity-0 scale-110 blur-xl pointer-events-none" 
-              : "opacity-60 blur-0 scale-100 mix-blend-lighten"
+              : "opacity-100 blur-0 scale-100 mix-blend-lighten"
           }`}
         />
         
@@ -69,8 +69,8 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-30" />
       
       {/* Виньетка для бесшовного вписывания */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-40" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-20" />
     </div>
   );
 };
@@ -382,7 +382,7 @@ export function ChatWidget() {
                       <Button
                         type="submit"
                         disabled={isLoading || !userName.trim()}
-                        className="w-full h-12 bg-white/90 text-black hover:bg-white font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50"
+                        className="w-full h-12 bg-white text-black hover:bg-white/90 font-black rounded-2xl transition-all active:scale-[0.98] disabled:opacity-50 !opacity-100"
                       >
                         {isLoading ? (
                           <div className="w-5 h-5 border-2 border-black/10 border-t-black rounded-full animate-spin" />
