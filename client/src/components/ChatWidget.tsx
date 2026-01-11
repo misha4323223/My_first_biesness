@@ -37,7 +37,7 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
           muted
           playsInline
           onEnded={() => setIsVideoEnded(true)}
-          className={`w-[70%] h-[70%] object-contain transition-all duration-1000 ${
+          className={`w-full h-full object-contain transition-all duration-1000 ${
             isVideoEnded 
               ? "opacity-0 scale-90 blur-md pointer-events-none" 
               : "opacity-80 blur-0 scale-100 mix-blend-lighten"
