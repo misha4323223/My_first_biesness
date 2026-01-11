@@ -1023,6 +1023,10 @@ export async function registerRoutes(
 
       console.log("6️⃣ Sending chat request to GigaChat...");
       
+      const chatUrl = 'https://gigachat.devices.sberbank.ru/api/v1/chat/completions';
+      const history = req.body.history || [];
+      const limitedHistory = history.slice(-10);
+
       const chatBody = JSON.stringify({
         model: 'GigaChat',
         messages: [
