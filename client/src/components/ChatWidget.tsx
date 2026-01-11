@@ -7,7 +7,8 @@ import { apiRequest } from "@/lib/queryClient";
 import logoUrl from "@assets/mp_hexagonal_tech_logo_1766320057712.webp";
 import { motion, AnimatePresence } from "framer-motion";
 
-// AI Assistant Greeting Components
+import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
+
 const ParticleSphere = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -107,6 +108,7 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
     if (!video) return;
 
     const handleTimeUpdate = () => {
+      // Начинаем показывать частицы на 4-й секунде видео для плавного перехода
       if (video.currentTime >= 4 && !showParticles) {
         setShowParticles(true);
       }
@@ -115,8 +117,6 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
     video.addEventListener('timeupdate', handleTimeUpdate);
     return () => video.removeEventListener('timeupdate', handleTimeUpdate);
   }, [showParticles]);
-
-  const videoSrc = useMemo(() => `/assets/assistant_greeting.mp4?v=${Date.now()}`, []);
 
   return (
     <div className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden">
@@ -137,13 +137,11 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
       >
         <video
           ref={videoRef}
-          src={videoSrc}
+          src={generatedVideo}
           autoPlay
           muted
           playsInline
-          preload="auto"
           onEnded={() => setIsVideoEnded(true)}
-          onError={(e) => console.error("Video error:", e)}
           className={`w-full h-full object-cover transition-all duration-1000 ${
             isVideoEnded 
               ? "opacity-0 scale-110 blur-xl pointer-events-none" 
