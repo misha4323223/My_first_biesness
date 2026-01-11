@@ -24,6 +24,9 @@ export function ChatWidget() {
 
   // Scroll tracking and tooltip logic
   useEffect(() => {
+    const handleOpenChat = () => setIsOpen(true);
+    window.addEventListener('open-ai-chat', handleOpenChat);
+
     const handleScroll = () => {
       if (window.scrollY > 300) {
         setIsVisible(true);
@@ -43,6 +46,7 @@ export function ChatWidget() {
     }, 10000);
 
     return () => {
+      window.removeEventListener('open-ai-chat', handleOpenChat);
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(tooltipTimer);
       clearTimeout(hideTooltipTimer);
@@ -161,38 +165,6 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Плавающая кнопка - NEO TERMINAL STYLE WITH NEON ANIMATION */}
-      <div 
-        className={`fixed bottom-6 right-6 z-50 transition-all duration-500 transform ${
-          isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"
-        }`}
-      >
-        {/* Приветственный тултип */}
-        <div 
-          className={`absolute bottom-0 right-full mr-4 px-4 py-2 bg-black border border-cyan-500 text-cyan-500 font-mono text-[10px] rounded-sm whitespace-nowrap transition-all duration-300 transform ${
-            showTooltip ? "translate-x-0 opacity-100" : "translate-x-2 opacity-0 pointer-events-none"
-          }`}
-        >
-          <div className="absolute top-1/2 right-[-6px] -translate-y-1/2 w-2 h-2 bg-black border-t border-r border-cyan-500 rotate-45"></div>
-          &gt; ЕСТЬ ВОПРОСЫ? Я ПОМОГУ_
-        </div>
-
-        <div className="h-14 w-14 rounded-sm bg-gradient-to-r from-cyan-500 to-purple-500 p-[2px] group hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 opacity-60 hover:opacity-100">
-          <button
-            onClick={() => {
-              setIsOpen(true);
-              setShowTooltip(false);
-            }}
-            data-testid="button-ai-chat"
-            className="h-full w-full rounded-sm bg-background flex flex-col items-center justify-center font-mono transition-all duration-200 ai-assistant-btn"
-            title="AI Assistant"
-          >
-            <Brain className="w-5 h-5 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200" />
-            <span className="text-[10px] leading-none mt-1 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200">AI</span>
-          </button>
-        </div>
-      </div>
-
       {/* Модалка чата - NEO TERMINAL */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="w-[95vw] md:w-full max-w-md h-[80vh] md:h-[500px] flex flex-col p-0 bg-black border-2 border-transparent bg-gradient-to-br from-cyan-400/20 via-purple-400/20 to-cyan-400/20 bg-clip-padding rounded-sm shadow-[0_0_30px_rgba(168,85,247,0.3),0_0_20px_rgba(34,211,238,0.3)] neo-terminal">

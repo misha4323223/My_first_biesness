@@ -179,6 +179,21 @@ export function Navigation() {
                     </a>
                   ))}
                 </div>
+                
+                <div className="hidden md:block h-9 w-9 rounded-sm bg-gradient-to-r from-cyan-500 to-purple-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95">
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('open-ai-chat'));
+                    }}
+                    data-testid="button-desktop-ai"
+                    className="h-full w-full rounded-sm bg-black flex flex-col items-center justify-center font-mono"
+                    title="AI Assistant"
+                  >
+                    <Brain className="w-4 h-4 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200" />
+                    <span className="text-[8px] leading-none mt-0.5 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200">AI</span>
+                  </button>
+                </div>
+
                 <Button
                   size="sm"
                   onClick={() => setIsOrderModalOpen(true)}
