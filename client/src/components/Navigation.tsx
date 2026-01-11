@@ -56,18 +56,18 @@ export function Navigation() {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none">
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pointer-events-none w-full">
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`mt-4 mx-4 pointer-events-auto transition-all duration-500 ease-in-out ${
+        className={`mt-4 mx-4 pointer-events-auto transition-all duration-500 ease-in-out flex justify-center ${
           isScrolled
-            ? "w-[95%] max-w-5xl rounded-full bg-background/40 backdrop-blur-2xl border border-cyan-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] py-2 px-6"
-            : "w-full max-w-7xl rounded-2xl bg-white/[0.02] backdrop-blur-md border border-white/5 py-4 px-8"
+            ? "w-[95%] max-w-5xl rounded-full bg-background/40 backdrop-blur-2xl border border-cyan-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] py-2 px-4"
+            : "w-full max-w-7xl rounded-2xl bg-white/[0.02] backdrop-blur-md border border-white/5 py-4 px-6"
         }`}
       >
-        <nav className="flex items-center justify-between gap-6">
+        <nav className="flex items-center justify-between gap-4 w-full">
           <a
             href="/"
             onClick={(e) => {
@@ -76,30 +76,30 @@ export function Navigation() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className="flex items-center gap-3 flex-shrink-0 group"
+            className="flex items-center gap-2 flex-shrink-0 group"
             data-testid="link-logo"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-cyan-500/20 blur-xl group-hover:bg-cyan-500/40 transition-all duration-500 rounded-full scale-150" />
+              <div className="absolute inset-0 bg-cyan-500/20 blur-xl group-hover:bg-cyan-500/40 transition-all duration-500 rounded-full scale-125" />
               <img 
                 src={logoImg} 
                 alt="MP.WebStudio" 
-                className="relative w-8 h-8 md:w-10 md:h-10 object-cover rounded-full border border-white/20 shadow-2xl transition-transform duration-700 group-hover:rotate-[360deg]" 
+                className="relative w-7 h-7 md:w-9 md:h-9 object-cover rounded-full border border-white/20 shadow-2xl transition-transform duration-700 group-hover:rotate-[360deg]" 
               />
             </div>
-            <span className="text-xl md:text-2xl font-black tracking-tight text-foreground">
+            <span className="text-lg md:text-xl font-black tracking-tighter text-foreground">
               MP<span className="text-cyan-400">.</span>Studio
             </span>
           </a>
 
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-0.5">
             {navItems.map((item) => (
               <Button
                 key={item.href}
                 variant="ghost"
                 size="sm"
                 onClick={() => scrollToSection(item.href)}
-                className="relative text-sm font-medium tracking-wide text-muted-foreground hover:text-cyan-400 transition-colors px-4 py-2 rounded-full overflow-hidden group"
+                className="relative text-[13px] font-medium tracking-tight text-muted-foreground hover:text-cyan-400 transition-colors px-3 py-1.5 rounded-full overflow-hidden group"
                 data-testid={`link-nav-${item.href.slice(1)}`}
               >
                 <span className="relative z-10">{item.label}</span>
@@ -108,21 +108,30 @@ export function Navigation() {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4">
-            <div className="flex items-center gap-1 mr-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/5">
+          <div className="hidden lg:flex items-center gap-3">
+            <div className="flex items-center gap-0.5 px-3 py-1 rounded-full bg-white/5 border border-white/5">
               {legalLinks.map((link) => (
-                <a key={link.href} href={link.href} className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground hover:text-cyan-400 transition-colors px-2">
+                <a key={link.href} href={link.href} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground hover:text-cyan-400 transition-colors px-1.5">
                   {link.label}
                 </a>
               ))}
             </div>
+            <Button
+              size="sm"
+              onClick={() => scrollToSection("#calculator")}
+              variant="ghost"
+              className="text-[13px] text-cyan-400 hover:text-cyan-300 px-3 rounded-full"
+              data-testid="button-nav-send-request"
+            >
+              Отправить заявку
+            </Button>
             <a href={orderPagePath}>
               <Button
                 size="sm"
-                className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-6 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.3)] hover:shadow-[0_0_25px_rgba(34,211,238,0.5)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0"
+                className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-5 py-1.5 h-auto text-[13px] rounded-full shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0"
                 data-testid="button-nav-cta"
               >
-                Заказать
+                Заказать сайт
               </Button>
             </a>
           </div>
