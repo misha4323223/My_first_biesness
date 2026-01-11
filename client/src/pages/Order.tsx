@@ -592,7 +592,7 @@ export default function Order() {
                                   <Plus className="w-4 h-4 text-primary animate-pulse" />
                                   <span className="tracking-tight">Дополнительные модули и функции:</span>
                                 </p>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                   {typeFeatures.map((feature, idx) => {
                                     const isFeatureSelected = selectedFeatures.includes(feature.id);
                                     return (
@@ -602,24 +602,24 @@ export default function Order() {
                                         transition={{ delay: idx * 0.05 }}
                                         key={feature.id}
                                         onClick={(e) => { e.stopPropagation(); toggleFeature(feature.id); }}
-                                        className={`group relative p-5 rounded-xl border transition-all duration-300 cursor-pointer hover-elevate overflow-visible select-none ${
+                                        className={`group relative p-3 sm:p-5 rounded-xl border transition-all duration-300 cursor-pointer hover-elevate overflow-visible select-none min-w-0 ${
                                           isFeatureSelected
                                             ? "border-primary bg-primary/10 shadow-[0_0_25px_rgba(56,189,248,0.15)] ring-1 ring-primary/20"
                                             : "border-border/40 bg-card/40 hover:border-primary/40 hover:bg-card/60"
                                         }`}
                                       >
-                                        <div className="flex items-start justify-between gap-4 mb-3">
+                                        <div className="flex items-start justify-between gap-2 sm:gap-4 mb-2 sm:mb-3">
                                           <div className="flex-1 min-w-0">
-                                            <span className={`text-sm font-bold block truncate transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>
+                                            <span className={`text-xs sm:text-sm font-bold block truncate transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-foreground group-hover:text-primary/80"}`}>
                                               {feature.label}
                                             </span>
                                             {feature.description && (
-                                              <p className="text-[12px] text-muted-foreground leading-relaxed mt-1.5 line-clamp-2 font-medium">
+                                              <p className="text-[10px] sm:text-[12px] text-muted-foreground leading-relaxed mt-1 sm:mt-1.5 line-clamp-2 font-medium">
                                                 {feature.description}
                                               </p>
                                             )}
                                           </div>
-                                          <div className={`shrink-0 w-6 h-6 rounded-lg border flex items-center justify-center transition-all duration-500 ${
+                                          <div className={`shrink-0 w-5 h-5 sm:w-6 sm:h-6 rounded-lg border flex items-center justify-center transition-all duration-500 ${
                                             isFeatureSelected 
                                               ? "bg-primary border-primary rotate-0 scale-110 shadow-[0_0_15px_rgba(56,189,248,0.6)]" 
                                               : "border-muted-foreground/30 group-hover:border-primary/50 -rotate-12 group-hover:rotate-0"
@@ -632,7 +632,7 @@ export default function Order() {
                                                   exit={{ scale: 0 }}
                                                   key="check"
                                                 >
-                                                  <Check className="w-3.5 h-3.5 text-primary-foreground stroke-[3]" />
+                                                  <Check className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-primary-foreground stroke-[3]" />
                                                 </motion.div>
                                               ) : (
                                                 <motion.div
@@ -640,15 +640,15 @@ export default function Order() {
                                                   animate={{ opacity: 1 }}
                                                   key="plus"
                                                 >
-                                                  <Plus className="w-3 h-3 text-muted-foreground/50 group-hover:text-primary/70" />
+                                                  <Plus className="w-2.5 sm:w-3 h-2.5 sm:h-3 text-muted-foreground/50 group-hover:text-primary/70" />
                                                 </motion.div>
                                               )}
                                             </AnimatePresence>
                                           </div>
                                         </div>
-                                        <div className={`flex items-center justify-between mt-3 pt-3 border-t transition-colors duration-300 ${isFeatureSelected ? "border-primary/20" : "border-border/10"}`}>
-                                          <span className="text-[10px] uppercase tracking-[0.1em] text-muted-foreground/60 font-bold">Стоимость модуля</span>
-                                          <span className={`text-xs font-mono font-black transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-primary/70 group-hover:text-primary"}`}>
+                                        <div className={`flex items-center justify-between mt-2 sm:mt-3 pt-2 sm:pt-3 border-t transition-colors duration-300 ${isFeatureSelected ? "border-primary/20" : "border-border/10"}`}>
+                                          <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.05em] sm:tracking-[0.1em] text-muted-foreground/60 font-bold">Цена</span>
+                                          <span className={`text-[10px] sm:text-xs font-mono font-black transition-colors duration-300 ${isFeatureSelected ? "text-primary" : "text-primary/70 group-hover:text-primary"}`}>
                                             +{formatPrice(feature.price)} ₽
                                           </span>
                                         </div>
