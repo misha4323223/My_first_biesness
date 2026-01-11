@@ -178,17 +178,17 @@ export function Navigation() {
                     onClick={() => {
                       window.dispatchEvent(new CustomEvent('open-ai-chat'));
                     }}
-                    className="group relative flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 hover:border-cyan-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(34,211,238,0.1)] hover:shadow-[0_0_30px_rgba(34,211,238,0.2)]"
+                    className="group relative flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 hover:border-slate-400/30 transition-all duration-300 shadow-[0_0_20px_rgba(148,163,184,0.1)] hover:shadow-[0_0_30px_rgba(148,163,184,0.2)]"
                     data-testid="button-scrolled-ai"
                   >
                     <div className="relative w-4 h-4">
-                      <div className="absolute inset-0 bg-cyan-400 blur-sm opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
-                      <Brain className="relative w-full h-full text-cyan-400 group-hover:text-white transition-colors duration-300" />
+                      <div className="absolute inset-0 bg-slate-400 blur-sm opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
+                      <Brain className="relative w-full h-full text-slate-400 group-hover:text-white transition-colors duration-300" />
                     </div>
-                    <span className="text-[11px] font-black uppercase tracking-[0.15em] bg-gradient-to-r from-white via-slate-300 to-white bg-clip-text text-transparent group-hover:text-white transition-all duration-300">
-                      ИИ Помощник
+                    <span className="text-[11px] font-black uppercase tracking-[0.15em] bg-gradient-to-r from-slate-400 via-slate-100 to-slate-500 bg-clip-text text-transparent group-hover:text-white transition-all duration-300">
+                      ИИ Асистент
                     </span>
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-slate-500/5 to-slate-300/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
                 </div>
               </div>
