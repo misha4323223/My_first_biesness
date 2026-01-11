@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, MessageSquareText } from "lucide-react";
+import { Menu, X, Brain } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "wouter";
 import logoImg from "@assets/generated_images/mp_hexagonal_tech_logo.webp";
@@ -241,22 +241,19 @@ export function Navigation() {
               </div>
 
               <div className="z-20">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="rounded-full pointer-events-auto hover:bg-white/10 text-cyan-400 relative"
-                  onClick={() => {
-                    // Генерируем событие для открытия чата
-                    window.dispatchEvent(new CustomEvent('open-ai-chat'));
-                  }}
-                  data-testid="button-mobile-ai"
-                >
-                  <MessageSquareText className="w-6 h-6" />
-                  <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
-                  </span>
-                </Button>
+                <div className="h-11 w-11 rounded-sm bg-gradient-to-r from-cyan-500 to-purple-500 p-[1.5px] group opacity-100 transition-all duration-300 active:scale-95">
+                  <button
+                    onClick={() => {
+                      window.dispatchEvent(new CustomEvent('open-ai-chat'));
+                    }}
+                    data-testid="button-mobile-ai"
+                    className="h-full w-full rounded-sm bg-black flex flex-col items-center justify-center font-mono"
+                    title="AI Assistant"
+                  >
+                    <Brain className="w-4 h-4 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200" />
+                    <span className="text-[8px] leading-none mt-0.5 text-cyan-500 group-hover:text-purple-500 transition-colors duration-200">AI</span>
+                  </button>
+                </div>
               </div>
             </div>
           </nav>
