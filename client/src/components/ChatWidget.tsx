@@ -7,6 +7,8 @@ import { apiRequest } from "@/lib/queryClient";
 import logoUrl from "@assets/mp_hexagonal_tech_logo_1766320057712.webp";
 import { motion, AnimatePresence } from "framer-motion";
 
+import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
+
 interface Message {
   role: "user" | "assistant";
   content: string;
