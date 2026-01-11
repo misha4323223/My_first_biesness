@@ -450,7 +450,7 @@ export function ChatWidget() {
             </button>
           </DialogHeader>
 
-          <div className="flex-1 relative flex flex-col min-h-0">
+          <div className="flex-1 relative flex flex-col overflow-hidden">
             <AnimatePresence mode="wait">
               {isNameStep ? (
                 <motion.div
@@ -503,7 +503,7 @@ export function ChatWidget() {
                   animate={{ opacity: 1 }}
                   className="flex-1 flex flex-col"
                 >
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4 touch-auto relative z-20 min-h-0">
+                  <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 relative z-20" style={{ maxHeight: 'calc(100% - 80px)' }}>
                     {messages.map((msg, idx) => (
                       <motion.div
                         key={idx}
