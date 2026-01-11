@@ -449,10 +449,11 @@ ${pages
         }
 
         if ((action === 'contact' || path.includes('/contact')) && method === 'POST') {
+            console.log('[YANDEX-CONTACT] Handler called with data:', JSON.stringify(body));
             return await handleContact(body, headers);
         }
 
-        if ((action === 'orders' || path.includes('/order')) && method === 'POST') {
+        if ((action === 'orders' || path.includes('/order')) && method === 'POST' && !path.includes('/pay-remaining')) {
             return await handleOrder(body, headers);
         }
 
@@ -1810,7 +1811,19 @@ function generateOrderId() {
 
 async function handleContact(data, headers) {
     try {
-        await sendTelegramNotification(formatContactMessage(data));
+        console.log('[YANDEX-CONTACT] Formatting notification for data:', JSON.stringify(data));
+        
+        // Приводим данные к ожидаемому формату если они пришли из формы навигации
+        const contactData = {
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            projectType: data.projectType || 'Не указан',
+            budget: data.budget || 'Не указан',
+            message: data.message || data.description || 'Без сообщения'
+        };
+
+        await sendTelegramNotification(formatContactMessage(contactData));
 
         return {
             statusCode: 200,
@@ -1822,7 +1835,7 @@ async function handleContact(data, headers) {
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ success: false, message: 'Ошибка отправки' }),
+            body: JSON.stringify({ success: false, message: 'Ошибка отправки', error: error.message }),
         };
     }
 }

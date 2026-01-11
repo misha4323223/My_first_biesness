@@ -61,6 +61,7 @@ export function Navigation() {
     mutationFn: async (data: any) => {
       // Прямая отправка на /api/contact для универсальности (обрабатывается и локально, и в Облаке)
       const response = await apiRequest("POST", "/api/contact", {
+        action: "contact", // Явно указываем действие для Yandex Cloud
         ...data,
         projectType: "direct_request",
         budget: "Не указан",
