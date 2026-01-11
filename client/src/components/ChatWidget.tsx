@@ -9,6 +9,67 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import generatedVideo from "@assets/generated_videos/ai_assistant_holographic_head_greeting.mp4";
 
+const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoEnded, setIsVideoEnded] = useState(false);
+
+  return (
+    <div className="relative w-full h-full flex items-center justify-center">
+      {/* Плавное свечение вокруг */}
+      <div className={`absolute inset-0 bg-cyan-500/20 blur-[60px] rounded-full transition-opacity duration-1000 ${isVideoEnded ? 'opacity-100' : 'opacity-40'}`} />
+      
+      <motion.div
+        animate={isVideoEnded ? {
+          scale: [1, 1.05, 1],
+          opacity: [0.7, 0.9, 0.7],
+        } : {}}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        className="relative w-full h-full flex items-center justify-center"
+      >
+        <video
+          ref={videoRef}
+          src={generatedVideo}
+          autoPlay
+          muted
+          playsInline
+          onEnded={() => setIsVideoEnded(true)}
+          className={`w-full h-full object-contain transition-all duration-1000 ${
+            isVideoEnded 
+              ? "opacity-40 blur-[8px] scale-95 grayscale brightness-150 mix-blend-screen" 
+              : "opacity-100 blur-0 scale-100 mix-blend-lighten"
+          }`}
+          style={{
+            filter: isVideoEnded 
+              ? 'drop-shadow(0 0 20px rgba(34, 211, 238, 0.8))' 
+              : 'drop-shadow(0 0 10px rgba(34, 211, 238, 0.3))'
+          }}
+        />
+        
+        {/* Эффект пульсирующего ядра после окончания видео */}
+        <AnimatePresence>
+          {isVideoEnded && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
+              <div className="w-32 h-32 bg-cyan-400/20 rounded-full blur-[40px] animate-pulse" />
+              <div className="w-16 h-16 bg-white/10 rounded-full blur-[20px] animate-ping" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
+      {/* Наложение сетки для эффекта прямой трансляции */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.1)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[length:100%_4px,3px_100%] pointer-events-none opacity-20" />
+    </div>
+  );
+};
+
 interface Message {
   role: "user" | "assistant";
   content: string;
@@ -291,9 +352,8 @@ export function ChatWidget() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   className="flex-1 flex flex-col items-center justify-center p-8 gap-8"
                 >
-                  <div className="relative w-48 h-48">
-                    <div className="absolute inset-0 bg-cyan-500/5 blur-[40px] rounded-full" />
-                    <HolographicSphere isProcessing={isLoading} isNaming={true} />
+                  <div className="relative w-64 h-64">
+                    <HolographicVideo isProcessing={isLoading} />
                   </div>
                   
                   <div className="w-full max-w-[280px] space-y-6 text-center">
