@@ -59,9 +59,8 @@ export function Navigation() {
 
   const mutation = useMutation({
     mutationFn: async (data: any) => {
-      // Прямая отправка на /api/contact для универсальности (обрабатывается и локально, и в Облаке)
       const response = await apiRequest("POST", "/api/contact", {
-        action: "contact", // Явно указываем действие для Yandex Cloud
+        action: "contact",
         ...data,
         projectType: "direct_request",
         budget: "Не указан",
@@ -120,7 +119,7 @@ export function Navigation() {
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={`mt-4 mx-4 pointer-events-auto transition-all duration-500 ease-in-out flex justify-center ${
+          className={`mt-4 mx-4 pointer-events-auto transition-all duration-500 ease-in-out flex justify-center relative ${
             isScrolled
               ? "w-[95%] max-w-5xl rounded-full bg-background/40 backdrop-blur-2xl border border-cyan-500/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)] py-2 px-4"
               : "w-full max-w-7xl rounded-2xl bg-white/[0.02] backdrop-blur-md border border-white/5 py-4 px-6"
@@ -205,22 +204,25 @@ export function Navigation() {
             </div>
 
             {/* Mobile Navigation - Variant 4: Center Logo */}
-            <div className="flex md:hidden items-center justify-between w-full relative h-10">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="rounded-full pointer-events-auto"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                data-testid="button-mobile-menu"
-              >
-                {isMobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
-              </Button>
+            <div className="flex md:hidden items-center justify-between w-full relative h-12 px-2">
+              <div className="z-20">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="rounded-full pointer-events-auto hover:bg-white/10"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  data-testid="button-mobile-menu"
+                >
+                  {isMobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+                </Button>
+              </div>
 
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto z-10">
                 <motion.div
                   whileTap={{ scale: 0.9 }}
-                  className="relative group"
-                  onClick={() => {
+                  className="relative group cursor-pointer"
+                  onClick={(e) => {
+                    e.stopPropagation();
                     if (isHomePage) {
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     } else {
@@ -232,57 +234,64 @@ export function Navigation() {
                   <img 
                     src={logoImg} 
                     alt="MP" 
-                    className="relative w-8 h-8 object-cover rounded-full border border-white/30 shadow-2xl" 
+                    className="relative w-9 h-9 object-cover rounded-full border border-white/30 shadow-2xl" 
                   />
                 </motion.div>
               </div>
 
-              <Button
-                size="sm"
-                variant="ghost"
-                onClick={() => setIsOrderModalOpen(true)}
-                className="text-[11px] font-black uppercase tracking-wider text-cyan-400 p-0 hover:bg-transparent"
-                data-testid="button-mobile-request"
-              >
-                Заявка
-              </Button>
+              <div className="z-20">
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => setIsOrderModalOpen(true)}
+                  className="text-[12px] font-black uppercase tracking-wider text-cyan-400 p-2 hover:bg-white/10 rounded-full"
+                  data-testid="button-mobile-request"
+                >
+                  Заявка
+                </Button>
+              </div>
             </div>
-
           </nav>
 
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
-                initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                className="md:hidden mt-4 rounded-3xl bg-background/90 backdrop-blur-3xl border border-white/10 overflow-hidden shadow-2xl"
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                className="md:hidden absolute top-[calc(100%+0.5rem)] left-0 right-0 rounded-[32px] bg-[#0a0a0a]/95 backdrop-blur-3xl border border-white/10 overflow-hidden shadow-[0_24px_48px_rgba(0,0,0,0.8)] z-[100]"
               >
-                <div className="p-6 flex flex-col gap-3">
-                  {navItems.map((item) => (
-                    <Button
+                <div className="p-6 flex flex-col gap-2">
+                  {navItems.map((item, index) => (
+                    <motion.div
                       key={item.href}
-                      variant="ghost"
-                      onClick={() => scrollToSection(item.href)}
-                      className="justify-start text-lg font-medium tracking-tight rounded-2xl"
-                      data-testid={`link-mobile-nav-${item.href.slice(1)}`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
                     >
-                      {item.label}
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => scrollToSection(item.href)}
+                        className="w-full justify-start text-lg font-bold tracking-tight rounded-2xl py-6 hover:bg-white/5 text-white/80 hover:text-cyan-400"
+                        data-testid={`link-mobile-nav-${item.href.slice(1)}`}
+                      >
+                        {item.label}
+                      </Button>
+                    </motion.div>
                   ))}
-                  <div className="grid grid-cols-2 gap-3 mt-4">
+                  <div className="grid grid-cols-2 gap-4 mt-6">
                     <Button
                       onClick={() => {
                         setIsMobileMenuOpen(false);
                         setIsOrderModalOpen(true);
                       }}
                       variant="outline"
-                      className="rounded-2xl border-white/10"
+                      className="rounded-2xl border-white/10 h-12 font-bold hover:bg-white/5 text-white"
                     >
                       Заявка
                     </Button>
-                    <a href={orderPagePath}>
-                      <Button className="w-full bg-cyan-500 text-white font-bold rounded-2xl">
+                    <a href={orderPagePath} className="w-full">
+                      <Button className="w-full h-12 bg-cyan-500 hover:bg-cyan-400 text-white font-black rounded-2xl shadow-[0_0_20px_rgba(34,211,238,0.3)]">
                         Заказать
                       </Button>
                     </a>
@@ -297,12 +306,10 @@ export function Navigation() {
       <Dialog open={isOrderModalOpen} onOpenChange={setIsOrderModalOpen}>
         <DialogContent className="sm:max-w-[480px] w-[95vw] p-0 overflow-hidden bg-transparent border-0 shadow-none gap-0">
           <div className="relative w-full h-full p-1">
-            {/* Ambient Background Glows */}
             <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-cyan-500/20 rounded-full blur-[80px] animate-pulse" />
             <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-purple-500/20 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '1s' }} />
             
             <div className="relative h-full flex flex-col bg-[#0a0a0a]/80 backdrop-blur-[32px] border border-white/10 rounded-[32px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden">
-              {/* Animated Header Section */}
               <div className="relative p-6 sm:p-8 border-b border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent">
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
                 
@@ -325,7 +332,6 @@ export function Navigation() {
                 </DialogHeader>
               </div>
 
-              {/* Form Content */}
               <div className="flex-1 overflow-y-auto max-h-[70vh] p-6 sm:p-8 custom-scrollbar">
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit((data) => mutation.mutate(data))} className="space-y-5">
