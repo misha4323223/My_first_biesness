@@ -101,6 +101,22 @@ const ParticleSphere = () => {
 const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoEnded, setIsVideoEnded] = useState(false);
+  const [showParticles, setShowParticles] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      // Начинаем показывать частицы на 4-й секунде видео для плавного перехода
+      if (video.currentTime >= 4 && !showParticles) {
+        setShowParticles(true);
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    return () => video.removeEventListener('timeupdate', handleTimeUpdate);
+  }, [showParticles]);
 
   return (
     <div className="absolute inset-0 w-full h-full flex items-center justify-center overflow-hidden">
@@ -133,12 +149,13 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
           }`}
         />
         
-        {/* Эффект пульсирующего ядра (сферы) после окончания видео */}
+        {/* Эффект пульсирующего ядра (сферы) */}
         <AnimatePresence>
-          {isVideoEnded && (
+          {showParticles && (
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
               className="absolute inset-x-0 top-[15%] flex items-center justify-center pointer-events-none z-0"
             >
               <div className="relative w-64 h-64 flex items-center justify-center">
