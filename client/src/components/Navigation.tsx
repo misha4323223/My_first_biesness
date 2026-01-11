@@ -120,10 +120,10 @@ export function Navigation() {
               size="sm"
               onClick={() => scrollToSection("#calculator")}
               variant={isScrolled ? "default" : "ghost"}
-              className={`text-[13px] rounded-full transition-all duration-300 ${
+              className={`text-[13px] rounded-full transition-all duration-300 font-bold ${
                 isScrolled 
-                  ? "bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-5 shadow-[0_0_20px_rgba(34,211,238,0.2)]" 
-                  : "text-cyan-400 hover:text-cyan-300 px-3"
+                  ? "bg-cyan-500 hover:bg-cyan-400 text-white px-5 shadow-[0_0_20px_rgba(34,211,238,0.3)]" 
+                  : "text-white hover:text-cyan-300 px-3"
               }`}
               data-testid="button-nav-send-request"
             >
@@ -132,7 +132,7 @@ export function Navigation() {
             <a href={orderPagePath} className={`transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
               <Button
                 size="sm"
-                className="bg-[#38bdf8] hover:bg-[#7dd3fc] text-[#0a0a0a] font-black px-6 py-2 h-auto text-[13px] rounded-full shadow-[0_0_25px_rgba(56,189,248,0.5)] hover:shadow-[0_0_35px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border-0"
+                className="bg-[#38bdf8] hover:bg-[#7dd3fc] text-white font-black px-6 py-2 h-auto text-[13px] rounded-full shadow-[0_0_25px_rgba(56,189,248,0.5)] hover:shadow-[0_0_35px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border-0"
                 data-testid="button-nav-cta"
               >
                 Заказать сайт
