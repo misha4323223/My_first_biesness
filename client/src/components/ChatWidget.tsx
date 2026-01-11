@@ -442,12 +442,6 @@ export function ChatWidget() {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-white/20 hover:text-white hover:bg-white/5 transition-all"
-            >
-              <X className="w-4 h-4" />
-            </button>
           </DialogHeader>
 
           <div className="flex-1 relative flex flex-col overflow-hidden min-h-0">
