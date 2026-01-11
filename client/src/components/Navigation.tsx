@@ -127,87 +127,127 @@ export function Navigation() {
           }`}
         >
           <nav className="flex items-center justify-between gap-4 w-full">
-            <a
-              href="/"
-              onClick={(e) => {
-                if (isHomePage) {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }
-              }}
-              className="flex items-center gap-2 flex-shrink-0 group"
-              data-testid="link-logo"
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-cyan-500/20 blur-xl group-hover:bg-cyan-500/40 transition-all duration-500 rounded-full scale-125" />
-                <img 
-                  src={logoImg} 
-                  alt="MP.WebStudio" 
-                  className="relative w-7 h-7 md:w-9 md:h-9 object-cover rounded-full border border-white/20 shadow-2xl transition-transform duration-700 group-hover:rotate-[360deg]" 
-                />
-              </div>
-              <span className="text-lg md:text-xl font-black tracking-tighter text-foreground whitespace-nowrap">
-                MP<span className="text-cyan-400">.</span>WebStudio
-              </span>
-            </a>
+            {/* Desktop Navigation */}
+            <div className={`hidden md:flex items-center gap-4 w-full`}>
+              <a
+                href="/"
+                onClick={(e) => {
+                  if (isHomePage) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+                className="flex items-center gap-2 flex-shrink-0 group"
+                data-testid="link-logo"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-cyan-500/20 blur-xl group-hover:bg-cyan-500/40 transition-all duration-500 rounded-full scale-125" />
+                  <img 
+                    src={logoImg} 
+                    alt="MP.WebStudio" 
+                    className="relative w-7 h-7 md:w-9 md:h-9 object-cover rounded-full border border-white/20 shadow-2xl transition-transform duration-700 group-hover:rotate-[360deg]" 
+                  />
+                </div>
+                <span className="text-lg md:text-xl font-black tracking-tighter text-foreground whitespace-nowrap">
+                  MP<span className="text-cyan-400">.</span>WebStudio
+                </span>
+              </a>
 
-            <div className={`hidden md:flex items-center gap-0.5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
-              {navItems.map((item) => (
+              <div className="flex-1 flex justify-center">
+                <div className={`flex items-center gap-0.5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
+                  {navItems.map((item) => (
+                    <Button
+                      key={item.href}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => scrollToSection(item.href)}
+                      className="relative text-[13px] font-medium tracking-tight text-muted-foreground hover:text-cyan-400 transition-colors px-3 py-1.5 rounded-full overflow-hidden group"
+                      data-testid={`link-nav-${item.href.slice(1)}`}
+                    >
+                      <span className="relative z-10">{item.label}</span>
+                      <span className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className={`hidden lg:flex items-center gap-0.5 px-3 py-1 rounded-full bg-white/5 border border-white/5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
+                  {legalLinks.map((link) => (
+                    <a key={link.href} href={link.href} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground hover:text-cyan-400 transition-colors px-1.5">
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
                 <Button
-                  key={item.href}
-                  variant="ghost"
                   size="sm"
-                  onClick={() => scrollToSection(item.href)}
-                  className="relative text-[13px] font-medium tracking-tight text-muted-foreground hover:text-cyan-400 transition-colors px-3 py-1.5 rounded-full overflow-hidden group"
-                  data-testid={`link-nav-${item.href.slice(1)}`}
+                  onClick={() => setIsOrderModalOpen(true)}
+                  variant={isScrolled ? "default" : "ghost"}
+                  className={`text-[13px] rounded-full transition-all duration-300 font-bold whitespace-nowrap ${
+                    isScrolled 
+                      ? "bg-cyan-500 hover:bg-cyan-400 text-white px-5 shadow-[0_0_20px_rgba(34,211,238,0.3)]" 
+                      : "text-white hover:text-cyan-300 px-3"
+                  }`}
+                  data-testid="button-nav-send-request"
                 >
-                  <span className="relative z-10">{item.label}</span>
-                  <span className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  Заявка
                 </Button>
-              ))}
+                <a href={orderPagePath} className={`hidden sm:block transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
+                  <Button
+                    size="sm"
+                    className="bg-[#38bdf8] hover:bg-[#7dd3fc] text-white font-black px-6 py-2 h-auto text-[13px] rounded-full shadow-[0_0_25px_rgba(56,189,248,0.5)] hover:shadow-[0_0_35px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border-0 whitespace-nowrap"
+                    data-testid="button-nav-cta"
+                  >
+                    Заказать сайт
+                  </Button>
+                </a>
+              </div>
             </div>
 
-            <div className="hidden lg:flex items-center gap-3">
-              <div className={`flex items-center gap-0.5 px-3 py-1 rounded-full bg-white/5 border border-white/5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
-                {legalLinks.map((link) => (
-                  <a key={link.href} href={link.href} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground hover:text-cyan-400 transition-colors px-1.5">
-                    {link.label}
-                  </a>
-                ))}
+            {/* Mobile Navigation - Variant 4: Center Logo */}
+            <div className="flex md:hidden items-center justify-between w-full relative h-10">
+              <Button
+                size="icon"
+                variant="ghost"
+                className="rounded-full pointer-events-auto"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                data-testid="button-mobile-menu"
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
+              </Button>
+
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <motion.div
+                  whileTap={{ scale: 0.9 }}
+                  className="relative group"
+                  onClick={() => {
+                    if (isHomePage) {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    } else {
+                      window.location.href = "/";
+                    }
+                  }}
+                >
+                  <div className="absolute inset-0 bg-cyan-500/30 blur-lg rounded-full animate-pulse" />
+                  <img 
+                    src={logoImg} 
+                    alt="MP" 
+                    className="relative w-8 h-8 object-cover rounded-full border border-white/30 shadow-2xl" 
+                  />
+                </motion.div>
               </div>
+
               <Button
                 size="sm"
+                variant="ghost"
                 onClick={() => setIsOrderModalOpen(true)}
-                variant={isScrolled ? "default" : "ghost"}
-                className={`text-[13px] rounded-full transition-all duration-300 font-bold whitespace-nowrap ${
-                  isScrolled 
-                    ? "bg-cyan-500 hover:bg-cyan-400 text-white px-5 shadow-[0_0_20px_rgba(34,211,238,0.3)]" 
-                    : "text-white hover:text-cyan-300 px-3"
-                }`}
-                data-testid="button-nav-send-request"
+                className="text-[11px] font-black uppercase tracking-wider text-cyan-400 p-0 hover:bg-transparent"
+                data-testid="button-mobile-request"
               >
-                Отправить заявку
+                Заявка
               </Button>
-              <a href={orderPagePath} className={`transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
-                <Button
-                  size="sm"
-                  className="bg-[#38bdf8] hover:bg-[#7dd3fc] text-white font-black px-6 py-2 h-auto text-[13px] rounded-full shadow-[0_0_25px_rgba(56,189,248,0.5)] hover:shadow-[0_0_35px_rgba(56,189,248,0.7)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 border-0 whitespace-nowrap"
-                  data-testid="button-nav-cta"
-                >
-                  Заказать сайт
-                </Button>
-              </a>
             </div>
 
-            <Button
-              size="icon"
-              variant="ghost"
-              className="md:hidden rounded-full pointer-events-auto"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              data-testid="button-mobile-menu"
-            >
-              {isMobileMenuOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5 text-white" />}
-            </Button>
           </nav>
 
           <AnimatePresence>
