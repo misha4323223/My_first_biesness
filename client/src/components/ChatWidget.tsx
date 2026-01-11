@@ -421,7 +421,7 @@ export function ChatWidget() {
   return (
     <>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="fixed bottom-0 left-1/2 -translate-x-1/2 translate-y-0 w-full md:top-1/2 md:bottom-auto md:-translate-y-1/2 md:w-full max-w-md h-[80vh] md:h-[600px] flex flex-col p-0 bg-black/90 backdrop-blur-2xl border-white/10 rounded-t-3xl md:rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden font-sans">
+        <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[95vw] md:w-full max-w-md h-[80vh] md:h-[600px] flex flex-col p-0 bg-black/90 backdrop-blur-2xl border-white/10 rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden font-sans">
           
           <DialogHeader className="p-4 border-b border-white/5 flex flex-row items-center justify-between space-y-0">
             <div className="flex items-center gap-3">
