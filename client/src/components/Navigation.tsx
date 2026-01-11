@@ -88,11 +88,11 @@ export function Navigation() {
               />
             </div>
             <span className="text-lg md:text-xl font-black tracking-tighter text-foreground">
-              MP<span className="text-cyan-400">.</span>Studio
+              MP<span className="text-cyan-400">.</span>WebStudio
             </span>
           </a>
 
-          <div className="hidden md:flex items-center gap-0.5">
+          <div className={`hidden md:flex items-center gap-0.5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
             {navItems.map((item) => (
               <Button
                 key={item.href}
@@ -109,7 +109,7 @@ export function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-0.5 px-3 py-1 rounded-full bg-white/5 border border-white/5">
+            <div className={`flex items-center gap-0.5 px-3 py-1 rounded-full bg-white/5 border border-white/5 transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
               {legalLinks.map((link) => (
                 <a key={link.href} href={link.href} className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground hover:text-cyan-400 transition-colors px-1.5">
                   {link.label}
@@ -119,13 +119,17 @@ export function Navigation() {
             <Button
               size="sm"
               onClick={() => scrollToSection("#calculator")}
-              variant="ghost"
-              className="text-[13px] text-cyan-400 hover:text-cyan-300 px-3 rounded-full"
+              variant={isScrolled ? "default" : "ghost"}
+              className={`text-[13px] rounded-full transition-all duration-300 ${
+                isScrolled 
+                  ? "bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-5 shadow-[0_0_20px_rgba(34,211,238,0.2)]" 
+                  : "text-cyan-400 hover:text-cyan-300 px-3"
+              }`}
               data-testid="button-nav-send-request"
             >
               Отправить заявку
             </Button>
-            <a href={orderPagePath}>
+            <a href={orderPagePath} className={`transition-all duration-500 ${isScrolled ? "opacity-0 scale-95 w-0 overflow-hidden" : "opacity-100 scale-100"}`}>
               <Button
                 size="sm"
                 className="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-5 py-1.5 h-auto text-[13px] rounded-full shadow-[0_0_20px_rgba(34,211,238,0.2)] hover:shadow-[0_0_25px_rgba(34,211,238,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0"
