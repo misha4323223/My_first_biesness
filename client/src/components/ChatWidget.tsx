@@ -37,28 +37,32 @@ const HolographicVideo = ({ isProcessing }: { isProcessing: boolean }) => {
           muted
           playsInline
           onEnded={() => setIsVideoEnded(true)}
-          className={`w-full h-full object-cover transition-all duration-1000 ${
+          className={`w-[70%] h-[70%] object-contain transition-all duration-1000 ${
             isVideoEnded 
-              ? "opacity-30 blur-[12px] scale-110 grayscale brightness-150 mix-blend-screen" 
+              ? "opacity-0 scale-90 blur-md pointer-events-none" 
               : "opacity-80 blur-0 scale-100 mix-blend-lighten"
           }`}
           style={{
-            filter: isVideoEnded 
-              ? 'drop-shadow(0 0 30px rgba(34, 211, 238, 0.8))' 
-              : 'drop-shadow(0 0 15px rgba(34, 211, 238, 0.4))'
+            filter: 'drop-shadow(0 0 15px rgba(34, 211, 238, 0.4))'
           }}
         />
         
-        {/* Эффект пульсирующего ядра после окончания видео */}
+        {/* Эффект пульсирующего ядра (сферы) после окончания видео */}
         <AnimatePresence>
           {isVideoEnded && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, scale: 0.3, filter: "blur(20px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
             >
-              <div className="w-64 h-64 bg-cyan-400/20 rounded-full blur-[60px] animate-pulse" />
-              <div className="w-32 h-32 bg-white/10 rounded-full blur-[30px] animate-ping" />
+              <div className="relative w-48 h-48 flex items-center justify-center">
+                {/* Внешнее свечение сферы */}
+                <div className="absolute inset-0 bg-cyan-500/30 rounded-full blur-[40px] animate-pulse" />
+                {/* Сама сфера */}
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 via-purple-500 to-cyan-600 opacity-60 shadow-[0_0_50px_rgba(34,211,238,0.5)] border border-white/20" />
+                {/* Эффект ядра */}
+                <div className="absolute w-12 h-12 bg-white rounded-full blur-[10px] animate-ping opacity-40" />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
