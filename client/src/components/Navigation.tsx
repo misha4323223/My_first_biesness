@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageSquareText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "wouter";
 import logoImg from "@assets/generated_images/mp_hexagonal_tech_logo.webp";
@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { ChatWidget } from "./ChatWidget"; // Предполагается наличие экспорта или будем вызывать через стейт если нужно
 
 const navItems = [
   { label: "О студии", href: "#about" },
@@ -241,13 +242,20 @@ export function Navigation() {
 
               <div className="z-20">
                 <Button
-                  size="sm"
+                  size="icon"
                   variant="ghost"
-                  onClick={() => setIsOrderModalOpen(true)}
-                  className="text-[12px] font-black uppercase tracking-wider text-cyan-400 p-2 hover:bg-white/10 rounded-full"
-                  data-testid="button-mobile-request"
+                  className="rounded-full pointer-events-auto hover:bg-white/10 text-cyan-400 relative"
+                  onClick={() => {
+                    // Генерируем событие для открытия чата
+                    window.dispatchEvent(new CustomEvent('open-ai-chat'));
+                  }}
+                  data-testid="button-mobile-ai"
                 >
-                  Заявка
+                  <MessageSquareText className="w-6 h-6" />
+                  <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+                  </span>
                 </Button>
               </div>
             </div>
